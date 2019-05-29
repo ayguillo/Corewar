@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/28 18:23:12 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:51:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "../includes/asm.h"
-#include "../includes/op.h"
 
-char		*ft_recupname(char *name)
+char		*ft_recupfile(char *name)
 {
 	char	*chr;
 	char	*rname;
@@ -47,7 +46,7 @@ int			createfile(char *name)
 	int		fd;
 
 	if ((fd = open(name, O_CREAT | O_TRUNC | O_RDWR, 00755)) == -1)
-			return (-1);
+		return (-1);
 	if (fd != -1)
 	{
 		if ((fd = open(name, O_RDWR)) == -1)
@@ -56,21 +55,21 @@ int			createfile(char *name)
 	return (fd);
 }
 
-int			start(int ac, char **av, t_all *all)
+int			start(int ac, char **av, t_file *file)
 {
 	if (ac != 2)
 	{
 		ft_printf("Arguments invalid\n");
 		return (0);
 	}
-	if ((all->fdopen = open(av[1], O_RDONLY)) == -1)
+	if ((file->fdopen = open(av[1], O_RDONLY)) == -1)
 	{
 		ft_printf("Open() failed\n");
 		return (0);
 	}
-	if (!(all->name = ft_recupname(av[1])))
+	if (!(file->name = ft_recupfile(av[1])))
 	{
-		ft_strdel(&(all->name));
+		ft_strdel(&(file->name));
 		ft_printf("File is not .s\n");
 		return (0);
 	}
@@ -79,27 +78,27 @@ int			start(int ac, char **av, t_all *all)
 
 int			main(int ac, char **av)
 {
-	t_all			all;
-	header_t		header;
+	t_file			file;
+	t_header		header;
 
-	ft_bzero(&all, sizeof(all));
+	ft_bzero(&file, sizeof(file));
 	ft_bzero(&header, sizeof(header));
-	if (!(start(ac, av, &all)))
+	if (!(start(ac, av, &file)))
 		return (-1);
-	if (((all.fdwrite = createfile(all.name)) == -1))
+	if (((file.fdwrite = createfile(file.name)) == -1))
 	{
-		ft_strdel(&(all.name));
+		ft_strdel(&(file.name));
 		ft_printf("Open() failed\n");
 		return (-1);
 	}
-	if (!(printfile(&header, all)))
+	if (!(printfile(&header, file)))
 		return (-1);
-	if ((close(all.fdopen)) == -1 || (close(all.fdwrite) == -1))
+	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
 	{
-		ft_strdel(&(all.name));
+		ft_strdel(&(file.name));
 		ft_printf("Close() failed\n");
 		return (-1);
 	}
-	ft_strdel(&(all.name));
+	ft_strdel(&(file.name));
 	return (0);
 }

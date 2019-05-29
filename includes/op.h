@@ -6,13 +6,13 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/27 17:44:01 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:56:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Toutes les tailles sont en octets.
-** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
+ ** Toutes les tailles sont en octets.
+ ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
 
 #ifndef OP_H
@@ -22,11 +22,9 @@
 # define REG_SIZE				4
 # define DIR_SIZE				REG_SIZE
 
-
 # define REG_CODE				1
 # define DIR_CODE				2
 # define IND_CODE				3
-
 
 # define MAX_ARGS_NUMBER			4
 # define MAX_PLAYERS				4
@@ -52,7 +50,7 @@
 # define MAX_CHECKS				10
 
 /*
-**
+ ** ARG
 */
 
 typedef char	t_arg_type;
@@ -63,19 +61,19 @@ typedef char	t_arg_type;
 # define T_LAB					8
 
 /*
-**
+ ** HEADER
 */
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		header_s
+typedef struct			s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+	unsigned int			magic;
+	char					prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int			prog_size;
+	char					comment[COMMENT_LENGTH + 1];
+}						t_header;
 
-# endif
+#endif
