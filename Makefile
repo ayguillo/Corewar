@@ -6,13 +6,15 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#    Updated: 2019/05/29 13:45:59 by ayguillo         ###   ########.fr        #
+#    Updated: 2019/06/03 13:46:11 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = asm
 CFLAGS = -Wall -Wextra -Werror
-SRCS = asmsrc/main.c asmsrc/print.c asmsrc/header.c asmsrc/free.c
+SRCS = asmsrc/main.c asmsrc/print.c asmsrc/header.c asmsrc/free.c \
+	   asmsrc/instruction.c
+
 LIB = libft/libft.a
 
 YELLOW = \033[0;33m

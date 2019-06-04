@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/29 13:51:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/30 14:58:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ int			main(int ac, char **av)
 		return (-1);
 	}
 	if (!(printfile(&header, file)))
+	{
+		ft_strdel(&(file.name));
 		return (-1);
+	}
 	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
 	{
 		ft_strdel(&(file.name));
