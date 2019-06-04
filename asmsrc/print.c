@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/03 14:58:39 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:53:22 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../includes/asm.h"
 #include <unistd.h>
 
-static int		ft_readn(t_file file, char **line, int *ret)
+int				ft_readn(t_file file, char **line, int *ret)
 {
 	ft_strdel(line);
 	*ret = ft_gnl(file.fdopen, line);
@@ -58,7 +58,7 @@ int			printfile(t_header *header, t_file file)
 		return (0);
 	if (ft_recupcom(header, &line, &lencom) <= 0)
 		return (0);
-	if (!(ft_inst(file, ret, &line)))
+	if (!(ft_readinst(file, ret, &line)))
 		return (0);
 	ft_strdel(&line);
 	header->prog_size = ft_reversebyte(23);

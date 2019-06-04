@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/03 15:12:42 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:14:40 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	ft_freecom(char ***tab, int err, char *str, char **line)
 		ft_printf("%s is not a string\n", str);
 		return (-1);
 	}
+	if (err == 3)
+	{
+		ft_printf("'%s' syntax Error\n", str);
+		return (0);
+	}
 	return (0);
 }
 
@@ -48,7 +53,7 @@ int	ft_free(char ***tab, int err, char **line)
 	}
 	if (err == 2)
 	{
-		ft_putstr("malloc error \n");
+		ft_putstr("Malloc error \n");
 		ft_free_tab2d(tab);
 		return (0);
 	}

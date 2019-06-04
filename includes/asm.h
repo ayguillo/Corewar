@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/03 14:58:52 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:27:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ typedef struct		s_op
 {
 	char		*label;
 	int			size;
-	int			pos;
+	int			addr;
 	struct s_op	*next;
 }					t_op;
 
-int				ft_inst(t_file file, int ret, char **line);
+int				ft_readinst(t_file file, int ret, char **line);
+int				ft_readn(t_file file, char **line, int *ret);
 
 # define LIVE 0x01
 # define LD 0x02

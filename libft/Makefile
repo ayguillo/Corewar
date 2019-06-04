@@ -6,7 +6,7 @@
 #    By: vlambert <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 10:47:24 by vlambert          #+#    #+#              #
-#    Updated: 2019/05/28 17:14:15 by ayguillo         ###   ########.fr        #
+#    Updated: 2019/06/04 11:48:03 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC= 	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_printf_nbrfunctions.c ft_printf_otherfunctions.c \
 		ft_printf_specifier.c ft_gnl.c ft_realloc.c ft_strcdup.c ft_strclen.c \
 	    ft_strjoinfree.c ft_read_all.c ft_raws_nbr.c ft_free_tab2d.c \
-		ft_strcpyfast.c ft_atol.c ft_splitwhitespaces.c 
+		ft_strcpyfast.c ft_atol.c ft_splitwhitespaces.c ft_splitandspaces.c 
 
 OBJ = $(SRC:.c=.o)
 
