@@ -1,0 +1,5 @@
+*.o
+read.c
+test.c
+test.cor
+test.s
