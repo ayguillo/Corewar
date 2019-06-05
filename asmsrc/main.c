@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/04 10:41:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:01:50 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,18 @@ int			main(int ac, char **av)
 	ft_bzero(&header, sizeof(header));
 	if (!(start(ac, av, &file)))
 		return (-1);
+	if (!(printfile(&header, file)))
+	{
+		ft_strdel(&(file.name));
+		return (-1);
+	}
 	if (((file.fdwrite = createfile(file.name)) == -1))
 	{
 		ft_strdel(&(file.name));
 		ft_printf("Open() failed\n");
 		return (-1);
 	}
-	if (!(printfile(&header, file)))
-	{
-		ft_strdel(&(file.name));
-		return (-1);
-	}
+	write(file.fdwrite, &header, sizeof(t_header));
 	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
 	{
 		ft_strdel(&(file.name));

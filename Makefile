@@ -6,14 +6,14 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#    Updated: 2019/06/03 13:46:11 by ayguillo         ###   ########.fr        #
+#    Updated: 2019/06/05 17:02:00 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = asm
+NAMEASM = asm
 CFLAGS = -Wall -Wextra -Werror
 SRCS = asmsrc/main.c asmsrc/print.c asmsrc/header.c asmsrc/free.c \
-	   asmsrc/instruction.c
+	   asmsrc/instruction.c asmsrc/tools.c
 
 LIB = libft/libft.a
 
@@ -24,13 +24,13 @@ WHITE = \x1b[0m
 
 OBJ = $(SRCS:.c=.o)
 
-all : $(NAME)
+all : $(NAMEASM)
 
-$(NAME) : $(OBJ)
+$(NAMEASM) : $(OBJ)
 	@ make -C libft
-	@ echo "$(YELLOW)Compilation de $(NAME) . . . $(WHITE)"
-	@ gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
-	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
+	@ echo "$(YELLOW)Compilation de $(NAMEASM) . . . $(WHITE)"
+	@ gcc $(CFLAGS) -o $(NAMEASM) $(OBJ) $(LIB)
+	@ echo "$(GREEN)$(NAMEASM) compilé$(WHITE)"
 
 $.o : %.c
 	@ gcc $(CFLAGS) -c $<
@@ -42,8 +42,8 @@ clean :
 
 fclean : clean
 	@ rm -rf $(LIB)
-	@ rm -rf $(NAME)
-	@ echo "$(RED) Suppression de $(NAME)$(WHITE)"
+	@ rm -rf $(NAMEASM)
+	@ echo "$(RED) Suppression de $(NAMEASM)$(WHITE)"
 
 re : fclean all
 

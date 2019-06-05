@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/04 16:27:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/05 17:21:43 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,6 @@
 # define ASM_H
 
 # include "op.h"
-
-typedef struct	s_file
-{
-	int		fdopen;
-	int		fdwrite;
-	char	*name;
-}				t_file;
-
-int				printfile(t_header *header, t_file file);
-int				ft_recupname(t_header *header, char **line, int *len);
-int				ft_recupcom(t_header *header, char **line, int *len);
-int				ft_freecom(char ***tab, int err, char *str, char **line);
-int				ft_free(char ***tab, int err, char **line);
-
-typedef struct		s_op
-{
-	char		*label;
-	int			size;
-	int			addr;
-	struct s_op	*next;
-}					t_op;
-
-int				ft_readinst(t_file file, int ret, char **line);
-int				ft_readn(t_file file, char **line, int *ret);
 
 # define LIVE 0x01
 # define LD 0x02
@@ -55,5 +31,52 @@ int				ft_readn(t_file file, char **line, int *ret);
 # define LLDI 0x0E
 # define LFORK 0x0F
 # define AFF 0x10
+
+typedef struct	s_file
+{
+	int		fdopen;
+	int		fdwrite;
+	char	*name;
+}				t_file;
+
+/*
+** HEADER
+*/
+
+int				printfile(t_header *header, t_file file);
+int				ft_recupname(t_header *header, char **line, int *len);
+int				ft_recupcom(t_header *header, char **line, int *len);
+
+/*
+ ** ERROR
+*/
+
+int				ft_freecom(char ***tab, int err, char *str, char **line);
+int				ft_free(char ***tab, int err, char **line, char **str);
+int				ft_syntax(char **tab, int err, char **line, char c);
+
+/*
+** TOOLS
+*/
+
+int				ft_retgnl(int fd, char **line);
+unsigned int	ft_reversebyte(unsigned int byte);
+short			ft_opc(int param1, int param2, int param3);
+int				ft_separator(char **str, int nb, char **line);
+
+/*
+** INSTRUCTIONS
+*/
+
+typedef struct	s_op
+{
+	char		*label;
+	int			size;
+	int			addr;
+	struct s_op	*next;
+}				t_op;
+
+int				ft_readinst(t_file file, int ret, char **line);
+int				ft_readn(t_file file, char **line, int *ret);
 
 #endif
