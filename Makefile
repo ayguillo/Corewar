@@ -12,7 +12,7 @@
 
 NAMEASM = asm
 CFLAGS = -Wall -Wextra -Werror
-SRCS = asmsrc/main.c asmsrc/print.c asmsrc/header.c asmsrc/free.c \
+SRCSASM = asmsrc/main.c asmsrc/print.c asmsrc/header.c asmsrc/free.c \
 	   asmsrc/instruction.c asmsrc/tools.c
 
 LIB = libft/libft.a
@@ -22,14 +22,14 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 WHITE = \x1b[0m
 
-OBJ = $(SRCS:.c=.o)
+OBJSASM = $(SRCSASM:.c=.o)
 
 all : $(NAMEASM)
 
-$(NAMEASM) : $(OBJ)
+$(NAMEASM) : $(OBJSASM)
 	@ make -C libft
 	@ echo "$(YELLOW)Compilation de $(NAMEASM) . . . $(WHITE)"
-	@ gcc $(CFLAGS) -o $(NAMEASM) $(OBJ) $(LIB)
+	@ gcc $(CFLAGS) -o $(NAMEASM) $(OBJSASM) $(LIB)
 	@ echo "$(GREEN)$(NAMEASM) compilé$(WHITE)"
 
 $.o : %.c
@@ -37,7 +37,7 @@ $.o : %.c
 
 clean :
 	@ make clean -C libft
-	@ rm $(OBJ)
+	@ rm $(OBJSASM)
 	@ echo "$(RED)Suppression des .o$(WHITE)"
 
 fclean : clean
