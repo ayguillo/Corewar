@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/17 12:21:07 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:32:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int opt_others(int ac, char *av[], t_vm *vm, int i)
 int options(int ac, char *av[], t_vm *vm)
 {
     int i;
-    int ret;
+    int err;
 
     i = 0;
     while (++i < ac)
@@ -59,14 +59,16 @@ int options(int ac, char *av[], t_vm *vm)
         {
             if (!ft_strcmp(av[i], "dump"))
             {
-                if ((ret = dump(ac, av, vm, i)))
-                    return ret;
+                if ((err = opt_dump(ac, av, vm, i)))
+                    return err;
             }
             else if (av[i][1] == 'n')
             {
             }
             else
             {
+                if (err = opt_others(ac, av, vm, i))
+                    return err;
             }
         }
     }
