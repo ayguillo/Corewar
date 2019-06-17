@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/17 12:32:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:36:54 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int opt_dump(int ac, char *av[], t_vm *vm, int i)
 
 static int opt_n(int ac, char *av[], t_vm *vm, int i)
 {
+    /*ajouter fonction pour gestion numero joueur */
 }
 
 static int opt_others(int ac, char *av[], t_vm *vm, int i)
@@ -58,18 +59,15 @@ int options(int ac, char *av[], t_vm *vm)
         if (av[i][0] = '-')
         {
             if (!ft_strcmp(av[i], "dump"))
-            {
-                if ((err = opt_dump(ac, av, vm, i)))
-                    return err;
-            }
+                err = opt_dump(ac, av, vm, i);
             else if (av[i][1] == 'n')
             {
+                /*ajouter fonction pour gestion numero joueur */
             }
             else
-            {
-                if (err = opt_others(ac, av, vm, i))
-                    return err;
-            }
+                err = opt_others(ac, av, vm, i);
+            if (err)
+                return (err);
         }
     }
 }
