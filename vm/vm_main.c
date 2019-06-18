@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/18 13:42:56 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/18 14:06:35 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void    init_err(t_vm *vm)
     ft_strcpyfast(vm->err[USAGE], "Usage: ./corewar [-d -v -V] [-dump nbr_cycles] [[-n number] champion1.cor] ...\n-d: Debug mode\n-v: Verbose mode\n-V: Visual mode\n", 500);
     ft_strcpyfast(vm->err[ERR_DBLDUMP], "There are multiple dump precised\n", 500);
     ft_strcpyfast(vm->err[ERR_BADARG], "One argument doesn't exist\n", 500);
-    ft_strcpyfast(vm->err[ERR_DUMPVAL], "The dump you precised is lower than one\n", 500);
-    ft_strcpyfast(vm->err[ERR_BADNBR], "At least two players have the same number\n", 500);
+    ft_strcpyfast(vm->err[ERR_DUMPVAL], "The dump nbr_cycles is lower than one or missing\n", 500);
+    ft_strcpyfast(vm->err[ERR_BADNBR], "The player number is lower than 1 or missing or the same than another player\n", 500);
+    ft_strcpyfast(vm->err[ERR_TWONBR], "Two player number were precised for a single player\n", 500);
 }
 
 int     main(int ac, char *av[])

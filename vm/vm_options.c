@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/18 13:46:03 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/18 14:04:51 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int  opt_dump(int ac, char *av[], t_vm *vm, int i)
 
     if (vm->cycles_limit)
         return (ERR_DBLDUMP);
-    if (i + 1 < ac && (nbr = ft_atoi(av[i + 1])) > 0)
+    if (i < ac && (nbr = ft_atoi(av[i])) > 0)
         vm->cycles_limit = nbr;
     else
         return (ERR_DUMPVAL);
@@ -84,13 +84,10 @@ int         options(int ac, char *av[], t_vm *vm)
     {
         if (av[i][0] == '-')
         {
-            if (!ft_strcmp(av[i], "dump"))
-                err = opt_dump(ac, av, vm, i);
+            if (!ft_strcmp(av[i], "-dump"))
+                err = opt_dump(ac, av, vm, ++i);
             else if (av[i][1] == 'n' && !(av[i][2]))
-            {
-                ++i;
-                err = opt_n(ac, av, vm, i);
-            }
+                err = opt_n(ac, av, vm, ++i);
             else
                 err = opt_others(ac, av, vm, i);
         }
