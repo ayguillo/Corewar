@@ -6,14 +6,14 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#    Updated: 2019/06/05 17:02:00 by ayguillo         ###   ########.fr        #
+#    Updated: 2019/06/18 16:50:26 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAMEASM = asm
 CFLAGS = -Wall -Wextra -Werror
 SRCSASM = asmsrc/main.c asmsrc/print.c asmsrc/header.c asmsrc/free.c \
-	   asmsrc/instruction.c asmsrc/tools.c
+	   asmsrc/label.c asmsrc/instruction.c asmsrc/tools.c
 
 LIB = libft/libft.a
 

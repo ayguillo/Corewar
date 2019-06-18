@@ -5,35 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/05 17:24:20 by ayguillo         ###   ########.fr       */
+/*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
+/*   Updated: 2019/06/18 16:55:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
+#include <stdlib.h>
 #include "../includes/asm.h"
-
-static int	ft_label(char *trim, char **line)
-{
-	char	**split;
-	int		i;
-	int		labchar;
-
-	i = -1;
-	labchar = 0;
-	split = NULL;
-	while (trim[++i])
-		if (trim[i] == LABEL_CHAR)
-			labchar++;
-	if (labchar > 1)
-		return (ft_freecom(NULL, 3, trim, line));
-	else if (labchar == 1)
-		if (!(split = ft_strsplit(trim, ':')))
-			return (ft_free(&split, 2, line, NULL));
-	//A CONTINUER
-	ft_free_tab2d(&split);
-	return (1);
-}
 
 static int	ft_isinst(char *inst)
 {
@@ -52,48 +31,86 @@ static int	ft_isinst(char *inst)
 	return (0);
 }
 
-static int	ft_recupinst(char **line, char **trim)
+int	ft_instok(char **line, char **trim)
 {
 	char	**split;
 	int		nbarg;
 
 	split = NULL;
-	if ((ft_label(*trim, line)) <= 0)
-	{
-		ft_strdel(trim);
-		return (0);
-	}
 	if (!(split = ft_splitandspaces(*trim, SEPARATOR_CHAR)))
 		return (ft_free(&split, 2, line, NULL));
 	if (!(nbarg = ft_isinst(split[0])))
 		return (ft_freecom(&split, 3, split[0], line));
 	if (!(ft_separator(trim, nbarg - 1, line)))
-			return (0);
+	{
+		ft_free_tab2d(&split);
+		return (0);
+	}
 	return (1);
 }
 
-int			ft_readinst(t_file file, int ret, char **line)
+int	ft_recupinst(char **line, char **trim, t_op *op)
 {
-	char	*trim;
+	t_op	*tmp;
+	t_op	*new;
+
+	tmp = op;
+	if (!(new = malloc(sizeof(t_op))))
+	{
+		ft_strdel(trim);
+		return (0);
+	}
+	new->next = NULL;
+	new->label = NULL;
+	while (tmp)
+		tmp = tmp->next;
+	tmp = new;
+	op = tmp;
+	if (!(ft_label(*trim, line, op)))
+	{
+		ft_strdel(trim);
+		return (0);
+	}
+	return (1);
+}
+
+int		ft_supprlab(char *trim, char **split)
+{
+	int		lensplit;
+	int		len;
 	int		i;
 
-	trim = NULL;
-	while ((ret = ft_gnl(file.fdopen, line)) > 0)
+	if (!split[0])
+		return (0);
+	lensplit = ft_strlen(split[0]) + 1;
+	len = ft_strlen(trim);
+	i = 0;
+	while (trim[lensplit])
 	{
-		ft_strdel(&trim);
-		if (*line)
-		{
-			if (!(trim = ft_strtrim(*line)))
-				return (ft_free(NULL, 2, line, NULL));
-			i = -1;
-			while (trim[++i])
-				if (trim[i] == COMMENT_CHAR)
-					trim[i] = '\0';
-			if ((ft_recupinst(line, &trim)) <= 0)
-				return (0);
-		}
-		ft_strdel(line);
+		trim[i] = trim[lensplit];
+		lensplit++;
+		i++;
 	}
-	ft_strdel(&trim);
+	trim[i] = '\0';
+	return (1);
+}
+
+int		veriflabel(char *split)
+{
+	int		i;
+	int		j;
+	int		ok;
+
+	i = -1;
+	while (split[++i])
+	{
+		j = -1;
+		ok = 0;
+		while (LABEL_CHARS[++j])
+			if (split[i] == LABEL_CHARS[j])
+				ok = 1;
+		if (ok == 0)
+			return (0);
+	}
 	return (1);
 }
