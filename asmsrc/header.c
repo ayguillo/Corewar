@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/05 10:42:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:03:53 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_com(char **trim, char **line, t_header *header, int *len)
 	if (!com[1])
 		return (ft_free(&com, 0, line, trim));
 	if ((*len = ft_strlen(com[1])) > COMMENT_LENGTH)
-		return (ft_free(&com, 1, line, trim));
+		return (ft_free(&com, 3, line, trim));
 	if (!(ft_strcpy(header->comment, com[1])))
 		return (ft_free(&com, 2, line, trim));
 	ft_free_tab2d(&com);

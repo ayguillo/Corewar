@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/05 11:41:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:56:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int			printfile(t_header *header, t_file file)
 	line = NULL;
 	if ((ret = ft_gnl(file.fdopen, &line)) <= 0)
 		return (ft_free(NULL, -1, &line, NULL));
-	ret = ft_retgnl(file.fdopen, &line);
 	if ((ft_recupname(header, &line, &lenname)) <= 0)
 		return (0);
 	ret = ft_retgnl(file.fdopen, &line);
@@ -34,7 +33,7 @@ int			printfile(t_header *header, t_file file)
 	if (!(ft_readinst(file, ret, &line)))
 		return (0);
 	ft_strdel(&line);
-//	header->prog_size = ft_reversebyte(23); PROG_SIZE
+	header->prog_size = ft_reversebyte(993);// PROG_SIZE
 	header->magic = ft_reversebyte(COREWAR_EXEC_MAGIC);
 	return (1);
 }

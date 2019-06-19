@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/18 16:50:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:00:39 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,15 @@ int	ft_free(char ***tab, int err, char **line, char **str)
 	{
 		ft_strdel(str);
 		ft_free_tab2d(tab);
-		ft_putstr("Malloc error \n");
+		ft_putstr("Malloc Error\n");
 		return (0);
+	}
+	if (err == 3)
+	{
+		ft_strdel(str);
+		ft_free_tab2d(tab);
+		ft_printf("Comment too long (Max length %i)\n", COMMENT_LENGTH);
+		return (-1);
 	}
 	return (0);
 }
