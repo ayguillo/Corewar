@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/18 17:08:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:29:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ short			ft_opc(int param1, int param2, int param3);
 int				ft_separator(char **str, int nb, char **line);
 
 /*
-** INSTRUCTIONS
+** INSTRUCTIONS & LABEL
 */
 
 typedef struct	s_op
@@ -78,8 +78,7 @@ typedef struct	s_op
 
 int				ft_readinst(t_file file, int ret, char **line);
 int				ft_readn(t_file file, char **line, int *ret);
-int				ft_supprlab(char *trim, char **split);
-int				veriflabel(char *split);
-int				ft_label(char *trim, char **line, t_op **op);
+int				ft_label(char *trim, char **line, t_op *new);
+int				ft_instructions(char **trim, char **line, t_op **op);
 
 #endif

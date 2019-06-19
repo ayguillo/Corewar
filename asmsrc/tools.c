@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/17 15:49:51 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:04:36 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ int				ft_retgnl(int fd, char **line)
 		if (*line)
 			return (ret);
 	return (ret);
-}
-
-unsigned int	ft_reversebyte(unsigned int byte)
-{
-	unsigned int	revbyte;
-	int				i;
-
-	i = 3;
-	while (i >= 0)
-	{
-		((char*)(&revbyte))[i] = ((char*)(&byte))[0];
-		byte = byte >> 8;
-		i--;
-	}
-	return (revbyte);
 }
 
 short		ft_opc(int param1, int param2, int param3)
