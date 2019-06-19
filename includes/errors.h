@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 11:31:20 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:11:58 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ missing or the same than another player\n"
 # define ERR_TWONBR			5
 # define ERR_TWONBR_MSG		"Two player number were precised \
 for a single player\n"
+
+# define ERR_OPEN			6
+# define ERR_OPEN_MSG		": Can't access the champ\n"
+
+# define ERR_CHAMP			7
+# define ERR_CHAMP_MSG		" doesn't seem to be a champion (bad magic number or invalid header)\n"
+
+# define ERR_SIZE			8
 
 /*
 **Errors message max size

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 10:37:24 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:48:43 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,8 @@ int			options(int ac, char *av[], t_vm *vm)
 		}
 		else
 		{
-			ft_printf("%s\n", av[i]);
+			err = read_champ(av[i], vm);
 			vm->players_nbr += 1;
-			/*
-			**creer fonction pour ajout du nom et lecture .cor
-			*/
 		}
 		if (err)
 			return (err);

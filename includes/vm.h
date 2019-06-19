@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 12:00:52 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:47:30 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ typedef struct		s_proc
 {
 	struct s_proc	*next;
 	int				number;
-	int				lives;
-	int				last_live;
-	int				alive;
+	int				period_lives;
 	int				carry;
 	int				pc;
 	int				waiting;
@@ -34,10 +32,10 @@ typedef struct		s_player
 	int				period_lives;
 	int				last_p_lives;
 	int				last_live;
-	int				size;
-	char			name[PROG_NAME_LENGTH];
-	char			comment[COMMENT_LENGTH];
-	char			code[CHAMP_MAX_SIZE + 1];
+	unsigned int	size;
+	char			name[PROG_NAME_LENGTH + 4];
+	char			comment[COMMENT_LENGTH + 4];
+	char			code[CHAMP_MAX_SIZE + 4];
 	t_proc			*proc;
 }					t_player;
 
@@ -56,5 +54,6 @@ typedef struct		s_vm
 }					t_vm;
 
 int					options(int ac, char *av[], t_vm *vm);
+int					read_champ(char *champ, t_vm *vm);
 
 #endif
