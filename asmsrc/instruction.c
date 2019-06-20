@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/19 15:48:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:20:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ static int	ft_isinst(char *inst)
 	return (0);
 }
 
-static char	**ft_instok(char **line, char **trim)
+static char	**ft_instok(char **line, char **trim, t_op **op)
 {
 	char	**split;
-	int		nbarg;
 
 	split = NULL;
 	if (!(split = ft_splitandspaces(*trim, SEPARATOR_CHAR)))
@@ -42,12 +41,12 @@ static char	**ft_instok(char **line, char **trim)
 		ft_free(&split, 2, line, NULL);
 		return (NULL);
 	}
-	if (!(nbarg = ft_isinst(split[0])))
+	if (!((*op)->nbarg = ft_isinst(split[0])))
 	{
 		ft_freecom(&split, 3, split[0], line);
 		return (NULL);
 	}
-	if (!(ft_separator(trim, nbarg - 1, line)))
+	if (!(ft_separator(trim, (*op)->nbarg - 1, line)))
 	{
 		ft_free_tab2d(&split);
 		return (NULL);
@@ -63,18 +62,19 @@ int			ft_instructions(char **trim, char **line, t_op **op)
 	if (!(strim = ft_strtrim(*trim)))
 		return (ft_free(NULL, 2, line, trim));
 	ft_strdel(trim);
-	if (!(split = ft_instok(line, &strim)))
+	if (!(split = ft_instok(line, &strim, op)))
 	{
 		ft_strdel(line);
 		ft_strdel(&strim);
 		return (0);
 	}
-	int	i;
-
-	i = -1;
-	while (*op && split[++i])
+	/*
+	 ** AFFICHAGE TEST
+	*/
+	while (*op)
 	{
-		ft_printf("split = %s && label = %s\n", split[i], (*op)->label);
+		ft_printf("instruction = %s && nbiarg = %i && label = %s\n",
+				split[0], (*op)->nbarg, (*op)->label);
 		(*op) = (*op)->next;
 	}
 	return (1);
