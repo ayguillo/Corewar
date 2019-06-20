@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/19 15:48:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:22:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,24 @@ static int	veriflabel(char *split)
 	int		i;
 	int		j;
 	int		ok;
+	char	**spaces;
 
 	i = -1;
+	if (!(spaces = ft_splitwhitespaces(split)))
+		return (0);
+	if (!ft_strcmp(spaces[0], "live") || !ft_strcmp(spaces[0], "zjmp")
+			|| !ft_strcmp(spaces[0], "fork") || !ft_strcmp(spaces[0], "lfork")
+			|| !ft_strcmp(spaces[0], "aff") || !ft_strcmp(spaces[0], "ld")
+			|| !ft_strcmp(spaces[0], "st") || !ft_strcmp(spaces[0], "lld")
+			||	!ft_strcmp(spaces[0], "add") || !ft_strcmp(spaces[0], "sub")
+			|| !ft_strcmp(spaces[0], "and") || !ft_strcmp(spaces[0], "or")
+			|| !ft_strcmp(spaces[0], "xor") || !ft_strcmp(spaces[0], "ldi")
+			|| !ft_strcmp(spaces[0], "sti") || !ft_strcmp(spaces[0], "lldi"))
+	{
+		ft_free_tab2d(&spaces);
+		return (2);
+	}
+	ft_free_tab2d(&spaces);
 	while (split[++i])
 	{
 		j = -1;
@@ -60,29 +76,32 @@ int			ft_label(char *trim, char **line, t_op *new)
 	int		i;
 	int		labchar;
 	int		ret;
+	int		verif;
 
 	i = -1;
 	labchar = 0;
 	split = NULL;
 	ret = 1;
-	while (trim[++i] && trim[i] != ' ')
+	while (trim[++i] && ((trim[i] < 9 || trim[i] > 13) && trim[i] != 32))
 		if (trim[i] == LABEL_CHAR)
 			labchar++;
 	if (labchar == 0)
 		ret = -1;
 	else if (labchar > 1)
-		ret = ft_freecom(NULL, 3, NULL, line);
+		ret = ft_freecom(NULL, 3, trim, line);
 	else if (labchar == 1)
 	{
 		if (!(split = ft_strsplit(trim, ':')))
 			ret = ft_free(&split, 2, line, NULL);
 		if (ret > 0)
 		{
-			if (split[0])
+			if (!(verif = veriflabel(split[0])))
+				ret = ft_freecom(&split, 3, split[0], line);
+			if (split[0] && verif != 2)
+			{
+				ft_supprlab(trim, split);
 				new->label = ft_strdup(split[0]);
-			if (!(veriflabel(split[0])))
-				ret = ft_freecom(&split, 3, NULL, line);
-			ft_supprlab(trim, split);
+			}
 		}
 	}
 	ft_free_tab2d(&split);
