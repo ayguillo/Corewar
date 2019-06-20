@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 15:47:30 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:35:13 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct		s_player
 	unsigned int	size;
 	char			name[PROG_NAME_LENGTH + 4];
 	char			comment[COMMENT_LENGTH + 4];
-	char			code[CHAMP_MAX_SIZE + 4];
+	unsigned char	code[CHAMP_MAX_SIZE + 1];
 	t_proc			*proc;
 }					t_player;
 
