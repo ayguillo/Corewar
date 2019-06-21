@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/20 11:22:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:55:03 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,7 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 		return (0);
 	}
 	if (!(ft_instructions(trim, line, op)))
-	{
 		return (0);
-	}
 	return (1);
 }
 

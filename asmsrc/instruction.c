@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/20 11:20:47 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:56:12 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,41 @@ static char	**ft_instok(char **line, char **trim, t_op **op)
 	return (split);
 }
 
+int	ft_argverif(char **split, t_op *op)
+{
+	int i;
+
+	i = 0;
+	if (!ft_strcmp(split[0], "live"))
+		ft_paramlive(split, op);
+/*	else if (!ft_strcmp(split[0], "aff"))
+		//FTRG
+	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "fork")
+			|| !ft_strcmp(split[0], "fork"))
+		//FTD2
+	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
+		//FTIDD4
+	else if (!ft_strcmp(split[0], "st"))
+		//FTRGRG
+	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
+		//FT3RG
+	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
+			|| !ft_strcmp(split[0], "xor"))
+		//FT2FULL
+	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))
+		//FTFULL
+	else if (!ft_strcmp(split[0], "sti"))
+		//FTRGRGIDD2*/
+	return (1);
+}
+
 int			ft_instructions(char **trim, char **line, t_op **op)
 {
 	char	*strim;
 	char	**split;
 
+	if (*trim[0] == '\0')
+		return (1);
 	if (!(strim = ft_strtrim(*trim)))
 		return (ft_free(NULL, 2, line, trim));
 	ft_strdel(trim);
@@ -68,14 +98,24 @@ int			ft_instructions(char **trim, char **line, t_op **op)
 		ft_strdel(&strim);
 		return (0);
 	}
+	ft_strdel(&strim);
+	if (!(ft_argverif(split, *op)))
+	{
+		ft_strdel(line);
+		return (0);
+	}
 	/*
 	 ** AFFICHAGE TEST
-	*/
+	 */
+	t_op	*tmp;
+	tmp = *op;
 	while (*op)
 	{
-		ft_printf("instruction = %s && nbiarg = %i && label = %s\n",
-				split[0], (*op)->nbarg, (*op)->label);
+		ft_printf("instruction = %i, size = %i && addr = %i && code = %i && param = %i\n",
+				(*op)->inst, (*op)->size, (*op)->addr, (*op)->code1, (*op)->param1);
 		(*op) = (*op)->next;
 	}
+	ft_putchar('\n');
+	*op = tmp;
 	return (1);
 }
