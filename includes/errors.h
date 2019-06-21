@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 15:11:58 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:15:31 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ for a single player\n"
 # define ERR_CHAMP_MSG		" doesn't seem to be a champion (bad magic number or invalid header)\n"
 
 # define ERR_SIZE			8
+
+# define ERR_MALLOC			9
+# define ERR_MALLOC_MSG		" Malloc error\n"
 
 /*
 **Errors message max size

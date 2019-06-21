@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/21 16:47:46 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:53:51 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ int		add_proccess(t_vm *vm, t_player *player, unsigned int pc)
 	return (0);
 }
 
-void	clean_process(t_player *player)
+void	kill_unactive_processes(t_player *player)
 {
-	t_proc *tmp;
+	t_proc	*tmp;
+	t_proc	*tmp;
 
 	tmp = player->proc;
 	while (tmp)
 	{
+		if (tmp->period_lives == 0)
+		// finir fonction pour kill les process incatifs
 
 	}
 }
