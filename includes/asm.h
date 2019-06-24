@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/21 16:52:09 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:22:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int				ft_readn(t_file file, char **line, int *ret);
 int				ft_label(char *trim, char **line, t_op *new);
 int				ft_instructions(char **trim, char **line, t_op **op);
 void			ft_paramlive(char **split, t_op *op);
-void			ft_fillparam1(t_op *op, int size, int code, int param1);
+void			ft_fillparam1(t_op *op, int size, int code,
+		unsigned int param1);
 int				ft_paramlabel(t_op *op, char *label);
 
 #endif
