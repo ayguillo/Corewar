@@ -6,13 +6,15 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#*   Updated: 2019/06/24 19:37:20 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2019/06/24 19:45:39 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	/usr/bin/gcc
 
 CFLAGS		=	-Wall -Wextra -Werror
+
+LFLAGS		=	
 
 MAKE		=	make
 
@@ -66,12 +68,12 @@ all			:	make_lib $(NAMEASM) $(NAMEVM)
 
 $(NAMEASM)	:	$(LIB) $(INCASM) $(OBJSASM)
 	@ echo "$(YELLOW)Compilation de $(NAMEASM) . . . $(WHITE)"
-	@ $(CC) $(CFLAGS) -o $(NAMEASM) $(OBJSASM) $(LIB)
+	@ $(CC) $(LFLAGS) -o $(NAMEASM) $(OBJSASM) $(LIB)
 	@ echo "$(GREEN)$(NAMEASM) compilé$(WHITE)"
 
 $(NAMEVM)	:	$(LIB) $(INCVM) $(OBJSVM)
 	echo "$(YELLOW)Compilation de $(NAMEVM) . . . $(WHITE)"
-	$(CC) $(CFLAGS) -o $(NAMEVM) $(OBJSVM) $(LIB)
+	$(CC) $(LFLAGS) -o $(NAMEVM) $(OBJSVM) $(LIB)
 	echo "$(GREEN)$(NAMEVM) compilé$(WHITE)"
 
 %.o			:	%.c
