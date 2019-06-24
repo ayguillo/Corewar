@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 10:25:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 14:23:46 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:28:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,13 @@ void	ft_fillparam1(t_op *op, int size, int code, unsigned int param1)
 	addr = 0;
 	while (tmp->next)
 	{
-		ft_printf("addr = %i\n", addr);
 		addr += tmp->size + 1;
 		tmp = tmp->next;
 	}
 	tmp->param1 = param1;
+		ft_printf("addr = %i\n", addr);
 	if (addr != 0 && !(tmp->addr))
-	{
-		ft_printf("coucou\n");
 		tmp->addr = addr;
-	}
 	tmp->size = size;
 	tmp->code1 = code;
 }

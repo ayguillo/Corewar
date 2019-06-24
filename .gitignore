@@ -5,3 +5,5 @@ test.cor
 test.s
 asm
 libft.a
+*/*.swp
+*.dSYM
