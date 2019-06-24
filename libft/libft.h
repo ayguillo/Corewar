@@ -6,7 +6,7 @@
 /*   By: vlambert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 09:55:27 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 14:06:03 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:18:56 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ char			*ft_read_all(int fd);
 int				ft_raws_nbr(char **tab);
 void			ft_free_tab2d(char ***tab);
 void			ft_strcpyfast(char *cpy, const char *s1, size_t i);
-unsigned int	ft_reversebyte(unsigned int byte);
+unsigned int	ft_reversebyte(unsigned int byte, size_t size);
 
 #endif

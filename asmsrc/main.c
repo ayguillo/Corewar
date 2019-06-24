@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/05 11:01:50 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:22:51 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ int			main(int ac, char **av)
 {
 	t_file			file;
 	t_header		header;
+	t_op			*op;
 
 	ft_bzero(&file, sizeof(file));
 	ft_bzero(&header, sizeof(header));
+	ft_bzero(&op, sizeof(op));
 	if (!(start(ac, av, &file)))
 		return (-1);
-	if (!(printfile(&header, file)))
+	if (!(printfile(&header, file, &op)))
 	{
 		ft_strdel(&(file.name));
 		return (-1);
@@ -97,6 +99,7 @@ int			main(int ac, char **av)
 		return (-1);
 	}
 	write(file.fdwrite, &header, sizeof(t_header));
+	//FCT write file
 	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
 	{
 		ft_strdel(&(file.name));

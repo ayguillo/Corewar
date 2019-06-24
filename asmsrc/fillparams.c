@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 10:25:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 14:28:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:30:22 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_paramlabel(t_op *op, char *label)
 	filladdr = 0;
 	while (tmp->next)
 	{
-		filladdr += tmp->size;
+		filladdr += tmp->size + 1;
 		if (tmp->label)
 			if (!ft_strcmp(tmp->label, label))
 				addr = tmp->addr;
@@ -48,8 +48,7 @@ void	ft_fillparam1(t_op *op, int size, int code, unsigned int param1)
 		addr += tmp->size + 1;
 		tmp = tmp->next;
 	}
-	tmp->param1 = param1;
-		ft_printf("addr = %i\n", addr);
+	tmp->param1 = ft_reversebyte(param1, 4);
 	if (addr != 0 && !(tmp->addr))
 		tmp->addr = addr;
 	tmp->size = size;

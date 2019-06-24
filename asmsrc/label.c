@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 12:32:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:44:08 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,12 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 	return (1);
 }
 
-int			ft_readinst(t_file file, int ret, char **line)
+int			ft_readinst(t_file file, int ret, char **line, t_op **op)
 {
 	char	*trim;
 	int		i;
-	t_op	*op;
 
 	trim = NULL;
-	op = NULL;
 	while ((ret = ft_gnl(file.fdopen, line)) > 0)
 	{
 		ft_strdel(&trim);
@@ -153,7 +151,7 @@ int			ft_readinst(t_file file, int ret, char **line)
 			while (trim[++i])
 				if (trim[i] == COMMENT_CHAR)
 					trim[i] = '\0';
-			if ((ft_recupinst(line, &trim, &op)) <= 0)
+			if ((ft_recupinst(line, &trim, op)) <= 0)
 			{
 				ft_strdel(&trim);
 				ft_strdel(line);
