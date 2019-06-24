@@ -6,7 +6,7 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#*   Updated: 2019/06/24 19:45:39 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2019/06/24 20:05:13 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,8 @@ $(NAMEVM)	:	$(LIB) $(INCVM) $(OBJSVM)
 
 %.o			:	%.c
 	@ $(CC) $(CFLAGS) -c $< -o $@
+
+$(LIB)		: make_lib
 
 make_lib	:
 	@ $(MAKE) -C $(DIRLIB)
