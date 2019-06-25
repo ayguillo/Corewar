@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 16:40:33 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:02:51 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	init_err(t_vm *vm, int *err)
 	ft_strcpyfast(vm->err[ERR_CHAMP], ERR_CHAMP_MSG, ERR_MSG_SIZE);
 }
 
+static void		player_print_info(t_player *player)
+{
+	ft_printf("Player [ %d ] :\n", player->number);
+	ft_printf("\tname\t: %s\n", player->name);
+	ft_printf("\tcomment\t: %s\n", player->comment);
+	ft_printf("\tsize\t: %d\n\n", player->size);
+}
+
 int		main(int ac, char *av[])
 {
 	t_vm	vm;
@@ -41,6 +49,7 @@ int		main(int ac, char *av[])
 			ft_putstr_fd(vm.err[USAGE], 2);
 		return (-1);
 	}
-	ft_printf("options : %#b  dump %d\nPlayer number1 %d\n%s\n%s\n%d\nPlayer number2 %d\n%s\n%s\n%d\n",
-		vm.options, vm.cycles_limit, vm.players[0].number, vm.players[0].name, vm.players[0].comment, vm.players[0].size, vm.players[1].number, vm.players[1].name, vm.players[1].comment, vm.players[1].size);
+	ft_printf("Options : %#b dump %d\n\n", vm.options, vm.cycles_limit);
+	player_print_info(&vm.players[0]);
+	player_print_info(&vm.players[1]);
 }
