@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 16:28:31 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:01:00 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static int	read_all(char *champ, int fd, t_vm *vm)
 	unsigned int	temp;
 
 	if (read(fd, &temp, sizeof(int)) < sizeof(int)
-		|| ft_reversebyte(temp) != COREWAR_EXEC_MAGIC
+		|| ft_reversebyte(temp, sizeof(int)) != COREWAR_EXEC_MAGIC
 		|| read(fd, vm->players[vm->players_nbr].name, PROG_NAME_LENGTH + 4)
 			< PROG_NAME_LENGTH + 4
 		|| read(fd, &temp, sizeof(int))
 			< sizeof(int)
-		|| !(vm->players[vm->players_nbr].size = ft_reversebyte(temp))
+		|| !(vm->players[vm->players_nbr].size = ft_reversebyte(temp, sizeof(int)))
 		|| read(fd, vm->players[vm->players_nbr].comment, COMMENT_LENGTH + 4)
 			< COMMENT_LENGTH + 4
 		|| read(fd, vm->players[vm->players_nbr].code,
