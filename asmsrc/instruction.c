@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/21 15:56:12 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:15:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ int	ft_argverif(char **split, t_op *op)
 
 	i = 0;
 	if (!ft_strcmp(split[0], "live"))
-		ft_paramlive(split, op);
-/*	else if (!ft_strcmp(split[0], "aff"))
-		//FTRG
+		ft_paramd(split, op, DIR_SIZE);
+	else if (!ft_strcmp(split[0], "aff"))
+		ft_paramrg(split, op);
 	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "fork")
 			|| !ft_strcmp(split[0], "fork"))
-		//FTD2
-	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
-		//FTIDD4
-	else if (!ft_strcmp(split[0], "st"))
+		ft_paramd(split, op, DIR_SIZE / 2);
+/*	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
+	//	FTIDD4
+	if (!ft_strcmp(split[0], "st"))
 		//FTRGRG
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
 		//FT3RG

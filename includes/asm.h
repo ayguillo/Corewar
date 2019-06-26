@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 17:19:49 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:05:25 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ typedef struct	s_file
 
 typedef struct	s_op
 {
-	char		*label;
-	int			size;
-	int			addr;
-	int			nbarg;
-	int			inst;
-	int			code1;
-	int			code2;
-	int			code3;
-	unsigned int			param1;
-	unsigned int			param2;
-	unsigned int			param3;
-	struct s_op	*next;
+	char			*label;
+	int				size;
+	int				addr;
+	int				nbarg;
+	int				inst;
+	int				code1;
+	int				code2;
+	int				code3;
+	unsigned char	param1;
+	unsigned int	param2;
+	unsigned int	param3;
+	struct s_op		*next;
 }				t_op;
 
 /*
@@ -78,6 +78,7 @@ int				ft_syntax(char **tab, int err, char **line, char c);
 int				ft_retgnl(int fd, char **line);
 short			ft_opc(int param1, int param2, int param3);
 int				ft_separator(char **str, int nb, char **line);
+unsigned long	ft_atui(const char *str);
 
 /*
 ** INSTRUCTIONS & LABEL
@@ -89,7 +90,8 @@ int				ft_readinst(t_file file, int ret, char **line, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
 int				ft_label(char *trim, char **line, t_op *new);
 int				ft_instructions(char **trim, char **line, t_op **op);
-void			ft_paramlive(char **split, t_op *op);
+void			ft_paramd(char **split, t_op *op, int size);
+void			ft_affillparam(char **split, t_op *op);
 void			ft_fillparam1(t_op *op, int size, int code,
 		unsigned int param1);
 int				ft_paramlabel(t_op *op, char *label);

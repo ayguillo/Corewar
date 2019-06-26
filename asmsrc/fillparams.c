@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 10:25:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 17:30:22 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:25:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_fillparam1(t_op *op, int size, int code, unsigned int param1)
 		addr += tmp->size + 1;
 		tmp = tmp->next;
 	}
-	tmp->param1 = ft_reversebyte(param1, 4);
+	tmp->param1 = param1;
 	if (addr != 0 && !(tmp->addr))
 		tmp->addr = addr;
 	tmp->size = size;
