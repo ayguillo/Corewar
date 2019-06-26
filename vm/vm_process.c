@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 13:00:01 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:08:18 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ int		add_process(t_vm *vm, t_player *player, unsigned int pc)
 	t_proc	*new;
 	t_proc	*tmp;
 
-	if (!(new = malloc(sizeof(t_proc))))
+	if (!(new = ft_memalloc(sizeof(t_proc))))
 	{
 		ft_putstr_fd("vm_process.c: add_process:", 2);
 		return (ERR_MALLOC);
 	}
-	ft_bzero(new, sizeof(t_proc));
 	new->pc = pc % MEM_SIZE;
 	if (!(player->proc))
 	{
@@ -65,6 +64,6 @@ void	kill_unactive_processes(t_player *player, int end)
 			tmp_previous = tmp;
 		tmp = tmp->next;
 		if (to_free)
-			ft_memdel(&to_free);
+			ft_memdel((void **)&to_free);
 	}
 }
