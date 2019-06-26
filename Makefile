@@ -34,7 +34,7 @@ INCASM		=	$(addprefix $(DIRINC)/, \
 
 SRCSASM		=	$(addprefix $(DIRASM)/, \
 		main.c print.c header.c free.c label.c instruction.c tools.c params.c \
-		fillparams.c)
+		fillparams.c filllabel.c fillgeneric.c)
 
 OBJSASM		=	$(SRCSASM:.c=.o)
 
