@@ -6,14 +6,14 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 10:22:01 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:15:05 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 #include "../libft/libft.h"
 
-static void		player_print_info(t_player *player)
+static void	player_print_info(t_player *player)
 {
 	ft_printf("Player [ %d ] :\n", player->number);
 	ft_printf("\tname\t: %s\n", player->name);
@@ -21,7 +21,7 @@ static void		player_print_info(t_player *player)
 	ft_printf("\tsize\t: %d\n\n", player->size);
 }
 
-int		main(int ac, char *av[])
+int			main(int ac, char *av[])
 {
 	t_vm	vm;
 	int		err;

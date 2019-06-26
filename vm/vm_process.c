@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/25 13:28:45 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:00:01 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ void	kill_unactive_processes(t_player *player, int end)
 			tmp_previous = tmp;
 		tmp = tmp->next;
 		if (to_free)
-		{
-			free(to_free);
-			to_free = NULL;
-		}
+			ft_memdel(&to_free);
 	}
 }
