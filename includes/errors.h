@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 10:19:52 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 10:30:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,5 @@
 # define ERR_CHAMP			7
 # define ERR_SIZE			8
 # define ERR_MALLOC			9
-
-/*
-**  Set errors messages and error code to 0
-**  Add a new error message by adding :
-**  ft_strcpy(vm->err[ERR_XXXXXX], "Your message"); in errors.c following function
-*/
-init_err(t_vm *vm, int *err)
 
 #endif
