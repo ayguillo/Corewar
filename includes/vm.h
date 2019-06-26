@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 14:33:18 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:57:56 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct		s_vm
 	int				cycles;
 	int				cycle_to_die;
 	int				cycles_limit;
-	int				process;
 	int				options;
 	int				players_nbr;
 	char			err[ERR_TYPE_NBR][ERR_MSG_SIZE];
@@ -56,6 +55,9 @@ typedef struct		s_vm
 
 int					options(int ac, char *av[], t_vm *vm);
 int					read_champ(char *champ, t_vm *vm);
+int					create_arena(t_vm *vm);
+void				kill_unactive_processes(t_player *player, int end);
+int					add_process(t_vm *vm, t_player *player, unsigned int pc);
 
 /*
 **  Set errors messages and error code to 0

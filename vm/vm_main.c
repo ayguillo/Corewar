@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 15:09:54 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:40:43 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int			main(int ac, char *av[])
 
 	ft_bzero(&vm, sizeof(vm));
 	init_err(&vm, &err);
-	if (ac < 3 || (err = options(ac, av, &vm)))
+	if (ac < 3 || (err = options(ac, av, &vm))
+		|| (err = create_arena(&vm)))
 	{
 		if (err)
 			ft_putstr_fd(vm.err[err], 2);
