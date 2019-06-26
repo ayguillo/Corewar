@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/25 13:07:17 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/26 10:13:40 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_vm
 	int				process;
 	int				options;
 	int				players_nbr;
-	char			err[10][ERR_MSG_SIZE];
+	char			err[ERR_TYPE_NBR][ERR_MSG_SIZE];
 }					t_vm;
 
 int					options(int ac, char *av[], t_vm *vm);
