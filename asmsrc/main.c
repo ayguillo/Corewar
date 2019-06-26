@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 17:22:51 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/25 12:00:42 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int			main(int ac, char **av)
 		return (-1);
 	}
 	write(file.fdwrite, &header, sizeof(t_header));
+	write(file.fdwrite, &(op->inst), 2);
+	write(file.fdwrite, &(op->param1), 4);
 	//FCT write file
 	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
 	{
