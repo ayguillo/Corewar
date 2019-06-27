@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/27 13:55:23 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:47:13 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void		ft_fillinstop(char *inst, t_op *op)
 		tmp->inst = LLD;
 	else if (!(ft_strcmp(inst, "st")))
 		tmp->inst = ST;
+	else if (!(ft_strcmp(inst, "add")))
+		tmp->inst = ADD;
+	else if (!(ft_strcmp(inst, "sub")))
+		tmp->inst = SUB;
 }
 
 void		ft_filld(char **split, int nparam, t_op *op, int size)
@@ -80,5 +84,7 @@ void		ft_fillrg(char **split, int nparam, t_op *op)
 		ft_fillparam1(op, 1, REG_CODE, param);
 	if (nparam == 2)
 		ft_fillparam2(op, 1, REG_CODE, param);
+	if (nparam == 3)
+		ft_fillparam3(op, 1, REG_CODE, param);
 	ft_free_tab2d(&reg);
 }

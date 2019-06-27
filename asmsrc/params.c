@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/27 13:46:22 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:44:04 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,41 @@ void		ft_paramst(char **split, t_op *op)
 			ft_printf("Syntax %s invalid", split[2]);
 			return ;
 		}
+	}
+}
+
+void		ft_param3rg(char **split, t_op *op)
+{
+	if (split[0])
+		ft_fillinstop(split[0], op);
+	if (split[1])
+	{
+		if (split[1] && split[1][0] != 'r')
+		{
+			ft_printf("%s is not a register, did you mean %c%s ?\n", split[1],
+					'r', split[1]);
+			return ;
+		}
+		ft_fillrg(split, 1, op);
+	}
+	if (split[2])
+	{
+		if (split[2] && split[2][0] != 'r')
+		{
+			ft_printf("%s is not a register, did you mean %c%s ?\n", split[2],
+					'r', split[2]);
+			return ;
+		}
+		ft_fillrg(split, 2, op);
+	}
+	if (split[3])
+	{
+		if (split[3] && split[3][0] != 'r')
+		{
+			ft_printf("%s is not a register, did you mean %c%s ?\n", split[3],
+					'r', split[3]);
+			return ;
+		}
+		ft_fillrg(split, 3, op);
 	}
 }
