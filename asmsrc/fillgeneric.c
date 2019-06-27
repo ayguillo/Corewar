@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/26 15:19:14 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:55:23 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void		ft_fillinstop(char *inst, t_op *op)
 		tmp->inst = LD;
 	else if (!(ft_strcmp(inst, "lld")))
 		tmp->inst = LLD;
+	else if (!(ft_strcmp(inst, "st")))
+		tmp->inst = ST;
 }
 
 void		ft_filld(char **split, int nparam, t_op *op, int size)
 {
 	unsigned int	param;
 
-	if (split[0] && !(op->inst))
-		ft_fillinstop(split[0], op);
 	if (split[nparam] && split[nparam][0] == DIRECT_CHAR)
 		param = ft_filllabel(op, split);
 	if (nparam == 1)
@@ -50,12 +50,12 @@ void		ft_filli(char **split, int nparam, t_op *op)
 {
 	unsigned int	param;
 
-	if (split[0] && !(op->inst))
-		ft_fillinstop(split[0], op);
 	if (split[nparam])
 		param = ft_atui(split[nparam]);
 	if (nparam == 1)
 		ft_fillparam1(op, IND_SIZE, IND_CODE, param);
+	if (nparam == 2)
+		ft_fillparam2(op, IND_SIZE, IND_CODE, param);
 }
 
 void		ft_fillrg(char **split, int nparam, t_op *op)
@@ -63,18 +63,22 @@ void		ft_fillrg(char **split, int nparam, t_op *op)
 	int		param;
 	char	**reg;
 
+	reg = NULL;
 	if (!(reg = ft_strsplit(split[nparam], 'r')))
 		return ;
+	param = 0;
 	if (reg[0])
 	{
-		if ((param = ft_atoi(reg[0]) <= 0) || param > REG_NUMBER)
+		if (((param = ft_atoi(reg[0])) <= 0) || param > REG_NUMBER)
 		{
-			ft_strdel(reg);
+			ft_free_tab2d(&reg);
 			ft_printf("Min register = 1 or Max register = %i\n", REG_NUMBER);
 			return ;
 		}
 	}
+	if (nparam == 1)
+		ft_fillparam1(op, 1, REG_CODE, param);
 	if (nparam == 2)
 		ft_fillparam2(op, 1, REG_CODE, param);
-	ft_strdel(reg);
+	ft_free_tab2d(&reg);
 }

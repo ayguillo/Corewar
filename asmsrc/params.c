@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/26 16:45:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:46:22 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@
 
 void		ft_paramd(char **split, t_op *op, int size)
 {
-	char			**dirsplit;
 	t_op			*tmp;
 	unsigned int	param;
 
 	tmp = op;
-	dirsplit = NULL;
 	if (split[0])
 		ft_fillinstop(split[0], op);
 	if (split[1] && split[1][0] != DIRECT_CHAR)
@@ -32,7 +30,6 @@ void		ft_paramd(char **split, t_op *op, int size)
 	}
 	param = ft_filllabel(op, split);
 	ft_fillparam1(op, size, DIR_CODE, param);
-	ft_free_tab2d(&dirsplit);
 }
 
 void		ft_paramrg(char **split, t_op *op)
@@ -92,7 +89,34 @@ void		ft_paramld(char **split, t_op *op)
 					split[2]);
 			return ;
 		}
-		else
+		ft_fillrg(split, 2, op);
+	}
+}
+
+void		ft_paramst(char **split, t_op *op)
+{
+	if (split[0])
+		ft_fillinstop(split[0], op);
+	if (split[1])
+	{
+		if (split[1] && split[1][0] != 'r')
+		{
+			ft_printf("%s is not a register, did you mean %c%s ?\n", split[1],
+					'r', split[1]);
+			return ;
+		}
+		ft_fillrg(split, 1, op);
+	}
+	if (split[2])
+	{
+		if (split[2][0] == 'r')
 			ft_fillrg(split, 2, op);
+		else if (split[2][0] >= '0' && split[2][0] <= '9')
+			ft_filli(split, 2, op);
+		else
+		{
+			ft_printf("Syntax %s invalid", split[2]);
+			return ;
+		}
 	}
 }
