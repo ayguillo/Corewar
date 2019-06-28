@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:08:21 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 15:05:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/28 08:51:52 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 /*
 ** Check includes/errors.h for message max size ERR_MSG_SIZE
 */
-void    init_err(t_vm *vm, int *err)
+
+void	init_err(t_vm *vm, int *err)
 {
 	*err = 0;
 	ft_strcpy(vm->err[USAGE], "Usage: ./corewar [-d -v -V] \

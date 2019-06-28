@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 14:39:45 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/28 08:34:53 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	read_all(char *champ, int fd, t_vm *vm)
 			< PROG_NAME_LENGTH + 4
 		|| read(fd, &temp, sizeof(int))
 			< sizeof(int)
-		|| !(vm->players[vm->players_nbr].size = ft_reversebyte(temp, sizeof(int)))
+		|| !(vm->players[vm->players_nbr].size = ft_reversebyte(temp,
+			sizeof(int)))
 		|| read(fd, vm->players[vm->players_nbr].comment, COMMENT_LENGTH + 4)
 			< COMMENT_LENGTH + 4
 		|| read(fd, vm->players[vm->players_nbr].code,
