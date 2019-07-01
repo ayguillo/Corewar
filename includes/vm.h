@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 12:48:15 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:52:08 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ typedef struct		s_vm
 int					options(int ac, char *av[], t_vm *vm);
 int					read_champ(char *champ, t_vm *vm);
 int					create_arena(t_vm *vm);
-void				kill_unactive_processes(t_player *player, int end);
-int					add_process(t_vm *vm, t_player *player, unsigned int pc);
+void				kill_unactive_processes(t_vm *vm, int end);
+int					add_process(t_vm *vm, int player, unsigned int pc,
+						t_proc *src);
 
 /*
 **  Set errors messages and error code to 0

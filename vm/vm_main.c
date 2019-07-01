@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 15:40:43 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:00:27 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	player_print_info(t_player *player)
 	ft_printf("\tname\t: %s\n", player->name);
 	ft_printf("\tcomment\t: %s\n", player->comment);
 	ft_printf("\tsize\t: %d\n", player->size);
-	ft_printf("\tR1\t: %d\n\n", player->regs[0]);
+	ft_printf("\tR1\t: %d\n\n", player->alive_proc);
 }
 
 int			main(int ac, char *av[])
