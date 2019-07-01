@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 15:57:56 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:39:30 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_player
 	unsigned char	code[CHAMP_MAX_SIZE + 1];
 	int				regs[REG_NUMBER];
 	t_proc			*proc;
+	unsigned int	alive_proc;
 }					t_player;
 
 typedef struct		s_vm

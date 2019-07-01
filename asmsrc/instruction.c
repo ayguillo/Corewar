@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/25 16:15:47 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:46:37 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ int	ft_argverif(char **split, t_op *op)
 		ft_paramd(split, op, DIR_SIZE);
 	else if (!ft_strcmp(split[0], "aff"))
 		ft_paramrg(split, op);
-	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "fork")
+	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "lfork")
 			|| !ft_strcmp(split[0], "fork"))
 		ft_paramd(split, op, DIR_SIZE / 2);
-/*	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
-	//	FTIDD4
-	if (!ft_strcmp(split[0], "st"))
-		//FTRGRG
+	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
+		ft_paramld(split, op);
+	else if (!ft_strcmp(split[0], "st"))
+		ft_paramst(split, op);
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
-		//FT3RG
-	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
+		ft_param3rg(split, op);
+/*	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
 			|| !ft_strcmp(split[0], "xor"))
 		//FT2FULL
 	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))

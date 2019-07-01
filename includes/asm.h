@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/25 16:05:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:46:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,31 @@ unsigned long	ft_atui(const char *str);
 ** INSTRUCTIONS & LABEL
 */
 
-
+void			ft_filld(char **split, int nparam, t_op *op, int size);
+void			ft_filli(char **split, int nparam, t_op *op);
+void			ft_fillrg(char **split, int nparam, t_op *op);
+void			ft_fillinstop(char *inst, t_op *op);
+void			ft_fillinstop(char *inst, t_op *op);
 
 int				ft_readinst(t_file file, int ret, char **line, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
 int				ft_label(char *trim, char **line, t_op *new);
 int				ft_instructions(char **trim, char **line, t_op **op);
+
 void			ft_paramd(char **split, t_op *op, int size);
-void			ft_affillparam(char **split, t_op *op);
+void			ft_paramrg(char **split, t_op *op);
+void			ft_paramld(char **split, t_op *op);
+void			ft_paramst(char **split, t_op *op);
+void			ft_param3rg(char **split, t_op *op);
+
 void			ft_fillparam1(t_op *op, int size, int code,
 		unsigned int param1);
-int				ft_paramlabel(t_op *op, char *label);
+void			ft_fillparam2(t_op *op, int size, int code,
+		unsigned int param2);
+void			ft_fillparam3(t_op *op, int size, int code,
+		unsigned int param3);
+
+
+unsigned int	ft_filllabel(t_op *op, char **split);
 
 #endif
