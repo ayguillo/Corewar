@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 15:15:34 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:50:35 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_proc
 	int				carry;
 	int				regs[REG_NUMBER];
 	int				player;
+	int				dir_size;
 }					t_proc;
 
 typedef struct		s_player
@@ -55,6 +56,7 @@ typedef struct		s_vm
 	int				options;
 	int				players_nbr;
 	char			err[ERR_TYPE_NBR][ERR_MSG_SIZE];
+	//t_display		display;
 }					t_vm;
 
 int					options(int ac, char *av[], t_vm *vm);
