@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/28 10:23:13 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/06/28 11:39:10 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	player_cycle(t_vm *vm)
 		{
 			if (vm->period_cycles == vm->cycle_to_die)
 			{
-				kill_unactive_processes(&(vm->players[i]), 0)
+				kill_unactive_processes(&(vm->players[i]), 0);
 			}
 		}
 	}
@@ -35,13 +35,17 @@ int			game_cycle(t_vm *vm)
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	if (!vm->cycles_limit)
 		vm->cycles_limit = -1;
-	while (vm->alive_proc && ((vm->cycles += 1) <= vm->cycles_limit
+	while (vm->alive_proc && ((vm->cycles += 1) != vm->cycles_limit
 			|| vm->cycles_limit == -1))
 	{
 		vm->period_cycles += 1;
 		//player_cycle(t_vm *vm);
 
 		if (vm->period_cycles == vm->cycle_to_die)
+		{
+			if (vm->period_lives > NBR_LIVE)
+				
 			vm->period_cycles = 1;
+		}
 	}
 }

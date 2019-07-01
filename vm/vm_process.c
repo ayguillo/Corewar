@@ -6,59 +6,58 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/28 08:51:16 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:37:01 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 #include "../libft/libft.h"
 
-int			add_process(t_player *player, unsigned int pc)
+int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 {
 	t_proc	*new;
-	t_proc	*tmp;
 
 	if (!(new = ft_memalloc(sizeof(t_proc))))
 	{
 		ft_putstr_fd("vm_process.c: add_process:", 2);
 		return (ERR_MALLOC);
 	}
-	new->pc = pc % MEM_SIZE;
-	if (!(player->proc))
-	{
-		player->proc = new;
-		new->number = 1;
-	}
+	if (src)
+		ft_memcpy(new, src, sizeof(t_proc));
 	else
 	{
-		tmp = player->proc;
-		while (tmp->next)
-			tmp = tmp->next;
-		new->number = tmp->number + 1;
-		tmp->next = new;
+		new->regs[0] = vm->players[new->player].number;
+		new->player = player;
 	}
-	player->alive_proc += 1;
+	new->pc = pc % MEM_SIZE;
+	if (vm->proc)
+		new->number = vm->proc->number + 1;
+	else
+		new->number = 1;
+	vm->players[new->player].alive_proc += 1;
+	new->next = vm->proc;
+	vm->proc = new->next;
 	return (0);
 }
 
-static void	rechain(t_player *player, t_proc **tmp, t_proc **tmp_prev,
+static void	rechain(t_vm *vm, t_proc **tmp, t_proc **tmp_prev,
 	t_proc **to_free)
 {
-	if (player->proc == *to_free)
-		player->proc = player->proc->next;
+	if (vm->proc == *to_free)
+		vm->proc = vm->proc->next;
 	else if (*to_free && *tmp_prev)
 		(*tmp_prev)->next = (*to_free)->next;
 	else
 		*tmp_prev = *tmp;
 }
 
-void		kill_unactive_processes(t_player *player, int end)
+void		kill_unactive_processes(t_vm *vm, int end)
 {
 	t_proc	*tmp;
 	t_proc	*tmp_prev;
 	t_proc	*to_free;
 
-	tmp = player->proc;
+	tmp = vm->proc;
 	to_free = NULL;
 	tmp_prev = NULL;
 	while (tmp)
@@ -67,12 +66,12 @@ void		kill_unactive_processes(t_player *player, int end)
 			to_free = tmp;
 		else
 			tmp->period_lives = 0;
-		rechain(player, &tmp, &tmp_prev, &to_free);
+		rechain(vm, &tmp, &tmp_prev, &to_free);
 		tmp = tmp->next;
 		if (to_free)
 		{
+			vm->players[to_free->player].alive_proc -= 1;
 			ft_memdel((void **)&to_free);
-			player->alive_proc -= 1;
 		}
 	}
 }

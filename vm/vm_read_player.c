@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/28 08:34:53 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:20:05 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	read_all(char *champ, int fd, t_vm *vm)
 	}
 	if (!(vm->players[vm->players_nbr].number))
 		vm->players[vm->players_nbr].number = --number;
-	vm->players[vm->players_nbr].regs[0] = vm->players[vm->players_nbr].number;
 	return (test_size(champ, fd, vm));
 }
 
