@@ -6,14 +6,14 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 12:58:36 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:43:19 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 #include "../libft/libft.h"
 
-static int	player_cycle(t_vm *vm)
+static int	process_cycle(t_vm *vm)
 {
 	int		i;
 

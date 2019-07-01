@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 12:52:08 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:39:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ typedef struct		s_vm
 	t_proc			*proc;
 	int				last_player_alive;
 	int				cycles;
+	int				cycles_limit;
 	int				period_cycles;
 	int				cycle_to_die;
-	int				cycles_limit;
 	int				checks;
 	int				period_lives;
 	int				options;

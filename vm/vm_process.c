@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 12:49:36 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:23:46 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 		ft_memcpy(new, src, sizeof(t_proc));
 	else
 	{
-		new->regs[0] = vm->players[new->player].number;
+		new->regs[0] = vm->players[player].number;
 		new->player = player;
 	}
 	new->pc = pc % MEM_SIZE;
@@ -36,7 +36,7 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 		new->number = 1;
 	vm->players[new->player].alive_proc += 1;
 	new->next = vm->proc;
-	vm->proc = new->next;
+	vm->proc = new;
 	return (0);
 }
 
