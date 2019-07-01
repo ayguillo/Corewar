@@ -6,11 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/07/01 12:39:30 by vlambert         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/01 12:13:50 by vlambert         ###   ########.fr       */
->>>>>>> 2ced78e9e631a595022b98c3f38c487036ff1ea6
+/*   Updated: 2019/07/01 12:48:15 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +50,8 @@ typedef struct		s_vm
 	int				period_cycles;
 	int				cycle_to_die;
 	int				cycles_limit;
-<<<<<<< HEAD
-=======
 	int				checks;
 	int				period_lives;
->>>>>>> 2ced78e9e631a595022b98c3f38c487036ff1ea6
 	int				options;
 	int				players_nbr;
 	char			err[ERR_TYPE_NBR][ERR_MSG_SIZE];
