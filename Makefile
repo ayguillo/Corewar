@@ -6,7 +6,7 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#*   Updated: 2019/06/26 14:44:14 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2019/07/01 15:05:00 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ INCVM		=	$(addprefix $(DIRINC)/, \
 		vm.h options.h)
 
 SRCSVM		=	$(addprefix $(DIRVM)/, \
-		vm_main.c vm_options.c vm_process.c vm_read_player.c vm_errors.c)
+		vm_main.c vm_options.c vm_process.c vm_read_player.c vm_errors.c \
+		vm_arena.c)
 
 OBJSVM		=	$(SRCSVM:.c=.o)
 
