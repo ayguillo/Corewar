@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 15:02:26 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:15:34 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int					read_champ(char *champ, t_vm *vm);
 int					create_arena(t_vm *vm);
 
 /*
-**	Set end to 1 to kill all the processes even if they made a life)
+**	Set end to 1 to kill all the processes even if they made a life
+**	Set end to 0 to kill only thee unactives ones
 */
 void				kill_unactive_processes(t_vm *vm, int end);
 
