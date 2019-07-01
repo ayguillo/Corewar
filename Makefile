@@ -6,7 +6,7 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#*   Updated: 2019/07/01 15:05:00 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2019/07/01 15:13:06 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,9 +73,9 @@ $(NAMEASM)	:	$(LIB) $(INCASM) $(OBJSASM)
 	@ echo "$(GREEN)$(NAMEASM) compilé$(WHITE)"
 
 $(NAMEVM)	:	$(LIB) $(INCVM) $(OBJSVM)
-	echo "$(YELLOW)Compilation de $(NAMEVM) . . . $(WHITE)"
-	$(CC) $(LFLAGS) -o $(NAMEVM) $(OBJSVM) $(LIB)
-	echo "$(GREEN)$(NAMEVM) compilé$(WHITE)"
+	@ echo "$(YELLOW)Compilation de $(NAMEVM) . . . $(WHITE)"
+	@ $(CC) $(LFLAGS) -o $(NAMEVM) $(OBJSVM) $(LIB)
+	@ echo "$(GREEN)$(NAMEVM) compilé$(WHITE)"
 
 %.o			:	%.c
 	@ $(CC) $(CFLAGS) -c $< -o $@
