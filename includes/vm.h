@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 14:45:48 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:02:26 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,17 @@ typedef struct		s_vm
 int					options(int ac, char *av[], t_vm *vm);
 int					read_champ(char *champ, t_vm *vm);
 int					create_arena(t_vm *vm);
+
+/*
+**	Set end to 1 to kill all the processes even if they made a life)
+*/
 void				kill_unactive_processes(t_vm *vm, int end);
+
+/*
+**	The arg player correspond to the index in vm->players of the player
+**	The arg src correspond to the source process in case of a fork or null
+**	in other cases
+*/
 int					add_process(t_vm *vm, int player, unsigned int pc,
 						t_proc *src);
 

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 14:43:55 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:53:32 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ static int	process_cycle(t_vm *vm)
 		}
 		tmp = tmp->next;
 	}
+}
+
+static int	new_period(t_vm *vm)
+{
+	int	i;
+
+	i = vm->players_nbr;
+	while (i--)
+	{
+		vm->players[i].last_p_lives = vm->players[i].period_lives;
+		vm->players[i].period_lives = 0;
+	}
+	vm->period_lives = 0;
 }
 
 int			game_cycle(t_vm *vm)
