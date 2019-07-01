@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 13:43:19 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:43:55 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 
 static int	process_cycle(t_vm *vm)
 {
-	int		i;
+	t_proc *tmp;
 
-	i = MAX_PLAYERS;
-	while (i--)
+	while (tmp)
 	{
-		if (vm->proc)
+		if (tmp->waiting == 0 || tmp->waiting == -1)
 		{
-			if (vm->period_cycles == vm->cycle_to_die)
-			{
-				kill_unactive_processes(&(vm->players[i]), 0);
-			}
+			//call process function made by Bopopovic
 		}
+		tmp = tmp->next;
 	}
 }
 
@@ -39,13 +36,16 @@ int			game_cycle(t_vm *vm)
 			|| vm->cycles_limit == -1))
 	{
 		vm->period_cycles += 1;
-		//player_cycle(t_vm *vm);
-
+		process_cycle(vm);
 		if (vm->period_cycles == vm->cycle_to_die)
 		{
-			if (vm->period_lives > NBR_LIVE)
-				
-			vm->period_cycles = 1;
+			if ((vm->checks -= 1) == 0 || vm->period_lives > NBR_LIVE)
+			{
+				vm->cycle_to_die -= CYCLE_DELTA;
+				vm->checks = MAX_CHECKS;
+			}
+			kill_unactive_processes(vm, 0);
+			vm->period_cycles = 0;
 		}
 	}
 }

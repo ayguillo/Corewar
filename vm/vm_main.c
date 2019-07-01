@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 13:20:56 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:38:11 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void	print_proc(t_vm *vm)
 		ft_printf("\nprocess numero : %d\n", tmp->number);
 		ft_printf("process player : %d\n", tmp->player);
 		ft_printf("process pc : %d\n", tmp->pc);
-		ft_printf("process R1 : %d\n\n", tmp->regs[0]);
+		ft_printf("process R1 : %d\n", tmp->regs[0]);
+		ft_printf("process periode lives : %d\n\n", tmp->period_lives);
 		tmp = tmp->next;
 	}
 }
@@ -56,5 +57,9 @@ int			main(int ac, char *av[])
 	ft_printf("Options : %#b dump %d\n\n", vm.options, vm.cycles_limit);
 	player_print_info(&vm.players[0]);
 	player_print_info(&vm.players[1]);
+	print_proc(&vm);
+	vm.proc->next->period_lives = 1;
+	print_proc(&vm);
+	kill_unactive_processes(&vm, 0);
 	print_proc(&vm);
 }

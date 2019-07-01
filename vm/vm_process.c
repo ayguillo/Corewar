@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 13:23:46 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:47:05 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 		new->player = player;
 	}
 	new->pc = pc % MEM_SIZE;
+	new->waiting = -1;
 	if (vm->proc)
 		new->number = vm->proc->number + 1;
 	else

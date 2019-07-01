@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 13:39:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:45:48 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 typedef struct		s_proc
 {
 	struct s_proc	*next;
-	int				number;
-	int				period_lives;
 	unsigned int	pc;
+	unsigned int	number;
+	int				period_lives;
 	int				waiting;
 	int				carry;
 	int				regs[REG_NUMBER];
