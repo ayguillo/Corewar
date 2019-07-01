@@ -6,7 +6,11 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/07/01 12:39:30 by vlambert         ###   ########.fr       */
+=======
+/*   Updated: 2019/07/01 12:13:50 by vlambert         ###   ########.fr       */
+>>>>>>> 2ced78e9e631a595022b98c3f38c487036ff1ea6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,9 @@ typedef struct		s_proc
 	int				period_lives;
 	unsigned int	pc;
 	int				waiting;
+	int				carry;
+	int				regs[REG_NUMBER];
+	int				player;
 }					t_proc;
 
 typedef struct		s_player
@@ -30,25 +37,28 @@ typedef struct		s_player
 	int				number;
 	int				period_lives;
 	int				last_p_lives;
-	int				last_live;
-	int				carry;
+	int				alive_proc;
 	unsigned int	size;
 	char			name[PROG_NAME_LENGTH + 4];
 	char			comment[COMMENT_LENGTH + 4];
 	unsigned char	code[CHAMP_MAX_SIZE + 1];
-	int				regs[REG_NUMBER];
-	t_proc			*proc;
-	unsigned int	alive_proc;
 }					t_player;
 
 typedef struct		s_vm
 {
 	unsigned char	mem[MEM_SIZE];
 	t_player		players[MAX_PLAYERS];
-	int				player_turn;
+	t_proc			*proc;
+	int				last_player_alive;
 	int				cycles;
+	int				period_cycles;
 	int				cycle_to_die;
 	int				cycles_limit;
+<<<<<<< HEAD
+=======
+	int				checks;
+	int				period_lives;
+>>>>>>> 2ced78e9e631a595022b98c3f38c487036ff1ea6
 	int				options;
 	int				players_nbr;
 	char			err[ERR_TYPE_NBR][ERR_MSG_SIZE];
