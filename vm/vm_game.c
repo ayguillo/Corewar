@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 14:14:11 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:04:56 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	process_cycle(t_vm *vm)
 	{
 		if (tmp->waiting == 0 || tmp->waiting == -1)
 		{
-			//call process function made by Bopopovic
+			process_execute(vm, tmp);
 			//vm->proc->period_lives += 1;
 		}
 		else
