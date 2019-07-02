@@ -6,13 +6,34 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 13:02:27 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:40:55 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/vm.h"
+#include "../includes/options.h"
 #include "../libft/color.h"
+
+void	print_color(t_vm *vm, char *color, int i)
+{
+	if (!(vm->options & OPTMAJV))
+		ft_printf(color);
+	else
+	{
+		if (!strcmp(color, _RED_))
+			ft_printf("RE");
+		if (!strcmp(color, _GREEN_))
+			ft_printf("GR");
+		if (!strcmp(color, _PURPLE_))
+			ft_printf("PU");
+		if (!strcmp(color, _YELLOW_))
+			ft_printf("YE");
+	}
+	ft_printf("%02x", vm->mem[i]);
+	if (!(vm->options & OPTMAJV))
+		ft_printf("%r", _RESET_);
+}
 
 void	print_arena(t_vm *vm)
 {
@@ -22,30 +43,32 @@ void	print_arena(t_vm *vm)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (!(i % 64) && i != 0)
+		if (!(vm->options & OPTMAJV) && !(i % 64) && i != 0)
 			ft_printf("\n");
+		else if (!(vm->options & OPTMAJV) && (i % 64))
+			ft_printf(" ");
 		tmp = vm->proc;
 		while (tmp)
 		{
 			if (i == tmp->pc && tmp->player == 0)
 			{
-				ft_printf("%02x", vm->mem[i]);
+				print_color(vm, _RED_, i);
 				break;
 			}
 			if (i == tmp->pc && tmp->player == 1)
 			{
-				ft_printf("%02x", vm->mem[i]);
-					break;
+				print_color(vm, _GREEN_, i);
+				break;
 			}
 			if (i == tmp->pc && tmp->player == 2)
 			{
-				ft_printf("%02x", vm->mem[i]);
-					break;
+				print_color(vm, _PURPLE_, i);
+				break;
 			}
 			if (i == tmp->pc && tmp->player == 3)
 			{
-				ft_printf("%02x", vm->mem[i]);
-					break;
+				print_color(vm, _YELLOW_, i);
+				break;
 			}
 			tmp = tmp->next;
 		}	
@@ -53,7 +76,10 @@ void	print_arena(t_vm *vm)
 			ft_printf("%02x", vm->mem[i]);
 		i++;
 	}
-	ft_printf("\n;\n\n");
+	if (vm->options & OPTMAJV)
+		ft_printf(";");
+	else
+		ft_printf("\n\n");
 }
 
 int		create_arena(t_vm *vm)
