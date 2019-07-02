@@ -6,58 +6,18 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 15:27:20 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:55:46 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+# include "../includes/vm_structs.h"
 # include "../includes/op.h"
 # include "../includes/errors.h"
-
-typedef struct		s_proc
-{
-	struct s_proc	*next;
-	unsigned int	pc;
-	unsigned int	number;
-	int				period_lives;
-	int				waiting;
-	int				carry;
-	int				regs[REG_NUMBER];
-	int				player;
-	int				dir_size;
-}					t_proc;
-
-typedef struct		s_player
-{
-	int				number;
-	int				period_lives;
-	int				last_p_lives;
-	int				alive_proc;
-	unsigned int	size;
-	char			name[PROG_NAME_LENGTH + 4];
-	char			comment[COMMENT_LENGTH + 4];
-	unsigned char	code[CHAMP_MAX_SIZE + 1];
-}					t_player;
-
-typedef struct		s_vm
-{
-	unsigned char	mem[MEM_SIZE];
-	t_player		players[MAX_PLAYERS];
-	t_proc			*proc;
-	int				last_player_alive;
-	int				cycles;
-	int				cycles_limit;
-	int				period_cycles;
-	int				cycle_to_die;
-	int				checks;
-	int				period_lives;
-	int				options;
-	int				players_nbr;
-	char			err[ERR_TYPE_NBR][ERR_MSG_SIZE];
-	//t_display		display;
-}					t_vm;
+# include "../includes/proc.h"
+# include "../includes/display.h"
 
 int					options(int ac, char *av[], t_vm *vm);
 int					read_champ(char *champ, t_vm *vm);
