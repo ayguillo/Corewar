@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 13:30:02 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:02:27 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,38 @@ void	print_arena(t_vm *vm)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (!(i % 64))
+		if (!(i % 64) && i != 0)
 			ft_printf("\n");
 		tmp = vm->proc;
 		while (tmp)
 		{
 			if (i == tmp->pc && tmp->player == 0)
 			{
-				ft_printf("%r%02x %r", _RED_, vm->mem[i], _RESET_);
+				ft_printf("%02x", vm->mem[i]);
 				break;
 			}
 			if (i == tmp->pc && tmp->player == 1)
 			{
-				ft_printf("%r%02x %r", _GREEN_, vm->mem[i], _RESET_);
+				ft_printf("%02x", vm->mem[i]);
 					break;
 			}
 			if (i == tmp->pc && tmp->player == 2)
 			{
-				ft_printf("%r%02x %r", _PURPLE_, vm->mem[i], _RESET_);
+				ft_printf("%02x", vm->mem[i]);
 					break;
 			}
 			if (i == tmp->pc && tmp->player == 3)
 			{
-				ft_printf("%r%02x %r", _YELLOW_, vm->mem[i], _RESET_);
+				ft_printf("%02x", vm->mem[i]);
 					break;
 			}
 			tmp = tmp->next;
 		}	
 		if (!tmp )
-			ft_printf("%r%02x %r", _BLUE_, vm->mem[i], _RESET_);
+			ft_printf("%02x", vm->mem[i]);
 		i++;
 	}
-	ft_printf("\n\n");
+	ft_printf("\n;\n\n");
 }
 
 int		create_arena(t_vm *vm)

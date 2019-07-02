@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 09:16:56 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 12:44:39 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ int			game_cycle(t_vm *vm)
 			{
 				vm->cycle_to_die -= CYCLE_DELTA;
 				vm->checks = MAX_CHECKS;
-				ft_printf("cycle_to_die %d on cycle %d\n", vm->cycle_to_die, vm->cycles);
 			}
 			new_period(vm);
 		}
 	}
-	ft_printf("game over on cycle %d\n", vm->cycles);
 	return (0);
 }
