@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 15:14:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 09:16:56 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ static int	process_cycle(t_vm *vm)
 {
 	t_proc *tmp;
 
+	tmp = vm->proc;
 	while (tmp)
 	{
 		if (tmp->waiting == 0 || tmp->waiting == -1)
 		{
 			//call process function made by Bopopovic
+			vm->proc->period_lives += 1;
 		}
 		else
 			tmp->waiting -= 1;
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 static int	new_period(t_vm *vm)
@@ -42,15 +45,17 @@ static int	new_period(t_vm *vm)
 	vm->period_lives = 0;
 	vm->period_cycles = 0;
 	kill_unactive_processes(vm, 0);
+	return (0);
 }
 
 int			game_cycle(t_vm *vm)
 {
 	vm->cycle_to_die = CYCLE_TO_DIE;
+	vm->checks = MAX_CHECKS;
 	if (!vm->cycles_limit)
 		vm->cycles_limit = -1;
 	while (vm->proc && ((vm->cycles += 1) != vm->cycles_limit
-			|| vm->cycles_limit == -1))
+			|| vm->cycles_limit == -1) && vm->cycle_to_die > 0)
 	{
 		vm->period_cycles += 1;
 		process_cycle(vm);
@@ -60,8 +65,11 @@ int			game_cycle(t_vm *vm)
 			{
 				vm->cycle_to_die -= CYCLE_DELTA;
 				vm->checks = MAX_CHECKS;
+				ft_printf("cycle_to_die %d on cycle %d\n", vm->cycle_to_die, vm->cycles);
 			}
 			new_period(vm);
 		}
 	}
+	ft_printf("game over on cycle %d\n", vm->cycles);
+	return (0);
 }

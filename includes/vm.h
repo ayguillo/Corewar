@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 15:50:35 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/02 08:49:10 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct		s_vm
 int					options(int ac, char *av[], t_vm *vm);
 int					read_champ(char *champ, t_vm *vm);
 int					create_arena(t_vm *vm);
+int					game_cycle(t_vm *vm);
 
 /*
 **	Set end to 1 to kill all the processes even if they made a life
