@@ -6,7 +6,7 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/24 17:56:27 by ayguillo          #+#    #+#              #
-#*   Updated: 2019/07/01 15:13:06 by bopopovi         ###   ########.fr       *#
+#*   Updated: 2019/07/02 18:29:54 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,12 +45,24 @@ NAMEVM		=	corewar
 
 DIRVM		=	vm
 
+DIRPROC		=	process
+
+PROC_SRC_NAME	=	\
+		process_execute.c get_instruction_parameter.c local_debug.c \
+		op_and.c op_jmpz.c op_live.c op_st.c read_from_register.c \
+		read_from_vm.c vm_query.c vm_set.c \
+		write_to_register.c write_to_vm.c ocp_tools.c ncurse_print_mem.c
+
+PROC_SRC		=	$(addprefix $(DIRVM)/$(DIRPROC)/srcs/, $(PROC_SRC_NAME))
+
+OBJSPROC	=	$(PROC_SRC:$(DIRVM)/$(DIRPROC)/srcs/.c=$(DIRVM)/$(DIRPROC)/objs/.o)
+
 INCVM		=	$(addprefix $(DIRINC)/, \
 		vm.h options.h)
 
 SRCSVM		=	$(addprefix $(DIRVM)/, \
 		vm_main.c vm_options.c vm_process.c vm_read_player.c vm_errors.c \
-		vm_arena.c)
+		vm_arena.c vm_game.c)
 
 OBJSVM		=	$(SRCSVM:.c=.o)
 
@@ -72,9 +84,9 @@ $(NAMEASM)	:	$(LIB) $(INCASM) $(OBJSASM)
 	@ $(CC) $(LFLAGS) -o $(NAMEASM) $(OBJSASM) $(LIB)
 	@ echo "$(GREEN)$(NAMEASM) compilé$(WHITE)"
 
-$(NAMEVM)	:	$(LIB) $(INCVM) $(OBJSVM)
+$(NAMEVM)	:	$(LIB) $(INCVM) $(OBJSVM) $(OBJSPROC)
 	@ echo "$(YELLOW)Compilation de $(NAMEVM) . . . $(WHITE)"
-	@ $(CC) $(LFLAGS) -o $(NAMEVM) $(OBJSVM) $(LIB)
+	@ $(CC) $(LFLAGS) -o $(NAMEVM) $(OBJSVM) $(OBJSPROC) $(LIB) -lncurses
 	@ echo "$(GREEN)$(NAMEVM) compilé$(WHITE)"
 
 %.o			:	%.c
