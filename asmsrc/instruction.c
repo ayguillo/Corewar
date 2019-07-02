@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/27 15:46:37 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:03:51 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ int	ft_argverif(char **split, t_op *op)
 		ft_paramst(split, op);
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
 		ft_param3rg(split, op);
-/*	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
+	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
 			|| !ft_strcmp(split[0], "xor"))
-		//FT2FULL
+		ft_paramcomp(split, op);
 	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))
-		//FTFULL
+		ft_paramldi(split, op);
 	else if (!ft_strcmp(split[0], "sti"))
-		//FTRGRGIDD2*/
+		ft_paramsti(split, op);
+	else
+		return (0);
 	return (1);
 }
 

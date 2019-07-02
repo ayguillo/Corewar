@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/27 15:44:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:07:23 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 
 void		ft_paramd(char **split, t_op *op, int size)
 {
-	t_op			*tmp;
 	unsigned int	param;
 
-	tmp = op;
 	if (split[0])
 		ft_fillinstop(split[0], op);
 	if (split[1] && split[1][0] != DIRECT_CHAR)
@@ -28,18 +26,16 @@ void		ft_paramd(char **split, t_op *op, int size)
 				DIRECT_CHAR, split[1]);
 		return ;
 	}
-	param = ft_filllabel(op, split);
+	param = ft_filllabel(op, split, 1);
 	ft_fillparam1(op, size, DIR_CODE, param);
 }
 
 void		ft_paramrg(char **split, t_op *op)
 {
-	t_op			*tmp;
 	char			**reg;
 	int				param;
 
 
-	tmp = op;
 	param = 0;
 	reg = NULL;
 	if (split[0])
@@ -67,20 +63,10 @@ void		ft_paramrg(char **split, t_op *op)
 
 void		ft_paramld(char **split, t_op *op)
 {
-	t_op	*tmp;
-
-	tmp = op;
 	if (split[0])
 		ft_fillinstop(split[0], op);
-	if (split[1] && split[1][0] == DIRECT_CHAR)
-		ft_filld(split, 1, op, DIR_SIZE);
-	else if (split[1] && (split[1][0] >= '0' && split[1][0] <= '9'))
-		ft_filli(split, 1, op);
-	else
-	{
-		ft_printf("Syntax %s invalid.", split[1]);
+	if (!(ft_idd(split, op, DIR_SIZE, 1)))
 		return ;
-	}
 	if (split[2])
 	{
 		if (split[2][0] != 'r')
@@ -107,18 +93,8 @@ void		ft_paramst(char **split, t_op *op)
 		}
 		ft_fillrg(split, 1, op);
 	}
-	if (split[2])
-	{
-		if (split[2][0] == 'r')
-			ft_fillrg(split, 2, op);
-		else if (split[2][0] >= '0' && split[2][0] <= '9')
-			ft_filli(split, 2, op);
-		else
-		{
-			ft_printf("Syntax %s invalid", split[2]);
-			return ;
-		}
-	}
+	if (!(ft_rgid(split, op, 2)))
+		return ;
 }
 
 void		ft_param3rg(char **split, t_op *op)

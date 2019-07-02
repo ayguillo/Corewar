@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/27 15:46:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:08:37 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ void			ft_filli(char **split, int nparam, t_op *op);
 void			ft_fillrg(char **split, int nparam, t_op *op);
 void			ft_fillinstop(char *inst, t_op *op);
 void			ft_fillinstop(char *inst, t_op *op);
+int				ft_idd(char **split, t_op *op, int size, int nparam);
+int				ft_rgidd(char **split, t_op *op, int size, int nparam);
+int				ft_rgid(char **split, t_op *op, int param);
 
 int				ft_readinst(t_file file, int ret, char **line, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
@@ -100,6 +103,9 @@ void			ft_paramrg(char **split, t_op *op);
 void			ft_paramld(char **split, t_op *op);
 void			ft_paramst(char **split, t_op *op);
 void			ft_param3rg(char **split, t_op *op);
+void			ft_paramldi(char **split, t_op *op);
+void			ft_paramsti(char **split, t_op *op);
+void			ft_paramcomp(char **split, t_op *op);
 
 void			ft_fillparam1(t_op *op, int size, int code,
 		unsigned int param1);
@@ -109,6 +115,6 @@ void			ft_fillparam3(t_op *op, int size, int code,
 		unsigned int param3);
 
 
-unsigned int	ft_filllabel(t_op *op, char **split);
+unsigned int	ft_filllabel(t_op *op, char **split, int nparam);
 
 #endif

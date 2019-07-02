@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/27 15:47:13 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:21:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,18 @@ void		ft_fillinstop(char *inst, t_op *op)
 		tmp->inst = ADD;
 	else if (!(ft_strcmp(inst, "sub")))
 		tmp->inst = SUB;
+	else if (!(ft_strcmp(inst, "lld")))
+		tmp->inst = LLD;
+	else if (!(ft_strcmp(inst, "lldi")))
+		tmp->inst = LLDI;
+	else if (!(ft_strcmp(inst, "sti")))
+		tmp->inst = STI;
+	else if (!(ft_strcmp(inst, "and")))
+		tmp->inst = AND;
+	else if (!(ft_strcmp(inst, "or")))
+		tmp->inst = OR;
+	else if (!(ft_strcmp(inst, "xor")))
+		tmp->inst = XOR;
 }
 
 void		ft_filld(char **split, int nparam, t_op *op, int size)
@@ -45,15 +57,26 @@ void		ft_filld(char **split, int nparam, t_op *op, int size)
 	unsigned int	param;
 
 	if (split[nparam] && split[nparam][0] == DIRECT_CHAR)
-		param = ft_filllabel(op, split);
+		param = ft_filllabel(op, split, nparam);
 	if (nparam == 1)
 		ft_fillparam1(op, size, DIR_CODE, param);
+	if (nparam == 2)
+		ft_fillparam2(op, size, DIR_CODE, param);
 }
 
 void		ft_filli(char **split, int nparam, t_op *op)
 {
 	unsigned int	param;
+	int				i;
 
+	i = -1;
+	while (split[nparam][++i])
+		if (split[nparam][i] < '0' || split[nparam][i] > '9')
+		{
+			ft_printf("%s is not indirect. Delete %c please.", split[nparam],
+					split[nparam][i]);
+			return ;
+		}
 	if (split[nparam])
 		param = ft_atui(split[nparam]);
 	if (nparam == 1)
