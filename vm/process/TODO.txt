@@ -1,0 +1,5 @@
+Integration with rest of vm's code
+Handle instruction's pc better (function's local pc ?)
+Display integration in vm and vm settings from my functions (also cycles handling)
+Flags handling (display to visualizer or stdout)
+Memory dump
