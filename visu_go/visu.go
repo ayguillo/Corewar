@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 	"bufio"
+	"strings"
 
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
@@ -16,7 +17,7 @@ func scan(mem, infos chan string) {
 	var err error
 
 	in:= bufio.NewReader(os.Stdin)
-	if dur, err = time.ParseDuration("1s"); err != nil {
+	if dur, err = time.ParseDuration("3s"); err != nil {
 		panic(err)
 	}
 	for {
@@ -28,34 +29,45 @@ func scan(mem, infos chan string) {
 	}
 }
 
-func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window) {
+func printInfos(stdin string, surface *sdl.Surface, window *sdl.Window) {
 	var solid *sdl.Surface
 	var err error
+	var font *ttf.Font
 
 	if len(stdin) == 0 {
 		return
 	}
+	if font, err = ttf.OpenFont("visu_go/Rubik-Regular.ttf", 25); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
+		panic(err)
+	}
 	line := sdl.Rect{
-		X: 2100,
+		X: 2050,
 		Y: 60,
-		W: 300,
+		W: 500,
 		H: 20,
 	}
 	background := sdl.Rect{
-		X: 2100,
+		X: 2050,
 		Y: 50,
-		W: 300,
-		H: 1300,
+		W: 500,
+		H: 1350,
 	}
+	lines := strings.Split(stdin, "\n")
 	surface.FillRect(&background, 0xff000000)
-	if solid, err = font.RenderUTF8Solid(stdin, sdl.Color{255,255,255,255}); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
-		panic(err)
-	}
-	defer solid.Free()
-	if err = solid.Blit(nil, surface, &line); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to put text on window surface: %s\n", err)
-		panic(err)
+	for key := range lines {
+		if len(lines[key]) != 0 {
+			if solid, err = font.RenderUTF8Solid(lines[key], sdl.Color{255,255,255,255}); err != nil {
+				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
+				panic(err)
+			}
+			defer solid.Free()
+			if err = solid.Blit(nil, surface, &line); err != nil {
+				fmt.Fprintf(os.Stderr, "Failed to put text on window surface: %s\n", err)
+				panic(err)
+			}
+		}
+		line.Y += 50
 	}
 	window.UpdateSurface()
 }
@@ -78,46 +90,46 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		X: 50,
 		Y: 50,
 		W: 1950,
-		H: 1300,
+		H: 1350,
 	}
 	surface.FillRect(&background, 0xff000000)
-	for key := range stdin {
+	for key:= 0; key + 2 < len(stdin); key += 2 {
 		switch stdin[key]{
 		case 'R':
 			color = sdl.Color{255, 0, 0, 255}
-			key += 2
 			break
 		case 'Y':
 			color = sdl.Color{255, 255, 0, 255}
-			key += 2
 			break
 		case 'P':
 			color = sdl.Color{128, 0, 255, 255}
-			key += 2
 			break
 		case 'G':
 			color = sdl.Color{0, 255, 0, 255}
-			key += 2
 			break
 		default:
 			color = sdl.Color{255, 255, 255, 255}
 			break
 		}
+		if color != (sdl.Color{255, 255, 255, 255}) {
+			key += 2
+			fmt.Println(key)
+		}
 		if key + 2 < len(stdin) && key % 2 == 0 {
-		if solid, err = font.RenderUTF8Solid(stdin[key : key + 2], color); err != nil {
-			fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
-			panic(err)
-		}
-		defer solid.Free()
-		if err = solid.Blit(nil, surface, &arena); err != nil {
-			fmt.Fprintf(os.Stderr, "Failed to put text on window surface: %s\n", err)
-			panic(err)
-		}
-		arena.X += 30
-		if arena.X + arena.W > background.X + background.W {
-			arena.X = 60
-			arena.Y += 20
-		}
+			if solid, err = font.RenderUTF8Solid(stdin[key : key + 2], color); err != nil {
+				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
+				panic(err)
+			}
+			defer solid.Free()
+			if err = solid.Blit(nil, surface, &arena); err != nil {
+				fmt.Fprintf(os.Stderr, "Failed to put text on window surface: %s\n", err)
+				panic(err)
+			}
+			arena.X += 30
+			if arena.X + arena.W > background.X + background.W {
+				arena.X = 60
+				arena.Y += 20
+			}
 		}
 	}
 	window.UpdateSurface()
@@ -180,7 +192,7 @@ func main() {
 			printArena(stdin, surface, font, window)
 			break
 		case stdin = <-infos:
-			printInfos(stdin, surface, font, window)
+			printInfos(stdin, surface, window)
 			break;
 		default:
 			for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {

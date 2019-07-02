@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 14:40:55 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:38:15 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	print_arena(t_vm *vm)
 			}
 			tmp = tmp->next;
 		}	
-		if (!tmp )
+		if (!tmp)
 			ft_printf("%02x", vm->mem[i]);
 		i++;
 	}
