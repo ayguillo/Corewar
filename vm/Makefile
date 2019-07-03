@@ -56,12 +56,12 @@ CPPFLAGS		=	$(addprefix -I, $(INC))
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJ)
-	$(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
+	@ $(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c
-	 $(MKODIR)
-	 $(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	 @ $(MKODIR)
+	 @ $(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 clean			:
 	@ echo "$(RED)Suppression des .o$(WHITE)"

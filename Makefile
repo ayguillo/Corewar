@@ -21,12 +21,12 @@ VM_DIR			=	vm
 all				:	$(NAME_ASM) $(NAME_VM)
 
 $(NAME_ASM)		:
-	 $(MAKE) $(CFLAGS) -C $(ASM_DIR)
-	 $(MV) $(ASM_DIR)/$(NAME_ASM) .
+	@ $(MAKE) $(CFLAGS) -C $(ASM_DIR)
+	@ $(MV) $(ASM_DIR)/$(NAME_ASM) .
 
 $(NAME_VM)		:
-	 $(MAKE) $(CFLAGS) -C $(VM_DIR)
-	 $(MV) $(VM_DIR)/$(NAME_VM) .
+	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
+	@ $(MV) $(VM_DIR)/$(NAME_VM) .
 
 clean			:
 	@ $(MAKE) clean -C $(ASM_DIR)
