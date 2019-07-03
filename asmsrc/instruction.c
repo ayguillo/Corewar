@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/02 17:03:51 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:10:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ int			ft_instructions(char **trim, char **line, t_op **op)
 	char	*strim;
 	char	**split;
 
-	if (*trim[0] == '\0')
-		return (1);
 	if (!(strim = ft_strtrim(*trim)))
 		return (ft_free(NULL, 2, line, trim));
 	ft_strdel(trim);
+	if (!(strim[0]))
+		return (1);
 	if (!(split = ft_instok(line, &strim, op)))
 	{
 		ft_strdel(line);
@@ -111,13 +111,12 @@ int			ft_instructions(char **trim, char **line, t_op **op)
 	 */
 	t_op	*tmp;
 	tmp = *op;
-	while (*op)
+	while (tmp)
 	{
-		ft_printf("instruction = %i, size = %i && addr = %i && code = %i && param = %i\n",
-				(*op)->inst, (*op)->size, (*op)->addr, (*op)->code1, (*op)->param1);
-		(*op) = (*op)->next;
+		ft_printf("label %s && instruction = %i, size = %i && addr = %i && code = %i && param = %i\n", tmp->label,
+				(tmp)->inst, (tmp)->size, (tmp)->addr, (tmp)->code1, (tmp)->param1);
+		(tmp) = (tmp)->next;
 	}
 	ft_putchar('\n');
-	*op = tmp;
 	return (1);
 }

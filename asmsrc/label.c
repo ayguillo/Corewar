@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/24 14:44:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:07:07 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	veriflabel(char *split)
 	return (1);
 }
 
-int			ft_label(char *trim, char **line, t_op *new)
+static int		ft_label(char *trim, char **line, t_op *new)
 {
 	char	**split;
 	int		i;
@@ -114,6 +114,11 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 	t_op	*new;
 
 	tmp = *op;
+	if (!(*trim[0]))
+	{
+		ft_strdel(trim);
+		return (1);
+	}
 	if (!(new = ft_memalloc(sizeof(t_op))))
 		return (ft_free(NULL, 2, line, trim));
 	if (tmp)
@@ -129,6 +134,7 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 		ft_strdel(trim);
 		return (0);
 	}
+	ft_fillparam1(*op, 0, 0, 0);
 	if (!(ft_instructions(trim, line, op)))
 		return (0);
 	return (1);

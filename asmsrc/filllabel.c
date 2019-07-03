@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/02 16:22:51 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:07:08 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int		ft_paramlabel(t_op *op, char *label)
 				addr = tmp->addr;
 		tmp = tmp->next;
 	}
-	tmp->addr = filladdr;
 	if (addr >= 0)
 		return ((addr - filladdr + MEM_SIZE) % MEM_SIZE);
 	return (0);
