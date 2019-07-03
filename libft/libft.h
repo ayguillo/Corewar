@@ -6,7 +6,7 @@
 /*   By: vlambert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 09:55:27 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/24 17:18:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:22:46 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char			*ft_strncat(char *s1, const char *s2, size_t n);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
+int				ft_strchrn(const char *s, int c);
 char			*ft_strstr(const char *haystack, const char *needle);
 char			*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);
@@ -52,7 +53,10 @@ int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_toupper(int c);
+int				ft_isupper(int c);
+char			*ft_strtoupper(char *str);
 int				ft_tolower(int c);
+int				ft_ccat(char *dst, char app);
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
 char			*ft_strnew(size_t size);
@@ -96,5 +100,9 @@ int				ft_raws_nbr(char **tab);
 void			ft_free_tab2d(char ***tab);
 void			ft_strcpyfast(char *cpy, const char *s1, size_t i);
 unsigned int	ft_reversebyte(unsigned int byte, size_t size);
+char			*ft_strrev(char *str);
+int				ft_isspace(int c);
+char			*ft_strcasestr(const char *src, const char *find);
+int				ft_strcasenequ(char const *s1, char const *s2, size_t n);
 
 #endif
