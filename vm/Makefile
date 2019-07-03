@@ -6,14 +6,32 @@ MAKE			=	/usr/bin/make
 
 RM				=	/bin/rm
 
-NAME			=	proc
+MKDIR			=	/bin/mkdir -p
+
+NAME			=	corewar
 
 SRC_DIR			=	srcs
 
-SRC_NAME		=	process_execute.c get_instruction_parameter.c local_debug.c \
-		local_main.c op_and.c op_jmpz.c op_live.c op_st.c read_from_register.c \
-		read_from_vm.c vm_query.c vm_set.c vm_read_player.c \
-		write_to_register.c write_to_vm.c ocp_tools.c ncurse_print_mem.c
+VM_DIR			=	vm
+
+VM_SRC			= 	$(addprefix $(VM_DIR)/, \
+		vm_main.c vm_options.c vm_process.c vm_read_player.c vm_errors.c \
+		vm_arena.c vm_game.c)
+
+PROC_DIR		=	process
+
+PROC_SRC		=	$(addprefix $(PROC_DIR)/, \
+		process_execute.c get_instruction_parameter.c local_debug.c \
+		op_and.c op_jmpz.c op_live.c op_st.c read_from_register.c \
+		read_from_vm.c vm_query.c vm_set.c write_to_register.c \
+		write_to_vm.c ocp_tools.c)
+
+DISP_DIR		=	display
+
+DISP_SRC		=	$(addprefix $(DISP_DIR)/, \
+		print_memory.c)
+
+SRC_NAME		=	$(VM_SRC) $(PROC_SRC) $(DISP_SRC)
 
 SRC				=	$(addprefix $(SRC_DIR)/,$(SRC_NAME))
 
@@ -23,15 +41,15 @@ OBJ_NAME		=	$(SRC_NAME:.c=.o)
 
 OBJ				=	$(addprefix $(OBJ_DIR)/,$(OBJ_NAME))
 
-LIB_DIR			=	./../../libft
+LIB_DIR			=	../libft
 
 LDLIBS			=	-lft -lncurses
 
 LDFLAGS			=	-L $(LIB_DIR)
 
-INC				=	./../../includes/
+INC				=	../includes
 
-CPPFLAGS		=	$(addprefix -I, $(VMINC) $(PROCINC))
+CPPFLAGS		=	$(addprefix -I, $(INC))
 
 ############################## RULES ###########################################
 
@@ -42,7 +60,7 @@ $(NAME)			:	$(OBJ)
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c
-	@ mkdir $(OBJ_DIR) 2> /dev/null || true
+	 $(MKODIR)
 	 $(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 clean			:
@@ -50,9 +68,15 @@ clean			:
 	@ $(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
-	@ $(RM) -f $(NAME)
+		@ $(RM) -f $(NAME)
 
 re				:	fclean all
+
+MKODIR			=	if [ ! -d $(OBJ_DIR) ]; then \
+		 $(MKDIR) $(OBJ_DIR); \
+		 $(MKDIR) $(OBJ_DIR)/$(VM_DIR); \
+		 $(MKDIR) $(OBJ_DIR)/$(PROC_DIR); \
+		 $(MKDIR) $(OBJ_DIR)/$(DISP_DIR); fi
 
 ############################## DISPLAY #########################################
 

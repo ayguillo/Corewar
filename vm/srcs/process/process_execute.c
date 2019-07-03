@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:12:14 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:36:36 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
+	ft_putendl(" EXECUTING ");
 	local_dbg(l_dbg, "MEMORY STATE :\n");
 	local_dbg(l_dbg, "Instruction opcode : %02x\n", opcode);
-	display_memory(vm, pc);
+	//display_memory(vm, pc);
 	if (process->waiting > 0)
 		process->waiting -= 1;
 	else if (process->waiting == 0)
