@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/06/25 14:25:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:27:36 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,34 @@
 #include <stdlib.h>
 #include "../includes/asm.h"
 
-int				ft_retgnl(int fd, char **line)
+int				ft_retgnl(int fd, t_gnl *gnl, int i)
 {
 	int		ret;
+	char	*trim;
 
-	ft_strdel(line);
-	while ((ret = ft_gnl(fd, line)) > 0)
-		if (*line)
-			return (ret);
-	return (ret);
+	ft_strdel(&(gnl->line));
+	ret = 0;
+	while ((ret = ft_gnl(fd, &(gnl->line))) > 0)
+	{
+		gnl->nbline++;
+		if (gnl->line)
+		{
+			trim = ft_strtrim(gnl->line);
+			if (i == 1 && trim[0] == '.')
+			{
+				ft_strdel(&trim);
+				return (ret);
+			}
+			else if (i == 0)
+			{
+				ft_strdel(&trim);
+				return (ret);
+			}
+			ft_strdel(&trim);
+		}
+		ft_strdel(&(gnl->line));
+	}
+	return (0);
 }
 
 short		ft_opc(int param1, int param2, int param3)

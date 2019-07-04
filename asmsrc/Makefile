@@ -13,7 +13,8 @@ NAME			=	asm
 SRC_DIR			=	srcs
 
 ASM_SRC			=	\
-		main.c print.c header.c free.c label.c instruction.c tools.c params.c \
+		main.c print.c header.c free.c tools.c charman.c
+		#label.c instruction.c params.c \
 		fillparams.c filllabel.c fillgeneric.c params2.c paramgen.c
 
 SRC_NAME		=	$(ASM_SRC)
