@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 15:38:15 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/04 09:16:25 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_color(t_vm *vm, char *color, int i)
 	}
 	ft_printf("%02x", vm->mem[i]);
 	if (!(vm->options & OPTMAJV))
-		ft_printf("%r", _RESET_);
+		ft_printf(_RESET_);
 }
 
 void	print_arena(t_vm *vm)

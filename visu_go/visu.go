@@ -1,45 +1,42 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"time"
-	"bufio"
+	"runtime"
 	"strings"
+	"time"
 
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-func scan(mem, infos chan string) {
+func scan(chMem, chInfos chan string) {
 	var stdin string
-	var dur time.Duration
 	var err error
 
-	in:= bufio.NewReader(os.Stdin)
-	if dur, err = time.ParseDuration("3s"); err != nil {
-		panic(err)
-	}
+	in := bufio.NewReader(os.Stdin)
 	for {
-	stdin, err = in.ReadString(';')
-	mem <- stdin
-	stdin, err = in.ReadString(';')
-	infos <- stdin
-	time.Sleep(dur)
+		stdin, err = in.ReadString(';')
+		if err != nil {
+			return
+		}
+		chMem <- stdin
+		stdin, err = in.ReadString(';')
+		if err != nil {
+			return
+		}
+		chInfos <- stdin
 	}
 }
 
-func printInfos(stdin string, surface *sdl.Surface, window *sdl.Window) {
+func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window) {
 	var solid *sdl.Surface
 	var err error
-	var font *ttf.Font
 
 	if len(stdin) == 0 {
 		return
-	}
-	if font, err = ttf.OpenFont("visu_go/Rubik-Regular.ttf", 25); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
-		panic(err)
 	}
 	line := sdl.Rect{
 		X: 2050,
@@ -53,11 +50,12 @@ func printInfos(stdin string, surface *sdl.Surface, window *sdl.Window) {
 		W: 500,
 		H: 1350,
 	}
+	stdin = stdin[:len(stdin)-1]
 	lines := strings.Split(stdin, "\n")
 	surface.FillRect(&background, 0xff000000)
 	for key := range lines {
 		if len(lines[key]) != 0 {
-			if solid, err = font.RenderUTF8Solid(lines[key], sdl.Color{255,255,255,255}); err != nil {
+			if solid, err = font.RenderUTF8Solid(lines[key], sdl.Color{255, 255, 255, 255}); err != nil {
 				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
 				panic(err)
 			}
@@ -69,7 +67,6 @@ func printInfos(stdin string, surface *sdl.Surface, window *sdl.Window) {
 		}
 		line.Y += 50
 	}
-	window.UpdateSurface()
 }
 
 func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window) {
@@ -93,8 +90,8 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		H: 1350,
 	}
 	surface.FillRect(&background, 0xff000000)
-	for key:= 0; key + 2 < len(stdin); key += 2 {
-		switch stdin[key]{
+	for key := 0; key+2 < len(stdin); key += 2 {
+		switch stdin[key] {
 		case 'R':
 			color = sdl.Color{255, 0, 0, 255}
 			break
@@ -113,10 +110,9 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		}
 		if color != (sdl.Color{255, 255, 255, 255}) {
 			key += 2
-			fmt.Println(key)
 		}
-		if key + 2 < len(stdin) && key % 2 == 0 {
-			if solid, err = font.RenderUTF8Solid(stdin[key : key + 2], color); err != nil {
+		if key+2 < len(stdin) && key%2 == 0 {
+			if solid, err = font.RenderUTF8Solid(stdin[key:key+2], color); err != nil {
 				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
 				panic(err)
 			}
@@ -126,24 +122,63 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 				panic(err)
 			}
 			arena.X += 30
-			if arena.X + arena.W > background.X + background.W {
+			if arena.X+arena.W > background.X+background.W {
 				arena.X = 60
 				arena.Y += 20
 			}
 		}
 	}
-	window.UpdateSurface()
+}
+
+func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window) {
+	var infos, mem string
+
+	select {
+	case <-tick:
+		select {
+		case mem = <-chMem:
+			printArena(mem, surface, fontMem, window)
+			infos = <-chInfos
+			printInfos(infos, surface, fontInfos, window)
+			window.UpdateSurface()
+		default:
+			return
+		}
+	default:
+		return
+	}
+}
+
+func tick(chDur chan time.Duration, chTick chan bool) {
+	var dur time.Duration
+	for {
+		select {
+		case dur = <-chDur:
+		default:
+			if dur != 0.0 {
+				chTick <- true
+			}
+			time.Sleep(dur)
+		}
+	}
 }
 
 func main() {
 	var window *sdl.Window
-	var font *ttf.Font
 	var surface *sdl.Surface
 	var err error
-	var stdin string
+	var dur time.Duration
+	var fontMem, fontInfos *ttf.Font
+	var stop bool
 
-	mem := make(chan string, 200)
-	infos := make(chan string, 200)
+	chMem := make(chan string, 200)
+	chInfos := make(chan string, 200)
+	chDur := make(chan time.Duration, 200)
+	chTick := make(chan bool, 2)
+	stop = true
+
+	runtime.LockOSThread()
+
 	if err = sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
 	}
@@ -155,11 +190,17 @@ func main() {
 	}
 	defer ttf.Quit()
 
-	if font, err = ttf.OpenFont("visu_go/ArcadeClassic.ttf", 25); err != nil {
+	if fontMem, err = ttf.OpenFont("visu_go/ArcadeClassic.ttf", 25); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
 		panic(err)
 	}
-	defer font.Close()
+	defer fontMem.Close()
+
+	if fontInfos, err = ttf.OpenFont("visu_go/Rubik-Regular.ttf", 25); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
+		panic(err)
+	}
+	defer fontInfos.Close()
 
 	window, err = sdl.CreateWindow("Corewar", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		800, 600, sdl.WINDOW_FULLSCREEN_DESKTOP)
@@ -174,53 +215,48 @@ func main() {
 	}
 	surface.FillRect(nil, 0xff404040)
 
-	rect := sdl.Rect{
-		X: 0,
-		Y: 0,
-		W: 800,
-		H: 800,
-	}
-
-	surface.FillRect(&rect, 0xffff0000)
-
-	go scan(mem, infos)
-	running := true
-	
-	for running {
-		select {
-		case stdin = <-mem:
-			printArena(stdin, surface, font, window)
-			break
-		case stdin = <-infos:
-			printInfos(stdin, surface, window)
-			break;
-		default:
-			for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-				switch test := event.(type) {
-				case *sdl.QuitEvent:
+	dur = 1 * time.Second
+	chDur <- 0
+	chTick <- true
+	go scan(chMem, chInfos)
+	go tick(chDur, chTick)
+	for {
+		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+			switch test := event.(type) {
+			case *sdl.QuitEvent:
+				println("Quit")
+				return
+			case *sdl.KeyboardEvent:
+				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_ESCAPE {
 					println("Quit")
-					running = false
-					break
-				case *sdl.KeyboardEvent:
-					if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_ESCAPE {
-						println("Quit")
-						running = false
+					return
+				}
+				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
+					dur /= 2
+					if dur.Nanoseconds() == 0.0 {
+						dur++
 					}
-					if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_RIGHT {
-						rect.X += 10
-						surface.FillRect(nil, 0xff404040)
-						surface.FillRect(&rect, 0xffff0000)
-						printArena(stdin, surface, font, window)
+					stop = false
+					chDur <- dur
+				}
+				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_MINUS {
+					if dur.Seconds() < 1.0 {
+						dur *= 2
 					}
-					if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_LEFT {
-						rect.X -= 10
-						surface.FillRect(nil, 0xff404040)
-						surface.FillRect(&rect, 0xffff0000)
-						printArena(stdin, surface, font, window)
+					stop = false
+					chDur <- dur
+				}
+				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_SPACE {
+					if stop == false {
+						stop = true
+						chDur <- 0
+					} else {
+						stop = false
+						chDur <- dur
 					}
-					break
 				}
 			}
 		}
+		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window)
 	}
 }
