@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 16:55:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:15:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int					options(int ac, char *av[], t_vm *vm);
 int					read_champ(char *champ, t_vm *vm);
 int					create_arena(t_vm *vm);
 int					game_cycle(t_vm *vm);
-void				print_arena(t_vm *vm);
+void				print_arena_govisu(t_vm *vm, int end);
 
 /*
 **	Set end to 1 to kill all the processes even if they made a life

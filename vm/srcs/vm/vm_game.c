@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/02 17:04:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:11:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ static int	process_cycle(t_vm *vm)
 	{
 		if (tmp->waiting == 0 || tmp->waiting == -1)
 		{
-			process_execute(vm, tmp);
-			//vm->proc->period_lives += 1;
+			//process_execute(vm, tmp);
+			//tmp->period_lives += 1; //pour test
+			tmp->pc = (tmp->pc + 1) % MEM_SIZE; //pour test
+			//vm->players[tmp->player].period_lives += 1;//pour test
+			//vm->period_lives += 1;//pour test
 		}
 		else
 			tmp->waiting -= 1;
@@ -58,6 +61,7 @@ int			game_cycle(t_vm *vm)
 			|| vm->cycles_limit == -1) && vm->cycle_to_die > 0)
 	{
 		vm->period_cycles += 1;
+		print_arena_govisu(vm, 0);
 		process_cycle(vm);
 		if (vm->period_cycles == vm->cycle_to_die)
 		{
@@ -69,5 +73,6 @@ int			game_cycle(t_vm *vm)
 			new_period(vm);
 		}
 	}
+	print_arena_govisu(vm, 1);
 	return (0);
 }

@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"runtime"
 	"strings"
 	"time"
 
@@ -34,28 +33,43 @@ func scan(chMem, chInfos chan string) {
 func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window) {
 	var solid *sdl.Surface
 	var err error
+	var color [5]sdl.Color
+	var i int
+
+	color[0] = sdl.Color{255, 255, 255, 255}
+	color[1] = sdl.Color{255, 0, 0, 255}
+	color[2] = sdl.Color{0, 255, 0, 255}
+	color[3] = sdl.Color{128, 0, 255, 255}
+	color[4] = sdl.Color{255, 255, 0, 255}
+	i = 0
 
 	if len(stdin) == 0 {
 		return
 	}
+
 	line := sdl.Rect{
 		X: 2050,
 		Y: 60,
 		W: 500,
 		H: 20,
 	}
+
 	background := sdl.Rect{
 		X: 2050,
 		Y: 50,
 		W: 500,
 		H: 1350,
 	}
+
 	stdin = stdin[:len(stdin)-1]
 	lines := strings.Split(stdin, "\n")
 	surface.FillRect(&background, 0xff000000)
 	for key := range lines {
 		if len(lines[key]) != 0 {
-			if solid, err = font.RenderUTF8Solid(lines[key], sdl.Color{255, 255, 255, 255}); err != nil {
+			if strings.Contains(lines[key], "---PLAYER[") && i < 4 {
+				i++
+			}
+			if solid, err = font.RenderUTF8Solid(lines[key], color[i]); err != nil {
 				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
 				panic(err)
 			}
@@ -65,7 +79,7 @@ func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 				panic(err)
 			}
 		}
-		line.Y += 50
+		line.Y += 35
 	}
 }
 
@@ -163,6 +177,46 @@ func tick(chDur chan time.Duration, chTick chan bool) {
 	}
 }
 
+func handle_keys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
+	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+		switch test := event.(type) {
+		case *sdl.QuitEvent:
+			println("Quit")
+			return false
+		case *sdl.KeyboardEvent:
+			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_ESCAPE {
+				println("Quit")
+				return false
+			}
+			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
+				*dur /= 2
+				if dur.Nanoseconds() == 0.0 {
+					(*dur)++
+				}
+				*stop = false
+				chDur <- *dur
+			}
+			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_MINUS {
+				if (*dur).Seconds() < 1.0 {
+					*dur *= 2
+				}
+				*stop = false
+				chDur <- *dur
+			}
+			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_SPACE {
+				if *stop == false {
+					*stop = true
+					chDur <- 0
+				} else {
+					*stop = false
+					chDur <- *dur
+				}
+			}
+		}
+	}
+	return true
+}
+
 func main() {
 	var window *sdl.Window
 	var surface *sdl.Surface
@@ -176,8 +230,6 @@ func main() {
 	chDur := make(chan time.Duration, 200)
 	chTick := make(chan bool, 2)
 	stop = true
-
-	runtime.LockOSThread()
 
 	if err = sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
@@ -201,8 +253,7 @@ func main() {
 		panic(err)
 	}
 	defer fontInfos.Close()
-
-	window, err = sdl.CreateWindow("Corewar", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+	window, err = sdl.CreateWindow("CoreWar", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		800, 600, sdl.WINDOW_FULLSCREEN_DESKTOP)
 	if err != nil {
 		panic(err)
@@ -221,41 +272,8 @@ func main() {
 	go scan(chMem, chInfos)
 	go tick(chDur, chTick)
 	for {
-		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-			switch test := event.(type) {
-			case *sdl.QuitEvent:
-				println("Quit")
-				return
-			case *sdl.KeyboardEvent:
-				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_ESCAPE {
-					println("Quit")
-					return
-				}
-				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
-					dur /= 2
-					if dur.Nanoseconds() == 0.0 {
-						dur++
-					}
-					stop = false
-					chDur <- dur
-				}
-				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_MINUS {
-					if dur.Seconds() < 1.0 {
-						dur *= 2
-					}
-					stop = false
-					chDur <- dur
-				}
-				if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_SPACE {
-					if stop == false {
-						stop = true
-						chDur <- 0
-					} else {
-						stop = false
-						chDur <- dur
-					}
-				}
-			}
+		if handle_keys(chDur, &dur, &stop) == false {
+			return
 		}
 		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window)
 	}

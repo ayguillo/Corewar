@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/04 14:09:49 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:08:22 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,74 +15,76 @@
 #include "../includes/options.h"
 #include "../libft/color.h"
 
-static void	print_color(t_vm *vm, char *color, int i)
+static void	print_infos_govisu(t_vm *vm)
 {
-	if (!(vm->options & OPTMAJV))
-		ft_printf(color);
-	else
+	int		i;
+
+	i = 0;
+	ft_printf("---CYCLES---\nCycles: %d\nPeriod cycles: %d / %d\n", vm->cycles,
+		vm->period_cycles, vm->cycle_to_die);
+	ft_printf("\n---LAST LIFE---\n%s\n",
+		vm->players[vm->last_player_alive].name);
+	ft_printf("\n---PLAYERS---\n");
+	while (i < vm->players_nbr)
 	{
-		if (!strcmp(color, _RED_))
-			ft_printf("RE");
-		if (!strcmp(color, _GREEN_))
-			ft_printf("GR");
-		if (!strcmp(color, _PURPLE_))
-			ft_printf("PU");
-		if (!strcmp(color, _YELLOW_))
-			ft_printf("YE");
+		ft_printf("\n---PLAYER[%d]---\n", vm->players[i].number);
+		ft_printf("Name: %s\n", vm->players[i].name);
+		ft_printf("Period lives: %d\n", vm->players[i].period_lives);
+		ft_printf("Last period lives: %d\n", vm->players[i].last_p_lives);
+		ft_printf("Number of alive process: %d\n", vm->players[i].alive_proc);
+		i++;
 	}
-	ft_printf("%02x", vm->mem[i]);
-	if (!(vm->options & OPTMAJV))
-		ft_printf(_RESET_);
+	ft_printf(";");
 }
 
 static int	check_pc(t_vm *vm, t_proc *tmp, int i)
 {
 	if (i == tmp->pc && tmp->player == 0)
 	{
-		print_color(vm, _RED_, i);
+		ft_printf("RE");
 		return (1);
 	}
 	if (i == tmp->pc && tmp->player == 1)
 	{
-		print_color(vm, _GREEN_, i);
+		ft_printf("GR");
 		return (1);
 	}
 	if (i == tmp->pc && tmp->player == 2)
 	{
-		print_color(vm, _PURPLE_, i);
+		ft_printf("PU");
 		return (1);
 	}
 	if (i == tmp->pc && tmp->player == 3)
 	{
-		print_color(vm, _YELLOW_, i);
+		ft_printf("YE");
 		return (1);
 	}
 	return (0);
 }
 
-void		print_arena(t_vm *vm)
+void		print_arena_govisu(t_vm *vm, int end)
 {
 	int		i;
 	t_proc	*tmp;
 
+	if (!(vm->options & OPTMAJV))
+		return ;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (!(vm->options & OPTMAJV) && !(i % 64) && i != 0)
-			ft_printf("\n");
-		else if (!(vm->options & OPTMAJV) && (i % 64))
-			ft_printf(" ");
 		tmp = vm->proc;
 		while (tmp && !check_pc(vm, tmp, i))
 			tmp = tmp->next;
-		if (!tmp)
-			ft_printf("%02x", vm->mem[i]);
+		ft_printf("%02x", vm->mem[i]);
 		i++;
 	}
-	if (vm->options & OPTMAJV)
-		ft_printf(";");
+	ft_printf(";");
+	if (end)
+		ft_printf("The winner is: \nPlayer[%d]: %s;", 
+			vm->players[vm->last_player_alive].number,
+			vm->players[vm->last_player_alive].name);
 	else
-		ft_printf("\n\n");
+		print_infos_govisu(vm);
 }
 
 int			create_arena(t_vm *vm)
@@ -104,6 +106,5 @@ int			create_arena(t_vm *vm)
 		}
 		++i;
 	}
-	print_arena(vm);
 	return (0);
 }
