@@ -16,9 +16,12 @@ NAME_VM			=	corewar
 
 VM_DIR			=	vm
 
+LIB_DIR			=	libft
+
 ############################## RULES ###########################################
 
 all				:
+	@ $(MAKE) $(CFLAGS) -C $(LIB_DIR)
 	@ $(MAKE) $(CFLAGS) -C $(ASM_DIR)
 	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
 
@@ -29,10 +32,12 @@ $(NAME_VM)		:
 	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
 
 clean			:
+	@ $(MAKE) clean -C $(LIB_DIR)
 	@ $(MAKE) clean -C $(ASM_DIR)
 	@ $(MAKE) clean -C $(VM_DIR)
 
 fclean			:	clean
+	@ $(MAKE) fclean -C $(LIB_DIR)
 	@ $(MAKE) fclean -C $(ASM_DIR)
 	@ $(MAKE) fclean -C $(VM_DIR)
 
