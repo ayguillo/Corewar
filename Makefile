@@ -6,7 +6,7 @@ MAKE			=	/usr/bin/make
 
 RM				=	/bin/rm
 
-MV				=	/bin/mv
+LN				=	ln -s
 
 NAME_ASM		=	asm
 
@@ -18,15 +18,15 @@ VM_DIR			=	vm
 
 ############################## RULES ###########################################
 
-all				:	$(NAME_ASM) $(NAME_VM)
+all				:
+	@ $(MAKE) $(CFLAGS) -C $(ASM_DIR)
+	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
 
 $(NAME_ASM)		:
 	@ $(MAKE) $(CFLAGS) -C $(ASM_DIR)
-	@ $(MV) $(ASM_DIR)/$(NAME_ASM) .
 
 $(NAME_VM)		:
 	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
-	@ $(MV) $(VM_DIR)/$(NAME_VM) .
 
 clean			:
 	@ $(MAKE) clean -C $(ASM_DIR)
@@ -35,7 +35,6 @@ clean			:
 fclean			:	clean
 	@ $(MAKE) fclean -C $(ASM_DIR)
 	@ $(MAKE) fclean -C $(VM_DIR)
-	@ $(RM) $(NAME_ASM) $(NAME_VM)
 
 re				:	fclean all
 
@@ -48,4 +47,4 @@ WHITE			=	\x1b[0m
 
 ############################## OTHER ###########################################
 
-.PHONY			:	clean fclean re all
+.PHONY			:	clean fclean re all $(NAME_VM) $(NAME_ASM)
