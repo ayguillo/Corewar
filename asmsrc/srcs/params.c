@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/02 17:12:32 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/04 10:17:52 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		ft_paramrg(char **split, t_op *op)
 			return ;
 		}
 	}
-	ft_fillparam1(op, 1, REG_CODE, param);
+	ft_fillparam1(op, 2, REG_CODE, param);
 	ft_free_tab2d(&reg);
 }
 
@@ -65,7 +65,7 @@ void		ft_paramld(char **split, t_op *op)
 {
 	if (split[0])
 		ft_fillinstop(split[0], op);
-	if (!(ft_idd(split, op, DIR_SIZE, 1)))
+	if (!(ft_idd(split, op, DIR_SIZE + 1, 1)))
 		return ;
 	if (split[2])
 	{

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 10:25:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/03 14:05:22 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/04 09:59:53 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void			ft_fillparam1(t_op *op, int size, int code, unsigned int param1)
 		tmp = tmp->next;
 	}
 	tmp->param1 = param1;
-//	if (addr != 0 && !(tmp->addr))
-		tmp->addr = addr;
+	tmp->addr = addr;
 	tmp->size = size;
 	tmp->code1 = code;
 }

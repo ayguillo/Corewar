@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/02 16:21:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/04 10:19:53 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void		ft_filli(char **split, int nparam, t_op *op)
 	if (split[nparam])
 		param = ft_atui(split[nparam]);
 	if (nparam == 1)
-		ft_fillparam1(op, IND_SIZE, IND_CODE, param);
+		ft_fillparam1(op, IND_SIZE + 1, IND_CODE, param);
 	if (nparam == 2)
-		ft_fillparam2(op, IND_SIZE, IND_CODE, param);
+		ft_fillparam2(op, IND_SIZE + 1, IND_CODE, param);
 }
 
 void		ft_fillrg(char **split, int nparam, t_op *op)
@@ -104,10 +104,10 @@ void		ft_fillrg(char **split, int nparam, t_op *op)
 		}
 	}
 	if (nparam == 1)
-		ft_fillparam1(op, 1, REG_CODE, param);
+		ft_fillparam1(op, 2, REG_CODE, param);
 	if (nparam == 2)
-		ft_fillparam2(op, 1, REG_CODE, param);
+		ft_fillparam2(op, 2, REG_CODE, param);
 	if (nparam == 3)
-		ft_fillparam3(op, 1, REG_CODE, param);
+		ft_fillparam3(op, 2, REG_CODE, param);
 	ft_free_tab2d(&reg);
 }

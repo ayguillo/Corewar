@@ -6,7 +6,7 @@
 /*   By: vlambert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 09:55:27 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/03 17:22:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:30:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int				ft_gnl(const int fd, char **line);
 void			*ft_realloc(void *ptr, int size, int newsize);
 char			*ft_strcdup(const char *s1, char c, int *i);
 int				ft_printf(const char *format, ...);
+int				ft_dprintf(int fd, const char *format, ...);
 size_t			ft_strclen(const char *s, const char c);
 char			*ft_read_all(int fd);
 int				ft_raws_nbr(char **tab);

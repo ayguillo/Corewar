@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/03 13:45:33 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:17:58 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct	s_file
 	char	*name;
 }				t_file;
 
+typedef struct	s_gnl
+{
+	int		nbline;
+	char	*line;
+}				t_gnl;
+
 typedef struct	s_op
 {
 	char			*label;
@@ -61,25 +67,28 @@ typedef struct	s_op
 */
 
 int				printfile(t_header *header, t_file file, t_op **op);
-int				ft_recupname(t_header *header, char **line, int *len);
-int				ft_recupcom(t_header *header, char **line, int *len);
+int				ft_recupname(t_header *header, t_gnl *gnl, int *len);
+int				ft_recupcom(t_header *header, t_gnl *gnl, int *len);
 
 /*
  ** ERROR
 */
 
-int				ft_freecom(char ***tab, int err, char *str, char **line);
-int				ft_free(char ***tab, int err, char **line, char **str);
+int				ft_freecom(char ***tab, int err, char *str, t_gnl *gnl);
+int				ft_free(char ***tab, int err, t_gnl *gnl, char **str);
 int				ft_syntax(char **tab, int err, char **line, char c);
 
 /*
 ** TOOLS
 */
 
-int				ft_retgnl(int fd, char **line);
+int				ft_retgnl(int fd, t_gnl *gnl, int i);
 short			ft_opc(int param1, int param2, int param3);
 int				ft_separator(char **str, int nb, char **line);
 unsigned long	ft_atui(const char *str);
+int				ft_diffis(const char *s1, const char *s2);
+int				ft_strclentab(const char *s1, char c);
+void			ft_strprintspaces(const char *s1);
 
 /*
 ** INSTRUCTIONS & LABEL
@@ -96,7 +105,7 @@ int				ft_rgid(char **split, t_op *op, int param);
 
 int				ft_readinst(t_file file, int ret, char **line, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
-//int				ft_label(char *trim, char **line, t_op *new, int addr);
+int				ft_label(char *trim, char **line, t_op *new, int addr);
 int				ft_instructions(char **trim, char **line, t_op **op);
 
 void			ft_paramd(char **split, t_op *op, int size);
