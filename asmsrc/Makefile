@@ -42,6 +42,7 @@ CPPFLAGS		=	$(addprefix -I, $(INC))
 all				:	$(TARGET)
 
 $(TARGET)		:	$(OBJ)
+	@ $(MAKE) -C $(LIB_DIR) 2> /dev/null 1> /dev/null
 	@ $(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
