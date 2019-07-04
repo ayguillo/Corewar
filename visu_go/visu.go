@@ -177,7 +177,7 @@ func tick(chDur chan time.Duration, chTick chan bool) {
 	}
 }
 
-func handle_keys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
+func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 		switch test := event.(type) {
 		case *sdl.QuitEvent:
@@ -272,7 +272,7 @@ func main() {
 	go scan(chMem, chInfos)
 	go tick(chDur, chTick)
 	for {
-		if handle_keys(chDur, &dur, &stop) == false {
+		if handleKeys(chDur, &dur, &stop) == false {
 			return
 		}
 		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window)
