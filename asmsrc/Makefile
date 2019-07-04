@@ -10,13 +10,13 @@ MKDIR			=	/bin/mkdir -p
 
 NAME			=	asm
 
+TARGET			=	../$(NAME)
+
 SRC_DIR			=	srcs
 
 ASM_SRC			=	\
 		main.c print.c header.c free.c tools.c charman.c
-		#label.c instruction.c params.c \
-		fillparams.c filllabel.c fillgeneric.c params2.c paramgen.c
-
+		#label.c instruction.c params.c \ fillparams.c filllabel.c fillgeneric.c params2.c paramgen.c 
 SRC_NAME		=	$(ASM_SRC)
 
 SRC				=	$(addprefix $(SRC_DIR)/,$(SRC_NAME))
@@ -39,9 +39,9 @@ CPPFLAGS		=	$(addprefix -I, $(INC))
 
 ############################## RULES ###########################################
 
-all				:	$(NAME)
+all				:	$(TARGET)
 
-$(NAME)			:	$(OBJ)
+$(TARGET)		:	$(OBJ)
 	@ $(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
@@ -54,7 +54,7 @@ clean			:
 	@ $(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
-		@ $(RM) -f $(NAME)
+		@ $(RM) -f $(TARGET)
 
 re				:	fclean all
 

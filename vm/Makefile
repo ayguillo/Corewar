@@ -10,6 +10,8 @@ MKDIR			=	/bin/mkdir -p
 
 NAME			=	corewar
 
+TARGET			=	../$(NAME)
+
 SRC_DIR			=	srcs
 
 VM_DIR			=	vm
@@ -53,9 +55,9 @@ CPPFLAGS		=	$(addprefix -I, $(INC))
 
 ############################## RULES ###########################################
 
-all				:	$(NAME)
+all				:	$(TARGET)
 
-$(NAME)			:	$(OBJ)
+$(TARGET)		:	$(OBJ)
 	@ $(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
@@ -68,7 +70,7 @@ clean			:
 	@ $(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
-		@ $(RM) -f $(NAME)
+		@ $(RM) -f $(TARGET)
 
 re				:	fclean all
 
