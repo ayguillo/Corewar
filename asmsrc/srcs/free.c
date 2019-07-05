@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 10:27:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:57:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	int		i;
 	int		j;
 
+	i = 0;
 	if (err == 0)
 	{
 		ft_dprintf(2, "Command '%s' invalid at line %i\n", *tab[0],
@@ -33,7 +34,6 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	{
 		ft_dprintf(2, "%s is not a string, line %i\n%s%s\n", str, gnl->nbline,
 				_RED_, gnl->line);
-		i = 0;
 		while (gnl->line[i] == (*tab)[0][i])
 		{
 			ft_dprintf(2, "%c", ' ');
@@ -58,7 +58,22 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	}
 	if (err == 3)
 	{
-		ft_printf("'%s' syntax Error\n", str);
+		ft_dprintf(2, "Syntax Error at line %i\n%s%s\n%s", gnl->nbline, _RED_,
+				gnl->line, _GREEN_);
+		while (gnl->line[i++])
+		{
+			j = -1;
+			if (gnl->line[i] != ' ' && gnl->line[i] != '\t')
+			{
+				while (LABEL_CHARS[++j])
+					if (LABEL_CHARS[j] == gnl->line[i])
+						break ;
+				if (LABEL_CHARS[j] == '\0')
+					break ;
+			}
+		}
+		ft_dprintf(2, "%*c\n", ft_strclentab(gnl->line,
+					gnl->line[i], '~'), '^', _RESET_);
 	}
 	ft_strdel(&(gnl->line));
 	return (0);
@@ -90,7 +105,7 @@ int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 		ft_free_tab2d(tab);
 		ft_dprintf(2, "Empty command at line %i\n%s%s\n", gnl->nbline,
 				_RED_, gnl->line);
-		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, '.'),
+		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, '.', 0),
 				'^', _RESET_);
 	}
 	if (err == 1)

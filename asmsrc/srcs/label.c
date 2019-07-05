@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 13:52:33 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:04:37 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/asm.h"
 #include <stdlib.h>
 
-/*static void	ft_supprlab(char *trim, char **split)
+static void	ft_supprlab(char *trim, char **split)
 {
 	int		lensplit;
 	int		len;
@@ -70,7 +70,7 @@ static int	veriflabel(char *split)
 	return (1);
 }
 
-static int		ft_label(char *trim, char **line, t_op *new)
+static int		ft_label(char *trim, t_gnl *gnl, t_op *new)
 {
 	char	**split;
 	int		i;
@@ -88,15 +88,15 @@ static int		ft_label(char *trim, char **line, t_op *new)
 	if (labchar == 0)
 		ret = -1;
 	else if (labchar > 1)
-		ret = ft_freecom(NULL, 3, trim, line);
+		ret = ft_freecom(NULL, 3, trim, gnl);
 	else if (labchar == 1)
 	{
 		if (!(split = ft_strsplit(trim, ':')))
-			ret = ft_free(&split, 2, line, NULL);
+			ret = ft_free(&split, 2, gnl, NULL);
 		if (ret > 0)
 		{
 			if (!(verif = veriflabel(split[0])))
-				ret = ft_freecom(&split, 3, split[0], line);
+				ret = ft_freecom(&split, 3, split[0], gnl);
 			if (split[0] && verif != 2)
 			{
 				ft_supprlab(trim, split);
@@ -107,7 +107,7 @@ static int		ft_label(char *trim, char **line, t_op *new)
 	ft_free_tab2d(&split);
 	return (ret);
 }
-*/
+
 static int	ft_recupinst(t_gnl *gnl, char **trim, t_op **op)
 {
 	t_op	*tmp;
@@ -129,12 +129,12 @@ static int	ft_recupinst(t_gnl *gnl, char **trim, t_op **op)
 	}
 	else
 		*op = new;
-/*	if (!(ft_label(*trim, line, new)))
+	if (!(ft_label(*trim, gnl, new)))
 	{
 		ft_strdel(trim);
 		return (0);
 	}
-	ft_fillparam1(*op, 0, 0, 0);
+	/*ft_fillparam1(*op, 0, 0, 0);
 	if (!(ft_instructions(trim, line, op)))
 		return (0);*/
 	return (1);
@@ -160,11 +160,11 @@ int			ft_readinst(t_file file, t_gnl *gnl, t_op **op)
 			if ((ft_recupinst(gnl, &trim, op)) <= 0)
 			{
 				ft_strdel(&trim);
-				ft_strdel(gnl->line);
+				ft_strdel(&(gnl->line));
 				return (0);
 			}
 		}
-		ft_strdel(gnl->line);
+		ft_strdel(&(gnl->line));
 	}
 	ft_strdel(&trim);
 	return (1);

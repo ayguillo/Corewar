@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 13:41:44 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:43:52 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int			printfile(t_header *header, t_file file, t_op **op)
 	gnl.nbline = 0;
 	if (!(ft_retgnl(file.fdopen, &gnl, 1)))
 		return (readerror(&gnl));
-	if ((ft_recupname(header, &gnl, &lenname)) <= 0)
+	if ((ft_recup(header, &gnl, &lenname, NAME)) <= 0)
 		return (0);
 	if (!(ft_retgnl(file.fdopen, &gnl, 1)))
 		return (readerror(&gnl));
-	if (ft_recupcom(header, &gnl, &lencom) <= 0)
+	if (ft_recup(header, &gnl, &lencom, COM) <= 0)
 		return (0);
 	if (!(ft_readinst(file, &gnl, op)))
 		return (0);

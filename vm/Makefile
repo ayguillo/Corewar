@@ -1,6 +1,6 @@
 CC				=	/usr/bin/gcc
 
-CFLAGS			=	
+CFLAGS			= -Wall -Wextra -Werror
 
 MAKE			=	/usr/bin/make
 

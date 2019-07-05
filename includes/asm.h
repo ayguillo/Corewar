@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 14:30:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:51:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ short			ft_opc(int param1, int param2, int param3);
 int				ft_separator(char **str, int nb, char **line);
 unsigned long	ft_atui(const char *str);
 int				ft_diffis(const char *s1, const char *s2);
-int				ft_strclentab(const char *s1, char c);
+int				ft_strclentab(const char *s1, char c, char print);
 void			ft_strprintspaces(const char *s1);
 
 /*
