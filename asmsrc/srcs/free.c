@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 16:52:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:27:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 	{
 		ft_strdel(str);
 		ft_free_tab2d(tab);
-		ft_dprintf(2, "Empty name at line %i\n%s%s\n", gnl->nbline,
+		ft_dprintf(2, "Empty command at line %i\n%s%s\n", gnl->nbline,
 				_RED_, gnl->line);
-		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, 'e'),
+		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, '.'),
 				'^', _RESET_);
 	}
 	if (err == 1)
