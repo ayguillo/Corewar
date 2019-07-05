@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/03 14:10:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:39:19 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,7 @@ static int	ft_isinst(char *inst)
 	return (0);
 }
 
-static char	**ft_instok(char **line, char **trim, t_op **op)
-{
-	char	**split;
-
-	split = NULL;
-	if (!(split = ft_splitandspaces(*trim, SEPARATOR_CHAR)))
-	{
-		ft_free(&split, 2, line, NULL);
-		return (NULL);
-	}
-	if (!((*op)->nbarg = ft_isinst(split[0])))
-	{
-		ft_freecom(&split, 3, split[0], line);
-		return (NULL);
-	}
-	if (!(ft_separator(trim, (*op)->nbarg - 1, line)))
-	{
-		ft_free_tab2d(&split);
-		return (NULL);
-	}
-	return (split);
-}
-
-int	ft_argverif(char **split, t_op *op)
+static int	ft_argverif(char **split, t_op *op)
 {
 	int i;
 
@@ -84,28 +61,51 @@ int	ft_argverif(char **split, t_op *op)
 	return (1);
 }
 
-int			ft_instructions(char **trim, char **line, t_op **op)
+static char	**ft_instok(t_gnl *gnl, char **trim, t_op **op)
+{
+	char	**split;
+
+	split = NULL;
+	if (!(split = ft_splitandspaces(*trim, SEPARATOR_CHAR)))
+	{
+		ft_free(&split, 2, gnl, NULL);
+		return (NULL);
+	}
+	if (!((*op)->nbarg = ft_isinst(split[0])))
+	{
+		ft_syntax(trim, 2, gnl, 0);
+		return (NULL);
+	}
+	if (!(ft_separator(trim, (*op)->nbarg - 1, gnl)))
+	{
+		ft_free_tab2d(&split);
+		return (NULL);
+	}
+	return (split);
+}
+
+int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
 {
 	char	*strim;
 	char	**split;
 
 	if (!(strim = ft_strtrim(*trim)))
-		return (ft_free(NULL, 2, line, trim));
+		return (ft_free(NULL, 2, gnl, trim));
 	ft_strdel(trim);
 	if (!(strim[0]))
 		return (1);
-	if (!(split = ft_instok(line, &strim, op)))
+	if (!(split = ft_instok(gnl, &strim, op)))
 	{
-		ft_strdel(line);
+		ft_strdel(&(gnl->line));
 		ft_strdel(&strim);
 		return (0);
 	}
 	ft_strdel(&strim);
-	if (!(ft_argverif(split, *op)))
+/*	if (!(ft_argverif(split, *op)))
 	{
-		ft_strdel(line);
+		ft_strdel(&(gnl->line));
 		return (0);
-	}
+	}*/
 	/*
 	 ** AFFICHAGE TEST
 	 */

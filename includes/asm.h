@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 14:51:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:33:25 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int				ft_recup(t_header *header, t_gnl *gnl, int *len, int type);
 
 int				ft_freecom(char ***tab, int err, char *str, t_gnl *gnl);
 int				ft_free(char ***tab, int err, t_gnl *gnl, char **str);
-int				ft_syntax(char **tab, int err, char **line, char c);
+int				ft_syntax(char **tab, int err, t_gnl *gnl, char c);
 
 /*
 ** TOOLS
@@ -86,7 +86,7 @@ int				ft_syntax(char **tab, int err, char **line, char c);
 
 int				ft_retgnl(int fd, t_gnl *gnl, int i);
 short			ft_opc(int param1, int param2, int param3);
-int				ft_separator(char **str, int nb, char **line);
+int				ft_separator(char **str, int nb, t_gnl *gnl);
 unsigned long	ft_atui(const char *str);
 int				ft_diffis(const char *s1, const char *s2);
 int				ft_strclentab(const char *s1, char c, char print);
@@ -107,7 +107,7 @@ int				ft_rgid(char **split, t_op *op, int param);
 
 int				ft_readinst(t_file file, t_gnl *gnl, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
-int				ft_instructions(char **trim, char **line, t_op **op);
+int				ft_instructions(char **trim, t_gnl *gnl, t_op **op);
 
 void			ft_paramd(char **split, t_op *op, int size);
 void			ft_paramrg(char **split, t_op *op);

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 14:57:38 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:43:30 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 			j = -1;
 			if (gnl->line[i] != ' ' && gnl->line[i] != '\t')
 			{
-				while (LABEL_CHARS[++j])
+					while (LABEL_CHARS[++j])
 					if (LABEL_CHARS[j] == gnl->line[i])
 						break ;
 				if (LABEL_CHARS[j] == '\0')
@@ -79,21 +79,40 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	return (0);
 }
 
-int	ft_syntax(char **str, int err, char **line, char c)
+int	ft_syntax(char **str, int err, t_gnl *gnl, char c)
 {
-	ft_strdel(line);
+	int		i;
+	int		j;
+
 	if (err == 0)
 	{
-		ft_strdel(str);
-		ft_printf("'%c' Syntax Error, Bad separator\n", c);
-		return (0);
+		ft_dprintf(2, "Syntax Error. Bad separator at line %s%i\n",
+				_RED_, gnl->nbline);
+		i = 0;
+		while (gnl->line[i] && gnl->line[i] != c)
+			++i;
+		ft_dprintf(2, "%s%*c%s", _GREEN_, ft_strclentab(gnl->line,
+					gnl->line[i], 0), '^', _RESET_);
 	}
 	if (err == 1)
 	{
-		ft_strdel(str);
-		ft_putstr("Syntax Error, Wrong number of separator\n");
-		return (0);
+		ft_dprintf(2, "Syntax Error, Wrong number of separator\n");
 	}
+	if (err == 2)
+	{
+		ft_dprintf(2, "Unknow instruction at line %i\n%s%s\n", gnl->nbline,
+				_RED_, gnl->line);
+		i = 0;
+		while (gnl->line[i] && (gnl->line[i] == '\t' || gnl->line[i] == 32))
+			++i;
+		j = ft_strclentab(gnl->line, gnl->line[i], 0);
+		ft_dprintf(2, "%s%*c", _GREEN_, j, '^');
+		while (gnl->line[++i] && gnl->line[i] != '\t' && gnl->line[i] != 32)
+			ft_dprintf(2, "%c", '~');
+		ft_dprintf(2, "%s\n", _RESET_);
+	}
+	ft_strdel(str);
+	ft_strdel(&(gnl->line));
 	return (0);
 }
 
