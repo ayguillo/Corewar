@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 13:21:59 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 10:23:52 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:32:25 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	ft_paramldi(char **split, t_op *op)
 {
-
 	if (split[0])
 		ft_fillinstop(split[0], op);
 	if (!(ft_rgidd(split, op, (DIR_SIZE / 2) + 1, 1)))
@@ -28,7 +27,7 @@ void	ft_paramldi(char **split, t_op *op)
 	{
 		ft_printf("%s is not a register, did you mean %c%s ?\n", split[1],
 					'r', split[1]);
-			return ;
+		return ;
 	}
 	if (!split[1] || !split[2] || !split[3])
 		ft_printf("Bad argument\n");
