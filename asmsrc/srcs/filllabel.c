@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filllabel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/03 14:07:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:50:54 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ static int		ft_paramlabel(t_op *op, char *label)
 
 unsigned int	ft_filllabel(t_op *op, char **split, int nparam)
 {
-	unsigned int param;
-	char		**label;
-	char		**dirsplit;
+	unsigned int	param;
+	char			**label;
+	char			**dirsplit;
 
 	label = NULL;
 	dirsplit = NULL;
 	if (split[nparam] && split[nparam][1] == LABEL_CHAR)
 	{
 		if (!(label = ft_strsplit(split[nparam], LABEL_CHAR)))
-			return (0) ;
+			return (0);
 		param = ft_paramlabel(op, label[1]);
 	}
 	else
@@ -54,7 +54,7 @@ unsigned int	ft_filllabel(t_op *op, char **split, int nparam)
 		if (!(dirsplit = ft_strsplit(split[nparam], DIRECT_CHAR)))
 		{
 			ft_free_tab2d(&label);
-			return (0) ;
+			return (0);
 		}
 		param = ft_atui(dirsplit[0]);
 	}
