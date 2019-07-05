@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 13:30:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:52:33 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/asm.h"
 #include <stdlib.h>
 
-static void	ft_supprlab(char *trim, char **split)
+/*static void	ft_supprlab(char *trim, char **split)
 {
 	int		lensplit;
 	int		len;
@@ -107,8 +107,8 @@ static int		ft_label(char *trim, char **line, t_op *new)
 	ft_free_tab2d(&split);
 	return (ret);
 }
-
-static int	ft_recupinst(char **line, char **trim, t_op **op)
+*/
+static int	ft_recupinst(t_gnl *gnl, char **trim, t_op **op)
 {
 	t_op	*tmp;
 	t_op	*new;
@@ -120,7 +120,7 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 		return (1);
 	}
 	if (!(new = ft_memalloc(sizeof(t_op))))
-		return (ft_free(NULL, 2, line, trim));
+		return (ft_free(NULL, 2, gnl, trim));
 	if (tmp)
 	{
 		while (tmp->next)
@@ -129,42 +129,42 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 	}
 	else
 		*op = new;
-	if (!(ft_label(*trim, line, new)))
+/*	if (!(ft_label(*trim, line, new)))
 	{
 		ft_strdel(trim);
 		return (0);
 	}
 	ft_fillparam1(*op, 0, 0, 0);
 	if (!(ft_instructions(trim, line, op)))
-		return (0);
+		return (0);*/
 	return (1);
 }
 
-int			ft_readinst(t_file file, int ret, t_gnl *gnl, t_op **op)
+int			ft_readinst(t_file file, t_gnl *gnl, t_op **op)
 {
 	char	*trim;
 	int		i;
 
 	trim = NULL;
-	while ((ret = ft_gnl(file.fdopen, line)) > 0)
+	while ((ft_retgnl(file.fdopen, gnl, 0)) > 0)
 	{
 		ft_strdel(&trim);
-		if (*line)
+		if (gnl->line)
 		{
-			if (!(trim = ft_strtrim(*line)))
-				return (ft_free(NULL, 2, line, NULL));
+			if (!(trim = ft_strtrim(gnl->line)))
+				return (ft_free(NULL, 2, gnl, NULL));
 			i = -1;
 			while (trim[++i])
 				if (trim[i] == COMMENT_CHAR)
 					trim[i] = '\0';
-			if ((ft_recupinst(line, &trim, op)) <= 0)
+			if ((ft_recupinst(gnl, &trim, op)) <= 0)
 			{
 				ft_strdel(&trim);
-				ft_strdel(line);
+				ft_strdel(gnl->line);
 				return (0);
 			}
 		}
-		ft_strdel(line);
+		ft_strdel(gnl->line);
 	}
 	ft_strdel(&trim);
 	return (1);

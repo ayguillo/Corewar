@@ -6,14 +6,13 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 13:30:38 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:41:44 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../libft/libft.h"
 #include "../includes/asm.h"
-#include <unistd.h>
 
 static int	readerror(t_gnl *gnl)
 {
@@ -39,9 +38,9 @@ int			printfile(t_header *header, t_file file, t_op **op)
 		return (readerror(&gnl));
 	if (ft_recupcom(header, &gnl, &lencom) <= 0)
 		return (0);
-	if (!(ft_readinst(file, ret, &gnl, op)))
+	if (!(ft_readinst(file, &gnl, op)))
 		return (0);
-	ft_strdel(gnl->line);
+	ft_strdel(&(gnl.line));
 	tmp = *op;
 	if (tmp)
 		while (tmp->next)

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 13:30:32 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:44:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,8 @@ int				ft_idd(char **split, t_op *op, int size, int nparam);
 int				ft_rgidd(char **split, t_op *op, int size, int nparam);
 int				ft_rgid(char **split, t_op *op, int param);
 
-int				ft_readinst(t_file file, int ret, t_gnl *gnl, t_op **op);
+int				ft_readinst(t_file file, t_gnl *gnl, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
-int				ft_label(char *trim, char **line, t_op *new, int addr);
 int				ft_instructions(char **trim, char **line, t_op **op);
 
 void			ft_paramd(char **split, t_op *op, int size);
