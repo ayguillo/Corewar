@@ -19,11 +19,15 @@ func scan(chMem, chInfos chan string) {
 	for {
 		stdin, err = in.ReadString(';')
 		if err != nil {
+			close(chMem)
+			close(chInfos)
 			return
 		}
 		chMem <- stdin
 		stdin, err = in.ReadString(';')
 		if err != nil {
+			close(chMem)
+			close(chInfos)
 			return
 		}
 		chInfos <- stdin
@@ -225,9 +229,9 @@ func main() {
 	var fontMem, fontInfos *ttf.Font
 	var stop bool
 
-	chMem := make(chan string, 200)
-	chInfos := make(chan string, 200)
-	chDur := make(chan time.Duration, 200)
+	chMem := make(chan string, 2)
+	chInfos := make(chan string, 2)
+	chDur := make(chan time.Duration, 2)
 	chTick := make(chan bool, 2)
 	stop = true
 
@@ -253,6 +257,7 @@ func main() {
 		panic(err)
 	}
 	defer fontInfos.Close()
+
 	window, err = sdl.CreateWindow("CoreWar", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		800, 600, sdl.WINDOW_FULLSCREEN_DESKTOP)
 	if err != nil {
@@ -270,8 +275,10 @@ func main() {
 	dur = 1 * time.Second
 	chDur <- 0
 	chTick <- true
+
 	go scan(chMem, chInfos)
 	go tick(chDur, chTick)
+
 	for {
 		if handleKeys(chDur, &dur, &stop) == false {
 			return

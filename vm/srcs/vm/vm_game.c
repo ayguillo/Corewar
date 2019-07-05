@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/04 17:11:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:20:57 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			game_cycle(t_vm *vm)
 {
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->checks = MAX_CHECKS;
+	vm->last_player_alive = -1;
 	if (!vm->cycles_limit)
 		vm->cycles_limit = -1;
 	while (vm->proc && ((vm->cycles += 1) != vm->cycles_limit
