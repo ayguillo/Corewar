@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 12:36:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:30:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,18 @@ int			printfile(t_header *header, t_file file, t_op **op)
 		return (readerror(&gnl));
 	if (ft_recupcom(header, &gnl, &lencom) <= 0)
 		return (0);
-//	if (!(ft_readinst(file, ret, &line, op)))
-//		return (0);
-//	ft_strdel(&line);
+	if (!(ft_readinst(file, ret, &gnl, op)))
+		return (0);
+	ft_strdel(gnl->line);
 	tmp = *op;
-	while (tmp->next)
-		tmp = tmp->next;
-	ft_printf("size = %i\n", tmp->addr);
+	if (tmp)
+		while (tmp->next)
+			tmp = tmp->next;
+	else
+	{
+		ft_dprintf(2, "No instruction\n");
+		return (0);
+	}
 	header->prog_size = ft_reversebyte(tmp->addr, 4);
 	header->magic = ft_reversebyte(COREWAR_EXEC_MAGIC, 4);
 	return (1);

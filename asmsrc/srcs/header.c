@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 10:28:00 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:22:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,10 @@ int			ft_recupname(t_header *header, t_gnl *gnl, int *len)
 		ft_strdel(&trim);
 		return (ft_freecom(&split, 0, NAME_CMD_STRING, gnl));
 	}
-	ft_dprintf(2, "debug 1\n");
 	if (!(split[1]))
 		return (ft_free(&split, 0, gnl, &trim));
-	ft_dprintf(2, "debug 2\n");
 	while (split[lensplit])
 		lensplit++;
-	ft_dprintf(2, "debug 3\n");
 	*len = ft_strlen(split[lensplit - 1]);
 	if (split[1][0] != '\"' || split[lensplit - 1][*len - 1] != '\"')
 	{

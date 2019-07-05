@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/03 14:07:07 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:30:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ static int	ft_recupinst(char **line, char **trim, t_op **op)
 	return (1);
 }
 
-int			ft_readinst(t_file file, int ret, char **line, t_op **op)
+int			ft_readinst(t_file file, int ret, t_gnl *gnl, t_op **op)
 {
 	char	*trim;
 	int		i;
