@@ -19,11 +19,15 @@ func scan(chMem, chInfos chan string) {
 	for {
 		stdin, err = in.ReadString(';')
 		if err != nil {
+			close(chMem)
+			close(chInfos)
 			return
 		}
 		chMem <- stdin
 		stdin, err = in.ReadString(';')
 		if err != nil {
+			close(chMem)
+			close(chInfos)
 			return
 		}
 		chInfos <- stdin
