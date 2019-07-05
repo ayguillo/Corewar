@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 14:39:43 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:06:39 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ static int	ft_name(char **trim, t_header *header, int *len, t_gnl *gnl)
 	char **name;
 
 	name = NULL;
+	ft_printf("debug 1 \n");
 	if (!(name = ft_strsplit(*trim, '\"')))
 		return (ft_free(&name, 2, gnl, trim));
+	ft_printf("debug 2 \n");
 	if (!name[1])
-	{
-		ft_dprintf(2, "debug 4 %s\n", gnl->line);
 		return (ft_free(&name, 0, gnl, trim));
-	}
 	if ((*len = ft_strlen(name[1])) > PROG_NAME_LENGTH)
 		return (ft_free(&name, 1, gnl, trim));
 	if (!(ft_strcpy(header->prog_name, name[1])))
@@ -82,7 +81,7 @@ int			ft_valid_entry(t_gnl *gnl, char ***split, char **trim, int *len)
 			(*split)[0] + 1, gnl));
 	}
 	ft_free_tab2d(split);
-	return (0);
+	return (1);
 }
 
 int			ft_recup(t_header *header, t_gnl *gnl, int *len, int type)
@@ -103,7 +102,7 @@ int			ft_recup(t_header *header, t_gnl *gnl, int *len, int type)
 		return (ft_freecom(&split, 0,
 			(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING, gnl));
 	}
-	if ((ret = ft_valid_entry(gnl, &split, &trim, len)))
+	if (!(ret = ft_valid_entry(gnl, &split, &trim, len)))
 		return (ret);
 	return (type == NAME ? ft_name(&trim, header, len, gnl)
 		: ft_com(&trim, gnl, header, len));
