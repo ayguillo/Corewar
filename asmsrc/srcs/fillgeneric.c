@@ -3,15 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   fillgeneric.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 10:19:53 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:47:47 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../libft/libft.h"
+
+void		ft_fillinstop2(char *inst, t_op *tmp)
+{
+	if (!(ft_strcmp(inst, "st")))
+		tmp->inst = ST;
+	else if (!(ft_strcmp(inst, "add")))
+		tmp->inst = ADD;
+	else if (!(ft_strcmp(inst, "sub")))
+		tmp->inst = SUB;
+	else if (!(ft_strcmp(inst, "lld")))
+		tmp->inst = LLD;
+	else if (!(ft_strcmp(inst, "lldi")))
+		tmp->inst = LLDI;
+	else if (!(ft_strcmp(inst, "sti")))
+		tmp->inst = STI;
+	else if (!(ft_strcmp(inst, "and")))
+		tmp->inst = AND;
+	else if (!(ft_strcmp(inst, "or")))
+		tmp->inst = OR;
+	else if (!(ft_strcmp(inst, "xor")))
+		tmp->inst = XOR;
+}
 
 void		ft_fillinstop(char *inst, t_op *op)
 {
@@ -32,24 +54,8 @@ void		ft_fillinstop(char *inst, t_op *op)
 		tmp->inst = LD;
 	else if (!(ft_strcmp(inst, "lld")))
 		tmp->inst = LLD;
-	else if (!(ft_strcmp(inst, "st")))
-		tmp->inst = ST;
-	else if (!(ft_strcmp(inst, "add")))
-		tmp->inst = ADD;
-	else if (!(ft_strcmp(inst, "sub")))
-		tmp->inst = SUB;
-	else if (!(ft_strcmp(inst, "lld")))
-		tmp->inst = LLD;
-	else if (!(ft_strcmp(inst, "lldi")))
-		tmp->inst = LLDI;
-	else if (!(ft_strcmp(inst, "sti")))
-		tmp->inst = STI;
-	else if (!(ft_strcmp(inst, "and")))
-		tmp->inst = AND;
-	else if (!(ft_strcmp(inst, "or")))
-		tmp->inst = OR;
-	else if (!(ft_strcmp(inst, "xor")))
-		tmp->inst = XOR;
+	else
+		ft_fillinstop2(inst, tmp);
 }
 
 void		ft_filld(char **split, int nparam, t_op *op, int size)
