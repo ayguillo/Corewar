@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 16:52:58 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:28:00 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@ static void		ft_supprcomment(char **trim)
 	}
 }
 
-/*static int	ft_com(char **trim, char **line, t_header *header, int *len)
+static int	ft_com(char **trim, t_gnl *gnl, t_header *header, int *len)
 {
 	char	**com;
 
 	com = NULL;
-	if (!(com = ft_strsplit(*line, '\"')))
-		return (ft_free(&com, 2, line, trim));
+	if (!(com = ft_strsplit(gnl->line, '\"')))
+		return (ft_free(&com, 2, gnl, trim));
 	if (!com[1])
-		return (ft_free(&com, 0, line, trim));
+		return (ft_free(&com, 0, gnl, trim));
 	if ((*len = ft_strlen(com[1])) > COMMENT_LENGTH)
-		return (ft_free(&com, 3, line, trim));
+		return (ft_free(&com, 3, gnl, trim));
 	if (!(ft_strcpy(header->comment, com[1])))
-		return (ft_free(&com, 2, line, trim));
+		return (ft_free(&com, 2, gnl, trim));
 	ft_free_tab2d(&com);
 	return (1);
 }
-*/
+
 int			ft_recupcom(t_header *header, t_gnl *gnl, int *len)
 {
 	char	**split;
@@ -71,7 +71,7 @@ int			ft_recupcom(t_header *header, t_gnl *gnl, int *len)
 		ft_strdel(&trim);
 		return (ft_freecom(&split, 1, "Comment", gnl));
 	}
-//	i = ft_com(&trim, line, header, len);
+	i = ft_com(&trim, gnl, header, len);
 	ft_free_tab2d(&split);
 	return (i);
 }
@@ -84,7 +84,10 @@ static int	ft_name(char **trim, t_header *header, int *len, t_gnl *gnl)
 	if (!(name = ft_strsplit(*trim, '\"')))
 		return (ft_free(&name, 2, gnl, trim));
 	if (!name[1])
+	{
+		ft_dprintf(2, "debug 4 %s\n", gnl->line);
 		return (ft_free(&name, 0, gnl, trim));
+	}
 	if ((*len = ft_strlen(name[1])) > PROG_NAME_LENGTH)
 		return (ft_free(&name, 1, gnl, trim));
 	if (!(ft_strcpy(header->prog_name, name[1])))
@@ -113,10 +116,13 @@ int			ft_recupname(t_header *header, t_gnl *gnl, int *len)
 		ft_strdel(&trim);
 		return (ft_freecom(&split, 0, NAME_CMD_STRING, gnl));
 	}
+	ft_dprintf(2, "debug 1\n");
 	if (!(split[1]))
 		return (ft_free(&split, 0, gnl, &trim));
+	ft_dprintf(2, "debug 2\n");
 	while (split[lensplit])
 		lensplit++;
+	ft_dprintf(2, "debug 3\n");
 	*len = ft_strlen(split[lensplit - 1]);
 	if (split[1][0] != '\"' || split[lensplit - 1][*len - 1] != '\"')
 	{

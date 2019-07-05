@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 16:52:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:36:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ int			printfile(t_header *header, t_file file, t_op **op)
 	if (!(ft_retgnl(file.fdopen, &gnl, 1)))
 		return (readerror(&gnl));
 	if (ft_recupcom(header, &gnl, &lencom) <= 0)
-		return (0);/*
-	if (!(ft_readinst(file, ret, &line, op)))
 		return (0);
-	ft_strdel(&line);
+//	if (!(ft_readinst(file, ret, &line, op)))
+//		return (0);
+//	ft_strdel(&line);
 	tmp = *op;
 	while (tmp->next)
 		tmp = tmp->next;
+	ft_printf("size = %i\n", tmp->addr);
 	header->prog_size = ft_reversebyte(tmp->addr, 4);
-	header->magic = ft_reversebyte(COREWAR_EXEC_MAGIC, 4);*/
+	header->magic = ft_reversebyte(COREWAR_EXEC_MAGIC, 4);
 	return (1);
 }

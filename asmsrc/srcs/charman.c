@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 16:52:10 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:27:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int		ft_strclentab(const char *s1, char c)
 
 	i = -1;
 	ret = 0;
-	while (s1[++i] || s1[i] == c)
+	while (s1[++i] && s1[i] != c)
 	{
 		if (s1[i] == '\t' || s1[i] == ' ')
 			ft_dprintf(2, "%c", s1[i]);
 		else
 			ret++;
 	}
+	ret++;
 	return (ret);
 }
 
