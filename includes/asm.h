@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 13:44:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:30:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define LLDI 0x0E
 # define LFORK 0x0F
 # define AFF 0x10
+
+# define COM 1
+# define NAME 2
 
 typedef struct	s_file
 {
@@ -67,8 +70,7 @@ typedef struct	s_op
 */
 
 int				printfile(t_header *header, t_file file, t_op **op);
-int				ft_recupname(t_header *header, t_gnl *gnl, int *len);
-int				ft_recupcom(t_header *header, t_gnl *gnl, int *len);
+int				ft_recup(t_header *header, t_gnl *gnl, int *len, int type);
 
 /*
  ** ERROR
