@@ -264,6 +264,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer surface.Free()
 	surface.FillRect(nil, 0xff404040)
 
 	dur = 1 * time.Second

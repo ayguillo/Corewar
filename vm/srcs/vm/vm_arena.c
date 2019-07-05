@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/04 16:08:22 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/05 09:18:51 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include "../includes/vm.h"
 #include "../includes/options.h"
 #include "../libft/color.h"
+#include <errno.h>
+#include <stdio.h>
+
+static void	check_pipe_errors(t_vm *vm)
+{
+	if (errno)
+	{
+		kill_unactive_processes(vm, 1);
+		perror("Corewar:");
+		exit(-1);
+	}
+}
 
 static void	print_infos_govisu(t_vm *vm)
 {
@@ -79,12 +91,14 @@ void		print_arena_govisu(t_vm *vm, int end)
 		i++;
 	}
 	ft_printf(";");
+	check_pipe_errors(vm);
 	if (end)
-		ft_printf("The winner is: \nPlayer[%d]: %s;", 
+		ft_printf("The winner is: \nPlayer[%d]: %s;",
 			vm->players[vm->last_player_alive].number,
 			vm->players[vm->last_player_alive].name);
 	else
 		print_infos_govisu(vm);
+	check_pipe_errors(vm);
 }
 
 int			create_arena(t_vm *vm)
