@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/19 13:48:43 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:37:52 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	opt_n(int ac, char *av[], t_vm *vm, int i)
 	return (0);
 }
 
-static int	opt_others(int ac, char *av[], t_vm *vm, int i)
+static int	opt_others(char *av[], t_vm *vm, int i)
 {
 	int		j;
 
@@ -67,6 +67,8 @@ static int	opt_others(int ac, char *av[], t_vm *vm, int i)
 			vm->options = vm->options | OPTV;
 		else if (av[i][j] == 'd')
 			vm->options = vm->options | OPTD;
+		else if (av[i][j] == 'd')
+			vm->options = vm->options | OPTZ;
 		else
 			return (ERR_BADARG);
 	}
@@ -89,7 +91,7 @@ int			options(int ac, char *av[], t_vm *vm)
 			else if (av[i][1] == 'n' && !(av[i][2]))
 				err = opt_n(ac, av, vm, ++i);
 			else
-				err = opt_others(ac, av, vm, i);
+				err = opt_others(av, vm, i);
 		}
 		else
 		{

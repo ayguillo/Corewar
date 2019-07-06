@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/05 15:53:09 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:18:02 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	print_infos_govisu(t_vm *vm)
 	ft_printf(";");
 }
 
-static int	check_pc(t_vm *vm, t_proc *tmp, int i)
+static int	check_pc(t_proc *tmp, unsigned int i)
 {
 	if (i == tmp->pc && tmp->player == 0)
 	{
@@ -77,8 +77,8 @@ static int	check_pc(t_vm *vm, t_proc *tmp, int i)
 
 void		print_arena_govisu(t_vm *vm, int end)
 {
-	int		i;
-	t_proc	*tmp;
+	unsigned int	i;
+	t_proc			*tmp;
 
 	if (!(vm->options & OPTMAJV))
 		return ;
@@ -86,7 +86,7 @@ void		print_arena_govisu(t_vm *vm, int end)
 	while (i < MEM_SIZE)
 	{
 		tmp = vm->proc;
-		while (tmp && !check_pc(vm, tmp, i))
+		while (tmp && !check_pc(tmp, i))
 			tmp = tmp->next;
 		ft_printf("%02x", vm->mem[i]);
 		i++;
