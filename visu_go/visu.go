@@ -187,16 +187,17 @@ func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 				*dur /= 2
 				if dur.Nanoseconds() == 0.0 {
 					(*dur)++
+					chDur <- *dur
 				}
 				*stop = false
-				chDur <- *dur
+
 			}
 			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_MINUS {
 				if (*dur).Seconds() < 1.0 {
 					*dur *= 2
+					chDur <- *dur
 				}
 				*stop = false
-				chDur <- *dur
 			}
 			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_SPACE {
 				if *stop == false {
