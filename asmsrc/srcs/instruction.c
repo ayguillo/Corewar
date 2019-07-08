@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 16:39:19 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:37:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ static int	ft_argverif(char **split, t_op *op)
 		ft_paramst(split, op);
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
 		ft_param3rg(split, op);
-	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
+/*	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
 			|| !ft_strcmp(split[0], "xor"))
 		ft_paramcomp(split, op);
 	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))
 		ft_paramldi(split, op);
 	else if (!ft_strcmp(split[0], "sti"))
-		ft_paramsti(split, op);
+		ft_paramsti(split, op);*/
 	else
 		return (0);
 	return (1);
@@ -101,11 +101,11 @@ int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
 		return (0);
 	}
 	ft_strdel(&strim);
-/*	if (!(ft_argverif(split, *op)))
+	if (!(ft_argverif(split, *op)))
 	{
 		ft_strdel(&(gnl->line));
 		return (0);
-	}*/
+	}
 	/*
 	 ** AFFICHAGE TEST
 	 */

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 16:49:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:08:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ short			ft_opc(int param1, int param2, int param3)
 	return (i);
 }
 
-static char		*ft_charwtspaces(char *str)
+char			*ft_charwtspaces(char *str)
 {
 	int		i;
 	int		len;
@@ -73,35 +73,6 @@ static char		*ft_charwtspaces(char *str)
 			news[len--] = str[i];
 		}
 	return (news);
-}
-
-int				ft_separator(char **str, int nb, t_gnl *gnl)
-{
-	int		i;
-	char	*spaces;
-	int		issep;
-	int		ret;
-
-	issep = 0;
-	ret = 1;
-	if (!(spaces = ft_charwtspaces(*str)))
-		ret = (ft_free(NULL, 2, gnl, str));
-	i = -1;
-	while (spaces[++i] && ret != 0)
-	{
-		if (spaces[i] == SEPARATOR_CHAR)
-		{
-			nb = (issep == 1) ? nb : nb - 1;
-			ret = (issep == 1) ? ft_syntax(str, 0, gnl, spaces[i]) : ret;
-			issep = 1;
-		}
-		else if (spaces[i] != SEPARATOR_CHAR)
-			issep = 0;
-		if (nb < 0 && ret > 0)
-			ret = (ft_syntax(str, 1, gnl, 0));
-	}
-	ft_strdel(&spaces);
-	return (nb != 0 && ret > 0 ? ft_syntax(str, 1, gnl, 0) : ret);
 }
 
 unsigned long	ft_atui(const char *str)

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 16:43:30 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:01:08 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,43 +79,6 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	return (0);
 }
 
-int	ft_syntax(char **str, int err, t_gnl *gnl, char c)
-{
-	int		i;
-	int		j;
-
-	if (err == 0)
-	{
-		ft_dprintf(2, "Syntax Error. Bad separator at line %s%i\n",
-				_RED_, gnl->nbline);
-		i = 0;
-		while (gnl->line[i] && gnl->line[i] != c)
-			++i;
-		ft_dprintf(2, "%s%*c%s", _GREEN_, ft_strclentab(gnl->line,
-					gnl->line[i], 0), '^', _RESET_);
-	}
-	if (err == 1)
-	{
-		ft_dprintf(2, "Syntax Error, Wrong number of separator\n");
-	}
-	if (err == 2)
-	{
-		ft_dprintf(2, "Unknow instruction at line %i\n%s%s\n", gnl->nbline,
-				_RED_, gnl->line);
-		i = 0;
-		while (gnl->line[i] && (gnl->line[i] == '\t' || gnl->line[i] == 32))
-			++i;
-		j = ft_strclentab(gnl->line, gnl->line[i], 0);
-		ft_dprintf(2, "%s%*c", _GREEN_, j, '^');
-		while (gnl->line[++i] && gnl->line[i] != '\t' && gnl->line[i] != 32)
-			ft_dprintf(2, "%c", '~');
-		ft_dprintf(2, "%s\n", _RESET_);
-	}
-	ft_strdel(str);
-	ft_strdel(&(gnl->line));
-	return (0);
-}
-
 int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 {
 	if (err == 0)
@@ -138,7 +101,7 @@ has %i characters\n%s", PROG_NAME_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
 	{
 		ft_strdel(str);
 		ft_free_tab2d(tab);
-		ft_putstr("Malloc Error\n");
+		ft_putstr_fd("Malloc Error\n", 2);
 	}
 	if (err == 3)
 	{

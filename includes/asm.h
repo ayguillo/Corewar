@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 16:33:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:08:21 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ unsigned long	ft_atui(const char *str);
 int				ft_diffis(const char *s1, const char *s2);
 int				ft_strclentab(const char *s1, char c, char print);
 void			ft_strprintspaces(const char *s1);
+char			*ft_charwtspaces(char *str);
 
 /*
 ** INSTRUCTIONS & LABEL
