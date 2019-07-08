@@ -77,7 +77,7 @@ func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 				panic(err)
 			}
 		}
-		line.Y += 35
+		line.Y += 35 * h / 1440
 	}
 }
 
@@ -130,10 +130,10 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 				fmt.Fprintf(os.Stderr, "Failed to put text on window surface: %s\n", err)
 				panic(err)
 			}
-			arena.X += 30
+			arena.X += 30 * w / 2560
 			if arena.X+arena.W > background.X+background.W {
-				arena.X = 60
-				arena.Y += 20
+				arena.X = 60 * w / 2560
+				arena.Y += 20 * h / 1440
 			}
 		}
 	}
