@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -31,6 +32,20 @@ func scan(chMem, chInfos chan string) {
 			return
 		}
 		chInfos <- stdin
+	}
+}
+
+func tick(chDur chan time.Duration, chTick chan bool) {
+	var dur time.Duration
+	for {
+		select {
+		case dur = <-chDur:
+		default:
+			if dur != 0.0 {
+				chTick <- true
+			}
+			time.Sleep(dur)
+		}
 	}
 }
 
@@ -103,7 +118,7 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		W: 1950 * w / 2560,
 		H: 1350 * h / 1440,
 	}
-	surface.FillRect(&background, 0xff000000)
+	surface.FillRect(&background, 0x00000000)
 	for key := 0; key+2 < len(stdin); key += 2 {
 		switch stdin[key] {
 		case 'R':
@@ -142,12 +157,34 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32) {
 	var infos, mem string
 
+	loading := sdl.Rect{
+		X: 0,
+		Y: 0,
+		W: 0,
+		H: h,
+	}
+
 	select {
 	case <-tick:
 		select {
 		case mem = <-chMem:
-			printArena(mem, surface, fontMem, window, color, w, h)
 			infos = <-chInfos
+			surface.FillRect(nil, 0xff404040)
+			split := strings.Split(infos, "\n")
+			if len(split) >= 3 {
+				cycles := strings.Split(split[2], " ")
+				if len(cycles) == 5 {
+					if cycle, err := strconv.Atoi(cycles[2]); err == nil {
+						if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil {
+							loading.W = w * int32(cycle) / int32(cycleToDie)
+							if loading.W != 0 {
+								surface.FillRect(&loading, 0xffff0000)
+							}
+						}
+					}
+				}
+			}
+			printArena(mem, surface, fontMem, window, color, w, h)
 			printInfos(infos, surface, fontInfos, window, color, w, h)
 			window.UpdateSurface()
 		default:
@@ -155,20 +192,6 @@ func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan 
 		}
 	default:
 		return
-	}
-}
-
-func tick(chDur chan time.Duration, chTick chan bool) {
-	var dur time.Duration
-	for {
-		select {
-		case dur = <-chDur:
-		default:
-			if dur != 0.0 {
-				chTick <- true
-			}
-			time.Sleep(dur)
-		}
 	}
 }
 
@@ -241,7 +264,6 @@ func main() {
 	defer window.Destroy()
 
 	w, h := window.GetSize()
-	fmt.Println(w, "     ", h)
 
 	if fontMem, err = ttf.OpenFont("visu_go/ArcadeClassic.ttf", 25*int(h)/1440); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
@@ -260,7 +282,6 @@ func main() {
 		panic(err)
 	}
 	defer surface.Free()
-	surface.FillRect(nil, 0xff404040)
 
 	chMem := make(chan string, 2)
 	chInfos := make(chan string, 2)
