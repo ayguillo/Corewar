@@ -34,17 +34,11 @@ func scan(chMem, chInfos chan string) {
 	}
 }
 
-func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window) {
+func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window, color [5]sdl.Color, w, h int32) {
 	var solid *sdl.Surface
 	var err error
-	var color [5]sdl.Color
 	var i int
 
-	color[0] = sdl.Color{255, 255, 255, 255}
-	color[1] = sdl.Color{255, 0, 0, 255}
-	color[2] = sdl.Color{0, 255, 0, 255}
-	color[3] = sdl.Color{128, 0, 255, 255}
-	color[4] = sdl.Color{255, 255, 0, 255}
 	i = 0
 
 	if len(stdin) == 0 {
@@ -52,17 +46,17 @@ func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 
 	line := sdl.Rect{
-		X: 2050,
-		Y: 60,
-		W: 500,
-		H: 20,
+		X: 2050 * w / 2560,
+		Y: 60 * h / 1440,
+		W: 500 * w / 2560,
+		H: 20 * h / 1440,
 	}
 
 	background := sdl.Rect{
-		X: 2050,
-		Y: 50,
-		W: 500,
-		H: 1350,
+		X: 2050 * w / 2560,
+		Y: 50 * h / 1440,
+		W: 500 * w / 2560,
+		H: 1350 * h / 1440,
 	}
 
 	stdin = stdin[:len(stdin)-1]
@@ -87,50 +81,47 @@ func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 }
 
-func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window) {
+func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window, color [5]sdl.Color, w, h int32) {
 	var solid *sdl.Surface
 	var err error
-	var color sdl.Color
+	var i int
+
+	i = 0
 
 	if len(stdin) == 0 {
 		return
 	}
 	arena := sdl.Rect{
-		X: 60,
-		Y: 60,
-		W: 20,
-		H: 20,
+		X: 60 * w / 2560,
+		Y: 60 * h / 1440,
+		W: 20 * w / 2560,
+		H: 20 * h / 1440,
 	}
 	background := sdl.Rect{
-		X: 50,
-		Y: 50,
-		W: 1950,
-		H: 1350,
+		X: 50 * w / 2560,
+		Y: 50 * h / 1440,
+		W: 1950 * w / 2560,
+		H: 1350 * h / 1440,
 	}
 	surface.FillRect(&background, 0xff000000)
 	for key := 0; key+2 < len(stdin); key += 2 {
 		switch stdin[key] {
 		case 'R':
-			color = sdl.Color{255, 0, 0, 255}
-			break
+			i = 1
 		case 'Y':
-			color = sdl.Color{255, 255, 0, 255}
-			break
+			i = 4
 		case 'P':
-			color = sdl.Color{128, 0, 255, 255}
-			break
+			i = 3
 		case 'G':
-			color = sdl.Color{0, 255, 0, 255}
-			break
+			i = 2
 		default:
-			color = sdl.Color{255, 255, 255, 255}
-			break
+			i = 0
 		}
-		if color != (sdl.Color{255, 255, 255, 255}) {
+		if i != 0 {
 			key += 2
 		}
 		if key+2 < len(stdin) && key%2 == 0 {
-			if solid, err = font.RenderUTF8Solid(stdin[key:key+2], color); err != nil {
+			if solid, err = font.RenderUTF8Solid(stdin[key:key+2], color[i]); err != nil {
 				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
 				panic(err)
 			}
@@ -148,16 +139,16 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 }
 
-func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window) {
+func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32) {
 	var infos, mem string
 
 	select {
 	case <-tick:
 		select {
 		case mem = <-chMem:
-			printArena(mem, surface, fontMem, window)
+			printArena(mem, surface, fontMem, window, color, w, h)
 			infos = <-chInfos
-			printInfos(infos, surface, fontInfos, window)
+			printInfos(infos, surface, fontInfos, window, color, w, h)
 			window.UpdateSurface()
 		default:
 			return
@@ -228,12 +219,7 @@ func main() {
 	var dur time.Duration
 	var fontMem, fontInfos *ttf.Font
 	var stop bool
-
-	chMem := make(chan string, 2)
-	chInfos := make(chan string, 2)
-	chDur := make(chan time.Duration, 2)
-	chTick := make(chan bool, 2)
-	stop = true
+	var color [5]sdl.Color
 
 	if err = sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
@@ -246,24 +232,27 @@ func main() {
 	}
 	defer ttf.Quit()
 
-	if fontMem, err = ttf.OpenFont("visu_go/ArcadeClassic.ttf", 25); err != nil {
+	window, err = sdl.CreateWindow("CoreWar", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+		0, 0, sdl.WINDOW_FULLSCREEN_DESKTOP)
+	if err != nil {
+		panic(err)
+	}
+	defer window.Destroy()
+
+	w, h := window.GetSize()
+	fmt.Println(w, "     ", h)
+
+	if fontMem, err = ttf.OpenFont("visu_go/ArcadeClassic.ttf", 25*int(h)/1440); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
 		panic(err)
 	}
 	defer fontMem.Close()
 
-	if fontInfos, err = ttf.OpenFont("visu_go/Rubik-Regular.ttf", 25); err != nil {
+	if fontInfos, err = ttf.OpenFont("visu_go/Rubik-Regular.ttf", 25*int(h)/1440); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to open font: %s\n", err)
 		panic(err)
 	}
 	defer fontInfos.Close()
-
-	window, err = sdl.CreateWindow("CoreWar", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
-		800, 600, sdl.WINDOW_FULLSCREEN_DESKTOP)
-	if err != nil {
-		panic(err)
-	}
-	defer window.Destroy()
 
 	surface, err = window.GetSurface()
 	if err != nil {
@@ -272,6 +261,18 @@ func main() {
 	defer surface.Free()
 	surface.FillRect(nil, 0xff404040)
 
+	chMem := make(chan string, 2)
+	chInfos := make(chan string, 2)
+	chDur := make(chan time.Duration, 2)
+	chTick := make(chan bool, 2)
+
+	color[0] = sdl.Color{R: 255, G: 255, B: 255, A: 255}
+	color[1] = sdl.Color{R: 255, G: 0, B: 0, A: 255}
+	color[2] = sdl.Color{R: 0, G: 255, B: 0, A: 255}
+	color[3] = sdl.Color{R: 128, G: 0, B: 255, A: 255}
+	color[4] = sdl.Color{R: 255, G: 255, B: 0, A: 255}
+
+	stop = true
 	dur = 1 * time.Second
 	chDur <- 0
 	chTick <- true
@@ -283,6 +284,6 @@ func main() {
 		if handleKeys(chDur, &dur, &stop) == false {
 			return
 		}
-		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window)
+		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window, color, w, h)
 	}
 }

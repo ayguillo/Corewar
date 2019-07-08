@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/04 15:04:01 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/08 09:02:10 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ int			main(int ac, char *av[])
 //	if (vm.options & OPTMAJV)
 //		ft_printf(";");
 	kill_unactive_processes(&vm, 1);
+	return (0);
 }
