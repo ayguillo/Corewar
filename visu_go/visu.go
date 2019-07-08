@@ -43,8 +43,8 @@ func tick(chDur chan time.Duration, chTick chan bool) {
 		default:
 			if dur != 0.0 {
 				chTick <- true
+				time.Sleep(dur)
 			}
-			time.Sleep(dur)
 		}
 	}
 }
@@ -61,7 +61,7 @@ func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 
 	line := sdl.Rect{
-		X: 2050 * w / 2560,
+		X: 2060 * w / 2560,
 		Y: 60 * h / 1440,
 		W: 500 * w / 2560,
 		H: 20 * h / 1440,
@@ -118,7 +118,7 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		W: 1950 * w / 2560,
 		H: 1350 * h / 1440,
 	}
-	surface.FillRect(&background, 0x00000000)
+	surface.FillRect(&background, 0xff000000)
 	for key := 0; key+2 < len(stdin); key += 2 {
 		switch stdin[key] {
 		case 'R':
@@ -154,7 +154,7 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 }
 
-func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32) {
+func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32, loadingColor *uint32) {
 	var infos, mem string
 
 	loading := sdl.Rect{
@@ -169,24 +169,39 @@ func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan 
 		select {
 		case mem = <-chMem:
 			infos = <-chInfos
-			surface.FillRect(nil, 0xff404040)
-			split := strings.Split(infos, "\n")
-			if len(split) >= 3 {
-				cycles := strings.Split(split[2], " ")
-				if len(cycles) == 5 {
-					if cycle, err := strconv.Atoi(cycles[2]); err == nil {
-						if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil {
-							loading.W = w * int32(cycle) / int32(cycleToDie)
-							if loading.W != 0 {
-								surface.FillRect(&loading, 0xffff0000)
+			if len(infos) > 1 {
+				surface.FillRect(nil, 0xff404040)
+				split := strings.Split(infos, "\n")
+				if len(split) >= 3 {
+					cycles := strings.Split(split[2], " ")
+					if len(cycles) == 5 {
+						if cycle, err := strconv.Atoi(cycles[2]); err == nil {
+							if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil {
+								loading.W = w * int32(cycle) / int32(cycleToDie)
+								if loading.W != 0 {
+									if (cycleToDie/510 != 0 && cycle%(cycleToDie/510) == 0 &&
+										*loadingColor+uint32(0x00010000+0x00010000*(510/cycleToDie)) <= 0x00ff0000) ||
+										(cycleToDie/510 == 0 && *loadingColor+uint32(0x00010000+0x00010000*(510/cycleToDie)) <= 0x00ff0000) {
+										*loadingColor += uint32(0x00010000 + 0x00010000*(510/cycleToDie))
+									} else if (cycleToDie/510 != 0 && cycle%(cycleToDie/510) == 0 && *loadingColor-uint32(0x00000100+0x00000100*(510/cycleToDie)) >= 0x00ff0000) ||
+										(cycleToDie/510 == 0 && *loadingColor-uint32(0x00000100+0x00000100*(510/cycleToDie)) >= 0x00ff0000) {
+										*loadingColor -= uint32(0x00000100 + 0x00000100*(510/cycleToDie))
+									} else if (cycleToDie/510 != 0 && cycle%(cycleToDie/510) == 0) || cycleToDie/510 == 0 {
+										*loadingColor |= 0x00ff0000
+									}
+									if cycle == 1 {
+										*loadingColor = 0x0000ff00
+									}
+									surface.FillRect(&loading, *loadingColor)
+								}
 							}
 						}
 					}
 				}
+				printArena(mem, surface, fontMem, window, color, w, h)
+				printInfos(infos, surface, fontInfos, window, color, w, h)
+				window.UpdateSurface()
 			}
-			printArena(mem, surface, fontMem, window, color, w, h)
-			printInfos(infos, surface, fontInfos, window, color, w, h)
-			window.UpdateSurface()
 		default:
 			return
 		}
@@ -207,10 +222,11 @@ func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 				return false
 			}
 			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
-				*dur /= 2
-				if dur.Nanoseconds() == 0.0 {
-					(*dur)++
+				if (*dur) > 1000000 {
+					*dur /= 2
 					chDur <- *dur
+				} else {
+					*dur = 1000000
 				}
 				*stop = false
 
@@ -219,6 +235,8 @@ func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 				if (*dur).Seconds() < 1.0 {
 					*dur *= 2
 					chDur <- *dur
+				} else {
+					*dur = time.Second * 2
 				}
 				*stop = false
 			}
@@ -244,6 +262,7 @@ func main() {
 	var fontMem, fontInfos *ttf.Font
 	var stop bool
 	var color [5]sdl.Color
+	var loadingColor uint32
 
 	if err = sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
@@ -294,6 +313,8 @@ func main() {
 	color[3] = sdl.Color{R: 128, G: 0, B: 255, A: 255}
 	color[4] = sdl.Color{R: 255, G: 255, B: 0, A: 255}
 
+	loadingColor = 0x0000ff00
+
 	stop = true
 	dur = 1 * time.Second
 	chDur <- 0
@@ -306,6 +327,6 @@ func main() {
 		if handleKeys(chDur, &dur, &stop) == false {
 			return
 		}
-		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window, color, w, h)
+		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window, color, w, h, &loadingColor)
 	}
 }

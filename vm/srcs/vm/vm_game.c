@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/05 12:20:57 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:56:52 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ static int	process_cycle(t_vm *vm)
 		if (tmp->waiting == 0 || tmp->waiting == -1)
 		{
 			//process_execute(vm, tmp);
-			//tmp->period_lives += 1; //pour test
+			tmp->period_lives += 1; //pour test
 			tmp->pc = (tmp->pc + 1) % MEM_SIZE; //pour test
-			//vm->players[tmp->player].period_lives += 1;//pour test
-			//vm->period_lives += 1;//pour test
+			vm->players[tmp->player].period_lives += 1;//pour test
+			vm->period_lives += 1;//pour test
+			vm->last_player_alive = tmp->player;//pour test
 		}
 		else
 			tmp->waiting -= 1;
