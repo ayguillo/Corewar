@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:36:28 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:25:35 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
 {
 	int	j;
 
-	while (spaces[*i] && spaces[++(*i)] != SEPARATOR_CHAR)
+	while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 	{
 		j = -1;
 		while (LABEL_CHARS[++j])
@@ -27,6 +27,7 @@ static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
 				break;
 		if (LABEL_CHARS[j] == '\0')
 			return (ft_syntax(NULL, 3, gnl, spaces[*i]));
+		(*i)++;
 	}
 	return (1);
 }
@@ -35,9 +36,12 @@ static int		ft_isdir(char *spaces, int *i, t_gnl *gnl)
 {
 	(*i)++;
 	if (spaces[*i] >= '0' && spaces[*i] <= '9')
-		while (spaces[*i] && spaces[++(*i)] != SEPARATOR_CHAR)
+		while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
+		{
 			if (spaces[*i] < '0' || spaces[*i] > '9')
 				return (ft_syntax(NULL, 0, gnl, spaces[*i]));
+			(*i)++;
+		}
 	if (spaces[*i] == LABEL_CHAR)
 		if (!(ft_islab(spaces, i, gnl)))
 			return (0);
@@ -60,16 +64,20 @@ static int		ft_aftersep(int *issep, char *spaces, int *i, t_gnl *gnl)
 		}
 		else if (spaces[*i] >= '0' && spaces[*i] <= '9')
 		{
-			while (spaces[*i] && spaces[++(*i)] != SEPARATOR_CHAR)
-				if (spaces[*i] < '0' || spaces[*i] > '9')
-					return (ft_syntax(NULL, 3, gnl, spaces[*i]));
-		}
-		else if (spaces[*i] == 'r')
-		{
-			while (spaces[*i] && spaces[++(*i)] != SEPARATOR_CHAR)
+			while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 			{
 				if (spaces[*i] < '0' || spaces[*i] > '9')
 					return (ft_syntax(NULL, 3, gnl, spaces[*i]));
+				(*i)++;
+			}
+		}
+		else if (spaces[*i] == 'r')
+		{
+			while (spaces[*i] || spaces[*i] != SEPARATOR_CHAR)
+			{
+				if (spaces[*i] < '0' || spaces[*i] > '9')
+					return (ft_syntax(NULL, 3, gnl, spaces[*i]));
+				(*i)++;
 			}
 		}
 		(*i)++;

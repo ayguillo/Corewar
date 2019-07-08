@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 13:37:52 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:52:39 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/asm.h"
 #include "../libft/libft.h"
 
-void		ft_paramd(char **split, t_op *op, int size)
+int			ft_paramd(char **split, t_op *op, int size, t_gnl *gnl)
 {
 	unsigned int	param;
 
@@ -24,10 +24,11 @@ void		ft_paramd(char **split, t_op *op, int size)
 	{
 		ft_printf("%s is not a direct, did you mean %c%s ?\n", split[1],
 				DIRECT_CHAR, split[1]);
-		return ;
+		return (ft_errorparams(gnl, 0, split[1][0]));
 	}
 	param = ft_filllabel(op, split, 1);
 	ft_fillparam1(op, size, DIR_CODE, param);
+	return (1);
 }
 
 void		ft_paramrg(char **split, t_op *op)

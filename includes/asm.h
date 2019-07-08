@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:08:21 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:52:54 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int				ft_recup(t_header *header, t_gnl *gnl, int *len, int type);
 int				ft_freecom(char ***tab, int err, char *str, t_gnl *gnl);
 int				ft_free(char ***tab, int err, t_gnl *gnl, char **str);
 int				ft_syntax(char **tab, int err, t_gnl *gnl, char c);
+int				ft_errorparams(t_gnl *gnl, int err, char c);
 
 /*
 ** TOOLS
@@ -110,7 +111,7 @@ int				ft_readinst(t_file file, t_gnl *gnl, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
 int				ft_instructions(char **trim, t_gnl *gnl, t_op **op);
 
-void			ft_paramd(char **split, t_op *op, int size);
+int				ft_paramd(char **split, t_op *op, int size, t_gnl *gnl);
 void			ft_paramrg(char **split, t_op *op);
 void			ft_paramld(char **split, t_op *op);
 void			ft_paramst(char **split, t_op *op);

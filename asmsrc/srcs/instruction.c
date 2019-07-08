@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 13:37:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:49:44 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ static int	ft_isinst(char *inst)
 	return (0);
 }
 
-static int	ft_argverif(char **split, t_op *op)
+static int	ft_argverif(char **split, t_op *op, t_gnl *gnl)
 {
 	int i;
 
 	i = 0;
 	if (!ft_strcmp(split[0], "live"))
-		ft_paramd(split, op, DIR_SIZE);
+		return (ft_paramd(split, op, DIR_SIZE, gnl));
 	else if (!ft_strcmp(split[0], "aff"))
 		ft_paramrg(split, op);
 	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "lfork")
 			|| !ft_strcmp(split[0], "fork"))
-		ft_paramd(split, op, DIR_SIZE / 2);
+		return (ft_paramd(split, op, DIR_SIZE / 2, gnl));
 	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
 		ft_paramld(split, op);
 	else if (!ft_strcmp(split[0], "st"))
@@ -101,8 +101,9 @@ int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
 		return (0);
 	}
 	ft_strdel(&strim);
-	if (!(ft_argverif(split, *op)))
+	if (!(ft_argverif(split, *op, gnl)))
 	{
+		ft_free_tab2d(&split);
 		ft_strdel(&(gnl->line));
 		return (0);
 	}
