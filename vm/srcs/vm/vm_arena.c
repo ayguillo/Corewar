@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/06 15:18:02 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:42:53 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void	print_infos_govisu(t_vm *vm)
 	ft_printf(";");
 }
 
-static int	check_pc(t_proc *tmp, unsigned int i)
+static int	check_pc(t_proc *tmp, unsigned int i, t_vm *vm)
 {
-	if (i == tmp->pc && tmp->player == 0)
+	if ((i == tmp->pc && tmp->player == 0) || vm->mem_infos_code[i] == 0)
 	{
 		ft_printf("RE");
 		return (1);
@@ -86,7 +86,7 @@ void		print_arena_govisu(t_vm *vm, int end)
 	while (i < MEM_SIZE)
 	{
 		tmp = vm->proc;
-		while (tmp && !check_pc(tmp, i))
+		while (tmp && !check_pc(tmp, i, vm))
 			tmp = tmp->next;
 		ft_printf("%02x", vm->mem[i]);
 		i++;
@@ -108,11 +108,13 @@ int			create_arena(t_vm *vm)
 	int		start;
 
 	i = 0;
+	ft_memset((void*)vm->mem_infos_code, -1, MEM_SIZE);
 	while (i < vm->players_nbr)
 	{
 		start = i * MEM_SIZE / vm->players_nbr;
 		ft_strcpyfast((char *)vm->mem + start, (char *)vm->players[i].code,
 			vm->players[i].size);
+		ft_memset((void*)vm->mem_infos_code + start, i, vm->players[i].size);
 		if (add_process(vm, i, start, NULL) == ERR_MALLOC)
 		{
 			while (i--)

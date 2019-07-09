@@ -6,12 +6,13 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/06 15:16:26 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:02:33 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "vm.h"
 #include "../libft/libft.h"
+#include "options.h"
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -63,11 +64,15 @@ static int	read_all(char *champ, int fd, t_vm *vm)
 int			read_champ(char *champ, t_vm *vm)
 {
 	int				fd;
+	int				err;
 
 	if ((fd = open(champ, O_RDONLY)) == -1)
 	{
 		ft_putstr_fd(champ, 2);
 		return (ERR_OPEN);
 	}
-	return (read_all(champ, fd, vm));
+	err = read_all(champ, fd, vm);
+	if (vm->options & OPTMAJV)
+		ft_strreplace(vm->players[vm->players_nbr].name, ';', ':');
+	return (err);
 }
