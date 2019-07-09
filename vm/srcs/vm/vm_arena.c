@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/06 15:18:02 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:28:35 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,44 +50,36 @@ static void	print_infos_govisu(t_vm *vm)
 	ft_printf(";");
 }
 
-static int	check_pc(t_proc *tmp, unsigned int i)
+void		check_colors(unsigned int i, t_vm *vm, const char *color_code)
 {
-	if (i == tmp->pc && tmp->player == 0)
-	{
-		ft_printf("RE");
-		return (1);
-	}
-	if (i == tmp->pc && tmp->player == 1)
-	{
-		ft_printf("GR");
-		return (1);
-	}
-	if (i == tmp->pc && tmp->player == 2)
-	{
-		ft_printf("PU");
-		return (1);
-	}
-	if (i == tmp->pc && tmp->player == 3)
-	{
-		ft_printf("YE");
-		return (1);
-	}
-	return (0);
+	t_proc	*tmp;
+	char	color[3];
+
+	tmp = vm->proc;
+	color[2] = 0;
+	while (tmp && tmp->pc != i)
+		tmp = tmp->next;
+	if (tmp)
+		color[0] = color_code[tmp->player];
+	else
+		color[0] = 'Z';
+	if (vm->mem_infos_code[i] != -1)
+		color[1] = color_code[(int)(vm->mem_infos_code[i])];
+	else
+		color[1] = 'Z';
+	ft_putstr(color);
 }
 
 void		print_arena_govisu(t_vm *vm, int end)
 {
 	unsigned int	i;
-	t_proc			*tmp;
 
 	if (!(vm->options & OPTMAJV))
 		return ;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		tmp = vm->proc;
-		while (tmp && !check_pc(tmp, i))
-			tmp = tmp->next;
+		check_colors(i, vm, "RGPY");
 		ft_printf("%02x", vm->mem[i]);
 		i++;
 	}
@@ -108,11 +100,16 @@ int			create_arena(t_vm *vm)
 	int		start;
 
 	i = 0;
+	if (vm->options & OPTMAJV)
+		ft_memset((void*)vm->mem_infos_code, -1, MEM_SIZE);
 	while (i < vm->players_nbr)
 	{
 		start = i * MEM_SIZE / vm->players_nbr;
 		ft_strcpyfast((char *)vm->mem + start, (char *)vm->players[i].code,
 			vm->players[i].size);
+		if (vm->options & OPTMAJV)
+			ft_memset((void*)vm->mem_infos_code + start, i,
+				vm->players[i].size);
 		if (add_process(vm, i, start, NULL) == ERR_MALLOC)
 		{
 			while (i--)

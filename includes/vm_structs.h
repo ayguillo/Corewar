@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 18:12:49 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:35:24 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct		s_player
 typedef struct		s_vm
 {
 	unsigned char	mem[MEM_SIZE];
+	char			mem_infos_code[MEM_SIZE];
 	t_player		players[MAX_PLAYERS];
 	t_proc			*proc;
 	int				last_player_alive;

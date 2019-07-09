@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 12:48:46 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:54:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int				ft_paramrg(char **split, t_op *op, t_gnl *gnl);
 int				ft_paramld(char **split, t_op *op, t_gnl *gnl);
 int				ft_paramst(char **split, t_op *op, t_gnl *gnl);
 int				ft_param3rg(char **split, t_op *op, t_gnl *gnl);
-void			ft_paramldi(char **split, t_op *op);
+int				ft_paramldi(char **split, t_op *op, t_gnl *gnl);
 void			ft_paramsti(char **split, t_op *op);
 void			ft_paramcomp(char **split, t_op *op);
 

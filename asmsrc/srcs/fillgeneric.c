@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 12:50:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:49:22 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl)
 		if (((param = ft_atoi(reg[0])) <= 0) || param > REG_NUMBER)
 		{
 			ft_free_tab2d(&reg);
-			return (0);
+			return (ft_errorparams(gnl, 2, split[nparam][1], split[nparam]));
 		}
 	}
 	if (nparam == 1)
