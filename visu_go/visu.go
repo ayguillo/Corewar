@@ -96,12 +96,14 @@ func printInfos(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 }
 
-func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window, color [5]sdl.Color, w, h int32) {
+func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.Window, color [5]sdl.Color, backColor [5]uint32, w, h int32) {
 	var solid *sdl.Surface
 	var err error
 	var i int
+	var j int
 
 	i = 0
+	j = 0
 
 	if len(stdin) == 0 {
 		return
@@ -109,8 +111,8 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	arena := sdl.Rect{
 		X: 60 * w / 2560,
 		Y: 60 * h / 1440,
-		W: 20 * w / 2560,
-		H: 20 * h / 1440,
+		W: 28 * w / 2560,
+		H: 25 * h / 1440,
 	}
 	background := sdl.Rect{
 		X: 50 * w / 2560,
@@ -122,6 +124,18 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	for key := 0; key+2 < len(stdin); key += 2 {
 		switch stdin[key] {
 		case 'R':
+			j = 1
+		case 'Y':
+			j = 4
+		case 'P':
+			j = 3
+		case 'G':
+			j = 2
+		default:
+			j = 0
+		}
+		switch stdin[key + 1] {
+		case 'R':
 			i = 1
 		case 'Y':
 			i = 4
@@ -132,10 +146,11 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		default:
 			i = 0
 		}
-		if i != 0 {
-			key += 2
+		key += 2
+		if j != 0 {
+			surface.FillRect(&arena, backColor[j])
 		}
-		if key+2 < len(stdin) && key%2 == 0 {
+		if key+2 <= len(stdin) && key%2 == 0 {
 			if solid, err = font.RenderUTF8Solid(stdin[key:key+2], color[i]); err != nil {
 				fmt.Fprintf(os.Stderr, "Failed to render text: %s\n", err)
 				panic(err)
@@ -185,7 +200,7 @@ func gradientBackground(infos string, w int32, loadingColor *uint32, surface *sd
 }
 
 func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool,
-	surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32, loadingColor *uint32) {
+	surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, backColor [5]uint32, w, h int32, loadingColor *uint32) {
 	var infos, mem string
 
 	loading := sdl.Rect{
@@ -203,7 +218,7 @@ func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan 
 			if len(infos) > 1 {
 				surface.FillRect(nil, 0xff404040)
 				gradientBackground(infos, w, loadingColor, surface, loading)
-				printArena(mem, surface, fontMem, window, color, w, h)
+				printArena(mem, surface, fontMem, window, color, backColor, w, h)
 				printInfos(infos, surface, fontInfos, window, color, w, h)
 				window.UpdateSurface()
 			}
@@ -267,6 +282,7 @@ func main() {
 	var fontMem, fontInfos *ttf.Font
 	var stop bool
 	var color [5]sdl.Color
+	var backColor [5]uint32
 	var loadingColor uint32
 
 	if err = sdl.Init(sdl.INIT_EVERYTHING); err != nil {
@@ -318,6 +334,11 @@ func main() {
 	color[3] = sdl.Color{R: 128, G: 0, B: 255, A: 255}
 	color[4] = sdl.Color{R: 255, G: 255, B: 0, A: 255}
 
+	backColor[1] = 0xffaa0000
+	backColor[2] = 0xff00aa00
+	backColor[3] = 0xff5500aa
+	backColor[4] = 0xffaaaa00
+
 	loadingColor = 0x0000ff00
 
 	stop = true
@@ -332,6 +353,6 @@ func main() {
 		if handleKeys(chDur, &dur, &stop) == false {
 			return
 		}
-		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window, color, w, h, &loadingColor)
+		update(chMem, chInfos, fontMem, fontInfos, chTick, surface, window, color, backColor, w, h, &loadingColor)
 	}
 }
