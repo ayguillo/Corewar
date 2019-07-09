@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 15:49:44 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:52:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static int	ft_argverif(char **split, t_op *op, t_gnl *gnl)
 	if (!ft_strcmp(split[0], "live"))
 		return (ft_paramd(split, op, DIR_SIZE, gnl));
 	else if (!ft_strcmp(split[0], "aff"))
-		ft_paramrg(split, op);
+		return (ft_paramrg(split, op, gnl));
 	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "lfork")
 			|| !ft_strcmp(split[0], "fork"))
 		return (ft_paramd(split, op, DIR_SIZE / 2, gnl));
 	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
-		ft_paramld(split, op);
+		return (ft_paramld(split, op, gnl));
 	else if (!ft_strcmp(split[0], "st"))
-		ft_paramst(split, op);
+		return (ft_paramst(split, op, gnl));
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
-		ft_param3rg(split, op);
+		return (ft_param3rg(split, op, gnl));
 /*	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
 			|| !ft_strcmp(split[0], "xor"))
 		ft_paramcomp(split, op);

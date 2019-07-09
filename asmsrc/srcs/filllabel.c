@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 15:50:54 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:21:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,31 @@ unsigned int	ft_filllabel(t_op *op, char **split, int nparam)
 	unsigned int	param;
 	char			**label;
 	char			**dirsplit;
+	char			**indsplit;
 
 	label = NULL;
 	dirsplit = NULL;
+	indsplit = NULL;
 	if (split[nparam] && split[nparam][1] == LABEL_CHAR)
 	{
 		if (!(label = ft_strsplit(split[nparam], LABEL_CHAR)))
 			return (0);
 		param = ft_paramlabel(op, label[1]);
 	}
-	else
+	else if (split[nparam][0] == DIRECT_CHAR)
 	{
 		if (!(dirsplit = ft_strsplit(split[nparam], DIRECT_CHAR)))
-		{
-			ft_free_tab2d(&label);
 			return (0);
-		}
 		param = ft_atui(dirsplit[0]);
 	}
+	else
+	{
+		if (!(label = ft_strsplit(split[nparam], LABEL_CHAR)))
+			return (0);
+		param = ft_paramlabel(op, label[0]);
+	}
 	ft_free_tab2d(&dirsplit);
+	ft_free_tab2d(&indsplit);
 	ft_free_tab2d(&label);
 	return (param);
 }

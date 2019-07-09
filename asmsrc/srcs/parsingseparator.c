@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 15:25:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:54:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
 {
 	int	j;
 
+	(*i)++;
 	while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 	{
 		j = -1;
@@ -26,7 +27,9 @@ static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
 			if (spaces[*i] == LABEL_CHARS[j])
 				break;
 		if (LABEL_CHARS[j] == '\0')
+		{
 			return (ft_syntax(NULL, 3, gnl, spaces[*i]));
+		}
 		(*i)++;
 	}
 	return (1);
@@ -73,7 +76,8 @@ static int		ft_aftersep(int *issep, char *spaces, int *i, t_gnl *gnl)
 		}
 		else if (spaces[*i] == 'r')
 		{
-			while (spaces[*i] || spaces[*i] != SEPARATOR_CHAR)
+			(*i)++;
+			while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 			{
 				if (spaces[*i] < '0' || spaces[*i] > '9')
 					return (ft_syntax(NULL, 3, gnl, spaces[*i]));
@@ -117,5 +121,5 @@ int				ft_separator(char **str, int nb, t_gnl *gnl)
 			ret = (ft_syntax(str, 1, gnl, 0));
 	}
 	ft_strdel(&spaces);
-	return (nb != 0 && ret > 0 ? ft_syntax(str, 1, gnl, 0) : ret);
+	return (nb != 0 && ret <= 0 ? ft_syntax(str, 1, gnl, 0) : ret);
 }
