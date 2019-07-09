@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:44:33 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/02 17:10:49 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:15:33 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		ft_idd(char **split, t_op *op, int size, int nparam)
 	{
 		if (split[nparam][0] == DIRECT_CHAR)
 			ft_filld(split, nparam, op, size);
-		else if (split[nparam][0] >= '0' && split[nparam][0] <= '9')
+		else if (split[nparam][0] == LABEL_CHAR ||
+				(split[nparam][0] >= '0' && split[nparam][0] <= '9'))
 			ft_filli(split, nparam, op);
 		else
 		{

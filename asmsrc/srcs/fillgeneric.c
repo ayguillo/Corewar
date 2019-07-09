@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 15:47:47 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:25:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,22 @@ void		ft_filli(char **split, int nparam, t_op *op)
 	int				i;
 
 	i = -1;
-	while (split[nparam][++i])
-		if (split[nparam][i] < '0' || split[nparam][i] > '9')
-		{
-			ft_printf("%s is not indirect. Delete %c please.", split[nparam],
-					split[nparam][i]);
-			return ;
-		}
-	if (split[nparam])
+	param = 0;
+	if (split[nparam][0] == LABEL_CHAR)
+	{
+		param = ft_filllabel(op, split, nparam);
+	}
+	else
+	{
+		while (split[nparam][++i])
+			if (split[nparam][i] < '0' || split[nparam][i] > '9')
+			{
+				ft_printf("%s is not indirect. Delete %c please.\n", split[nparam],
+						split[nparam][i]);
+				return ;
+			}
+	}
+	if (split[nparam] && !param)
 		param = ft_atui(split[nparam]);
 	if (nparam == 1)
 		ft_fillparam1(op, IND_SIZE + 1, IND_CODE, param);
