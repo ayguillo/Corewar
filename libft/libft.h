@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlambert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 09:55:27 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/04 11:30:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:19:53 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strtrim(char const *s);
+void			ft_strreplace(char *src, char to_find, char replace_by);
 char			**ft_strsplit(char const *s, char c);
 char			**ft_splitandspaces(char const *s, char c);
 char			**ft_splitwhitespaces(char const *s);

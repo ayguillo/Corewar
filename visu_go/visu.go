@@ -154,7 +154,38 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 	}
 }
 
-func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool, surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32, loadingColor *uint32) {
+func gradientBackground(infos string, w int32, loadingColor *uint32, surface *sdl.Surface, loading sdl.Rect) {
+	split := strings.Split(infos, "\n")
+	if len(split) >= 3 {
+		cycles := strings.Split(split[2], " ")
+		if len(cycles) == 5 {
+			if cycle, err := strconv.Atoi(cycles[2]); err == nil {
+				if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil {
+					loading.W = w * int32(cycle) / int32(cycleToDie)
+					if loading.W != 0 {
+						if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0 &&
+							*loadingColor+uint32(0x00010000*(1 + 510/cycleToDie)) <= 0x00ff0000) ||
+							(cycleToDie < 510 && *loadingColor+uint32(0x00010000*(1 + 510/cycleToDie)) <= 0x00ff0000) {
+							*loadingColor += uint32(0x00010000*(1 + 510/cycleToDie))
+						} else if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0 && *loadingColor-uint32(0x00000100*(1 + 510/cycleToDie)) >= 0x00ff0000) ||
+							(cycleToDie < 510 && *loadingColor-uint32(0x00000100*(1 + 510/cycleToDie)) >= 0x00ff0000) {
+							*loadingColor -= uint32(0x00000100*(1 + 510/cycleToDie))
+						} else if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0) || cycleToDie < 510 {
+							*loadingColor |= 0x00ff0000
+						}
+						if cycle == 1 {
+							*loadingColor = 0x0000ff00
+						}
+						surface.FillRect(&loading, *loadingColor)
+					}
+				}
+			}
+		}
+	}
+}
+
+func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan bool,
+	surface *sdl.Surface, window *sdl.Window, color [5]sdl.Color, w, h int32, loadingColor *uint32) {
 	var infos, mem string
 
 	loading := sdl.Rect{
@@ -171,33 +202,7 @@ func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan 
 			infos = <-chInfos
 			if len(infos) > 1 {
 				surface.FillRect(nil, 0xff404040)
-				split := strings.Split(infos, "\n")
-				if len(split) >= 3 {
-					cycles := strings.Split(split[2], " ")
-					if len(cycles) == 5 {
-						if cycle, err := strconv.Atoi(cycles[2]); err == nil {
-							if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil {
-								loading.W = w * int32(cycle) / int32(cycleToDie)
-								if loading.W != 0 {
-									if (cycleToDie/510 != 0 && cycle%(cycleToDie/510) == 0 &&
-										*loadingColor+uint32(0x00010000+0x00010000*(510/cycleToDie)) <= 0x00ff0000) ||
-										(cycleToDie/510 == 0 && *loadingColor+uint32(0x00010000+0x00010000*(510/cycleToDie)) <= 0x00ff0000) {
-										*loadingColor += uint32(0x00010000 + 0x00010000*(510/cycleToDie))
-									} else if (cycleToDie/510 != 0 && cycle%(cycleToDie/510) == 0 && *loadingColor-uint32(0x00000100+0x00000100*(510/cycleToDie)) >= 0x00ff0000) ||
-										(cycleToDie/510 == 0 && *loadingColor-uint32(0x00000100+0x00000100*(510/cycleToDie)) >= 0x00ff0000) {
-										*loadingColor -= uint32(0x00000100 + 0x00000100*(510/cycleToDie))
-									} else if (cycleToDie/510 != 0 && cycle%(cycleToDie/510) == 0) || cycleToDie/510 == 0 {
-										*loadingColor |= 0x00ff0000
-									}
-									if cycle == 1 {
-										*loadingColor = 0x0000ff00
-									}
-									surface.FillRect(&loading, *loadingColor)
-								}
-							}
-						}
-					}
-				}
+				gradientBackground(infos, w, loadingColor, surface, loading)
 				printArena(mem, surface, fontMem, window, color, w, h)
 				printInfos(infos, surface, fontInfos, window, color, w, h)
 				window.UpdateSurface()

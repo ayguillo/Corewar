@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vlambert <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 10:47:24 by vlambert          #+#    #+#              #
-#*   Updated: 2019/07/03 17:29:19 by bopopovi         ###   ########.fr       *#
+#    Updated: 2019/07/09 10:20:57 by vlambert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_strcpyfast.c ft_atol.c ft_splitwhitespaces.c ft_splitandspaces.c \
 		ft_reversebyte.c ft_toupper.c ft_isupper.c ft_strchrn.c ft_wctomb.c \
 		ft_strrev.c ft_isspace.c ft_strcasestr.c ft_wcslen.c ft_wcsnlen.c \
-		ft_strcasenequ.c ft_vprintf.c ft_ccat.c
+		ft_strcasenequ.c ft_vprintf.c ft_ccat.c ft_strreplace.c
 
 
 INC			=	color.h ft_printf.h get_next_line.h libft.h
