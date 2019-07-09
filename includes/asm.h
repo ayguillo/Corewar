@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 12:26:36 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:48:46 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ char			*ft_charwtspaces(char *str);
 
 void			ft_filld(char **split, int nparam, t_op *op, int size);
 void			ft_filli(char **split, int nparam, t_op *op);
-void			ft_fillrg(char **split, int nparam, t_op *op);
+int				ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl);
 void			ft_fillinstop(char *inst, t_op *op);
 void			ft_fillinstop(char *inst, t_op *op);
 int				ft_idd(char **split, t_op *op, int size, int nparam);
-int				ft_rgidd(char **split, t_op *op, int size, int nparam);
-int				ft_rgid(char **split, t_op *op, int param);
+int				ft_rgidd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
+int				ft_rgid(char **split, t_op *op, int param, t_gnl *gnl);
 
 int				ft_readinst(t_file file, t_gnl *gnl, t_op **op);
 int				ft_readn(t_file file, char **line, int *ret);
