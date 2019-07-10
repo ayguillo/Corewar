@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 15:59:48 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:41:49 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 
 typedef struct	s_win
 {
-	WINDOW		*win;
-	int			x;
-	int			y;
+	WINDOW		*container;
+	WINDOW		*contents;
 	int			width;
 	int			height;
 }				t_win;
