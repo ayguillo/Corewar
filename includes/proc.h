@@ -78,7 +78,7 @@ void	write_to_vm(t_vm *vm, int address, int write, int write_size);
 ** VM QUERY
 */
 
-int	player_exist(t_vm *vm, int player_id);
+int get_player_nbr(t_vm *vm, int player_id);
 
 /*
 ** VM SET
