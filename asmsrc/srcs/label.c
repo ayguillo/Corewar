@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 15:06:40 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:32:36 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ static int	ft_recupinst(t_gnl *gnl, char **trim, t_op **op)
 		return (0);
 	}
 	ft_fillparam1(*op, 0, 0, 0);
+	ft_printf("coucou\n");
 	if (!(ft_instructions(trim, gnl, op)))
 		return (0);
 	return (1);

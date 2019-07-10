@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 11:54:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 10:36:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
 			if (spaces[*i] == LABEL_CHARS[j])
 				break;
 		if (LABEL_CHARS[j] == '\0')
-		{
 			return (ft_syntax(NULL, 3, gnl, spaces[*i]));
-		}
 		(*i)++;
 	}
 	return (1);

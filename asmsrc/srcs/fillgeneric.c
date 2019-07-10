@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 16:49:22 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:04:49 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		ft_fillinstop(char *inst, t_op *op)
 		tmp->inst = LIVE;
 	else if (!(ft_strcmp(inst, "zjmp")))
 		tmp->inst = ZJMP;
+	else if (!(ft_strcmp(inst, "ldi")))
+		tmp->inst = LDI;
 	else if (!(ft_strcmp(inst, "fork")))
 		tmp->inst = FORK;
 	else if (!(ft_strcmp(inst, "lfork")))
@@ -70,21 +72,26 @@ void		ft_filld(char **split, int nparam, t_op *op, int size)
 		ft_fillparam2(op, size, DIR_CODE, param);
 }
 
-void		ft_filli(char **split, int nparam, t_op *op)
+int			ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl)
 {
 	unsigned int	param;
 	int				i;
 
-	i = -1;
+	i = 0;
 	param = 0;
 	if (split[nparam][0] == LABEL_CHAR)
 		param = ft_filllabel(op, split, nparam);
+	while (split[nparam][i] && split[nparam][i] != '\t' &&
+			split[nparam][i] != ' ')
+		if (split[nparam][i] < '0' || split[nparam][i] > '9')
+			return (ft_syntax(NULL, 3, gnl, split[nparam][i]));
 	if (split[nparam] && !param)
 		param = ft_atui(split[nparam]);
 	if (nparam == 1)
 		ft_fillparam1(op, IND_SIZE + 1, IND_CODE, param);
 	if (nparam == 2)
 		ft_fillparam2(op, IND_SIZE + 1, IND_CODE, param);
+	return (1);
 }
 
 int			ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl)
@@ -93,6 +100,8 @@ int			ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl)
 	char	**reg;
 
 	reg = NULL;
+	if (split[nparam][0] != 'r')
+		return (ft_syntax(NULL, 3, gnl, split[nparam][0]));
 	if (!(reg = ft_strsplit(split[nparam], 'r')))
 		return (0);
 	param = 0;

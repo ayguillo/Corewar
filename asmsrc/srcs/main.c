@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/04 10:35:14 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 10:06:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,18 @@ int			start(int ac, char **av, t_file *file)
 {
 	if (ac != 2)
 	{
-		ft_printf("Arguments invalid\n");
+		ft_dprintf(2, "Arguments invalid\n");
 		return (0);
 	}
 	if ((file->fdopen = open(av[1], O_RDONLY)) == -1)
 	{
-		ft_printf("Open() failed\n");
+		ft_dprintf(2, "Open() failed\n");
 		return (0);
 	}
 	if (!(file->name = ft_recupfile(av[1])))
 	{
 		ft_strdel(&(file->name));
-		ft_printf("File is not .s\n");
+		ft_dprintf(2, "File is not .s\n");
 		return (0);
 	}
 	return (1);
@@ -95,7 +95,7 @@ int			main(int ac, char **av)
 	if (((file.fdwrite = createfile(file.name)) == -1))
 	{
 		ft_strdel(&(file.name));
-		ft_printf("Open() failed\n");
+		ft_dprintf(2, "Open() failed\n");
 		return (-1);
 	}
 	write(file.fdwrite, &header, sizeof(t_header));
@@ -103,7 +103,7 @@ int			main(int ac, char **av)
 	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
 	{
 		ft_strdel(&(file.name));
-		ft_printf("Close() failed\n");
+		ft_dprintf(2, "Close() failed\n");
 		return (-1);
 	}
 	ft_strdel(&(file.name));

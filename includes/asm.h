@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 16:54:38 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:42:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ typedef struct	s_gnl
 typedef struct	s_op
 {
 	char			*label;
-	char			*searchlabel;
+	char			*searchlabel1;
+	char			*searchlabel2;
+	char			*searchlabel3;
 	int				size;
 	int				addr;
 	int				nbarg;
@@ -99,11 +101,11 @@ char			*ft_charwtspaces(char *str);
 */
 
 void			ft_filld(char **split, int nparam, t_op *op, int size);
-void			ft_filli(char **split, int nparam, t_op *op);
+int				ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl);
 int				ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl);
 void			ft_fillinstop(char *inst, t_op *op);
 void			ft_fillinstop(char *inst, t_op *op);
-int				ft_idd(char **split, t_op *op, int size, int nparam);
+int				ft_idd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
 int				ft_rgidd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
 int				ft_rgid(char **split, t_op *op, int param, t_gnl *gnl);
 
@@ -117,8 +119,8 @@ int				ft_paramld(char **split, t_op *op, t_gnl *gnl);
 int				ft_paramst(char **split, t_op *op, t_gnl *gnl);
 int				ft_param3rg(char **split, t_op *op, t_gnl *gnl);
 int				ft_paramldi(char **split, t_op *op, t_gnl *gnl);
-void			ft_paramsti(char **split, t_op *op);
-void			ft_paramcomp(char **split, t_op *op);
+int				ft_paramsti(char **split, t_op *op, t_gnl *gnl);
+int				ft_paramcomp(char **split, t_op *op, t_gnl *gnl);
 
 void			ft_fillparam1(t_op *op, int size, int code,
 		unsigned int param1);
@@ -129,5 +131,6 @@ void			ft_fillparam3(t_op *op, int size, int code,
 
 
 unsigned int	ft_filllabel(t_op *op, char **split, int nparam);
+void			ft_searchlabel(t_op **op);
 
 #endif

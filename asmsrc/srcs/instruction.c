@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 16:53:21 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:54:32 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ static int	ft_argverif(char **split, t_op *op, t_gnl *gnl)
 		return (ft_paramst(split, op, gnl));
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
 		return (ft_param3rg(split, op, gnl));
-/*	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
+	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
 			|| !ft_strcmp(split[0], "xor"))
-		ft_paramcomp(split, op);*/
+		return (ft_paramcomp(split, op, gnl));
 	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))
 		return (ft_paramldi(split, op, gnl));
-/*	else if (!ft_strcmp(split[0], "sti"))
-		ft_paramsti(split, op);*/
+	else if (!ft_strcmp(split[0], "sti"))
+		ft_paramsti(split, op, gnl);
 	else
 		return (0);
 	return (1);
@@ -84,6 +84,7 @@ static char	**ft_instok(t_gnl *gnl, char **trim, t_op **op)
 	return (split);
 }
 
+
 int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
 {
 	char	*strim;
@@ -110,6 +111,7 @@ int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
 	/*
 	 ** AFFICHAGE TEST
 	 */
+	ft_searchlabel(op);
 	t_op	*tmp;
 	tmp = *op;
 	while (tmp)

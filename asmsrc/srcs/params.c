@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 16:59:16 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 10:59:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			ft_paramrg(char **split, t_op *op, t_gnl *gnl)
 		return (ft_free(NULL, 2, gnl, NULL));
 	if (reg[0] && ((param = ft_atoi(reg[0])) <= 0 || param > REG_NUMBER))
 	{
-		ft_strdel(reg);
+		ft_free_tab2d(&reg);
 		return (ft_errorparams(gnl, 2, 0, split[1]));
 	}
 	ft_fillparam1(op, 2, REG_CODE, param);
@@ -54,7 +54,7 @@ int			ft_paramld(char **split, t_op *op, t_gnl *gnl)
 {
 	if (split[0])
 		ft_fillinstop(split[0], op);
-	if (!(ft_idd(split, op, DIR_SIZE + 1, 1)))
+	if (!(ft_idd(split, op, DIR_SIZE + 1, 1, gnl)))
 		return (0);
 	if (split[2])
 	{
