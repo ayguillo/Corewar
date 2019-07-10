@@ -6,11 +6,11 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:08:21 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/28 08:51:52 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 10:02:56 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "vm.h"
 #include "../libft/libft.h"
 
 /*
@@ -20,11 +20,11 @@
 void	init_err(t_vm *vm, int *err)
 {
 	*err = 0;
-	ft_strcpy(vm->err[USAGE], "Usage: ./corewar [-d -v -V] \
+	ft_strcpy(vm->err[USAGE], "Usage: ./corewar [-d || -v || -V || -z] \
 [-dump nbr_cycles] [[-n number] champion1.cor] ...\n-d: Debug mode\
-\n-v: Verbose mode\n-V: Visual mode\n");
+\n-v: Verbose mode\n-V: Visual mode\n-z: Ncurse mode\n");
 	ft_strcpy(vm->err[ERR_DBLDUMP], "More than one dump precised\n");
-	ft_strcpy(vm->err[ERR_BADARG], "Unknown argument\n");
+	ft_strcpy(vm->err[ERR_BADARG], "Unknown or incompatible arguments\n");
 	ft_strcpy(vm->err[ERR_DUMPVAL], "Dump nbr_cycles is lower than \
 one or missing with option -dump\n");
 	ft_strcpy(vm->err[ERR_BADNBR], "The player number is lower than 1 or \

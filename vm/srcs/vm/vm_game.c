@@ -6,11 +6,11 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/08 14:56:52 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 10:43:03 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "vm.h"
 #include "../libft/libft.h"
 
 static int	process_cycle(t_vm *vm)
@@ -57,10 +57,9 @@ int			game_cycle(t_vm *vm)
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->checks = MAX_CHECKS;
 	vm->last_player_alive = -1;
-	if (!vm->cycles_limit)
-		vm->cycles_limit = -1;
+	intro_champs(vm);
 	while (vm->proc && ((vm->cycles += 1) != vm->cycles_limit
-			|| vm->cycles_limit == -1) && vm->cycle_to_die > 0)
+			|| vm->cycles_limit == 0) && vm->cycle_to_die > 0)
 	{
 		vm->period_cycles += 1;
 		print_arena_govisu(vm, 0);
@@ -76,5 +75,6 @@ int			game_cycle(t_vm *vm)
 		}
 	}
 	print_arena_govisu(vm, 1);
+	print_winner(vm);
 	return (0);
 }

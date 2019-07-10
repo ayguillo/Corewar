@@ -6,11 +6,11 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/01 14:47:05 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 09:20:20 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "vm.h"
 #include "../libft/libft.h"
 
 int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)

@@ -6,12 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/06 15:37:52 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 09:59:02 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/options.h"
-#include "../includes/vm.h"
+#include "options.h"
+#include "vm.h"
 #include "../libft/libft.h"
 
 static int	player_exists(int player_nbr, t_vm *vm)
@@ -61,13 +61,13 @@ static int	opt_others(char *av[], t_vm *vm, int i)
 	j = 0;
 	while (av[i][++j])
 	{
-		if (av[i][j] == 'V')
+		if (av[i][j] == 'V' && !(vm->options))
 			vm->options = vm->options | OPTMAJV;
-		else if (av[i][j] == 'v')
+		else if (av[i][j] == 'v' && !(vm->options))
 			vm->options = vm->options | OPTV;
-		else if (av[i][j] == 'd')
+		else if (av[i][j] == 'd' && !(vm->options))
 			vm->options = vm->options | OPTD;
-		else if (av[i][j] == 'd')
+		else if (av[i][j] == 'z' && !(vm->options))
 			vm->options = vm->options | OPTZ;
 		else
 			return (ERR_BADARG);

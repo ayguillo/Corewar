@@ -6,13 +6,13 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/08 14:51:24 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 09:20:49 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "vm.h"
 #include "../libft/libft.h"
-#include "../includes/options.h"
+#include "options.h"
 
 //static void	player_print_info(t_player *player)
 //{

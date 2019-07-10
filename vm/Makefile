@@ -31,7 +31,7 @@ PROC_SRC		=	$(addprefix $(PROC_DIR)/, \
 DISP_DIR		=	display
 
 DISP_SRC		=	$(addprefix $(DISP_DIR)/, \
-		print_memory.c)
+		print_memory.c print_govisu.c verbose.c)
 
 SRC_NAME		=	$(VM_SRC) $(PROC_SRC) $(DISP_SRC)
 
