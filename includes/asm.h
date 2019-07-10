@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 14:36:58 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:43:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int				ft_recup(t_header *header, t_gnl *gnl, int *len, int type);
 
 int				ft_freecom(char ***tab, int err, char *str, t_gnl *gnl);
 int				ft_free(char ***tab, int err, t_gnl *gnl, char **str);
-int				ft_syntax(char **tab, int err, t_gnl *gnl, char c);
-int				ft_errorparams(t_gnl *gnl, int err, char c, char *s);
+int				ft_syntax(char **tab, int err, t_gnl *gnl, char c, int nparam);
+int				ft_errorparams(t_gnl *gnl, int err, char *s, int occ);
 
 /*
 ** TOOLS
@@ -86,7 +86,7 @@ char			ft_opc(int code[3]);
 int				ft_separator(char **str, int nb, t_gnl *gnl);
 unsigned long	ft_atui(const char *str);
 int				ft_diffis(const char *s1, const char *s2);
-int				ft_strclentab(const char *s1, char c, char print);
+int				ft_strclentab(const char *s1, char print, char *str, int occ);
 void			ft_strprintspaces(const char *s1);
 char			*ft_charwtspaces(char *str);
 
@@ -94,7 +94,7 @@ char			*ft_charwtspaces(char *str);
 ** INSTRUCTIONS & LABEL
 */
 
-void			ft_filld(char **split, int nparam, t_op *op, int size);
+void			ft_filld(char **split, int nparam, t_op *op, int size, t_gnl *gnl);
 int				ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl);
 int				ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl);
 void			ft_fillinstop(char *inst, t_op *op);
@@ -124,7 +124,7 @@ void			ft_fillparam3(t_op *op, int size, int code,
 		unsigned int param3);
 
 
-unsigned int	ft_filllabel(t_op *op, char **split, int nparam);
+unsigned int	ft_filllabel(t_op *op, char **split, int nparam, t_gnl *gnl);
 void			ft_searchlabel(t_op **op);
 void			write_code(t_file *file, t_op *op);
 

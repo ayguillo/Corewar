@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 15:01:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:58:10 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 {
 	int		i;
 	int		j;
+	char	*s;
 
 	i = 0;
 	if (err == 0)
 	{
+		s = ft_strstr(gnl->line, s);
 		ft_dprintf(2, "Command '%s' invalid at line %i\n", *tab[0],
 				gnl->nbline);
 		ft_dprintf(2, "%s%s\n%s", _RED_, gnl->line, _GREEN_);
@@ -66,14 +68,13 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 			if (gnl->line[i] != ' ' && gnl->line[i] != '\t')
 			{
 					while (LABEL_CHARS[++j])
-					if (LABEL_CHARS[j] == gnl->line[i])
-						break ;
+						if (LABEL_CHARS[j] == gnl->line[i])
+							break ;
 				if (LABEL_CHARS[j] == '\0')
 					break ;
 			}
 		}
-		ft_dprintf(2, "%*c\n", ft_strclentab(gnl->line,
-					gnl->line[i], '~'), '^', _RESET_);
+		ft_dprintf(2, "%*c\n", ft_strclentab(gnl->line, '~', &gnl->line[i], 0), '^', _RESET_);
 	}
 	ft_strdel(&(gnl->line));
 	return (0);
@@ -87,7 +88,8 @@ int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 		ft_free_tab2d(tab);
 		ft_dprintf(2, "Empty command at line %i\n%s%s\n", gnl->nbline,
 				_RED_, gnl->line);
-		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, '.', 0),
+		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, 0,
+					&gnl->line[0], 0),
 				'^', _RESET_);
 	}
 	if (err == 1)

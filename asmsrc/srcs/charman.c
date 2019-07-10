@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 14:11:27 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:14:39 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,38 @@ int		ft_diffis(const char *s1, const char *s2)
 	return (i);
 }
 
-int		ft_strclentab(const char *s1, char c, char print)
+int		ft_strclentab(const char *s1, char print, char *str, int occ)
 {
-	int	i;
 	int	ret;
 	int	j;
 
-	i = -1;
 	ret = 0;
-	while (s1[++i] && s1[i] != c)
+	while (s1 && *s1 && occ)
 	{
-		if ((s1[i] == '\t' || s1[i] == ' '))
-			ft_dprintf(2, "%c", s1[i]);
+		if (*s1 == '\t' || *s1 == ' ')
+			ft_dprintf(2, "%c", *s1);
+		if (*s1 == SEPARATOR_CHAR)
+			--occ;
+		else
+			ret++;
+		++s1;
+	}
+	while (s1 && *s1 && s1 != str)
+	{
+		if ((*s1 == '\t' || *s1 == ' '))
+			ft_dprintf(2, "%c", *s1);
 		else if (print)
 		{
 			j = -1;
 			while (LABEL_CHARS[++j])
-				if (LABEL_CHARS[j] == s1[i])
+				if (LABEL_CHARS[j] == *s1)
 					break ;
 			if (LABEL_CHARS[j] != '\0')
 				ft_dprintf(2, "%c", print);
 		}
 		else
 			ret++;
+		++s1;
 	}
 	ret++;
 	return (ret);

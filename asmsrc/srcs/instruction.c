@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 14:16:07 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:46:25 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_argverif(char **split, t_op *op, t_gnl *gnl)
 	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))
 		return (ft_paramldi(split, op, gnl));
 	else if (!ft_strcmp(split[0], "sti"))
-		ft_paramsti(split, op, gnl);
+		return (ft_paramsti(split, op, gnl));
 	else
 		return (0);
 	return (1);
@@ -73,7 +73,7 @@ static char	**ft_instok(t_gnl *gnl, char **trim, t_op **op)
 	}
 	if (!((*op)->nbarg = ft_isinst(split[0])))
 	{
-		ft_syntax(trim, 2, gnl, 0);
+		ft_syntax(trim, 2, gnl, 0, 0);
 		return (NULL);
 	}
 	if (!(ft_separator(trim, (*op)->nbarg - 1, gnl)))
