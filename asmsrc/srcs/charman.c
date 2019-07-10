@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 11:34:32 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:11:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		ft_diffis(const char *s1, const char *s2)
 	i = 0;
 	while (s1[i] || s2[i])
 	{
-		ft_printf("coucou\n");
 		if (s1[i] != s2[i])
 			break ;
 		i++;

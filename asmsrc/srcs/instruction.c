@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 12:12:39 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:16:07 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,16 @@ int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
 	ft_searchlabel(op);
 	t_op	*tmp;
 	tmp = *op;
+	int		i;
 	while (tmp)
 	{
-		ft_printf("label %s && instruction = %i, size = %i && addr = %i && code = %i && param = %i\n", tmp->label,
-				(tmp)->inst, (tmp)->size, (tmp)->addr, (tmp)->code[0], (tmp)->param[0]);
+		ft_printf("label = %s && instruction = %i, size = %i && addr = %i",
+				tmp->label, tmp->inst, tmp->size, tmp->addr);
+		i = -1;
+		while (++i < 3)
+			if (tmp->code[i])
+				ft_printf(" && code[%i] = %i && param[%i] = %i",  i, tmp->code[i], i, tmp->param[i]);
+		ft_putchar('\n');
 		(tmp) = (tmp)->next;
 	}
 	ft_putchar('\n');

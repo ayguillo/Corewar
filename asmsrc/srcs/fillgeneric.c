@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 11:04:49 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:10:52 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,25 @@ int			ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl)
 {
 	unsigned int	param;
 	int				i;
+	int				isop;
 
 	i = 0;
 	param = 0;
+	isop = 0;
 	if (split[nparam][0] == LABEL_CHAR)
 		param = ft_filllabel(op, split, nparam);
 	while (split[nparam][i] && split[nparam][i] != '\t' &&
 			split[nparam][i] != ' ')
-		if (split[nparam][i] < '0' || split[nparam][i] > '9')
+	{
+		if (split[nparam][i] == '+' || split[nparam][i] == '-'
+				|| (split[nparam][i] >= '0' && split[nparam][i] <= '9'))
+			isop = 1;
+		if ((split[nparam][i] == '+' || split[nparam][i] == '-') && isop == 1)
 			return (ft_syntax(NULL, 3, gnl, split[nparam][i]));
+		if (split[nparam][i] < '0' || split[nparam][i] > '9' ||
+				split[nparam][i] != '+' || split[nparam][i] != '-')
+			return (ft_syntax(NULL, 3, gnl, split[nparam][i]));
+	}
 	if (split[nparam] && !param)
 		param = ft_atui(split[nparam]);
 	if (nparam == 1)
