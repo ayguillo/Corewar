@@ -16,12 +16,14 @@ static bool l_dbg = 1;
 
 void	op_sti(t_vm *vm, t_proc *process)
 {
+	int				initial_pc;
 	t_param			params[3];
 	int				store_addr;
 	int				reg_load;
 	char			ocp;
 
 	local_dbg(l_dbg, "Instruction op_sti()\n");
+	initial_pc = process->pc;
 	ft_bzero(params, sizeof(t_param) * 3);
 	process->dir_size = T_SDIR;
 	process->pc += T_OPCODE;
@@ -32,7 +34,7 @@ void	op_sti(t_vm *vm, t_proc *process)
 	process->pc += get_instruction_parameter(vm, process, &params[0]);
 	process->pc += get_instruction_parameter(vm, process, &params[1]);
 	process->pc += get_instruction_parameter(vm, process, &params[2]);
-	store_addr = (params[1].val + params[2].val);
+	store_addr = initial_pc + (params[1].val + params[2].val);
 	reg_load = read_from_register(process, params[0].val);
 	write_to_vm(vm, store_addr, reg_load, T_LDIR);
 	local_dbg(l_dbg, "Write value '%d' at address %d\n", reg_load, store_addr);
