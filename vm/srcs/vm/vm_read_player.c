@@ -6,13 +6,14 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/09 11:02:33 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:56:52 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "../libft/libft.h"
 #include "options.h"
+#include "../libft/color.h"
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -74,5 +75,13 @@ int			read_champ(char *champ, t_vm *vm)
 	err = read_all(champ, fd, vm);
 	if (vm->options & OPTMAJV)
 		ft_strreplace(vm->players[vm->players_nbr].name, ';', ':');
+	if (vm->players_nbr == 0)
+		ft_strcpy(vm->players[vm->players_nbr].color, _RED_);
+	if (vm->players_nbr == 1)
+		ft_strcpy(vm->players[vm->players_nbr].color, _GREEN_);
+	if (vm->players_nbr == 2)
+		ft_strcpy(vm->players[vm->players_nbr].color, _PURPLE_);
+	if (vm->players_nbr == 3)
+		ft_strcpy(vm->players[vm->players_nbr].color, _YELLOW_);
 	return (err);
 }

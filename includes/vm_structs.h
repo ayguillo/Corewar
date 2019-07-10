@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/09 12:35:24 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:59:48 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct		s_player
 	int				last_p_lives;
 	int				alive_proc;
 	unsigned int	size;
+	char			color[20];
 	char			name[PROG_NAME_LENGTH + 4];
 	char			comment[COMMENT_LENGTH + 4];
 	unsigned char	code[CHAMP_MAX_SIZE + 1];
