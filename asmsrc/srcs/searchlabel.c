@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   searchlabel.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:39:35 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 11:59:30 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:48:22 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../libft/libft.h"
 
-static void	ft_searchlabel1(t_op **op, t_op *search)
+static void	ft_searchlabel1(t_op **op, t_op *search, int i)
 {
 	t_op	*tmp;
 
@@ -21,44 +21,9 @@ static void	ft_searchlabel1(t_op **op, t_op *search)
 	while (tmp->next)
 	{
 		if (tmp->label)
-			if (!(ft_strcmp(tmp->searchlabel1, tmp->label)))
+			if (!(ft_strcmp(search->searchlabel[i], tmp->label)))
 			{
-				search->param1 = ((search->addr - tmp->addr + MEM_SIZE)
-						% MEM_SIZE);
-				break ;
-			}
-		tmp = tmp->next;
-	}
-}
-
-static void	ft_searchlabel2(t_op **op, t_op *search)
-{
-	t_op	*tmp;
-
-	tmp = *op;
-	while (tmp->next)
-	{
-		if (tmp->label)
-			if (!(ft_strcmp(tmp->searchlabel2, tmp->label)))
-			{
-				search->param2 = ((search->addr - tmp->addr + MEM_SIZE)
-						% MEM_SIZE);
-				break ;
-			}
-		tmp = tmp->next;
-	}
-}
-static void	ft_searchlabel3(t_op **op, t_op *search)
-{
-	t_op	*tmp;
-
-	tmp = *op;
-	while (tmp->next)
-	{
-		if (tmp->label)
-			if (!(ft_strcmp(tmp->searchlabel3, tmp->label)))
-			{
-				search->param3 = ((search->addr - tmp->addr + MEM_SIZE)
+				search->param[i] = ((search->addr - tmp->addr + MEM_SIZE)
 						% MEM_SIZE);
 				break ;
 			}
@@ -68,17 +33,19 @@ static void	ft_searchlabel3(t_op **op, t_op *search)
 
 void		ft_searchlabel(t_op **op)
 {
-	t_op *tmp;
+	t_op	*tmp;
+	int		i;
 
 	tmp = *op;
 	while (tmp->next)
 	{
-		if (tmp->searchlabel1)
-			ft_searchlabel1(op, tmp);
-		if (tmp->searchlabel2)
-			ft_searchlabel2(op, tmp);
-		if (tmp->searchlabel3)
-			ft_searchlabel3(op, tmp);
+		i = 0;
+		while (i < 3)
+		{
+			if (tmp->searchlabel[i])
+				ft_searchlabel1(op, tmp, i);
+			++i;
+		}
 		tmp = tmp->next;
 	}
 }

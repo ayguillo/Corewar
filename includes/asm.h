@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 11:42:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:45:31 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,13 @@ typedef struct	s_gnl
 typedef struct	s_op
 {
 	char			*label;
-	char			*searchlabel1;
-	char			*searchlabel2;
-	char			*searchlabel3;
+	char			*searchlabel[3];
 	int				size;
 	int				addr;
 	int				nbarg;
 	int				inst;
-	int				code1;
-	int				code2;
-	int				code3;
-	unsigned int	param1;
-	unsigned int	param2;
-	unsigned int	param3;
+	int				code[3];
+	unsigned int	param[3];
 	struct s_op		*next;
 }				t_op;
 
@@ -88,7 +82,7 @@ int				ft_errorparams(t_gnl *gnl, int err, char c, char *s);
 */
 
 int				ft_retgnl(int fd, t_gnl *gnl, int i);
-short			ft_opc(int param1, int param2, int param3);
+char			ft_opc(int code[3]);
 int				ft_separator(char **str, int nb, t_gnl *gnl);
 unsigned long	ft_atui(const char *str);
 int				ft_diffis(const char *s1, const char *s2);

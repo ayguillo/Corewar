@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillparams.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 10:25:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 12:26:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:40:43 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void			ft_fillparam1(t_op *op, int size, int code, unsigned int param1)
 			addr += tmp->size + 1;
 		tmp = tmp->next;
 	}
-	tmp->param1 = param1;
+	tmp->param[0] = param1;
 	tmp->addr = addr;
 	tmp->size = size;
-	tmp->code1 = code;
+	tmp->code[0] = code;
 }
 
 void			ft_fillparam2(t_op *op, int size, int code, unsigned int param2)
@@ -39,9 +39,9 @@ void			ft_fillparam2(t_op *op, int size, int code, unsigned int param2)
 	tmp = op;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->param2 = param2;
+	tmp->param[1] = param2;
 	tmp->size += size;
-	tmp->code2 = code;
+	tmp->code[1] = code;
 }
 
 void			ft_fillparam3(t_op *op, int size, int code, unsigned int param3)
@@ -51,7 +51,7 @@ void			ft_fillparam3(t_op *op, int size, int code, unsigned int param3)
 	tmp = op;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->param3 = param3;
+	tmp->param[2] = param3;
 	tmp->size += size;
-	tmp->code3 = code;
+	tmp->code[2] = code;
 }

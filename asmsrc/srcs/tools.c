@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/08 14:08:38 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:11:42 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,20 @@ int				ft_retgnl(int fd, t_gnl *gnl, int i)
 	return (0);
 }
 
-short			ft_opc(int param1, int param2, int param3)
+char			ft_opc(int code[3])
 {
-	short i;
+	char	ret;
+	int		i;
 
+	ret = 0;
 	i = 0;
-	i += param1;
-	i = i << 2;
-	i += param2;
-	i = i << 2;
-	i += param3;
-	i = i << 2;
-	return (i);
+	while (i < 3)
+	{
+		ret += code[i];
+		ret = ret << 2;
+		i++;
+	}
+	return (ret);
 }
 
 char			*ft_charwtspaces(char *str)
