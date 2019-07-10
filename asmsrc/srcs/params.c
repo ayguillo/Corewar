@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/09 11:32:14 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:59:16 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int			ft_paramld(char **split, t_op *op, t_gnl *gnl)
 	{
 		if (split[2][0] != 'r')
 			return (ft_errorparams(gnl, 1, split[2][0], split[2]));
-		ft_fillrg(split, 2, op);
+		if (!(ft_fillrg(split, 2, op, gnl)))
+			return (0);
 	}
 	return (1);
 }
@@ -73,9 +74,10 @@ int			ft_paramst(char **split, t_op *op, t_gnl *gnl)
 	{
 		if (split[1] && split[1][0] != 'r')
 			return (ft_errorparams(gnl, 1, split[1][0], split[1]));
-		ft_fillrg(split, 1, op);
+		if (!(ft_fillrg(split, 1, op, gnl)))
+			return (0);
 	}
-	if (!(ft_rgid(split, op, 2)))
+	if (!(ft_rgid(split, op, 2, gnl)))
 		return (0);
 	return (1);
 }
@@ -91,7 +93,8 @@ int			ft_param3rg(char **split, t_op *op, t_gnl *gnl)
 	{
 		if (split[i][0] != 'r')
 			return (ft_errorparams(gnl, 1, split[i][0], split[i]));
-		ft_fillrg(split, i, op);
+		if (!(ft_fillrg(split, i, op, gnl)))
+			return (0);
 	}
 	return (1);
 }
