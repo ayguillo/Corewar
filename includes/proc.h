@@ -84,7 +84,7 @@ int	player_exist(t_vm *vm, int player_id);
 ** VM SET
 */
 
-void set_player_alive(t_vm *vm, int player_id);
+void set_player_alive(t_vm *vm, t_proc *process, int player_id);
 
 /*
 ** OCP TOOLS

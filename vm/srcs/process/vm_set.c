@@ -6,14 +6,19 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:27:05 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:24:54 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:35:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/proc.h"
+#include "vm.h"
+#include "options.h"
 
-void	set_player_alive(t_vm *vm, int player_id)
+void	set_player_alive(t_vm *vm, t_proc *process, int player)
 {
-	ft_printf("Player %s is alive\n", vm->players[player_id].name);
-	/* Set vm->player[player_id] as 'alive' */
+	vm->players[player].period_lives += 1;
+	vm->last_player_alive = player;
+	process->period_lives += 1;
+	vm->period_lives += 1;
+	if (vm->options & OPTV)
+		print_action(vm, process, "life");
 }
