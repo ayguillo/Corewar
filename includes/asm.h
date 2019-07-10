@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 12:45:31 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:36:58 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_op
 	int				size;
 	int				addr;
 	int				nbarg;
-	int				inst;
+	char			inst;
 	int				code[3];
 	unsigned int	param[3];
 	struct s_op		*next;
@@ -126,5 +126,6 @@ void			ft_fillparam3(t_op *op, int size, int code,
 
 unsigned int	ft_filllabel(t_op *op, char **split, int nparam);
 void			ft_searchlabel(t_op **op);
+void			write_code(t_file *file, t_op *op);
 
 #endif

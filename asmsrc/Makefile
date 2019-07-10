@@ -16,7 +16,8 @@ SRC_DIR			=	srcs
 
 ASM_SRC			=	\
 		main.c print.c header.c free.c tools.c charman.c label.c instruction.c\
-		 fillparams.c parsingseparator.c params.c filllabel.c fillgeneric.c params2.c paramgen.c syntaxerror.c errorparams.c searchlabel.c
+		fillparams.c parsingseparator.c params.c filllabel.c fillgeneric.c\
+		params2.c paramgen.c syntaxerror.c errorparams.c searchlabel.c write_code.c
 SRC_NAME		=	$(ASM_SRC)
 
 SRC				=	$(addprefix $(SRC_DIR)/,$(SRC_NAME))
