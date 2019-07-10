@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 10:43:03 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:22:54 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int			game_cycle(t_vm *vm)
 			new_period(vm);
 		}
 	}
-	print_arena_govisu(vm, 1);
 	print_winner(vm);
 	return (0);
 }
