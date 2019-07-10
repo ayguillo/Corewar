@@ -6,11 +6,11 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:20:58 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:35:16 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/proc.h"
+#include "proc.h"
 
 static bool l_dbg = 1;
 
@@ -37,5 +37,6 @@ void	op_sti(t_vm *vm, t_proc *process)
 	store_addr = initial_pc + (params[1].val + params[2].val);
 	reg_load = read_from_register(process, params[0].val);
 	write_to_vm(vm, store_addr, reg_load, T_LDIR);
+	process_set_carry(process, reg_load);
 	local_dbg(l_dbg, "Write value '%d' at address %d\n", reg_load, store_addr);
 }
