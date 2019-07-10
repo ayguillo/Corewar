@@ -6,11 +6,11 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:24:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/10 20:39:29 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/proc.h"
+#include "proc.h"
 
 static bool l_dbg = 1;
 
@@ -31,7 +31,8 @@ int		read_from_vm(t_vm *vm, int address, int read_size)
 
 	i = 0;
 	read = 0;
-	local_dbg(l_dbg, "Reading %d bytes from address %d\n", read_size, address);
+	local_dbg(l_dbg, "Reading %d bytes from address %d (Real address %d)\n", \
+		read_size, address, address % MEM_SIZE);
 	while (i < read_size) /* WHAT IF READ_SIZE > 4 ? */
 	{
 		read <<= 8;
