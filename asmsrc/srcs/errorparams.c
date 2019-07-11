@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 15:08:58 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 12:15:31 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:19:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,27 @@ int		ft_errorparams(t_asm *tasm, char *s)
 	int		occ;
 
 	occ = tasm->n_param - 1;
-	if (tasm->error == 0)
+	if (tasm->error == 4)
 	{
 		str = ft_strstr(tasm->gnl.line, s);
 		ft_dprintf(2, "Bad argument at line %i. Did you mean '%c%s' ?\n%s%s\n",
 				tasm->gnl.nbline, DIRECT_CHAR, s, _RED_, tasm->gnl.line);
-		ft_dprintf(2, "%s%*c%s\n", _GREEN_,
-				ft_strclentab(tasm->gnl.line, 0, str, occ), '^', _RESET_);
+		i = 0;
+		ft_dprintf(2, "%s%*c\n", _GREEN_,
+				ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, '^');
+		ft_dprintf(2, "%*c", ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, '%');
+		ft_dprintf(2,"\n%s", _RESET_);
+
 	}
 	if (tasm->error == 1)
 	{
 		str = ft_strstr(tasm->gnl.line, s);
 		ft_dprintf(2, "Bad argument at line %i. Did you mean 'r%s' ?\n%s%s\n",
 				tasm->gnl.nbline, s, _RED_, tasm->gnl.line);
-		ft_dprintf(2, "%s%*c%s\n", _GREEN_,
-				ft_strclentab(tasm->gnl.line, 0, str, occ), '^', _RESET_);
+		ft_dprintf(2, "%s%*c\n", _GREEN_,
+				ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, '^');
+		ft_dprintf(2, "%*c%s\n",
+				ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, 'r', _RESET_);
 	}
 	if (tasm->error == 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 13:34:05 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 17:26:52 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../includes/asm.h"
 
 static int	ft_isinst(char *inst)
-{
+	{
 	if (!ft_strcmp(inst, "live") || !ft_strcmp(inst, "zjmp")
 				|| !ft_strcmp(inst, "fork") || !ft_strcmp(inst, "lfork")
 				|| !ft_strcmp(inst, "aff"))
@@ -94,7 +94,10 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		return (ft_free(NULL, 2, &(tasm->gnl), trim));
 	ft_strdel(trim);
 	if (!(strim[0]))
+	{
+		ft_strdel(&strim);
 		return (1);
+	}
 	if (!(split = ft_instok(tasm, &strim)))
 	{
 		ft_strdel(&(tasm->gnl.line));
@@ -108,13 +111,15 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		ft_strdel(&(tasm->gnl.line));
 		return (0);
 	}
-	ft_searchlabel(&(tasm->op));
+	if (!(ft_searchlabel(tasm)))
+		return (0);
 	/*
 	 ** AFFICHAGE TEST
 	 */
 	t_op	*tmp;
 	tmp = tasm->op;
 	int		i;
+	ft_printf("line = %s at %i\n", tasm->gnl.line, tasm->gnl.nbline);
 	while (tmp)
 	{
 		ft_printf("label = %s && instruction = %i, size = %i && addr = %i",

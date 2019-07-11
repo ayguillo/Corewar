@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 13:41:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:09:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,33 @@ unsigned int	ft_filllabel(t_asm *tasm, char **split)
 	if (split[tasm->n_param] && split[tasm->n_param][1] == LABEL_CHAR)
 	{
 		if (!(label = ft_strsplit(split[tasm->n_param], LABEL_CHAR)))
-			return (0);
+		{
+			tasm->error = 1;
+			return (ft_free(NULL, 2, &tasm->gnl, NULL));
+		}
 		param = ft_paramlabel(tasm->op, label[1], tasm->n_param);
 	}
 	else if (split[tasm->n_param][0] == DIRECT_CHAR)
 	{
 		if (!(dirsplit = ft_strsplit(split[tasm->n_param], DIRECT_CHAR)))
-			return (0);
+		{
+			tasm->error = 1;
+			return (ft_free(&label, 2, &tasm->gnl, NULL));
+		}
 		if (!(ft_verifint(dirsplit[0], tasm)))
+		{
+			tasm->error = 1;
 			return (0);
+		}
 		param = ft_atui(dirsplit[0]);
 	}
 	else
 	{
 		if (!(label = ft_strsplit(split[tasm->n_param], LABEL_CHAR)))
-			return (0);
+		{
+			tasm->error = 1;
+			return (ft_free(NULL, 2, &tasm->gnl, NULL));
+		}
 		param = ft_paramlabel(tasm->op, label[0], tasm->n_param);
 	}
 	ft_free_tab2d(&dirsplit);

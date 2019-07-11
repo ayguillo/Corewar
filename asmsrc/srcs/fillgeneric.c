@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 13:44:05 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 17:14:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,20 @@ void		ft_fillinstop(char *inst, t_op *op)
 		ft_fillinstop2(inst, tmp);
 }
 
-void		ft_filld(char **split, t_asm *tasm, int size)
+int			ft_filld(char **split, t_asm *tasm, int size)
 {
 	unsigned int	param;
 
+	tasm->error = 0;
 	if (split[tasm->n_param] && split[tasm->n_param][0] == DIRECT_CHAR)
 		param = ft_filllabel(tasm, split);
+	if (tasm->error != 0)
+		return (0);
 	if (tasm->n_param == 1)
 		ft_fillparam1(tasm->op, size, DIR_CODE, param);
 	if (tasm->n_param == 2)
 		ft_fillparam2(tasm->op, size, DIR_CODE, param);
+	return (1);
 }
 
 int			ft_filli(char **split, t_asm *tasm)
@@ -90,10 +94,17 @@ int			ft_filli(char **split, t_asm *tasm)
 				|| (split[tasm->n_param][i] >= '0' && split[tasm->n_param][i] <= '9'))
 			isop = 1;
 		if ((split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-') && isop == 1)
+		{
+			tasm->error = 3;
 			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
-		if (split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9' ||
-				split[tasm->n_param][i] != '+' || split[tasm->n_param][i] != '-')
+		}
+		if ((split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9') &&
+			split[tasm->n_param][i] != '+' &&  split[tasm->n_param][i] != '-')
+		{
+			tasm->error = 3;
 			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
+		}
+		i++;
 	}
 	if (split[tasm->n_param] && !param)
 		param = ft_atui(split[tasm->n_param]);
@@ -108,21 +119,40 @@ int			ft_fillrg(char **split, t_asm *tasm)
 {
 	int		param;
 	char	**reg;
+	int		i;
 
 	reg = NULL;
 	if (split[tasm->n_param][0] != 'r')
 		return (ft_syntax(NULL, tasm, split[tasm->n_param][0]));
 	if (!(reg = ft_strsplit(split[tasm->n_param], 'r')))
-		return (0);
+		return (ft_free(NULL, 2, &tasm->gnl, NULL));
+	if (split[tasm->n_param][0] == 'r')
+	{
+		i = 0;
+		while (split[tasm->n_param][++i])
+		{
+			if (split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9')
+			{
+				tasm->error = 3;
+				return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
+			}
+		}
+	}
 	param = 0;
 	if (reg[0])
 	{
+		i = -1;
 		if (((param = ft_atoi(reg[0])) <= 0) || param > REG_NUMBER)
 		{
 			ft_free_tab2d(&reg);
 			tasm->error = 2;
 			return (ft_errorparams(tasm, split[tasm->n_param]));
 		}
+	}
+	else
+	{
+		tasm->error = 3;
+		return (ft_syntax(NULL, tasm, split[0][0]));
 	}
 	if (tasm->n_param == 1)
 		ft_fillparam1(tasm->op, 2, REG_CODE, param);

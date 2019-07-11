@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 13:35:57 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:17:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,12 @@ char			*ft_charwtspaces(char *str);
 ** INSTRUCTIONS & LABEL
 */
 
-void			ft_filld(char **split, t_asm *tasm, int size);
+int				ft_filld(char **split, t_asm *tasm, int size);
 int				ft_filli(char **split, t_asm *tasm);
 int				ft_fillrg(char **split, t_asm *tasm);
 void			ft_fillinstop(char *inst, t_op *op);
 int				ft_idd(char **split, t_asm *tasm, int size);
+int				ft_rgd(char **split, t_asm *tasm, int size);
 int				ft_rgidd(char **split, t_asm *tasm, int size);
 int				ft_rgid(char **split, t_asm *tasm);
 
@@ -133,7 +134,7 @@ void			ft_fillparam3(t_op *op, int size, int code,
 
 
 unsigned int	ft_filllabel(t_asm *tasm, char **split);
-void			ft_searchlabel(t_op **op);
+int				ft_searchlabel(t_asm *tasm);
 void			write_code(t_file *file, t_op *op);
 
 #endif

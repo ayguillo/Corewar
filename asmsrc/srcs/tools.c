@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 11:12:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:20:12 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		ft_itoo(unsigned char *str, char *str_nb, unsigned long long int size
 
 	i = size;
 	div = 1;
-	if (*index + (int)size >= CHAMP_MAX_SIZE)
+if (*index + (int)size >= CHAMP_MAX_SIZE)
 		return (0);
 	nb = (ft_atoll(str_nb) - 1) % 9223372036854775807;
 	while (--i > 0)

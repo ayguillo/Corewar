@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 13:34:37 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 17:33:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 
 static int		ft_aftersep(int *issep, char *spaces, int *i, t_asm *tasm)
 {
+	int		j;
+
+	j = 0;
 	while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 	{
 		if (spaces[*i] == DIRECT_CHAR)
@@ -78,27 +81,15 @@ static int		ft_aftersep(int *issep, char *spaces, int *i, t_asm *tasm)
 				if (spaces[*i] < '0' || spaces[*i] > '9')
 				{
 					tasm->error = 3;
-					tasm->n_param = 1;
 					return (ft_syntax(NULL, tasm, spaces[*i]));
 				}
 				(*i)++;
+				j = 1;
 			}
 		}
-		else if (spaces[*i] == 'r')
-		{
+		if (j == 0)
 			(*i)++;
-			while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
-			{
-				if (spaces[*i] < '0' || spaces[*i] > '9')
-				{
-					tasm->error = 3;
-					tasm->n_param = 1;
-					return (ft_syntax(NULL, tasm, spaces[*i]));
-				}
-				(*i)++;
-			}
-		}
-		(*i)++;
+		j = 0;
 	}
 	(*i)--;
 	*issep = 0;
@@ -114,6 +105,7 @@ int				ft_separator(char **str, int nb, t_asm *tasm)
 
 	issep = 0;
 	ret = 1;
+	tasm->n_param = 1;
 	if (!(spaces = ft_charwtspaces(*str)))
 		ret = (ft_free(NULL, 2, &(tasm->gnl), str));
 	i = -1;
@@ -121,18 +113,20 @@ int				ft_separator(char **str, int nb, t_asm *tasm)
 	{
 		if (spaces[i] == SEPARATOR_CHAR)
 		{
+			tasm->n_param++;
 			tasm->error = 0;
-			tasm->n_param = 1;
 			nb = (issep == 1) ? nb : nb - 1;
 			ret = (issep == 1) ? ft_syntax(str, tasm, spaces[i]) : ret;
 			issep = 1;
 		}
 		else if (spaces[i] != SEPARATOR_CHAR)
+		{
 			if (!(ft_aftersep(&issep, spaces, &i, tasm)))
 			{
 				ft_strdel(&spaces);
 				return (0);
 			}
+		}
 		if (nb < 0 && ret > 0)
 		{
 			tasm->error = 0;

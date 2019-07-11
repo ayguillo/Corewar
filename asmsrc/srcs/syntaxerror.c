@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 12:31:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 17:19:35 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	ft_wnbr(t_gnl *gnl)
 	int		i;
 	int		j;
 
-	ft_dprintf(2, "Syntax Error. Wrong number of separator at line\
-			%i\n%s%s\n", gnl->nbline, _RED_, gnl->line);
+	ft_dprintf(2, "Syntax Error. Wrong number of separator at line %i\n%s%s\n",
+			gnl->nbline, _RED_, gnl->line);
 	i = 0;
 	while (gnl->line[i] && gnl->line[i++] != COMMENT_CHAR)
 	{
@@ -64,7 +64,8 @@ static void	ft_uinst(t_gnl *gnl, int nparam)
 		++i;
 	j = ft_strclentab(gnl->line, 0, &gnl->line[i], nparam);
 	ft_dprintf(2, "%s%*c", _GREEN_, j, '^');
-	while (gnl->line[++i] && gnl->line[i] != '\t' && gnl->line[i] != 32)
+	while (gnl->line[++i] && gnl->line[i] != '\t' && gnl->line[i] != 32 &&
+			gnl->line[i] != SEPARATOR_CHAR)
 		ft_dprintf(2, "%c", '~');
 	ft_dprintf(2, "%s\n", _RESET_);
 }
@@ -84,8 +85,12 @@ static void	ft_wchar(t_gnl *gnl, char c, int nparam)
 	}
 	while (gnl->line[i] && gnl->line[i] != c)
 		i++;
-	ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, 0,
-				&gnl->line[i], nparam), '^', _RESET_);
+	ft_dprintf(2, "%s%*c", _GREEN_, ft_strclentab(gnl->line, 0,
+				&gnl->line[i], nparam), '^');
+	while (gnl->line[++i] && gnl->line[i] != ' ' && gnl->line[i] != '\t' &&
+			gnl->line[i] != SEPARATOR_CHAR)
+		ft_dprintf(2, "~");
+	ft_dprintf(2, "\n%s", _RESET_);
 }
 
 int			ft_syntax(char **str, t_asm *tasm, char c)

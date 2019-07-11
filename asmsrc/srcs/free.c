@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 15:58:10 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:16:39 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ has %i characters\n%s", PROG_NAME_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
 		ft_free_tab2d(tab);
 		ft_dprintf(2, "Comment too long (Max length %i)\n%sYour comment\
 has %i characters\n%s", COMMENT_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
+	}
+	if (err == 4)
+	{
+		ft_dprintf(2, "Champion too long. End of file at line %i\n",
+				gnl->nbline);
 	}
 	ft_strdel(&(gnl->line));
 	return (0);
