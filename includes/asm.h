@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 16:43:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:21:37 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,21 @@ typedef struct	s_op
 	struct s_op		*next;
 }				t_op;
 
+typedef struct	s_asm
+{
+	t_op	*op;
+	t_gnl	gnl;
+	t_file	file;
+	int		n_param;
+	int		error;
+}				t_asm;
+
 /*
 ** HEADER
 */
 
-int				printfile(t_header *header, t_file file, t_op **op);
-int				ft_recup(t_header *header, t_gnl *gnl, int *len, int type);
+int				printfile(t_header *header, t_asm *tasm);
+int				ft_recup(t_header *header, t_asm *tasm, int *len, int type);
 
 /*
  ** ERROR
@@ -81,7 +90,7 @@ int				ft_errorparams(t_gnl *gnl, int err, char *s, int occ);
 ** TOOLS
 */
 
-int				ft_retgnl(int fd, t_gnl *gnl, int i);
+int				ft_retgnl(t_asm *tasm, int i);
 char			ft_opc(int code[3]);
 int				ft_separator(char **str, int nb, t_gnl *gnl);
 unsigned long	ft_atui(const char *str);
@@ -103,9 +112,9 @@ int				ft_idd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
 int				ft_rgidd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
 int				ft_rgid(char **split, t_op *op, int param, t_gnl *gnl);
 
-int				ft_readinst(t_file file, t_gnl *gnl, t_op **op);
+int				ft_readinst(t_asm *tasm);
 int				ft_readn(t_file file, char **line, int *ret);
-int				ft_instructions(char **trim, t_gnl *gnl, t_op **op);
+int				ft_instructions(char **trim, t_asm *tasm);
 
 int				ft_paramd(char **split, t_op *op, int size, t_gnl *gnl);
 int				ft_paramrg(char **split, t_op *op, t_gnl *gnl);
