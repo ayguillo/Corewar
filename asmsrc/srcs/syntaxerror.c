@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 16:55:40 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:52:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,18 @@ static void	ft_wchar(t_gnl *gnl, char c, int nparam)
 				&gnl->line[i], nparam), '^', _RESET_);
 }
 
-int			ft_syntax(char **str, int err, t_gnl *gnl, char c, int nparam)
+int			ft_syntax(char **str, t_asm *tasm, char c)
 {
+	tasm->n_param--;
 	if (err == 0)
-		ft_wsep(gnl, c, nparam);
+		ft_wsep(&(tasm->gnl), c, tasm->nparam);
 	if (err == 1)
 		ft_wnbr(gnl);
 	if (err == 2)
-		ft_uinst(gnl, nparam);
+		ft_uinst(&(tasm->gnl), tasm->nparam);
 	if (err == 3)
-		ft_wchar(gnl, c, nparam);
+		ft_wchar(&(tasm->gnl), c, tasm->nparam);
 	ft_strdel(str);
-	ft_strdel(&(gnl->line));
+	ft_strdel(&(tasm->gnl.line));
 	return (0);
 }
