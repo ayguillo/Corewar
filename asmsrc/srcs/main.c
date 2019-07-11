@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 10:06:41 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 10:53:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,34 +78,32 @@ int			start(int ac, char **av, t_file *file)
 
 int			main(int ac, char **av)
 {
-	t_file			file;
 	t_header		header;
-	t_op			*op;
+	t_asm			tasm;
 
-	ft_bzero(&file, sizeof(file));
 	ft_bzero(&header, sizeof(header));
-	ft_bzero(&op, sizeof(op));
-	if (!(start(ac, av, &file)))
+	ft_bzero(&tasm, sizeof(tasm));
+	if (!(start(ac, av, &(tasm.file))))
 		return (-1);
-	if (!(printfile(&header, file, &op)))
+	if (!(printfile(&header, &tasm)))
 	{
-		ft_strdel(&(file.name));
+		ft_strdel(&(tasm.file.name));
 		return (-1);
 	}
-	if (((file.fdwrite = createfile(file.name)) == -1))
+	if (((tasm.file.fdwrite = createfile(tasm.file.name)) == -1))
 	{
-		ft_strdel(&(file.name));
+		ft_strdel(&(tasm.file.name));
 		ft_dprintf(2, "Open() failed\n");
 		return (-1);
 	}
-	write(file.fdwrite, &header, sizeof(t_header));
+	write(tasm.file.fdwrite, &header, sizeof(t_header));
 	//FCT write file
-	if ((close(file.fdopen)) == -1 || (close(file.fdwrite) == -1))
+	if ((close(tasm.file.fdopen)) == -1 || (close(tasm.file.fdwrite) == -1))
 	{
-		ft_strdel(&(file.name));
+		ft_strdel(&(tasm.file.name));
 		ft_dprintf(2, "Close() failed\n");
 		return (-1);
 	}
-	ft_strdel(&(file.name));
+	ft_strdel(&(tasm.file.name));
 	return (0);
 }

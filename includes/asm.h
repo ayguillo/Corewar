@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 11:21:37 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 13:35:57 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int				ft_recup(t_header *header, t_asm *tasm, int *len, int type);
 
 int				ft_freecom(char ***tab, int err, char *str, t_gnl *gnl);
 int				ft_free(char ***tab, int err, t_gnl *gnl, char **str);
-int				ft_syntax(char **tab, int err, t_gnl *gnl, char c, int nparam);
-int				ft_errorparams(t_gnl *gnl, int err, char *s, int occ);
+int				ft_syntax(char **tab, t_asm *tasm, char c);
+int				ft_errorparams(t_asm *tasm, char *s);
 
 /*
 ** TOOLS
@@ -92,7 +92,7 @@ int				ft_errorparams(t_gnl *gnl, int err, char *s, int occ);
 
 int				ft_retgnl(t_asm *tasm, int i);
 char			ft_opc(int code[3]);
-int				ft_separator(char **str, int nb, t_gnl *gnl);
+int				ft_separator(char **str, int nb, t_asm *tasm);
 unsigned long	ft_atui(const char *str);
 int				ft_diffis(const char *s1, const char *s2);
 int				ft_strclentab(const char *s1, char print, char *str, int occ);
@@ -103,27 +103,26 @@ char			*ft_charwtspaces(char *str);
 ** INSTRUCTIONS & LABEL
 */
 
-void			ft_filld(char **split, int nparam, t_op *op, int size, t_gnl *gnl);
-int				ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl);
-int				ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl);
+void			ft_filld(char **split, t_asm *tasm, int size);
+int				ft_filli(char **split, t_asm *tasm);
+int				ft_fillrg(char **split, t_asm *tasm);
 void			ft_fillinstop(char *inst, t_op *op);
-void			ft_fillinstop(char *inst, t_op *op);
-int				ft_idd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
-int				ft_rgidd(char **split, t_op *op, int size, int nparam, t_gnl *gnl);
-int				ft_rgid(char **split, t_op *op, int param, t_gnl *gnl);
+int				ft_idd(char **split, t_asm *tasm, int size);
+int				ft_rgidd(char **split, t_asm *tasm, int size);
+int				ft_rgid(char **split, t_asm *tasm);
 
 int				ft_readinst(t_asm *tasm);
 int				ft_readn(t_file file, char **line, int *ret);
 int				ft_instructions(char **trim, t_asm *tasm);
 
-int				ft_paramd(char **split, t_op *op, int size, t_gnl *gnl);
-int				ft_paramrg(char **split, t_op *op, t_gnl *gnl);
-int				ft_paramld(char **split, t_op *op, t_gnl *gnl);
-int				ft_paramst(char **split, t_op *op, t_gnl *gnl);
-int				ft_param3rg(char **split, t_op *op, t_gnl *gnl);
-int				ft_paramldi(char **split, t_op *op, t_gnl *gnl);
-int				ft_paramsti(char **split, t_op *op, t_gnl *gnl);
-int				ft_paramcomp(char **split, t_op *op, t_gnl *gnl);
+int				ft_paramd(char **split, t_asm *tasm, int size);
+int				ft_paramrg(char **split, t_asm *tasm);
+int				ft_paramld(char **split, t_asm *tasm);
+int				ft_paramst(char **split, t_asm *tasm);
+int				ft_param3rg(char **split, t_asm *tasm);
+int				ft_paramldi(char **split, t_asm *tasm);
+int				ft_paramsti(char **split, t_asm *tasm);
+int				ft_paramcomp(char **split, t_asm *tasm);
 
 void			ft_fillparam1(t_op *op, int size, int code,
 		unsigned int param1);
@@ -133,7 +132,7 @@ void			ft_fillparam3(t_op *op, int size, int code,
 		unsigned int param3);
 
 
-unsigned int	ft_filllabel(t_op *op, char **split, int nparam, t_gnl *gnl);
+unsigned int	ft_filllabel(t_asm *tasm, char **split);
 void			ft_searchlabel(t_op **op);
 void			write_code(t_file *file, t_op *op);
 

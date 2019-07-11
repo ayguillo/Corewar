@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 12:11:42 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:12:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include <stdlib.h>
 #include "../includes/asm.h"
 
-int				ft_retgnl(int fd, t_gnl *gnl, int i)
+int				ft_retgnl(t_asm *tasm, int i)
 {
 	int		ret;
 	char	*trim;
 
-	ft_strdel(&(gnl->line));
+	ft_strdel(&(tasm->gnl.line));
 	ret = 0;
-	while ((ret = ft_gnl(fd, &(gnl->line))) > 0)
+	while ((ret = ft_gnl(tasm->file.fdopen, &(tasm->gnl.line))) > 0)
 	{
-		gnl->nbline++;
-		if (gnl->line)
+		tasm->gnl.nbline++;
+		if (tasm->gnl.line)
 		{
-			trim = ft_strtrim(gnl->line);
+			trim = ft_strtrim(tasm->gnl.line);
 			if ((i == 1 && trim[0] == '.') || i == 0)
 			{
 				ft_strdel(&trim);
@@ -34,7 +34,7 @@ int				ft_retgnl(int fd, t_gnl *gnl, int i)
 			}
 			ft_strdel(&trim);
 		}
-		ft_strdel(&(gnl->line));
+		ft_strdel(&(tasm->gnl.line));
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   label.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 14:11:33 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:23:05 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,19 +108,19 @@ static int		ft_label(char *trim, t_gnl *gnl, t_op *new)
 	return (ret);
 }
 
-static int	ft_recupinst(t_gnl *gnl, char **trim, t_op **op)
+static int	ft_recupinst(t_asm *tasm, char **trim)
 {
 	t_op	*tmp;
 	t_op	*new;
 
-	tmp = *op;
+	tmp = tasm->op;
 	if (!(*trim[0]))
 	{
 		ft_strdel(trim);
 		return (1);
 	}
 	if (!(new = ft_memalloc(sizeof(t_op))))
-		return (ft_free(NULL, 2, gnl, trim));
+		return (ft_free(NULL, 2, &(tasm->gnl), trim));
 	if (tmp)
 	{
 		while (tmp->next)
@@ -128,43 +128,43 @@ static int	ft_recupinst(t_gnl *gnl, char **trim, t_op **op)
 		tmp->next = new;
 	}
 	else
-		*op = new;
-	if (!(ft_label(*trim, gnl, new)))
+		tasm->op = new;
+	if (!(ft_label(*trim, &(tasm->gnl), new)))
 	{
 		ft_strdel(trim);
 		return (0);
 	}
-	ft_fillparam1(*op, 0, 0, 0);
-	if (!(ft_instructions(trim, gnl, op)))
+	ft_fillparam1(tasm->op, 0, 0, 0);
+	if (!(ft_instructions(trim, tasm)))
 		return (0);
 	return (1);
 }
 
-int			ft_readinst(t_file file, t_gnl *gnl, t_op **op)
+int			ft_readinst(t_asm *tasm)
 {
 	char	*trim;
 	int		i;
 
 	trim = NULL;
-	while ((ft_retgnl(file.fdopen, gnl, 0)) > 0)
+	while ((ft_retgnl(tasm, 0)) > 0)
 	{
 		ft_strdel(&trim);
-		if (gnl->line)
+		if (tasm->gnl.line)
 		{
-			if (!(trim = ft_strtrim(gnl->line)))
-				return (ft_free(NULL, 2, gnl, NULL));
+			if (!(trim = ft_strtrim(tasm->gnl.line)))
+				return (ft_free(NULL, 2, &(tasm->gnl), NULL));
 			i = -1;
 			while (trim[++i])
 				if (trim[i] == COMMENT_CHAR)
 					trim[i] = '\0';
-			if ((ft_recupinst(gnl, &trim, op)) <= 0)
+			if ((ft_recupinst(tasm, &trim)) <= 0)
 			{
 				ft_strdel(&trim);
-				ft_strdel(&(gnl->line));
+				ft_strdel(&(tasm->gnl.line));
 				return (0);
 			}
 		}
-		ft_strdel(&(gnl->line));
+		ft_strdel(&(tasm->gnl.line));
 	}
 	ft_strdel(&trim);
 	return (1);

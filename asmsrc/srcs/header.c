@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 15:13:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:06:56 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,26 @@ int			ft_valid_entry(t_gnl *gnl, char ***split, char **trim, int *len)
 	return (1);
 }
 
-int			ft_recup(t_header *header, t_gnl *gnl, int *len, int type)
+int			ft_recup(t_header *header, t_asm *tasm, int *len, int type)
 {
 	char	**split;
 	char	*trim;
 	int		ret;
 
-	if (!(trim = ft_strtrim(gnl->line)))
-		return (ft_free(NULL, 2, gnl, &trim));
+	if (!(trim = ft_strtrim(tasm->gnl.line)))
+		return (ft_free(NULL, 2, &(tasm->gnl), &trim));
 	ft_supprcomment(&trim);
 	if (!(split = ft_splitwhitespaces(trim)))
-		return (ft_free(&split, 2, gnl, &trim));
+		return (ft_free(&split, 2, &(tasm->gnl), &trim));
 	if (ft_strcmp(split[0],
 		(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING))
 	{
 		ft_strdel(&trim);
 		return (ft_freecom(&split, 0,
-			(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING, gnl));
+			(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING, &(tasm->gnl)));
 	}
-	if (!(ret = ft_valid_entry(gnl, &split, &trim, len)))
+	if (!(ret = ft_valid_entry(&(tasm->gnl), &split, &trim, len)))
 		return (ret);
-	return (type == NAME ? ft_name(&trim, header, len, gnl)
-		: ft_com(&trim, gnl, header, len));
+	return (type == NAME ? ft_name(&trim, header, len, &(tasm->gnl))
+		: ft_com(&trim, &(tasm->gnl), header, len));
 }

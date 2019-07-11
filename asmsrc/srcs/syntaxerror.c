@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxerror.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 11:52:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 12:31:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ static void	ft_wchar(t_gnl *gnl, char c, int nparam)
 int			ft_syntax(char **str, t_asm *tasm, char c)
 {
 	tasm->n_param--;
-	if (err == 0)
-		ft_wsep(&(tasm->gnl), c, tasm->nparam);
-	if (err == 1)
-		ft_wnbr(gnl);
-	if (err == 2)
-		ft_uinst(&(tasm->gnl), tasm->nparam);
-	if (err == 3)
-		ft_wchar(&(tasm->gnl), c, tasm->nparam);
+	if (tasm->error == 0)
+		ft_wsep(&(tasm->gnl), c, tasm->n_param);
+	if (tasm->error == 1)
+		ft_wnbr(&(tasm->gnl));
+	if (tasm->error == 2)
+		ft_uinst(&(tasm->gnl), tasm->n_param);
+	if (tasm->error == 3)
+		ft_wchar(&(tasm->gnl), c, tasm->n_param);
 	ft_strdel(str);
 	ft_strdel(&(tasm->gnl.line));
 	return (0);

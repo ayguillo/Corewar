@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 16:48:37 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 13:44:05 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ void		ft_fillinstop(char *inst, t_op *op)
 		ft_fillinstop2(inst, tmp);
 }
 
-void		ft_filld(char **split, int nparam, t_op *op, int size, t_gnl *gnl)
+void		ft_filld(char **split, t_asm *tasm, int size)
 {
 	unsigned int	param;
 
-	if (split[nparam] && split[nparam][0] == DIRECT_CHAR)
-		param = ft_filllabel(op, split, nparam, gnl);
-	if (nparam == 1)
-		ft_fillparam1(op, size, DIR_CODE, param);
-	if (nparam == 2)
-		ft_fillparam2(op, size, DIR_CODE, param);
+	if (split[tasm->n_param] && split[tasm->n_param][0] == DIRECT_CHAR)
+		param = ft_filllabel(tasm, split);
+	if (tasm->n_param == 1)
+		ft_fillparam1(tasm->op, size, DIR_CODE, param);
+	if (tasm->n_param == 2)
+		ft_fillparam2(tasm->op, size, DIR_CODE, param);
 }
 
-int			ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl)
+int			ft_filli(char **split, t_asm *tasm)
 {
 	unsigned int	param;
 	int				i;
@@ -81,38 +81,38 @@ int			ft_filli(char **split, int nparam, t_op *op, t_gnl *gnl)
 	i = 0;
 	param = 0;
 	isop = 0;
-	if (split[nparam][0] == LABEL_CHAR)
-		param = ft_filllabel(op, split, nparam, gnl);
-	while (split[nparam][i] && split[nparam][i] != '\t' &&
-			split[nparam][i] != ' ')
+	if (split[tasm->n_param][0] == LABEL_CHAR)
+		param = ft_filllabel(tasm, split);
+	while (split[tasm->n_param][i] && split[tasm->n_param][i] != '\t' &&
+			split[tasm->n_param][i] != ' ')
 	{
-		if (split[nparam][i] == '+' || split[nparam][i] == '-'
-				|| (split[nparam][i] >= '0' && split[nparam][i] <= '9'))
+		if (split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-'
+				|| (split[tasm->n_param][i] >= '0' && split[tasm->n_param][i] <= '9'))
 			isop = 1;
-		if ((split[nparam][i] == '+' || split[nparam][i] == '-') && isop == 1)
-			return (ft_syntax(NULL, 3, gnl, split[nparam][i], nparam - 1));
-		if (split[nparam][i] < '0' || split[nparam][i] > '9' ||
-				split[nparam][i] != '+' || split[nparam][i] != '-')
-			return (ft_syntax(NULL, 3, gnl, split[nparam][i], nparam - 1));
+		if ((split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-') && isop == 1)
+			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
+		if (split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9' ||
+				split[tasm->n_param][i] != '+' || split[tasm->n_param][i] != '-')
+			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
 	}
-	if (split[nparam] && !param)
-		param = ft_atui(split[nparam]);
-	if (nparam == 1)
-		ft_fillparam1(op, IND_SIZE + 1, IND_CODE, param);
-	if (nparam == 2)
-		ft_fillparam2(op, IND_SIZE + 1, IND_CODE, param);
+	if (split[tasm->n_param] && !param)
+		param = ft_atui(split[tasm->n_param]);
+	if (tasm->n_param == 1)
+		ft_fillparam1(tasm->op, IND_SIZE + 1, IND_CODE, param);
+	if (tasm->n_param == 2)
+		ft_fillparam2(tasm->op, IND_SIZE + 1, IND_CODE, param);
 	return (1);
 }
 
-int			ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl)
+int			ft_fillrg(char **split, t_asm *tasm)
 {
 	int		param;
 	char	**reg;
 
 	reg = NULL;
-	if (split[nparam][0] != 'r')
-		return (ft_syntax(NULL, 3, gnl, split[nparam][0], nparam - 1));
-	if (!(reg = ft_strsplit(split[nparam], 'r')))
+	if (split[tasm->n_param][0] != 'r')
+		return (ft_syntax(NULL, tasm, split[tasm->n_param][0]));
+	if (!(reg = ft_strsplit(split[tasm->n_param], 'r')))
 		return (0);
 	param = 0;
 	if (reg[0])
@@ -120,15 +120,16 @@ int			ft_fillrg(char **split, int nparam, t_op *op, t_gnl *gnl)
 		if (((param = ft_atoi(reg[0])) <= 0) || param > REG_NUMBER)
 		{
 			ft_free_tab2d(&reg);
-			return (ft_errorparams(gnl, 2, split[nparam], nparam - 1));
+			tasm->error = 2;
+			return (ft_errorparams(tasm, split[tasm->n_param]));
 		}
 	}
-	if (nparam == 1)
-		ft_fillparam1(op, 2, REG_CODE, param);
-	if (nparam == 2)
-		ft_fillparam2(op, 2, REG_CODE, param);
-	if (nparam == 3)
-		ft_fillparam3(op, 2, REG_CODE, param);
+	if (tasm->n_param == 1)
+		ft_fillparam1(tasm->op, 2, REG_CODE, param);
+	if (tasm->n_param == 2)
+		ft_fillparam2(tasm->op, 2, REG_CODE, param);
+	if (tasm->n_param == 3)
+		ft_fillparam3(tasm->op, 2, REG_CODE, param);
 	ft_free_tab2d(&reg);
 	return (1);
 }

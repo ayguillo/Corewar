@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/05 15:31:02 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:03:41 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 #include "../libft/libft.h"
 #include "../includes/asm.h"
 
-static int	readerror(t_gnl *gnl)
+static int	readerror(t_asm *tasm)
 {
-	ft_dprintf(2, "Read() failed or empty command line %i\n", gnl->nbline);
-	ft_strdel(&(gnl->line));
+	ft_dprintf(2, "Read() failed or empty command line %i\n", tasm->gnl.nbline);
+	ft_strdel(&(tasm->gnl.line));
 	return (0);
 }
 
-int			printfile(t_header *header, t_file file, t_op **op)
+int			printfile(t_header *header, t_asm *tasm)
 {
 	int		lenname;
 	int		lencom;
 	t_op	*tmp;
-	t_gnl	gnl;
 
-	gnl.line = NULL;
-	gnl.nbline = 0;
-	if ((ft_retgnl(file.fdopen, &gnl, 1) <= 0 && !(readerror(&gnl)))
-		|| ft_recup(header, &gnl, &lenname, NAME) <= 0
-		|| (ft_retgnl(file.fdopen, &gnl, 1) <= 0 && !(readerror(&gnl)))
-		|| ft_recup(header, &gnl, &lencom, COM) <= 0
-		|| !(ft_readinst(file, &gnl, op)))
+	if ((ft_retgnl(tasm, 1) <= 0 && !(readerror(tasm)))
+		|| ft_recup(header, tasm, &lenname, NAME) <= 0
+		|| (ft_retgnl(tasm, 1) <= 0 && !(readerror(tasm)))
+		|| ft_recup(header, tasm, &lencom, COM) <= 0
+		|| !(ft_readinst(tasm)))
 		return (0);
-	tmp = *op;
+	tmp = tasm->op;
 	while (tmp && tmp->next)
 		tmp = tmp->next;
 	if (!tmp)

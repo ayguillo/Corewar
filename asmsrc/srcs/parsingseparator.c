@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsingseparator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 16:47:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 13:34:37 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../libft/libft.h"
 #include <stdlib.h>
 
-static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
+static int		ft_islab(char *spaces, int *i, t_asm *tasm)
 {
 	int	j;
 
@@ -27,40 +27,48 @@ static int		ft_islab(char *spaces, int *i, t_gnl *gnl)
 			if (spaces[*i] == LABEL_CHARS[j])
 				break;
 		if (LABEL_CHARS[j] == '\0')
-			return (ft_syntax(NULL, 3, gnl, spaces[*i], 0));
+		{
+			tasm->error = 3;
+			tasm->n_param = 1;
+			return (ft_syntax(NULL, tasm, spaces[*i]));
+		}
 		(*i)++;
 	}
 	return (1);
 }
 
-static int		ft_isdir(char *spaces, int *i, t_gnl *gnl)
+static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 {
 	(*i)++;
 	if (spaces[*i] >= '0' && spaces[*i] <= '9')
 		while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 		{
 			if (spaces[*i] < '0' || spaces[*i] > '9')
-				return (ft_syntax(NULL, 0, gnl, spaces[*i], 0));
+			{
+				tasm->error = 0;
+				tasm->n_param = 1;
+				return (ft_syntax(NULL, tasm, spaces[*i]));
+			}
 			(*i)++;
 		}
 	if (spaces[*i] == LABEL_CHAR)
-		if (!(ft_islab(spaces, i, gnl)))
+		if (!(ft_islab(spaces, i, tasm)))
 			return (0);
 	return (1);
 }
 
-static int		ft_aftersep(int *issep, char *spaces, int *i, t_gnl *gnl)
+static int		ft_aftersep(int *issep, char *spaces, int *i, t_asm *tasm)
 {
 	while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 	{
 		if (spaces[*i] == DIRECT_CHAR)
 		{
-			if (!(ft_isdir(spaces, i, gnl)))
+			if (!(ft_isdir(spaces, i, tasm)))
 				return (0);
 		}
 		else if (spaces[*i] == LABEL_CHAR)
 		{
-			if (!(ft_islab(spaces, i, gnl)))
+			if (!(ft_islab(spaces, i, tasm)))
 				return (0);
 		}
 		else if (spaces[*i] >= '0' && spaces[*i] <= '9')
@@ -68,7 +76,11 @@ static int		ft_aftersep(int *issep, char *spaces, int *i, t_gnl *gnl)
 			while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 			{
 				if (spaces[*i] < '0' || spaces[*i] > '9')
-					return (ft_syntax(NULL, 3, gnl, spaces[*i], 0));
+				{
+					tasm->error = 3;
+					tasm->n_param = 1;
+					return (ft_syntax(NULL, tasm, spaces[*i]));
+				}
 				(*i)++;
 			}
 		}
@@ -78,7 +90,11 @@ static int		ft_aftersep(int *issep, char *spaces, int *i, t_gnl *gnl)
 			while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 			{
 				if (spaces[*i] < '0' || spaces[*i] > '9')
-					return (ft_syntax(NULL, 3, gnl, spaces[*i], 0));
+				{
+					tasm->error = 3;
+					tasm->n_param = 1;
+					return (ft_syntax(NULL, tasm, spaces[*i]));
+				}
 				(*i)++;
 			}
 		}
@@ -89,7 +105,7 @@ static int		ft_aftersep(int *issep, char *spaces, int *i, t_gnl *gnl)
 	return (1);
 }
 
-int				ft_separator(char **str, int nb, t_gnl *gnl)
+int				ft_separator(char **str, int nb, t_asm *tasm)
 {
 	int		i;
 	char	*spaces;
@@ -99,25 +115,33 @@ int				ft_separator(char **str, int nb, t_gnl *gnl)
 	issep = 0;
 	ret = 1;
 	if (!(spaces = ft_charwtspaces(*str)))
-		ret = (ft_free(NULL, 2, gnl, str));
+		ret = (ft_free(NULL, 2, &(tasm->gnl), str));
 	i = -1;
 	while (spaces[++i] && ret != 0)
 	{
 		if (spaces[i] == SEPARATOR_CHAR)
 		{
+			tasm->error = 0;
+			tasm->n_param = 1;
 			nb = (issep == 1) ? nb : nb - 1;
-			ret = (issep == 1) ? ft_syntax(str, 0, gnl, spaces[i], 0) : ret;
+			ret = (issep == 1) ? ft_syntax(str, tasm, spaces[i]) : ret;
 			issep = 1;
 		}
 		else if (spaces[i] != SEPARATOR_CHAR)
-			if (!(ft_aftersep(&issep, spaces, &i, gnl)))
+			if (!(ft_aftersep(&issep, spaces, &i, tasm)))
 			{
 				ft_strdel(&spaces);
 				return (0);
 			}
 		if (nb < 0 && ret > 0)
-			ret = (ft_syntax(str, 1, gnl, 0, 0));
+		{
+			tasm->error = 0;
+			tasm->n_param = 1;
+			ret = (ft_syntax(str, tasm, 0));
+		}
 	}
 	ft_strdel(&spaces);
-	return (nb != 0 && ret <= 0 ? ft_syntax(str, 1, gnl, 0, 0) : ret);
+	tasm->error = 1;
+	tasm->n_param = 1;
+	return (nb != 0 && ret <= 0 ? ft_syntax(str, tasm, 0) : ret);
 }

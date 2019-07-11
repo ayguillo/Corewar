@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/10 16:46:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/11 13:34:05 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,52 +31,52 @@ static int	ft_isinst(char *inst)
 	return (0);
 }
 
-static int	ft_argverif(char **split, t_op *op, t_gnl *gnl)
+static int	ft_argverif(char **split, t_asm *tasm)
 {
 	int i;
 
 	i = 0;
 	if (!ft_strcmp(split[0], "live"))
-		return (ft_paramd(split, op, DIR_SIZE, gnl));
+		return (ft_paramd(split, tasm, DIR_SIZE));
 	else if (!ft_strcmp(split[0], "aff"))
-		return (ft_paramrg(split, op, gnl));
+		return (ft_paramrg(split, tasm));
 	else if (!ft_strcmp(split[0], "zjmp") || !ft_strcmp(split[0], "lfork")
 			|| !ft_strcmp(split[0], "fork"))
-		return (ft_paramd(split, op, DIR_SIZE / 2, gnl));
+		return (ft_paramd(split, tasm, DIR_SIZE / 2));
 	else if (!ft_strcmp(split[0], "ld") || !ft_strcmp(split[0], "lld"))
-		return (ft_paramld(split, op, gnl));
+		return (ft_paramld(split, tasm));
 	else if (!ft_strcmp(split[0], "st"))
-		return (ft_paramst(split, op, gnl));
+		return (ft_paramst(split, tasm));
 	else if (!ft_strcmp(split[0], "add") || !ft_strcmp(split[0], "sub"))
-		return (ft_param3rg(split, op, gnl));
+		return (ft_param3rg(split, tasm));
 	else if (!ft_strcmp(split[0], "and") || !ft_strcmp(split[0], "or")
 			|| !ft_strcmp(split[0], "xor"))
-		return (ft_paramcomp(split, op, gnl));
+		return (ft_paramcomp(split, tasm));
 	else if (!ft_strcmp(split[0], "ldi") || !ft_strcmp(split[0], "lldi"))
-		return (ft_paramldi(split, op, gnl));
+		return (ft_paramldi(split, tasm));
 	else if (!ft_strcmp(split[0], "sti"))
-		return (ft_paramsti(split, op, gnl));
+		return (ft_paramsti(split, tasm));
 	else
 		return (0);
 	return (1);
 }
 
-static char	**ft_instok(t_gnl *gnl, char **trim, t_op **op)
+static char	**ft_instok(t_asm *tasm, char **trim)
 {
 	char	**split;
 
 	split = NULL;
 	if (!(split = ft_splitandspaces(*trim, SEPARATOR_CHAR)))
 	{
-		ft_free(&split, 2, gnl, NULL);
+		ft_free(&split, 2, &(tasm->gnl), NULL);
 		return (NULL);
 	}
-	if (!((*op)->nbarg = ft_isinst(split[0])))
+	if (!(tasm->op->nbarg = ft_isinst(split[0])))
 	{
-		ft_syntax(trim, 2, gnl, 0, 0);
+		ft_syntax(trim, tasm, 0);
 		return (NULL);
 	}
-	if (!(ft_separator(trim, (*op)->nbarg - 1, gnl)))
+	if (!(ft_separator(trim, tasm->op->nbarg - 1, tasm)))
 	{
 		ft_free_tab2d(&split);
 		return (NULL);
@@ -85,35 +85,35 @@ static char	**ft_instok(t_gnl *gnl, char **trim, t_op **op)
 }
 
 
-int			ft_instructions(char **trim, t_gnl *gnl, t_op **op)
+int			ft_instructions(char **trim, t_asm *tasm)
 {
 	char	*strim;
 	char	**split;
 
 	if (!(strim = ft_strtrim(*trim)))
-		return (ft_free(NULL, 2, gnl, trim));
+		return (ft_free(NULL, 2, &(tasm->gnl), trim));
 	ft_strdel(trim);
 	if (!(strim[0]))
 		return (1);
-	if (!(split = ft_instok(gnl, &strim, op)))
+	if (!(split = ft_instok(tasm, &strim)))
 	{
-		ft_strdel(&(gnl->line));
+		ft_strdel(&(tasm->gnl.line));
 		ft_strdel(&strim);
 		return (0);
 	}
 	ft_strdel(&strim);
-	if (!(ft_argverif(split, *op, gnl)))
+	if (!(ft_argverif(split, tasm)))
 	{
 		ft_free_tab2d(&split);
-		ft_strdel(&(gnl->line));
+		ft_strdel(&(tasm->gnl.line));
 		return (0);
 	}
+	ft_searchlabel(&(tasm->op));
 	/*
 	 ** AFFICHAGE TEST
 	 */
-	ft_searchlabel(op);
 	t_op	*tmp;
-	tmp = *op;
+	tmp = tasm->op;
 	int		i;
 	while (tmp)
 	{
