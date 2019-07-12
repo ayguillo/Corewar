@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 19:53:21 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 16:13:09 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,6 @@ void	(*g_op_set[11])(t_vm*, t_proc*) =
 	&op_jmpz,
 	NULL,
 	&op_sti
-};
-
-int		op_cycles[16] =
-{
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
 };
 
 void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process)
@@ -80,6 +60,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 		local_dbg(l_dbg, "PC state at instruction end : %d\n", process->pc);
 	}
 	else if (process->waiting == -1)
-		process->waiting = get_cycles_for_opcode(opcode);
+		process->waiting = g_op_tab[opcode - 1].cycles;
 	return (0);
 }
