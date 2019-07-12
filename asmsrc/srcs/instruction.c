@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 17:26:52 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:45:16 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	**ft_instok(t_asm *tasm, char **trim)
 		ft_syntax(trim, tasm, 0);
 		return (NULL);
 	}
-	if (!(ft_separator(trim, tasm->op->nbarg - 1, tasm)))
+		if (!(ft_separator(trim, tasm->op->nbarg - 1, tasm)))
 	{
 		ft_free_tab2d(&split);
 		return (NULL);
@@ -100,6 +100,7 @@ int			ft_instructions(char **trim, t_asm *tasm)
 	}
 	if (!(split = ft_instok(tasm, &strim)))
 	{
+		ft_free_tab2d(&split);
 		ft_strdel(&(tasm->gnl.line));
 		ft_strdel(&strim);
 		return (0);

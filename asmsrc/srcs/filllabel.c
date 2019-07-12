@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 16:09:06 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:40:56 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int				ft_verifint(char *split, t_asm *tasm)
 		if (split[i] == '+' || split[i] == '-' || split[i] >= 0 ||
 				split[i] <= 9)
 			isop = 1;
-		if (((split[i] == '+' || split[i] == '-') && isop == 1) || split[i] < '0'
-			|| split[i] > '9')
+		else if (((split[i] == '+' || split[i] == '-') && isop == 1) ||
+				split[i] < '0' || split[i] > '9')
 		{
 			tasm->error = 3;
 			return (ft_syntax(NULL, tasm, split[i]));
@@ -56,7 +56,9 @@ static int		ft_paramlabel(t_op *op, char *label, int nparam)
 		tmp = tmp->next;
 	}
 	if (tmp->next == NULL)
-			tmp->searchlabel[nparam] = label;
+		tmp->searchlabel[nparam - 1] = ft_strdup(label);
+	else
+		tmp->searchlabel[nparam - 1] = NULL;
 	if (addr >= 0)
 		return ((addr - filladdr + MEM_SIZE) % MEM_SIZE);
 	return (0);

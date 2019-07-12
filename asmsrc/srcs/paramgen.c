@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:44:33 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 16:32:30 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:54:58 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int		ft_idd(char **split, t_asm *tasm, int size)
 				return (0);
 		}
 		else if (split[tasm->n_param][0] == LABEL_CHAR ||
-				(split[tasm->n_param][0] >= '0' && split[tasm->n_param][0] <= '9'))
+				(split[tasm->n_param][0] >= '0' &&
+				 split[tasm->n_param][0] <= '9') ||
+				split[tasm->n_param][0] == '-' ||
+				split[tasm->n_param][0] == '+')
 		{
 			if (!(ft_filli(split, tasm)))
 				return (0);

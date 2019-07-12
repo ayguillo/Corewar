@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 17:14:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:54:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int			ft_filld(char **split, t_asm *tasm, int size)
 	if (split[tasm->n_param] && split[tasm->n_param][0] == DIRECT_CHAR)
 		param = ft_filllabel(tasm, split);
 	if (tasm->error != 0)
+	{
 		return (0);
+	}
 	if (tasm->n_param == 1)
 		ft_fillparam1(tasm->op, size, DIR_CODE, param);
 	if (tasm->n_param == 2)
@@ -93,13 +95,9 @@ int			ft_filli(char **split, t_asm *tasm)
 		if (split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-'
 				|| (split[tasm->n_param][i] >= '0' && split[tasm->n_param][i] <= '9'))
 			isop = 1;
-		if ((split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-') && isop == 1)
-		{
-			tasm->error = 3;
-			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
-		}
-		if ((split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9') &&
-			split[tasm->n_param][i] != '+' &&  split[tasm->n_param][i] != '-')
+		else if (((split[tasm->n_param][i] == '+' ||
+				split[tasm->n_param][i] == '-') && isop == 1) ||
+				split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9')
 		{
 			tasm->error = 3;
 			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
