@@ -14,7 +14,7 @@
 
 static bool l_dbg = 1;
 
-void	(*g_op_set[11])(t_vm*, t_proc*) =
+void	(*g_op_fptr[11])(t_vm*, t_proc*) =
 {
 	&op_live,
 	NULL,
@@ -32,12 +32,7 @@ void	(*g_op_set[11])(t_vm*, t_proc*) =
 void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process)
 {
 	if (opcode > 0 && opcode <= 11)
-		g_op_set[opcode - 1](vm, process);
-}
-
-int		get_cycles_for_opcode(char opcode)
-{
-	return (op_cycles[opcode - 1]);
+		g_op_fptr[opcode - 1](vm, process);
 }
 
 int		process_execute(t_vm *vm, t_proc *process)
