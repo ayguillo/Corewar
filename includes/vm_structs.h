@@ -93,4 +93,16 @@ typedef struct		s_param
 	int				val;
 }					t_param;
 
+typedef struct			s_op
+{
+	char				*asm_name;
+	t_arg_type			arg_nbr;
+	int					arg_types[3];
+	t_arg_type			opcode;
+	unsigned			cycles;
+	char				*name;
+	t_arg_type			has_ocp;
+	t_arg_type			dir_type;
+}						t_op;
+
 #endif
