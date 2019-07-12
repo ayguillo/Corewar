@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 17:33:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:54:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,23 @@ static int		ft_islab(char *spaces, int *i, t_asm *tasm)
 
 static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 {
+	int		isop;
+
+
 	(*i)++;
-	if (spaces[*i] >= '0' && spaces[*i] <= '9')
+	isop = 0;
+	if (spaces[*i] == '\0')
+		return (0);
+	if ((spaces[*i] >= '0' && spaces[*i] <= '9') || spaces[*i] == '+' ||
+			spaces[*i] == '-')
+	{
 		while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 		{
-			if (spaces[*i] < '0' || spaces[*i] > '9')
+			if (spaces[*i] == '+' || spaces[*i] == '-'
+					|| (spaces[*i] >= 0 && spaces[*i] <= 9 && isop == 0))
+				isop = 1;
+			else if (((spaces[*i] == '+' || spaces[*i] == '-') && isop == 1) ||
+					spaces[*i] < '0' || spaces[*i] > '9')
 			{
 				tasm->error = 0;
 				tasm->n_param = 1;
@@ -51,9 +63,11 @@ static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 			}
 			(*i)++;
 		}
+	}
 	if (spaces[*i] == LABEL_CHAR)
 		if (!(ft_islab(spaces, i, tasm)))
 			return (0);
+	(*i)--;
 	return (1);
 }
 

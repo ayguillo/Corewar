@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 17:19:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/12 14:58:42 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int			ft_syntax(char **str, t_asm *tasm, char c)
 		ft_wchar(&(tasm->gnl), c, tasm->n_param);
 	ft_strdel(str);
 	ft_strdel(&(tasm->gnl.line));
+	tasm->error = 5;
 	return (0);
 }

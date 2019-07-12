@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 10:53:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/12 13:55:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,30 @@ int			start(int ac, char **av, t_file *file)
 	return (1);
 }
 
+void		ft_dellstop(t_op *op)
+{
+	t_op	*tmp1;
+	t_op	*tmp2;
+	int		i;
+
+	tmp1 = op;
+	i = -1;
+	while (tmp1->next)
+	{
+		if (tmp1->next)
+			tmp2 = tmp1->next;
+		while (++i < 3)
+			ft_strdel(&tmp1->searchlabel[i]);
+		ft_strdel(&tmp1->label);
+		free(tmp1);
+		tmp1 = NULL;
+		if (tmp2)
+			tmp1 = tmp2;
+	}
+	free(tmp1);
+	tmp1 = NULL;
+}
+
 int			main(int ac, char **av)
 {
 	t_header		header;
@@ -83,6 +107,7 @@ int			main(int ac, char **av)
 
 	ft_bzero(&header, sizeof(header));
 	ft_bzero(&tasm, sizeof(tasm));
+	ft_bzero(&tasm, sizeof(tasm.op));
 	if (!(start(ac, av, &(tasm.file))))
 		return (-1);
 	if (!(printfile(&header, &tasm)))
@@ -98,6 +123,7 @@ int			main(int ac, char **av)
 	}
 	write(tasm.file.fdwrite, &header, sizeof(t_header));
 	//FCT write file
+	ft_dellstop(tasm.op);
 	if ((close(tasm.file.fdopen)) == -1 || (close(tasm.file.fdwrite) == -1))
 	{
 		ft_strdel(&(tasm.file.name));
