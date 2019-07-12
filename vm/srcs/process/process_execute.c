@@ -42,7 +42,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	//ft_putendl(" EXECUTING ");
 	local_dbg(l_dbg, "MEMORY STATE :\n");
 	tmp_print_mem(vm->mem, MEM_SIZE / 4);
 	if (process->waiting > 0)
