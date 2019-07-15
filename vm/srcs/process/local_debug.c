@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:19:58 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:14:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:12:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	local_dbg(bool debug, const char *fmt_msg, ...)
 	if (debug == true && GLOBAL_DBG == 1 && VISU_ON == 0)
 	{
 		va_start(ap, fmt_msg);
-		vdprintf(2, fmt_msg, ap);
+		ft_vdprintf(2, fmt_msg, ap);
 		va_end(ap);
 	}
 }
