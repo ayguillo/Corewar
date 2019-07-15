@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:41 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/15 14:44:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 	ret = 0;
 	while (s1 && *s1 && occ)
 	{
-		if (*s1 == '\t' || *s1 == ' ')
-			ft_dprintf(2, "%c", *s1);
-		if (*s1 == SEPARATOR_CHAR)
-			--occ;
+		if (*s1 == '\t')
+			ret += 8 - (ret % 8);
 		else
 			ret++;
+		if (*s1 == SEPARATOR_CHAR)
+			--occ;
 		++s1;
 	}
 	while (s1 && *s1 && s1 != str)
 	{
-		if ((*s1 == '\t' || *s1 == ' '))
-			ft_dprintf(2, "%c", *s1);
+		if (*s1 == '\t')
+			ret += 8 - (ret % 8);
 		else if (print)
 		{
 			j = -1;
