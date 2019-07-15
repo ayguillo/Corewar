@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:38:45 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:46:23 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	op_and(t_vm *vm, t_proc *process, t_op op)
 		process->pc += T_OCP;
 		set_params_from_ocp(params, ocp, 3);
 		local_dbg(l_dbg, "Getting Parameters for op_and()\n", NULL);
-		get_op_parameters(vm, process, params, op.arg_nbr);
+		get_op_parameters(vm, process, params, op);
 		op_result = (params[0].val & params[1].val);
 		if (op_result == 0)
 			process->carry = 1;

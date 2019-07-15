@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:38:14 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:46:10 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	op_sti(t_vm *vm, t_proc *process, t_op op)
 		process->pc += T_OCP;
 		set_params_from_ocp(params, ocp, op.arg_nbr);
 		local_dbg(l_dbg, "Getting Parameters for op_sti()\n", NULL);
-		get_op_parameters(vm, process, params, op.arg_nbr);
+		get_op_parameters(vm, process, params, op);
 		store_addr = initial_pc + (params[1].val + params[2].val);
 		reg_load = read_from_register(process, params[0].val);
 		write_to_vm(vm, store_addr, reg_load, T_LDIR);

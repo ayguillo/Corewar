@@ -55,7 +55,7 @@ void op_sti(t_vm *vm, t_proc *process, t_op op);
 ** INSTRUCTION TOOLS
 */
 
-void	get_op_parameters(t_vm *vm, t_proc *pr, t_param *params, int param_nbr);
+void	get_op_parameters(t_vm *vm, t_proc *pr, t_param *params, t_op op);
 
 /*
 ** READ FROM VM/PROCESS
