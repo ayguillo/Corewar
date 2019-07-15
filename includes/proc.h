@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:08:26 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/02 17:27:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 19:50:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 */
 
 int	placeholder_init_data(t_vm *vm, t_proc *process);
-void exec_op(unsigned char opcode, t_vm *vm, t_proc *process);
+void exec_op(unsigned char opcode, t_vm *vm, t_proc *process, t_op op);
 int	process_execute(t_vm *vm, t_proc *process);
 
 /*
@@ -47,10 +47,10 @@ void local_dbg(bool debug, const char *fmt_msg, ...);
 ** INSTRUCTIONS
 */
 
-void op_and(t_vm *vm, t_proc *process);
-void op_jmpz(t_vm *vm, t_proc *process);
-void op_live(t_vm *vm, t_proc *process);
-void op_sti(t_vm *vm, t_proc *process);
+void op_and(t_vm *vm, t_proc *process, t_op op);
+void op_jmpz(t_vm *vm, t_proc *process, t_op op);
+void op_live(t_vm *vm, t_proc *process, t_op op);
+void op_sti(t_vm *vm, t_proc *process, t_op op);
 
 /*
 ** INSTRUCTION TOOLS
