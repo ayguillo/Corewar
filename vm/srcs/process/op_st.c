@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/12 21:12:41 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:05:21 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ void	op_sti(t_vm *vm, t_proc *process, t_op op)
 		process_set_carry(process, reg_load);
 		local_dbg(l_dbg, "Write value '%d' at address %d\n", reg_load, store_addr);
 	}
+	else
+		local_dbg(l_dbg, "Parameters don't match ocp in op_sti.\n");
 }
