@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/11 20:55:22 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 09:47:23 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,5 @@ typedef struct			s_header
 	unsigned int			prog_size;
 	char					comment[COMMENT_LENGTH + 1];
 }						t_header;
-
-typedef struct			s_op
-{
-	char				*asm_name;
-	t_arg_type			arg_nbr;
-	int					arg_types[3];
-	t_arg_type			opcode;
-	unsigned			cycles;
-	char				*name;
-	t_arg_type			has_ocp;
-	t_arg_type			dir_type;
-}						t_op;
 
 #endif

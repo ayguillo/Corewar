@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:43 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/15 09:46:29 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	i = 0;
 	if (err == 0)
 	{
-		s = ft_strstr(gnl->line, s);
+		s = ft_strstr(gnl->line, str);
 		ft_dprintf(2, "Command '%s' invalid at line %i\n", *tab[0],
 				gnl->nbline);
 		ft_dprintf(2, "%s%s\n%s", _RED_, gnl->line, _GREEN_);
