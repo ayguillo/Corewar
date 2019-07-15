@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:17:37 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 19:49:26 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool l_dbg = 1;
 
-void	op_and(t_vm *vm, t_proc *process)
+void	op_and(t_vm *vm, t_proc *process, t_op op)
 {
 	t_param			params[3];
 	int				op_result;

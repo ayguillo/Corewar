@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 21:35:16 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 21:12:41 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool l_dbg = 1;
 
-void	op_sti(t_vm *vm, t_proc *process)
+int		ocp_match_instruction_params(t_op op, char ocp)
 {
 	int				initial_pc;
 	t_param			params[3];

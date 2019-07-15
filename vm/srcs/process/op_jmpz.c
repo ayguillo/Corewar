@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:18:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 19:49:40 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool l_dbg = 1;
 
-void	op_jmpz(t_vm *vm, t_proc *process)
+void	op_jmpz(t_vm *vm, t_proc *process, t_op op)
 {
 	short		jump_address;
 
