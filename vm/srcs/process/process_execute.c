@@ -6,9 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/12 19:50:33 by bopopovi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/*   Updated: 2019/07/15 17:04:26 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
@@ -42,8 +40,8 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	local_dbg(l_dbg, "MEMORY STATE :\n");
-	tmp_print_mem(vm->mem, MEM_SIZE / 4);
+	//local_dbg(l_dbg, "MEMORY STATE :\n");
+	//tmp_print_mem(vm->mem, MEM_SIZE / 4);
 	if (process->waiting > 0)
 		process->waiting -= 1;
 	else if (process->waiting == 0)

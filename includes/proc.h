@@ -3,8 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   proc.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:08:26 by bopopovi          #+#    #+#             */
 /*   Updated: 2019/07/12 19:50:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
@@ -26,7 +25,7 @@
 # define T_OPCODE 1
 # define T_OCP 1
 # define GLOBAL_DBG 0
-# define VISU_ON 1
+# define VISU_ON 0
 
 /*
 ** MAIN
@@ -56,7 +55,7 @@ void op_sti(t_vm *vm, t_proc *process, t_op op);
 ** INSTRUCTION TOOLS
 */
 
-int	get_instruction_parameter(t_vm *vm, t_proc *proc, t_param *param);
+void	get_op_parameters(t_vm *vm, t_proc *pr, t_param *params, int param_nbr);
 
 /*
 ** READ FROM VM/PROCESS

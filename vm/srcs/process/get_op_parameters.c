@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_instruction_parameter.c                        :+:      :+:    :+:   */
+/*   get_op_parameters.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/12 19:18:42 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:40:21 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static bool l_dbg = 1;
 
-/* Could be improved with function pointers */
-int		get_instruction_parameter(t_vm *vm, t_proc *proc, t_param *param)
+int		get_parameter(t_vm *vm, t_proc *proc, t_param *param)
 {
 	int addr;
 
@@ -44,5 +43,17 @@ int		get_instruction_parameter(t_vm *vm, t_proc *proc, t_param *param)
 	{
 		local_dbg(l_dbg, "\tParameter code : %02x (UNKNOWN)\n", param->type);
 		return (ERROR); /* UNDEFINED PARAM TYPE */
+	}
+}
+
+void	get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		proc->pc += get_parameter(vm, proc, &params[i]);
+		i++;
 	}
 }

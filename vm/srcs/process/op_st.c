@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:05:21 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:38:14 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,16 @@ void	op_sti(t_vm *vm, t_proc *process, t_op op)
 
 	local_dbg(l_dbg, "Instruction op_sti()\n");
 	initial_pc = process->pc;
-	ft_bzero(params, sizeof(t_param) * 3);
-	process->dir_size = T_SDIR;
+	ft_bzero(params, sizeof(t_param) * op.arg_nbr);
+	process->dir_size = op.dir_type == 0 ? 4 : 2;
 	process->pc += T_OPCODE;
 	ocp = read_byte_from_vm(vm, process->pc);
 	if (ocp_match_instruction_params(op, ocp))
 	{
 		process->pc += T_OCP;
-		set_params_from_ocp(params, ocp, 3);
+		set_params_from_ocp(params, ocp, op.arg_nbr);
 		local_dbg(l_dbg, "Getting Parameters for op_sti()\n", NULL);
-		process->pc += get_instruction_parameter(vm, process, &params[0]);
-		process->pc += get_instruction_parameter(vm, process, &params[1]);
-		process->pc += get_instruction_parameter(vm, process, &params[2]);
+		get_op_parameters(vm, process, params, op.arg_nbr);
 		store_addr = initial_pc + (params[1].val + params[2].val);
 		reg_load = read_from_register(process, params[0].val);
 		write_to_vm(vm, store_addr, reg_load, T_LDIR);
