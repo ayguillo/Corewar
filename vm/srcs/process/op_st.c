@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:46:10 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:50:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	op_sti(t_vm *vm, t_proc *process, t_op op)
 	local_dbg(l_dbg, "Instruction op_sti()\n");
 	initial_pc = process->pc;
 	ft_bzero(params, sizeof(t_param) * op.arg_nbr);
-	process->dir_size = op.dir_type == 0 ? 4 : 2;
 	process->pc += T_OPCODE;
 	ocp = read_byte_from_vm(vm, process->pc);
 	if (ocp_match_instruction_params(op, ocp))

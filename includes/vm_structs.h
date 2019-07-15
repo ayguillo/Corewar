@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/12 15:43:47 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:51:04 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 ** NCURSES VISUALIZER
 */
 
-typedef struct	s_win
-{
+typedef struct	s_win {
 	WINDOW		*container;
 	WINDOW		*contents;
 	int			width;
@@ -48,7 +47,6 @@ typedef struct		s_proc
 	int				carry;
 	int				regs[REG_NUMBER];
 	int				player;
-	int				dir_size;
 }					t_proc;
 
 typedef struct		s_player

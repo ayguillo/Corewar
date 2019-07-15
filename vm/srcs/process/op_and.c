@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:46:23 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:52:23 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	op_and(t_vm *vm, t_proc *process, t_op op)
 	local_dbg(l_dbg, "Instruction op_and()\n");
 	initial_pc = process->pc;
 	ft_bzero(params, sizeof(t_param) * 3);
-	process->dir_size = T_LDIR;
 	process->pc += T_OPCODE;
 	ocp = read_byte_from_vm(vm, process->pc);
 	if (ocp_match_instruction_params(op, ocp))
