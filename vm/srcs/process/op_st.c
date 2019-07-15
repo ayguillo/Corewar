@@ -14,23 +14,6 @@
 
 static bool l_dbg = 1;
 
-int		ocp_match_instruction_params(t_op op, char ocp)
-{
-	int		param_type;
-	int 	i;
-
-	param_type = 0;
-	i = 0;
-	while (i < op.arg_nbr)
-	{
-		param_type = get_param_type_from_ocp(ocp, i);
-		if ((param_type & op.arg_types[i]) != param_type)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void	op_sti(t_vm *vm, t_proc *process, t_op op)
 {
 	int				initial_pc;

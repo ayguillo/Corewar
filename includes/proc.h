@@ -92,6 +92,7 @@ void set_player_alive(t_vm *vm, t_proc *process, int player_id);
 
 int		get_param_type_from_ocp(char ocp, int param_position);
 void	set_params_from_ocp(t_param *param, char ocp, int nbr_of_params);
+int		ocp_match_instruction_params(t_op op, char ocp);
 
 /*
 ** PROCESS SET
