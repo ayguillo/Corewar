@@ -6,11 +6,11 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:14:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 19:18:42 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/proc.h"
+#include "proc.h"
 
 static bool l_dbg = 1;
 
