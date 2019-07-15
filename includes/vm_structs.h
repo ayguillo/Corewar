@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 21:41:49 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:43:47 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,19 @@ typedef struct		s_param
 	int				type;
 	int				val;
 }					t_param;
+
+typedef struct			s_op
+{
+	char				*asm_name;
+	t_arg_type			arg_nbr;
+	int					arg_types[3];
+	t_arg_type			opcode;
+	unsigned			cycles;
+	char				*name;
+	t_arg_type			has_ocp;
+	t_arg_type			dir_type;
+}						t_op;
+
+extern const t_op			g_op_tab[17];
 
 #endif

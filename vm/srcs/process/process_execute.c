@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 19:53:21 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/12 16:13:09 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool l_dbg = 1;
 
-void	(*g_op_set[11])(t_vm*, t_proc*) =
+void	(*g_op_fptr[11])(t_vm*, t_proc*) =
 {
 	&op_live,
 	NULL,
@@ -29,35 +29,10 @@ void	(*g_op_set[11])(t_vm*, t_proc*) =
 	&op_sti
 };
 
-int		op_cycles[16] =
-{
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-	10,
-};
-
 void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process)
 {
 	if (opcode > 0 && opcode <= 11)
-		g_op_set[opcode - 1](vm, process);
-}
-
-int		get_cycles_for_opcode(char opcode)
-{
-	return (op_cycles[opcode - 1]);
+		g_op_fptr[opcode - 1](vm, process);
 }
 
 int		process_execute(t_vm *vm, t_proc *process)
@@ -67,7 +42,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	//ft_putendl(" EXECUTING ");
 	local_dbg(l_dbg, "MEMORY STATE :\n");
 	tmp_print_mem(vm->mem, MEM_SIZE / 4);
 	if (process->waiting > 0)
@@ -80,6 +54,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 		local_dbg(l_dbg, "PC state at instruction end : %d\n", process->pc);
 	}
 	else if (process->waiting == -1)
-		process->waiting = get_cycles_for_opcode(opcode);
+		process->waiting = g_op_tab[opcode - 1].cycles;
 	return (0);
 }

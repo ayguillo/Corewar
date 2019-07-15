@@ -6,13 +6,26 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:44:35 by zaz              ###   ########.fr       */
+/*   Updated: 2019/07/12 15:43:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include "vm_structs.h"
 
-t_op    op_tab[17] =
+/*
+** {
+**  asm_name,
+**  number of arguments,
+**  {arguments types},
+**  opcode,
+**  cycles,
+**  complete name,
+**  ocp presence flag,
+**  direct type
+** }
+*/
+
+const t_op g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
