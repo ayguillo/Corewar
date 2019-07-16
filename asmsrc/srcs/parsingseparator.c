@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 15:54:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/15 15:05:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ int				ft_separator(char **str, int nb, t_asm *tasm)
 
 	issep = 0;
 	ret = 1;
-	tasm->n_param = 1;
 	if (!(spaces = ft_charwtspaces(*str)))
 		ret = (ft_free(NULL, 2, &(tasm->gnl), str));
 	i = -1;
@@ -147,6 +146,8 @@ int				ft_separator(char **str, int nb, t_asm *tasm)
 			tasm->n_param = 1;
 			ret = (ft_syntax(str, tasm, 0));
 		}
+		if (ret == 0)
+			break ;
 	}
 	ft_strdel(&spaces);
 	tasm->error = 1;
