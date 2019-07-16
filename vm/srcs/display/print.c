@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 16:32:45 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:26:17 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void	print_winner(t_vm *vm)
 	}
 	else
 		ft_printf("It's a draw\nChamps were weaker than ever\n");
-	print_dump(vm);
+	if (vm->cycles_limit != 0 && !(vm->options & (OPTMAJV | OPTZ)))
+		print_dump(vm);
 }
