@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:37:55 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/16 15:01:36 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:24:00 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,26 @@ int		accept_d4(int inst)
 	return (0);
 }
 
+int		has_no_ocp(int inst)
+{
+	return (inst == LIVE || inst == ZJMP || inst == FORK || inst == LFORK);
+}
+
 void	write_args(t_file *file, t_op *tmp, int i)
 {
-	unsigned int	to_write;
+	unsigned int	to_write4;
+	unsigned short	to_write2;
+	unsigned char	to_write1;
 
-	to_write = ft_reversebyte(tmp->param[i], 4);
+	to_write4 = ft_reversebyte(tmp->param[i], 4);
+	to_write2 = ft_reversebyte(tmp->param[i], 2);
+	to_write1 = ft_reversebyte(tmp->param[i], 1);
 	if (tmp->code[i] == REG_CODE)
-		write(file->fdwrite, &to_write, 1);
-	else if (tmp->code[i] == DIR_CODE && accept_d4(tmp->inst))
-		write(file->fdwrite, &to_write, 4);
-	else
-		write(file->fdwrite, &to_write, 2);
+		write(file->fdwrite, &to_write1, 1);
+	else if ((tmp->code[i] == DIR_CODE || (has_no_ocp(tmp->inst) && i ==0)) && accept_d4(tmp->inst))
+		write(file->fdwrite, &to_write4, 4);
+	else if (tmp->code[i] || (has_no_ocp(tmp->inst) && i == 0))
+		write(file->fdwrite, &to_write2, 2);
 }
 
 void	write_code(t_file *file, t_op *op)
@@ -56,7 +65,7 @@ void	write_code(t_file *file, t_op *op)
 				opc = ft_opc(tmp->code);
 				write(file->fdwrite, &opc, 1);
 			}
-			while (i < tmp->nbarg)
+			while (i < 3)
 			{
 				write_args(file, tmp, i);
 				++i;

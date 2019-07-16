@@ -294,10 +294,10 @@ func main() {
 	var backColor [5]uint32
 	var loadingColor uint32
 
-	//time.Sleep(1 * time.Second / 4)
 	in := bufio.NewReader(os.Stdin)
 
 	if testPipe(in) == false {
+		fmt.Println("\nHello it's visu...\nDo you even brain ?\nGive me only corewar with -V and correct champions !!!\nHave a nice day...")
 		return
 	}
 

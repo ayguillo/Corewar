@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:54:09 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:59:36 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			ft_instructions(char **trim, t_asm *tasm)
 	/*
 	 ** AFFICHAGE TEST
 	 */
-	t_op	*tmp;
+	/*t_op	*tmp;
 	tmp = tasm->op;
 	int		i;
 	ft_printf("line = %s at %i\n", tasm->gnl.line, tasm->gnl.nbline);
@@ -130,6 +130,6 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		ft_putchar('\n');
 		(tmp) = (tmp)->next;
 	}
-	ft_putchar('\n');
+	ft_putchar('\n');*/
 	return (1);
 }
