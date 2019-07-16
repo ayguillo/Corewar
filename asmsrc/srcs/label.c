@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 14:00:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:33:42 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,6 @@ static int	veriflabel(char *split)
 	i = -1;
 	if (!(spaces = ft_splitwhitespaces(split)))
 		return (0);
-	if (!ft_strcmp(spaces[0], "live") || !ft_strcmp(spaces[0], "zjmp")
-			|| !ft_strcmp(spaces[0], "fork") || !ft_strcmp(spaces[0], "lfork")
-			|| !ft_strcmp(spaces[0], "aff") || !ft_strcmp(spaces[0], "ld")
-			|| !ft_strcmp(spaces[0], "st") || !ft_strcmp(spaces[0], "lld")
-			||	!ft_strcmp(spaces[0], "add") || !ft_strcmp(spaces[0], "sub")
-			|| !ft_strcmp(spaces[0], "and") || !ft_strcmp(spaces[0], "or")
-			|| !ft_strcmp(spaces[0], "xor") || !ft_strcmp(spaces[0], "ldi")
-			|| !ft_strcmp(spaces[0], "sti") || !ft_strcmp(spaces[0], "lldi"))
-	{
-		ft_free_tab2d(&spaces);
-		return (2);
-	}
 	ft_free_tab2d(&spaces);
 	while (split[++i])
 	{

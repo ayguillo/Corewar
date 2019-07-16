@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:38:09 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,15 +142,13 @@ int				ft_separator(char **str, int nb, t_asm *tasm)
 		}
 		if (nb < 0 && ret > 0)
 		{
-			tasm->error = 0;
+			tasm->error = 1;
 			tasm->n_param = 1;
 			ret = (ft_syntax(str, tasm, 0));
 		}
-		if (ret == 0)
-			break ;
 	}
 	ft_strdel(&spaces);
 	tasm->error = 1;
 	tasm->n_param = 1;
-	return (nb != 0 && ret <= 0 ? ft_syntax(str, tasm, 0) : ret);
+	return (nb != 0 && ret > 0 ? ft_syntax(str, tasm, 0) : ret);
 }

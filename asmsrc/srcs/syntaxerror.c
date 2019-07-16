@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/15 15:05:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:21:30 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static void	ft_wchar(t_gnl *gnl, char c, int nparam)
 
 int			ft_syntax(char **str, t_asm *tasm, char c)
 {
-	ft_printf("c = '%s'\n", *str);
 	tasm->n_param--;
 	if (tasm->error == 0)
 		ft_wsep(&(tasm->gnl), c, tasm->n_param);

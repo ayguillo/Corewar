@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 15:45:16 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:33:43 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ static int	ft_argverif(char **split, t_asm *tasm)
 		return (ft_paramldi(split, tasm));
 	else if (!ft_strcmp(split[0], "sti"))
 		return (ft_paramsti(split, tasm));
-	else
-		return (0);
-	return (1);
+	return (0);
 }
 
 static char	**ft_instok(t_asm *tasm, char **trim)
