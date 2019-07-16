@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/15 09:46:29 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 12:36:14 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	int		i;
 	int		j;
 	char	*s;
+	int		ret;
 
 	i = 0;
 	if (err == 0)
@@ -34,11 +35,15 @@ int	ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	}
 	if (err == 1)
 	{
+		ret = 0;
 		ft_dprintf(2, "%s is not a string, line %i\n%s%s\n", str, gnl->nbline,
 				_RED_, gnl->line);
-		while (gnl->line[i] == (*tab)[0][i])
+		while (gnl->line[i] != (*tab)[0][0])
 		{
-			ft_dprintf(2, "%c", ' ');
+			if (gnl->line[i] == '\t')
+				ret += 8 - (ret % 8);
+			else
+				ret++;
 			i++;
 		}
 		while (gnl->line[i])

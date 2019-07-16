@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 15:54:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:54:11 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int			ft_filld(char **split, t_asm *tasm, int size)
 		ft_fillparam1(tasm->op, size, DIR_CODE, param);
 	if (tasm->n_param == 2)
 		ft_fillparam2(tasm->op, size, DIR_CODE, param);
+	if (tasm->n_param == 3)
+		ft_fillparam3(tasm->op, size, DIR_CODE, param);
 	return (1);
 }
 
@@ -107,9 +109,11 @@ int			ft_filli(char **split, t_asm *tasm)
 	if (split[tasm->n_param] && !param)
 		param = ft_atui(split[tasm->n_param]);
 	if (tasm->n_param == 1)
-		ft_fillparam1(tasm->op, IND_SIZE + 1, IND_CODE, param);
+		ft_fillparam1(tasm->op, IND_SIZE, IND_CODE, param);
 	if (tasm->n_param == 2)
-		ft_fillparam2(tasm->op, IND_SIZE + 1, IND_CODE, param);
+		ft_fillparam2(tasm->op, IND_SIZE, IND_CODE, param);
+	if (tasm->n_param == 3)
+		ft_fillparam3(tasm->op, IND_SIZE, IND_CODE, param);
 	return (1);
 }
 
@@ -153,11 +157,11 @@ int			ft_fillrg(char **split, t_asm *tasm)
 		return (ft_syntax(NULL, tasm, split[0][0]));
 	}
 	if (tasm->n_param == 1)
-		ft_fillparam1(tasm->op, 2, REG_CODE, param);
+		ft_fillparam1(tasm->op, 1, REG_CODE, param);
 	if (tasm->n_param == 2)
-		ft_fillparam2(tasm->op, 2, REG_CODE, param);
+		ft_fillparam2(tasm->op, 1, REG_CODE, param);
 	if (tasm->n_param == 3)
-		ft_fillparam3(tasm->op, 2, REG_CODE, param);
+		ft_fillparam3(tasm->op, 1, REG_CODE, param);
 	ft_free_tab2d(&reg);
 	return (1);
 }

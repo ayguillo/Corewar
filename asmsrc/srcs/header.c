@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:44 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:59:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ int			ft_valid_entry(t_gnl *gnl, char ***split, char **trim, int *len)
 	if ((*split)[1][0] != '\"' || (*split)[lensplit - 1][*len - 1] != '\"')
 	{
 		ft_strdel(trim);
-		return (ft_freecom(split, 1,
-			(*split)[0] + 1, gnl));
+		return (ft_freecom(split, 1, (*split)[0] + 1, gnl));
 	}
 	ft_free_tab2d(split);
 	return (1);

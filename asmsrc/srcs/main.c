@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:47 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:51:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int			main(int ac, char **av)
 		return (-1);
 	}
 	write(tasm.file.fdwrite, &header, sizeof(t_header));
-	//FCT write file
+	write_code(&(tasm.file), tasm.op);
 	ft_dellstop(tasm.op);
 	if ((close(tasm.file.fdopen)) == -1 || (close(tasm.file.fdwrite) == -1))
 	{

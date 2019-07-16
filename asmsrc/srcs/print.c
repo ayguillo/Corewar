@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:50 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:50:03 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			printfile(t_header *header, t_asm *tasm)
 		ft_dprintf(2, "No instruction\n");
 		return (0);
 	}
-	header->prog_size = ft_reversebyte(tmp->addr, 4);
+	header->prog_size = ft_reversebyte(tmp->addr + tmp->size, 4);
 	header->magic = ft_reversebyte(COREWAR_EXEC_MAGIC, 4);
 	return (1);
 }

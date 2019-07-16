@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 10:25:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:43 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:16:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@ void			ft_fillparam1(t_op *op, int size, int code, unsigned int param1)
 	while (tmp->next)
 	{
 		if (tmp->size != 0)
-			addr += tmp->size + 1;
+			addr += tmp->size;
 		tmp = tmp->next;
 	}
 	tmp->param[0] = param1;
 	tmp->addr = addr;
-	tmp->size = size;
+	if (tmp->inst)
+	{
+		if (tmp->inst != LIVE && tmp->inst != ZJMP && tmp->inst != FORK
+				&& tmp->inst != LFORK)
+			tmp->size = size + 2;
+		else
+			tmp->size = size + 1;
+	}
 	tmp->code[0] = code;
 }
 

@@ -6,18 +6,19 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:37:55 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/12 13:55:53 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:01:36 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "../../libft/libft.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int		accept_d4(int inst)
 {
 	if (inst == LIVE || inst == AND || inst == OR || inst == XOR || inst == LD
-		|| inst == LLD)
+			|| inst == LLD)
 		return (1);
 	return (0);
 }
@@ -44,18 +45,22 @@ void	write_code(t_file *file, t_op *op)
 	tmp = op;
 	while (tmp)
 	{
-		i = 0;
-		write(file->fdwrite, &(tmp->inst), 1);
-		if (tmp->inst != LIVE && tmp->inst != ZJMP && tmp->inst != FORK
-			&& tmp->inst != LFORK)
+		if (tmp->inst != 0)
 		{
-			opc = ft_opc(tmp->code);
-			write(file->fdwrite, &opc, 1);
-		}
-		while (i < tmp->nbarg)
-		{
-			write_args(file, tmp, i);
-			++i;
+			opc = 0;
+			i = 0;
+			write(file->fdwrite, &(tmp->inst), 1);
+			if (tmp->inst != LIVE && tmp->inst != ZJMP && tmp->inst != FORK
+					&& tmp->inst != LFORK)
+			{
+				opc = ft_opc(tmp->code);
+				write(file->fdwrite, &opc, 1);
+			}
+			while (i < tmp->nbarg)
+			{
+				write_args(file, tmp, i);
+				++i;
+			}
 		}
 		tmp = tmp->next;
 	}

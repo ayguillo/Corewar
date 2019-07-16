@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/15 14:44:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 12:36:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 {
 	int	ret;
 	int	j;
+	int	i;
 
 	ret = 0;
+	i = 1;
 	while (s1 && *s1 && occ)
 	{
 		if (*s1 == '\t')
@@ -51,6 +53,12 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 			ret += 8 - (ret % 8);
 		else if (print)
 		{
+			if (i == 1)
+			{
+				ft_dprintf(2, "%*c", ret, ' ');
+				i = 0;
+				ret = 0;
+			}
 			j = -1;
 			while (LABEL_CHARS[++j])
 				if (LABEL_CHARS[j] == *s1)
