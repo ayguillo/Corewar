@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 09:20:49 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/16 12:15:43 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int			main(int ac, char *av[])
 			ft_putstr_fd(vm.err[USAGE], 2);
 		return (-1);
 	}
+	if (vm.options & OPTMAJV)
+		ft_printf("OK");
 //	ft_printf("Options : %#b dump %d\n\n", vm.options, vm.cycles_limit);
 //	player_print_info(&vm.players[0]);
 //	player_print_info(&vm.players[1]);

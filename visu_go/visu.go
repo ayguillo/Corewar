@@ -12,11 +12,20 @@ import (
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-func scan(chMem, chInfos chan string) {
+func testPipe(in *bufio.Reader) bool {
+	if test, err := in.ReadByte(); err != nil || test != 'O' {
+		return false
+	}
+	if test, err := in.ReadByte(); err != nil || test != 'K' {
+		return false
+	}
+	return true
+}
+
+func scan(in *bufio.Reader, chMem, chInfos chan string) {
 	var stdin string
 	var err error
 
-	in := bufio.NewReader(os.Stdin)
 	for {
 		stdin, err = in.ReadString(';')
 		if err != nil {
@@ -134,7 +143,7 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 		default:
 			j = 0
 		}
-		switch stdin[key + 1] {
+		switch stdin[key+1] {
 		case 'R':
 			i = 1
 		case 'Y':
@@ -179,12 +188,12 @@ func gradientBackground(infos string, w int32, loadingColor *uint32, surface *sd
 					loading.W = w * int32(cycle) / int32(cycleToDie)
 					if loading.W != 0 {
 						if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0 &&
-							*loadingColor+uint32(0x00010000*(1 + 510/cycleToDie)) <= 0x00ff0000) ||
-							(cycleToDie < 510 && *loadingColor+uint32(0x00010000*(1 + 510/cycleToDie)) <= 0x00ff0000) {
-							*loadingColor += uint32(0x00010000*(1 + 510/cycleToDie))
-						} else if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0 && *loadingColor-uint32(0x00000100*(1 + 510/cycleToDie)) >= 0x00ff0000) ||
-							(cycleToDie < 510 && *loadingColor-uint32(0x00000100*(1 + 510/cycleToDie)) >= 0x00ff0000) {
-							*loadingColor -= uint32(0x00000100*(1 + 510/cycleToDie))
+							*loadingColor+uint32(0x00010000*(1+510/cycleToDie)) <= 0x00ff0000) ||
+							(cycleToDie < 510 && *loadingColor+uint32(0x00010000*(1+510/cycleToDie)) <= 0x00ff0000) {
+							*loadingColor += uint32(0x00010000 * (1 + 510/cycleToDie))
+						} else if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0 && *loadingColor-uint32(0x00000100*(1+510/cycleToDie)) >= 0x00ff0000) ||
+							(cycleToDie < 510 && *loadingColor-uint32(0x00000100*(1+510/cycleToDie)) >= 0x00ff0000) {
+							*loadingColor -= uint32(0x00000100 * (1 + 510/cycleToDie))
 						} else if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0) || cycleToDie < 510 {
 							*loadingColor |= 0x00ff0000
 						}
@@ -285,6 +294,13 @@ func main() {
 	var backColor [5]uint32
 	var loadingColor uint32
 
+	//time.Sleep(1 * time.Second / 4)
+	in := bufio.NewReader(os.Stdin)
+
+	if testPipe(in) == false {
+		return
+	}
+
 	if err = sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
 	}
@@ -346,7 +362,7 @@ func main() {
 	chDur <- 0
 	chTick <- true
 
-	go scan(chMem, chInfos)
+	go scan(in, chMem, chInfos)
 	go tick(chDur, chTick)
 
 	for {
