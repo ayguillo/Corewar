@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 21:35:16 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:50:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool l_dbg = 1;
 
-void	op_sti(t_vm *vm, t_proc *process)
+void	op_sti(t_vm *vm, t_proc *process, t_op op)
 {
 	int				initial_pc;
 	t_param			params[3];
@@ -24,19 +24,21 @@ void	op_sti(t_vm *vm, t_proc *process)
 
 	local_dbg(l_dbg, "Instruction op_sti()\n");
 	initial_pc = process->pc;
-	ft_bzero(params, sizeof(t_param) * 3);
-	process->dir_size = T_SDIR;
+	ft_bzero(params, sizeof(t_param) * op.arg_nbr);
 	process->pc += T_OPCODE;
 	ocp = read_byte_from_vm(vm, process->pc);
-	process->pc += T_OCP;
-	set_params_from_ocp(params, ocp, 3);
-	local_dbg(l_dbg, "Getting Parameters for op_sti()\n", NULL);
-	process->pc += get_instruction_parameter(vm, process, &params[0]);
-	process->pc += get_instruction_parameter(vm, process, &params[1]);
-	process->pc += get_instruction_parameter(vm, process, &params[2]);
-	store_addr = initial_pc + (params[1].val + params[2].val);
-	reg_load = read_from_register(process, params[0].val);
-	write_to_vm(vm, store_addr, reg_load, T_LDIR);
-	process_set_carry(process, reg_load);
-	local_dbg(l_dbg, "Write value '%d' at address %d\n", reg_load, store_addr);
+	if (ocp_match_instruction_params(op, ocp))
+	{
+		process->pc += T_OCP;
+		set_params_from_ocp(params, ocp, op.arg_nbr);
+		local_dbg(l_dbg, "Getting Parameters for op_sti()\n", NULL);
+		get_op_parameters(vm, process, params, op);
+		store_addr = initial_pc + (params[1].val + params[2].val);
+		reg_load = read_from_register(process, params[0].val);
+		write_to_vm(vm, store_addr, reg_load, T_LDIR);
+		process_set_carry(process, reg_load);
+		local_dbg(l_dbg, "Write value '%d' at address %d\n", reg_load, store_addr);
+	}
+	else
+		local_dbg(l_dbg, "Parameters don't match ocp in op_sti.\n");
 }

@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_instruction_parameter.c                        :+:      :+:    :+:   */
+/*   get_op_parameters.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:14:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:52:12 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/proc.h"
+#include "proc.h"
 
 static bool l_dbg = 1;
 
-/* Could be improved with function pointers */
-int		get_instruction_parameter(t_vm *vm, t_proc *proc, t_param *param)
+int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 {
 	int addr;
 
@@ -23,8 +22,8 @@ int		get_instruction_parameter(t_vm *vm, t_proc *proc, t_param *param)
 	if (param->type == DIR_CODE)
 	{
 		local_dbg(l_dbg, "\tParameter code : %02x (DIR)\n", param->type);
-		param->val = read_from_vm(vm, proc->pc, proc->dir_size);
-		return (proc->dir_size);
+		param->val = read_from_vm(vm, proc->pc, op.dir_type == 0 ? 4 : 2);
+		return (op.dir_type == 0 ? 4 : 2);
 	}
 	else if (param->type == IND_CODE)
 	{
@@ -44,5 +43,17 @@ int		get_instruction_parameter(t_vm *vm, t_proc *proc, t_param *param)
 	{
 		local_dbg(l_dbg, "\tParameter code : %02x (UNKNOWN)\n", param->type);
 		return (ERROR); /* UNDEFINED PARAM TYPE */
+	}
+}
+
+void	get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
+{
+	int i;
+
+	i = 0;
+	while (i < op.arg_nbr)
+	{
+		proc->pc += get_parameter(vm, proc, &params[i], op);
+		i++;
 	}
 }

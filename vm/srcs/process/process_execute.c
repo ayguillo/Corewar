@@ -6,15 +6,13 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/12 16:13:09 by bopopovi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/*   Updated: 2019/07/15 17:04:26 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
 static bool l_dbg = 1;
 
-void	(*g_op_fptr[11])(t_vm*, t_proc*) =
+void	(*g_op_fptr[11])(t_vm*, t_proc*, t_op) =
 {
 	&op_live,
 	NULL,
@@ -29,10 +27,10 @@ void	(*g_op_fptr[11])(t_vm*, t_proc*) =
 	&op_sti
 };
 
-void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process)
+void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process, t_op op)
 {
 	if (opcode > 0 && opcode <= 11)
-		g_op_fptr[opcode - 1](vm, process);
+		g_op_fptr[opcode - 1](vm, process, op);
 }
 
 int		process_execute(t_vm *vm, t_proc *process)
@@ -42,14 +40,14 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	local_dbg(l_dbg, "MEMORY STATE :\n");
-	tmp_print_mem(vm->mem, MEM_SIZE / 4);
+	//local_dbg(l_dbg, "MEMORY STATE :\n");
+	//tmp_print_mem(vm->mem, MEM_SIZE / 4);
 	if (process->waiting > 0)
 		process->waiting -= 1;
 	else if (process->waiting == 0)
 	{
 		local_dbg(l_dbg, "Instruction opcode : %02x\n", opcode);
-		exec_op(opcode, vm, process);
+		exec_op(opcode, vm, process, g_op_tab[opcode - 1]);
 		process->waiting = -1;
 		local_dbg(l_dbg, "PC state at instruction end : %d\n", process->pc);
 	}

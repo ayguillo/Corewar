@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/01 20:18:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:54:10 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static bool l_dbg = 1;
 
-void	op_jmpz(t_vm *vm, t_proc *process)
+void	op_jmpz(t_vm *vm, t_proc *process, t_op op)
 {
 	short		jump_address;
 
+	(void)op;
 	local_dbg(l_dbg, "Instruction op_jmpz()\n");
 	jump_address = read_from_vm(vm, process->pc + T_OPCODE, T_SDIR);
 	jump_address = (process->pc + jump_address) % MEM_SIZE;
