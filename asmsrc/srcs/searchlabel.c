@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:39:35 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 13:35:36 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 16:42:00 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	ft_searchlabel1(t_op **op, t_op *search, int i)
 		{
 			if (!(ft_strcmp(search->searchlabel[i], tmp->label)))
 			{
-				search->param[i] = ((search->addr - tmp->addr + MEM_SIZE)
-						% MEM_SIZE);
+				search->param[i] = (MEM_SIZE -
+						(search->addr - tmp->addr + MEM_SIZE) % MEM_SIZE);
 				ft_strdel(&(search->searchlabel[i]));
 				break ;
 			}

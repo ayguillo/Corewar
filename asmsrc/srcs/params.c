@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:54:11 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 16:14:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,7 @@ int			ft_paramrg(char **split, t_asm *tasm)
 		tasm->error = 1;
 		return (ft_errorparams(tasm, split[1]));
 	}
-	if (!(reg = ft_strsplit(split[1], 'r')))
-		return (ft_free(NULL, 1, &(tasm->gnl), NULL));
-	if (reg[0] && ((param = ft_atoi(reg[0])) <= 0 || param > REG_NUMBER))
-	{
-		ft_free_tab2d(&reg);
-		tasm->error = 2;
-		return (ft_errorparams(tasm, split[1]));
-	}
-	ft_fillparam1(tasm->op, 1, REG_CODE, param);
+	ft_fillrg(split, tasm);
 	ft_free_tab2d(&reg);
 	return (1);
 }

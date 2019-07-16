@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:54:11 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/16 16:15:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void		ft_fillinstop2(char *inst, t_op *tmp)
 		tmp->inst = OR;
 	else if (!(ft_strcmp(inst, "xor")))
 		tmp->inst = XOR;
+	else if (!(ft_strcmp(inst, "aff")))
+		tmp->inst = AFF;
 }
 
 void		ft_fillinstop(char *inst, t_op *op)
