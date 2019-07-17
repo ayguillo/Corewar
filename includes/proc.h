@@ -73,8 +73,9 @@ int	read_from_vm(t_vm *vm, int address, int read_size);
 */
 
 void	write_to_register(t_proc *process, int register_id, int write);
-void	write_byte_to_vm(t_vm *vm, int address, char byte);
-void	write_to_vm(t_vm *vm, int address, int write, int write_size);
+void	write_byte_to_vm(t_vm *vm, unsigned int address, char byte);
+void	write_to_vm(t_vm *vm, int address, int write, int write_size,
+	int player_id);
 
 /*
 ** VM QUERY
