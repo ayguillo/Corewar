@@ -6,31 +6,30 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 16:54:10 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/17 21:28:03 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/proc.h"
+#include "proc.h"
 
-static bool l_dbg = 1;
+__attribute__((unused))static bool l_dbg = 1;
 
-void	op_jmpz(t_vm *vm, t_proc *process, t_op op)
+void	op_jmpz(__attribute__((unused))t_vm *vm, t_proc *process,
+	t_param *params, __attribute__((unused))t_op op)
 {
-	short		jump_address;
+	short	jump_address;
 
-	(void)op;
-	local_dbg(l_dbg, "Instruction op_jmpz()\n");
-	jump_address = read_from_vm(vm, process->pc + T_OPCODE, T_SDIR);
-	jump_address = (process->pc + jump_address) % MEM_SIZE;
+	local_dbg(l_dbg, "{magenta}EXECUTING OP_JMPZ{eoc}\n");
+	jump_address = (process->pc + params[0].val) % MEM_SIZE;
+	local_dbg(l_dbg, "Jump address : 0x%08x (%u)\n", jump_address, jump_address);
+	local_dbg(l_dbg, "(PC [%u]) + (P1 [%u]) %% MEM_SIZE\n", process->pc,
+		params[0].val);
 	if (process->carry == 1)
 	{
-		process->pc = jump_address;
+		process->op_pc = jump_address;
 		local_dbg(l_dbg, "Jumped at address %d\n", jump_address);
 	}
 	else
-	{
 		local_dbg(l_dbg, "No carry me no jump\n");
-		process->pc += T_OPCODE;
-		process->pc += T_SDIR;
-	}
+	local_dbg(l_dbg, "{magenta}OP_JMPZ END{eoc}\n\n");
 }
