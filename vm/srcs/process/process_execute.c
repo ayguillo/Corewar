@@ -28,10 +28,43 @@ void	(*g_op_fptr[12])(t_vm*, t_proc*, t_param*, t_op) =
 	&op_fork
 };
 
-void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process, t_op op)
+int		process_param_types(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
-	if (opcode > 0 && opcode <= 11)
-		g_op_fptr[opcode - 1](vm, process, op);
+	char ocp;
+
+	ocp = 0;
+	if (op.has_ocp)
+	{
+		ocp = read_byte_from_vm(vm, process->op_pc);
+		process->op_pc += T_OCP;
+	}
+	if (!op.has_ocp || ocp_match_instruction_params(op, ocp))
+	{
+		set_params(params, op, ocp);
+		return (1);
+	}
+	return (0);
+}
+
+void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
+{
+	t_param		params[3];
+
+	local_dbg(l_dbg, "{yellow}Instruction '%s' (%#02x){eoc}\n", op.name, op.opcode);
+	process->op_pc += T_OPCODE;
+	if (process_param_types(vm, process, params, op))
+	{
+		if (get_op_parameters(vm, process, params, op) >= 0)
+		{
+			g_op_fptr[(int)(op.opcode - 1)](vm, process, params, op);
+			process->pc = process->op_pc;
+		}
+		else
+			process->pc = (process->pc + 1) % MEM_SIZE;
+	}
+	else
+		process->pc = (process->pc + 1) % MEM_SIZE;
+	process->op_pc = process->pc;
 }
 
 int		process_execute(t_vm *vm, t_proc *process)
@@ -41,18 +74,28 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	//local_dbg(l_dbg, "MEMORY STATE :\n");
-	//tmp_print_mem(vm->mem, MEM_SIZE / 4);
-	if (process->waiting > 0)
-		process->waiting -= 1;
+	local_dbg(l_dbg, "{green}[PROCESSING]{eoc}\n");
+	local_dbg(l_dbg, "Player %d process %d\n", process->player, process->number);
+	local_dbg(l_dbg, "CYCLE\t: %d\n", vm->cycles);
+	local_dbg(l_dbg, "PC\t: %d\n", process->pc);
+	if (opcode <= 0 || opcode >= 18)
+	{
+		local_dbg(l_dbg, "{red}Invalid opcode %#02hx{eoc}\n", opcode);
+		process->pc = (process->pc + 1) % MEM_SIZE;
+	}
 	else if (process->waiting == 0)
 	{
-		local_dbg(l_dbg, "Instruction opcode : %02x\n", opcode);
-		exec_op(opcode, vm, process, g_op_tab[opcode - 1]);
 		process->waiting = -1;
-		local_dbg(l_dbg, "PC state at instruction end : %d\n", process->pc);
+		process->op_pc = process->pc;
+		execute_instruction(vm, process, g_op_tab[opcode - 1]);
 	}
 	else if (process->waiting == -1)
+	{
+		local_dbg(l_dbg, "OPCODE : %#02hx (%s)\n", opcode, g_op_tab[opcode - 1].name);
+		local_dbg(l_dbg, "Set waiting to %d cycles\n", g_op_tab[opcode - 1].cycles);
 		process->waiting = g_op_tab[opcode - 1].cycles;
+	}
+	local_dbg(l_dbg, "PC final state : %d\n", process->pc);
+	local_dbg(l_dbg, "{green}[PROCESSING END]{eoc}\n\n");
 	return (0);
 }
