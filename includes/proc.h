@@ -45,10 +45,14 @@ void local_dbg(bool debug, const char *fmt_msg, ...);
 ** INSTRUCTIONS
 */
 
-void op_and(t_vm *vm, t_proc *process, t_op op);
-void op_jmpz(t_vm *vm, t_proc *process, t_op op);
-void op_live(t_vm *vm, t_proc *process, t_op op);
-void op_sti(t_vm *vm, t_proc *process, t_op op);
+void op_and(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_jmpz(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_live(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_fork(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_st(t_vm *vm, t_proc *process, t_param *params, t_op op);
 
 /*
 ** INSTRUCTION TOOLS
