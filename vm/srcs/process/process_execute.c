@@ -6,25 +6,26 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:04:26 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/17 22:20:49 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
 static bool l_dbg = 1;
 
-void	(*g_op_fptr[11])(t_vm*, t_proc*, t_op) =
+void	(*g_op_fptr[12])(t_vm*, t_proc*, t_param*, t_op) =
 {
 	&op_live,
-	NULL,
-	NULL,
+	&op_ld,
+	&op_st,
 	NULL,
 	NULL,
 	&op_and,
 	NULL,
 	NULL,
 	&op_jmpz,
-	NULL,
-	&op_sti
+	&op_ldi,
+	&op_sti,
+	&op_fork
 };
 
 void	exec_op(unsigned char opcode, t_vm *vm, t_proc *process, t_op op)
