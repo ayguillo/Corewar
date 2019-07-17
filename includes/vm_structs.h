@@ -41,6 +41,7 @@ typedef struct		s_proc
 {
 	struct s_proc	*next;
 	unsigned int	pc;
+	unsigned int	op_pc;
 	unsigned int	number;
 	int				period_lives;
 	int				waiting;
