@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:50:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:37:43 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static int		ft_label(char *trim, t_gnl *gnl, t_op *new)
 			{
 				ft_supprlab(trim, split);
 				new->label = ft_strdup(split[0]);
+				new->line = gnl->nbline;
 			}
 		}
 	}
@@ -122,7 +123,7 @@ static int	ft_recupinst(t_asm *tasm, char **trim)
 		ft_strdel(trim);
 		return (0);
 	}
-	ft_fillparam1(tasm->op, 0, 0, 0);
+	ft_fillparam1(tasm, 0, 0, 0);
 	if (!(ft_instructions(trim, tasm)))
 		return (0);
 	return (1);

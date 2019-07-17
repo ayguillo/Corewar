@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 16:15:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:37:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			ft_filld(char **split, t_asm *tasm, int size)
 		return (0);
 	}
 	if (tasm->n_param == 1)
-		ft_fillparam1(tasm->op, size, DIR_CODE, param);
+		ft_fillparam1(tasm, size, DIR_CODE, param);
 	if (tasm->n_param == 2)
 		ft_fillparam2(tasm->op, size, DIR_CODE, param);
 	if (tasm->n_param == 3)
@@ -111,7 +111,7 @@ int			ft_filli(char **split, t_asm *tasm)
 	if (split[tasm->n_param] && !param)
 		param = ft_atui(split[tasm->n_param]);
 	if (tasm->n_param == 1)
-		ft_fillparam1(tasm->op, IND_SIZE, IND_CODE, param);
+		ft_fillparam1(tasm, IND_SIZE, IND_CODE, param);
 	if (tasm->n_param == 2)
 		ft_fillparam2(tasm->op, IND_SIZE, IND_CODE, param);
 	if (tasm->n_param == 3)
@@ -159,7 +159,7 @@ int			ft_fillrg(char **split, t_asm *tasm)
 		return (ft_syntax(NULL, tasm, split[0][0]));
 	}
 	if (tasm->n_param == 1)
-		ft_fillparam1(tasm->op, 1, REG_CODE, param);
+		ft_fillparam1(tasm, 1, REG_CODE, param);
 	if (tasm->n_param == 2)
 		ft_fillparam2(tasm->op, 1, REG_CODE, param);
 	if (tasm->n_param == 3)

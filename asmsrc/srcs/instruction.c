@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:59:36 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:35:54 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		ft_strdel(&(tasm->gnl.line));
 		return (0);
 	}
-	if (!(ft_searchlabel(tasm)))
+	if (!(ft_searchlabel(tasm, 0)))
 		return (0);
 	/*
 	 ** AFFICHAGE TEST
 	 */
-	/*t_op	*tmp;
+/*	t_op	*tmp;
 	tmp = tasm->op;
 	int		i;
 	ft_printf("line = %s at %i\n", tasm->gnl.line, tasm->gnl.nbline);

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:51:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:25:13 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,12 @@ int			main(int ac, char **av)
 		ft_dprintf(2, "Open() failed\n");
 		return (-1);
 	}
-	write(tasm.file.fdwrite, &header, sizeof(t_header));
-	write_code(&(tasm.file), tasm.op);
+	if (ft_searchlabel(&tasm, 1))
+	{
+		write(tasm.file.fdwrite, &header, sizeof(t_header));
+		write_code(&(tasm.file), tasm.op);
+		ft_printf("Writing output program to %s\n", tasm.file.name);
+	}
 	ft_dellstop(tasm.op);
 	if ((close(tasm.file.fdopen)) == -1 || (close(tasm.file.fdwrite) == -1))
 	{
