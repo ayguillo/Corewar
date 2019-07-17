@@ -32,7 +32,6 @@
 */
 
 int	placeholder_init_data(t_vm *vm, t_proc *process);
-void exec_op(unsigned char opcode, t_vm *vm, t_proc *process, t_op op);
 int	process_execute(t_vm *vm, t_proc *process);
 
 /*
