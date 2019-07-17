@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 13:35:36 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:39:00 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_op
 	char			inst;
 	int				code[3];
 	unsigned int	param[3];
+	int				line;
 	struct s_op		*next;
 }				t_op;
 
@@ -98,6 +99,7 @@ int				ft_diffis(const char *s1, const char *s2);
 int				ft_strclentab(const char *s1, char print, char *str, int occ);
 void			ft_strprintspaces(const char *s1);
 char			*ft_charwtspaces(char *str);
+int				ft_passtab(char *line, int *i, int ret);
 
 /*
 ** INSTRUCTIONS & LABEL
@@ -125,7 +127,7 @@ int				ft_paramldi(char **split, t_asm *tasm);
 int				ft_paramsti(char **split, t_asm *tasm);
 int				ft_paramcomp(char **split, t_asm *tasm);
 
-void			ft_fillparam1(t_op *op, int size, int code,
+void			ft_fillparam1(t_asm *tasm, int size, int code,
 		unsigned int param1);
 void			ft_fillparam2(t_op *op, int size, int code,
 		unsigned int param2);
@@ -134,7 +136,7 @@ void			ft_fillparam3(t_op *op, int size, int code,
 
 
 unsigned int	ft_filllabel(t_asm *tasm, char **split);
-int				ft_searchlabel(t_asm *tasm);
+int				ft_searchlabel(t_asm *tasm, int err);
 void			write_code(t_file *file, t_op *op);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 12:36:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/17 15:15:44 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,14 @@ void	ft_strprintspaces(const char *s1)
 			break;
 		i++;
 	}
+}
+
+int		ft_passtab(char *line, int *i, int ret)
+{
+	if (line[*i] == '\t')
+		ret += 8 - (ret % 8);
+	else
+		ret++;
+	(*i)++;
+	return (ret);
 }
