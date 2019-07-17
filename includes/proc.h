@@ -101,6 +101,6 @@ int		ocp_match_instruction_params(t_op op, char ocp);
 ** PROCESS SET
 */
 
-void	process_set_carry(t_proc *process, int value);
+void	process_set_carry(t_proc *process, t_op op, int value);
 
 #endif
