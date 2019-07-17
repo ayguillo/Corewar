@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:52:12 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/17 22:23:08 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,45 @@ int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 	addr = 0;
 	if (param->type == DIR_CODE)
 	{
-		local_dbg(l_dbg, "\tParameter code : %02x (DIR)\n", param->type);
-		param->val = read_from_vm(vm, proc->pc, op.dir_type == 0 ? 4 : 2);
+		local_dbg(l_dbg, "%02x (DIR)\n", param->type);
+		param->val = read_from_vm(vm, proc->op_pc, op.dir_type == 0 ? 4 : 2);
 		return (op.dir_type == 0 ? 4 : 2);
 	}
 	else if (param->type == IND_CODE)
 	{
-		local_dbg(l_dbg, "\tParameter code : %02x (IND)\n", param->type);
-		addr = read_from_vm(vm, proc->pc, T_IND);
-		param->val = read_from_vm(vm, addr, T_LDIR);
-		return (T_IND);
+		local_dbg(l_dbg, "%02x (IND)\n", param->type);
+		param->val = read_from_vm(vm, proc->op_pc, T_IND);
+		return (T_IND / 2);
 	}
 	else if (param->type == REG_CODE)
 	{
-		local_dbg(l_dbg, "\tParameter code : %02x (IND)\n", param->type);
-		addr = read_from_vm(vm, proc->pc, T_REG);
-		param->val = read_from_register(proc, addr);
+		local_dbg(l_dbg, "%02x (REG)\n", param->type);
+		param->val = read_from_vm(vm, proc->op_pc, T_REG);
 		return (T_REG);
 	}
 	else
 	{
-		local_dbg(l_dbg, "\tParameter code : %02x (UNKNOWN)\n", param->type);
-		return (ERROR); /* UNDEFINED PARAM TYPE */
+		local_dbg(l_dbg, "{red}%02x (UNKNOWN){eoc}\n", param->type);
+		return (-1); /* UNDEFINED PARAM TYPE */
 	}
 }
 
-void	get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
+int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 {
-	int i;
+	int		i;
+	int		parameter_size;
 
 	i = 0;
+	parameter_size = 0;
+	local_dbg(l_dbg, "{blue}READ parameters :{eoc}\n\n");
 	while (i < op.arg_nbr)
 	{
-		proc->pc += get_parameter(vm, proc, &params[i], op);
+		if ((parameter_size = get_parameter(vm, proc, &params[i], op)) < 0)
+			return (1);
+		proc->op_pc += parameter_size;
+		local_dbg(l_dbg, "\n");
 		i++;
 	}
+	local_dbg(l_dbg, "{blue}Read all parameters{eoc}\n\n");
+	return (0);
 }
