@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:51:04 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/17 20:37:13 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct			s_op
 	char				*name;
 	t_arg_type			has_ocp;
 	t_arg_type			dir_type;
+	t_arg_type			carry_flag;
 }						t_op;
 
 extern const t_op			g_op_tab[17];
