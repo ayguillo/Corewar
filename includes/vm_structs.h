@@ -88,8 +88,8 @@ typedef struct		s_vm
 
 typedef struct		s_param
 {
-	int				type;
-	int				val;
+	unsigned int	type;
+	unsigned int	val;
 }					t_param;
 
 typedef struct			s_op
