@@ -6,28 +6,49 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:32:33 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/10 20:58:17 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/17 19:22:32 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-void	write_byte_to_vm(t_vm *vm, int address, char byte)
-{
-	int real_address;
+__attribute__((unused))static bool l_dbg = 1;
 
-	real_address = (address % MEM_SIZE);
+void	write_byte_to_vm(t_vm *vm, unsigned int address, char byte)
+{
+	unsigned int real_address;
+
+	real_address = (unsigned int)(address % MEM_SIZE);
+	local_dbg(l_dbg, "Write byte 0x%02hhx at address %u\n",
+		byte, real_address);
 	vm->mem[real_address] = byte;
 }
 
-void	write_to_vm(t_vm *vm, int address, int write, int write_size)
+void	write_mem_info(char *mem_info, unsigned int address, int size,
+	int player_id)
 {
-	int i;
+	int				i;
 
 	i = 0;
+	while (i < size)
+	{
+		mem_info[(address + i) % MEM_SIZE] = player_id;
+		i++;
+	}
+}
+
+void	write_to_vm(t_vm *vm, int address, int write, int write_size,
+	int player_id)
+{
+	int i;
+	unsigned int unsign_addr;
+
+	i = 0;
+	unsign_addr = (unsigned int)address;
+	write_mem_info(vm->mem_infos_code, address, write_size, player_id);
 	while (i < write_size) /* WHAT IF WRITE_SIZE > 4 ? */
 	{
-		write_byte_to_vm(vm, ((address + (write_size - 1)) - i), (char)write);
+		write_byte_to_vm(vm, ((unsign_addr + (write_size - 1)) - i), (char)write);
 		write >>= 8;
 		i++;
 	}

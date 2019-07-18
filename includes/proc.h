@@ -32,7 +32,6 @@
 */
 
 int	placeholder_init_data(t_vm *vm, t_proc *process);
-void exec_op(unsigned char opcode, t_vm *vm, t_proc *process, t_op op);
 int	process_execute(t_vm *vm, t_proc *process);
 
 /*
@@ -46,16 +45,20 @@ void local_dbg(bool debug, const char *fmt_msg, ...);
 ** INSTRUCTIONS
 */
 
-void op_and(t_vm *vm, t_proc *process, t_op op);
-void op_jmpz(t_vm *vm, t_proc *process, t_op op);
-void op_live(t_vm *vm, t_proc *process, t_op op);
-void op_sti(t_vm *vm, t_proc *process, t_op op);
+void op_and(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_jmpz(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_live(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_fork(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_st(t_vm *vm, t_proc *process, t_param *params, t_op op);
 
 /*
 ** INSTRUCTION TOOLS
 */
 
-void	get_op_parameters(t_vm *vm, t_proc *pr, t_param *params, t_op op);
+int	get_op_parameters(t_vm *vm, t_proc *pr, t_param *params, t_op op);
 
 /*
 ** READ FROM VM/PROCESS
@@ -70,8 +73,9 @@ int	read_from_vm(t_vm *vm, int address, int read_size);
 */
 
 void	write_to_register(t_proc *process, int register_id, int write);
-void	write_byte_to_vm(t_vm *vm, int address, char byte);
-void	write_to_vm(t_vm *vm, int address, int write, int write_size);
+void	write_byte_to_vm(t_vm *vm, unsigned int address, char byte);
+void	write_to_vm(t_vm *vm, int address, int write, int write_size,
+	int player_id);
 
 /*
 ** VM QUERY
@@ -90,13 +94,13 @@ void set_player_alive(t_vm *vm, t_proc *process, int player_id);
 */
 
 int		get_param_type_from_ocp(char ocp, int param_position);
-void	set_params_from_ocp(t_param *param, char ocp, int nbr_of_params);
+void	set_params(t_param *param, t_op op, char ocp);
 int		ocp_match_instruction_params(t_op op, char ocp);
 
 /*
 ** PROCESS SET
 */
 
-void	process_set_carry(t_proc *process, int value);
+void	process_set_carry(t_proc *process, t_op op, int value);
 
 #endif

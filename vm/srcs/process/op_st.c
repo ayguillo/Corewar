@@ -6,39 +6,53 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 17:50:30 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/17 21:11:54 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-static bool l_dbg = 1;
+__attribute__((unused))static bool l_dbg = 1;
 
-void	op_sti(t_vm *vm, t_proc *process, t_op op)
+void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
-	int				initial_pc;
-	t_param			params[3];
 	int				store_addr;
 	int				reg_load;
-	char			ocp;
 
-	local_dbg(l_dbg, "Instruction op_sti()\n");
-	initial_pc = process->pc;
-	ft_bzero(params, sizeof(t_param) * op.arg_nbr);
-	process->pc += T_OPCODE;
-	ocp = read_byte_from_vm(vm, process->pc);
-	if (ocp_match_instruction_params(op, ocp))
+	local_dbg(l_dbg, "{magenta}EXECUTING OP_STI :{eoc}\n");
+	store_addr = process->pc + (params[1].val + params[2].val);
+	local_dbg(l_dbg, "Store address :\n");
+	local_dbg(l_dbg, "\t0x%0x (%u)\n", store_addr, store_addr);
+	local_dbg(l_dbg, "\t(PC [%u]) + (P2 [%u]) + (P3 [%u])\n", process->pc,
+		params[1].val, params[2].val);
+	local_dbg(l_dbg, "Write value :\n\t");
+	reg_load = read_from_register(process, params[0].val);
+	local_dbg(l_dbg, "Writing 0x%08x from register %d to address %u\n",
+		reg_load, params[0].val, (store_addr));
+	write_to_vm(vm, store_addr, reg_load, 4, process->player);
+	process_set_carry(process, op, reg_load);
+	local_dbg(l_dbg, "{magenta}OP_STI END{eoc}\n\n");
+}
+
+void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
+{
+	int reg_load;
+
+	(void)op;
+	local_dbg(l_dbg, "{magenta}EXECUTING OP_ST :{eoc}\n");
+	reg_load = read_from_register(process, params[0].val);
+	if (params[1].type == REG_CODE)
 	{
-		process->pc += T_OCP;
-		set_params_from_ocp(params, ocp, op.arg_nbr);
-		local_dbg(l_dbg, "Getting Parameters for op_sti()\n", NULL);
-		get_op_parameters(vm, process, params, op);
-		store_addr = initial_pc + (params[1].val + params[2].val);
-		reg_load = read_from_register(process, params[0].val);
-		write_to_vm(vm, store_addr, reg_load, T_LDIR);
-		process_set_carry(process, reg_load);
-		local_dbg(l_dbg, "Write value '%d' at address %d\n", reg_load, store_addr);
+		local_dbg(l_dbg, "Got REG_CODE, value : %08x\n", reg_load);
+		local_dbg(l_dbg, "Writing to register '%u'\n", params[1].val);
+		write_to_register(process, params[1].val, params[0].val);
 	}
-	else
-		local_dbg(l_dbg, "Parameters don't match ocp in op_sti.\n");
+	else if (params[1].type == IND_CODE)
+	{
+		local_dbg(l_dbg, "Got DIR_CODE, value : %08x\n", reg_load);
+		local_dbg(l_dbg, "Writing to address '%u'\n", params[1].val % IDX_MOD);
+		write_to_vm(vm, process->pc + (params[1].val % IDX_MOD), reg_load, 4,
+			process->player);
+	}
+	local_dbg(l_dbg, "{magenta}OP_ST END{eoc}\n\n");
 }
