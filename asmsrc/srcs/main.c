@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 12:00:17 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 15:56:32 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,13 @@ int			main(int ac, char **av)
 	if (!(printfile(&header, &tasm)))
 	{
 		ft_strdel(&(tasm.file.name));
+		ft_dellstop(&tasm);
 		return (-1);
 	}
 	if (((tasm.file.fdwrite = createfile(tasm.file.name)) == -1))
 	{
 		ft_strdel(&(tasm.file.name));
+		ft_dellstop(&tasm);
 		ft_dprintf(2, "Open() failed\n");
 		return (-1);
 	}

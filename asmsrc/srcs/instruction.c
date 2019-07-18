@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 11:08:18 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:11:01 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../includes/asm.h"
 
 static int	ft_isinst(char *inst)
-	{
+{
 	if (!ft_strcmp(inst, "live") || !ft_strcmp(inst, "zjmp")
 				|| !ft_strcmp(inst, "fork") || !ft_strcmp(inst, "lfork")
 				|| !ft_strcmp(inst, "aff"))
@@ -36,6 +36,8 @@ static int	ft_argverif(char **split, t_asm *tasm)
 	int i;
 
 	i = 0;
+	if (!split[1])
+		return (ft_syntax(NULL, tasm, split[0][ft_strlen(split[0])]));
 	if (!ft_strcmp(split[0], "live"))
 		return (ft_paramd(split, tasm, DIR_SIZE));
 	else if (!ft_strcmp(split[0], "aff"))
@@ -71,10 +73,12 @@ static char	**ft_instok(t_asm *tasm, char **trim)
 	}
 	if (!(tasm->op->nbarg = ft_isinst(split[0])))
 	{
+		ft_free_tab2d(&split);
+		tasm->error = 2;
 		ft_syntax(trim, tasm, 0);
 		return (NULL);
 	}
-		if (!(ft_separator(trim, tasm->op->nbarg - 1, tasm)))
+	if (!(ft_separator(trim, tasm->op->nbarg - 1, tasm)))
 	{
 		ft_free_tab2d(&split);
 		return (NULL);

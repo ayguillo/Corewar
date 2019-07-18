@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 15:21:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:44:34 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int			ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	{
 		ft_dprintf(2, "Syntax Error at line %i\n%s%s\n%s", gnl->nbline, _RED_,
 				gnl->line, _GREEN_);
+		j = 0;
 		while (gnl->line[i++])
 		{
 			j = -1;
@@ -99,23 +100,29 @@ int			ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 					break ;
 			}
 		}
-		ft_dprintf(2, "%*c\n", ft_strclentab(gnl->line, '~', &gnl->line[i], 0), '^', _RESET_);
+		ft_dprintf(2, "%*c%s\n", ft_strclentab(gnl->line, '~', &(gnl->line[i]), 0), '^', _RESET_);
 	}
-	ft_free_tab2d(tab);
+	if (tab)
+		ft_free_tab2d(tab);
 	ft_strdel(&(gnl->line));
 	return (0);
 }
 
 int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 {
+	int i;
+
 	if (err == 0)
 	{
 		ft_strdel(str);
 		ft_free_tab2d(tab);
 		ft_dprintf(2, "Empty command at line %i\n%s%s\n", gnl->nbline,
 				_RED_, gnl->line);
+		i = 0;
+		while (gnl->line[i] != '.')
+			i++;
 		ft_dprintf(2, "%s%*c%s\n", _GREEN_, ft_strclentab(gnl->line, 0,
-					&gnl->line[0], 0),
+					&gnl->line[i], 0),
 				'^', _RESET_);
 	}
 	if (err == 1)
@@ -123,7 +130,7 @@ int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 		ft_strdel(str);
 		ft_free_tab2d(tab);
 		ft_dprintf(2, "Champion name too long (Max length %i)\n%sThe name \
-				has %i characters\n%s", PROG_NAME_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
+has %i characters\n%s", PROG_NAME_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
 	}
 	if (err == 2)
 	{
@@ -135,8 +142,8 @@ int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 	{
 		ft_strdel(str);
 		ft_free_tab2d(tab);
-		ft_dprintf(2, "Comment too long (Max length %i)\n%sYour comment\
-				has %i characters\n%s", COMMENT_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
+		ft_dprintf(2, "Comment too long (Max length %i)\n%sYour comment \
+has %i characters\n%s", COMMENT_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
 	}
 	if (err == 4)
 	{

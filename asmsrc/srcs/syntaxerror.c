@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 11:21:30 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:13:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	ft_wnbr(t_gnl *gnl)
 	ft_dprintf(2, "%s%*c%s\n", _GREEN_, tot, '^', _RESET_);
 }
 
-static void	ft_uinst(t_gnl *gnl, int nparam)
+static void	ft_uinst(t_gnl *gnl)
 {
 	int	i;
 	int	j;
@@ -66,7 +66,7 @@ static void	ft_uinst(t_gnl *gnl, int nparam)
 	i = 0;
 	while (gnl->line[i] && (gnl->line[i] == '\t' || gnl->line[i] == 32))
 		++i;
-	j = ft_strclentab(gnl->line, 0, &gnl->line[i], nparam);
+	j = ft_strclentab(gnl->line, 0, &gnl->line[i], 0);
 	ft_dprintf(2, "%s%*c", _GREEN_, j, '^');
 	while (gnl->line[++i] && gnl->line[i] != '\t' && gnl->line[i] != 32 &&
 			gnl->line[i] != SEPARATOR_CHAR)
@@ -94,7 +94,7 @@ static void	ft_wchar(t_gnl *gnl, char c, int nparam)
 	while (gnl->line[++i] && gnl->line[i] != ' ' && gnl->line[i] != '\t' &&
 			gnl->line[i] != SEPARATOR_CHAR)
 		ft_dprintf(2, "~");
-	ft_dprintf(2, "\n%s", _RESET_);
+//	ft_dprintf(2, "\n%s", _RESET_);
 }
 
 int			ft_syntax(char **str, t_asm *tasm, char c)
@@ -105,7 +105,7 @@ int			ft_syntax(char **str, t_asm *tasm, char c)
 	if (tasm->error == 1)
 		ft_wnbr(&(tasm->gnl));
 	if (tasm->error == 2)
-		ft_uinst(&(tasm->gnl), tasm->n_param);
+		ft_uinst(&(tasm->gnl));
 	if (tasm->error == 3)
 		ft_wchar(&(tasm->gnl), c, tasm->n_param);
 	ft_strdel(str);

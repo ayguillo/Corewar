@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 12:00:17 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:34:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int		ft_label(char *trim, t_gnl *gnl, t_op *new)
 		if (ret > 0)
 		{
 			if (!(verif = veriflabel(split[0])))
-				ret = ft_freecom(&split, 3, split[0], gnl);
+				ret = ft_freecom(NULL, 3, split[0], gnl);
 			if (split[0] && verif != 2)
 			{
 				ft_supprlab(trim, split);

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 15:15:44 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:47:21 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 
 	ret = 0;
 	i = 1;
-	while (s1 && *s1 && occ)
+	while (s1 && *s1)
 	{
 		if (*s1 == '\t')
 			ret += 8 - (ret % 8);
@@ -46,6 +46,8 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 		if (*s1 == SEPARATOR_CHAR)
 			--occ;
 		++s1;
+		if (occ == 0)
+			break ;
 	}
 	while (s1 && *s1 && s1 != str)
 	{
@@ -53,12 +55,14 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 			ret += 8 - (ret % 8);
 		else if (print)
 		{
-			if (i == 1)
+			if (i == 1 && (*s1 == ' ' ||*s1 == '\t' ))
 			{
 				ft_dprintf(2, "%*c", ret, ' ');
 				i = 0;
 				ret = 0;
 			}
+			else
+				ft_dprintf(2, "~");
 			j = -1;
 			while (LABEL_CHARS[++j])
 				if (LABEL_CHARS[j] == *s1)
@@ -70,7 +74,8 @@ int		ft_strclentab(const char *s1, char print, char *str, int occ)
 			ret++;
 		++s1;
 	}
-	ret++;
+	if (ret)
+		ret++;
 	return (ret);
 }
 
