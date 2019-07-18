@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 16:35:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 11:08:18 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		return (0);
 	}
 	if (!(ft_searchlabel(tasm, 0)))
+	{
+		ft_free_tab2d(&split);
 		return (0);
+	}
 	/*
 	 ** AFFICHAGE TEST
 	 */
@@ -131,5 +134,6 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		(tmp) = (tmp)->next;
 	}
 	ft_putchar('\n');*/
+	ft_free_tab2d(&split);
 	return (1);
 }

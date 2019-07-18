@@ -6,7 +6,7 @@
 #    By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 10:47:24 by vlambert          #+#    #+#              #
-#    Updated: 2019/07/09 10:20:57 by vlambert         ###   ########.fr        #
+#    Updated: 2019/07/18 11:55:44 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	libft.a
 
 CC			=	/usr/bin/gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 DEBUG		=	-g3 -fsanitize=address
 

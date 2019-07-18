@@ -6,11 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 16:25:13 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 12:00:17 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
+#include "../libft/color.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -76,28 +77,25 @@ int			start(int ac, char **av, t_file *file)
 	return (1);
 }
 
-void		ft_dellstop(t_op *op)
+void		ft_dellstop(t_asm *tasm)
 {
 	t_op	*tmp1;
 	t_op	*tmp2;
 	int		i;
 
-	tmp1 = op;
-	i = -1;
-	while (tmp1->next)
+	tmp1 = tasm->op;
+	ft_strdel(&(tasm->gnl.line));
+	while (tmp1)
 	{
-		if (tmp1->next)
-			tmp2 = tmp1->next;
+		i = -1;
+		tmp2 = tmp1->next;
 		while (++i < 3)
 			ft_strdel(&tmp1->searchlabel[i]);
 		ft_strdel(&tmp1->label);
 		free(tmp1);
 		tmp1 = NULL;
-		if (tmp2)
-			tmp1 = tmp2;
+		tmp1 = tmp2;
 	}
-	free(tmp1);
-	tmp1 = NULL;
 }
 
 int			main(int ac, char **av)
@@ -125,9 +123,10 @@ int			main(int ac, char **av)
 	{
 		write(tasm.file.fdwrite, &header, sizeof(t_header));
 		write_code(&(tasm.file), tasm.op);
-		ft_printf("Writing output program to %s\n", tasm.file.name);
+		ft_printf("%sWriting output program to %s%s\n",
+				_GREEN_, tasm.file.name, _RESET_);
 	}
-	ft_dellstop(tasm.op);
+	ft_dellstop(&tasm);
 	if ((close(tasm.file.fdopen)) == -1 || (close(tasm.file.fdwrite) == -1))
 	{
 		ft_strdel(&(tasm.file.name));

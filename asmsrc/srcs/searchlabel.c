@@ -6,19 +6,20 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:39:35 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 17:01:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/18 10:48:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../libft/libft.h"
+#include "../libft/color.h"
 
 static int	ft_searchlabel1(t_op **op, t_op *search, int i, int err)
 {
 	t_op	*tmp;
 
 	tmp = *op;
-	while (tmp->next)
+	while (tmp)
 	{
 		if (tmp->label)
 		{
@@ -32,7 +33,7 @@ static int	ft_searchlabel1(t_op **op, t_op *search, int i, int err)
 		}
 		tmp = tmp->next;
 	}
-	if (err == 1 && !(tmp->next))
+	if (err == 1 && !(tmp))
 		return (0);
 	return (1);
 }
@@ -51,7 +52,8 @@ int			ft_searchlabel(t_asm *tasm, int err)
 			if (tmp->searchlabel[i])
 				if (!(ft_searchlabel1(&tasm->op, tmp, i, err)))
 				{
-					ft_printf("hello %i\n", tmp->line);
+					ft_dprintf(2, "%slabel '%s' at line %i undeclared.%s\n",
+							_RED_, tmp->searchlabel[i], tmp->line, _RESET_);
 					return (0);
 				}
 			++i;
