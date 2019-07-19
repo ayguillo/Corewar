@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/15 19:26:44 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/19 16:30:20 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 		new->regs[0] = vm->players[player].number;
 		new->player = player;
 	}
+	new->period_lives = 0;
 	new->pc = pc % MEM_SIZE;
 	new->op_pc = new->pc;
 	new->waiting = -1;
