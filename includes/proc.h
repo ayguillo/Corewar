@@ -45,14 +45,21 @@ void local_dbg(bool debug, const char *fmt_msg, ...);
 ** INSTRUCTIONS
 */
 
-void op_and(t_vm *vm, t_proc *process, t_param *params, t_op op);
-void op_jmpz(t_vm *vm, t_proc *process, t_param *params, t_op op);
 void op_live(t_vm *vm, t_proc *process, t_param *params, t_op op);
-void op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op);
 void op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op);
-void op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op);
-void op_fork(t_vm *vm, t_proc *process, t_param *params, t_op op);
 void op_st(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_add(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_sub(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_and(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_or(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_xor(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_jmpz(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_fork(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void op_lfork(t_vm *vm, t_proc *process, t_param *params, t_op op);
 
 /*
 ** INSTRUCTION TOOLS
