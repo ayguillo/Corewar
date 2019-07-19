@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:05:37 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 17:47:21 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/19 14:37:11 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,46 +29,71 @@ int		ft_diffis(const char *s1, const char *s2)
 	return (i);
 }
 
-int		ft_strclentab(const char *s1, char print, char *str, int occ)
+int			ft_strclentab(const char *s1, char print, char *str, int occ)
 {
 	int	ret;
 	int	j;
 	int	i;
+	int	k;
 
 	ret = 0;
-	i = 1;
-	while (s1 && *s1)
+	if (!print)
 	{
-		if (*s1 == '\t')
-			ret += 8 - (ret % 8);
-		else
-			ret++;
-		if (*s1 == SEPARATOR_CHAR)
-			--occ;
-		++s1;
-		if (occ == 0)
-			break ;
+		while (s1 && *s1)
+		{
+			if (*s1 == '\t')
+				ret += 8 - (ret % 8);
+			else
+				ret++;
+			if (*s1 == SEPARATOR_CHAR)
+				--occ;
+			++s1;
+			if (occ == 0)
+				break ;
+		}
 	}
 	while (s1 && *s1 && s1 != str)
 	{
-		if (*s1 == '\t')
+		if (*s1 == '\t' && !print)
 			ret += 8 - (ret % 8);
 		else if (print)
 		{
-			if (i == 1 && (*s1 == ' ' ||*s1 == '\t' ))
+			i = 0;
+			j = 0;
+			while (*s1 && (*s1 == '\t' || *s1 == ' '))
 			{
-				ft_dprintf(2, "%*c", ret, ' ');
-				i = 0;
-				ret = 0;
+				if (*s1 == '\t')
+				{
+					k = 8 - (j % 8);
+					j += k;
+					while (k-- > 0)
+						ft_dprintf(2, " ");
+				}
+				else
+				{
+					ft_dprintf(2, " ");
+					j++;
+				}
+				i++;
+				++s1;
 			}
-			else
-				ft_dprintf(2, "~");
-			j = -1;
-			while (LABEL_CHARS[++j])
-				if (LABEL_CHARS[j] == *s1)
-					break ;
-			if (LABEL_CHARS[j] != '\0')
+			while (*s1)
+			{
+				i = 0;
+				j = 0;
+				while (LABEL_CHARS[i])
+				{
+					if (LABEL_CHARS[i] == *s1)
+						j = 1;
+					if (j == 0)
+						break;
+					i++;
+				}
 				ft_dprintf(2, "%c", print);
+				if (j == 0)
+					break;
+				++s1;
+			}
 		}
 		else
 			ret++;
