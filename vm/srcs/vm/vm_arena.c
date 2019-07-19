@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 16:31:53 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/19 10:17:08 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int			create_arena(t_vm *vm)
 				vm->players[i].size);
 		if (add_process(vm, i, start, NULL) == ERR_MALLOC)
 		{
-			while (i--)
-				kill_unactive_processes(vm, 1);
+			kill_unactive_processes(vm, 1);
 			return (ERR_MALLOC);
 		}
 		++i;
