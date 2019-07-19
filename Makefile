@@ -16,11 +16,13 @@ NAME_VM			=	corewar
 
 VM_DIR			=	vm
 
+NAME_VISU		=	visu
+
 LIB_DIR			=	libft
 
 ############################## RULES ###########################################
 
-all				:
+all				: $(NAME_VISU)
 	@ $(MAKE) $(CFLAGS) -C $(LIB_DIR)
 	@ $(MAKE) $(CFLAGS) -C $(ASM_DIR)
 	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
@@ -30,6 +32,9 @@ $(NAME_ASM)		:
 
 $(NAME_VM)		:
 	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
+
+$(NAME_VISU)	:
+	go build -o $(NAME_VISU) ./visu_go
 
 clean			:
 	@ $(MAKE) clean -C $(LIB_DIR)
