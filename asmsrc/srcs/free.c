@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 17:44:34 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/19 14:53:50 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_notstring(char ***tab, char *str, t_gnl *gnl)
 	tmpret = ret;
 	tmpi = i;
 	if (gnl->line[i] == '\"')
-		ft_dprintf(2, "%*c", ++ret, ' ');
+		ft_dprintf(2, "%*c", ret++, ' ');
 	else
 		ft_dprintf(2, "%*c", ret - 1, '^');
 	while (gnl->line[i])
@@ -59,9 +59,14 @@ static void	ft_notstring(char ***tab, char *str, t_gnl *gnl)
 		i++;
 	}
 	if (gnl->line[tmpi] != '\"')
+	{
 		ft_dprintf(2, "\n%*c\n%s", tmpret - 1, '\"', _RESET_);
+	}
 	else
+	{
+		ft_dprintf(2, "~");
 		ft_dprintf(2, "%c\n%*c\n%s", '^', ret + 1, '\"', _RESET_);
+	}
 }
 
 int			ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
