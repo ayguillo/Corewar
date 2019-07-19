@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/17 22:23:08 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:12:53 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static bool l_dbg = 1;
 
 int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 {
-	int addr;
-
-	addr = 0;
 	if (param->type == DIR_CODE)
 	{
 		local_dbg(l_dbg, "%02x (DIR)\n", param->type);
