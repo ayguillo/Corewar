@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 17:30:27 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/20 17:27:34 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,8 @@ void	op_and(__attribute__((unused))t_vm *vm, t_proc *process,
 	unsigned int src_2;
 
 	local_dbg(l_dbg, "{magenta}EXECUTING OP_AND{eoc}\n");
-	src_1 = 0;
-	src_2 = 0;
-	if (params[0].type == REG_CODE)
-		src_1 = read_from_register(process, params[0].val);
-	else if (params[0].type == IND_CODE)
-		src_1 = read_from_vm(vm, process->pc + (params[0].val % IDX_MOD), T_DIR);
-	else if (params[0].type == DIR_CODE)
-		src_1 = params[0].type;
-	if (params[1].type == REG_CODE)
-		src_1 = read_from_register(process, params[1].val);
-	else if (params[1].type == IND_CODE)
-		src_1 = read_from_vm(vm, process->pc + (params[1].val % IDX_MOD), T_DIR);
-	else if (params[1].type == DIR_CODE)
-		src_1 = params[1].type;
+	src_1 = read_parameter(vm, process, op, &params[0]);
+	src_2 = read_parameter(vm, process, op, &params[1]);
 	op_result = (src_1 & src_2);
 	local_dbg(l_dbg, "Value : 0x%08x (0x%08x AND 0x%08x)\n", op_result,
 		src_1, src_2);

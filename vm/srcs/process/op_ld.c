@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 17:41:52 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/20 18:26:56 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ __attribute__((unused))static bool l_dbg = 1;
 void	op_ld(__attribute__((unused))t_vm *vm, t_proc *process,
 	t_param *params, __attribute__((unused))t_op op)
 {
-	unsigned int reg_dest;
 	unsigned int load;
+	unsigned int reg_dest;
 
 	local_dbg(l_dbg, "{magenta}EXECUTING OP_LD{eoc}\n");
 	load = 0;
-	if (params[0].type == DIR_CODE)
-		load = params[0].val;
-	else if (params[0].type == IND_CODE)
-		load = read_from_vm(vm, process->pc + (params[0].val % IDX_MOD), REG_SIZE);
+	reg_dest = 0;
+	load = read_parameter(vm, process, op, &params[0]);
 	reg_dest = params[1].val;
 	local_dbg(l_dbg, "Destination register : %d\n", reg_dest);
 	write_to_register(process, reg_dest, load);
@@ -47,18 +45,8 @@ void	op_ldi(__attribute__((unused))t_vm *vm, t_proc *process,
 	unsigned int src_2;
 
 	local_dbg(l_dbg, "{magenta}EXECUTING OP_LDI{eoc}\n");
-	src_1 = 0;
-	src_2 = 0;
-	if (params[0].type == REG_CODE)
-		src_1 = read_from_register(process, params[0].val);
-	else if (params[0].type == IND_CODE)
-		src_1 = read_from_vm(vm, process->pc + (params[0].val % IDX_MOD), op.dir_type == 0 ? 4 : 2);
-	else if (params[0].type == DIR_CODE)
-		src_1 = params[0].val;
-	if (params[1].type == REG_CODE)
-		src_2 = read_from_register(process, params[1].val);
-	else if (params[1].type == DIR_CODE)
-		src_2 = params[1].val;
+	src_1 = read_parameter(vm, process, op, &params[0]);
+	src_2 = read_parameter(vm, process, op, &params[1]);
 	reg_dest = params[2].val;
 	local_dbg(l_dbg, "Destination register : %d\n", reg_dest);
 	local_dbg(l_dbg, "Value to be written :\n");
