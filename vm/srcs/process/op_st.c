@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/22 02:36:39 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/22 19:39:27 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	dbg_print_instruction_head(l_dbg, "OP_ST");
 	reg_load = read_from_register(process, params[0].val);
 	if (params[1].type == REG_CODE)
-		write_to_register(process, params[1].val, params[0].val);
+		write_to_register(process, params[1].val, reg_load);
 	else if (params[1].type == IND_CODE)
 		write_to_vm(vm, process->pc + (params[1].val % IDX_MOD), reg_load, 4,
 			process->player);
