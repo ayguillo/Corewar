@@ -84,7 +84,7 @@ unsigned int	calculate_address(t_proc *proc, t_op op, unsigned int p1,
 ** READ FROM VM/PROCESS
 */
 
-int	read_from_register(t_proc *proc, int id);
+unsigned int read_from_register(t_proc *proc, int id);
 unsigned char read_byte_from_vm(t_vm *vm, int address);
 int	read_from_vm(t_vm *vm, int address, int read_size);
 
