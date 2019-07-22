@@ -46,7 +46,7 @@ void	op_ldi(__attribute__((unused))t_vm *vm, t_proc *process,
 	src_1 = read_parameter(vm, process, op, &params[0]);
 	src_2 = read_parameter(vm, process, op, &params[1]);
 	reg_dest = params[2].val;
-	write = read_from_vm(vm, load_addr, sizeof(int));
+	write = read_from_vm(vm, load_addr, REG_SIZE);
 	write_to_register(process, reg_dest, write);
 	process_set_carry(process, op, write);
 }
