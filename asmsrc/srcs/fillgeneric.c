@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 15:04:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 15:14:48 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,20 +88,18 @@ int			ft_filli(char **split, t_asm *tasm)
 	int				i;
 	int				isop;
 
-	i = 0;
 	param = 0;
 	isop = 0;
 	if (split[tasm->n_param][0] == LABEL_CHAR)
 		param = ft_filllabel(tasm, split);
 	else
 	{
-		while (split[0][i] && split[tasm->n_param][i] != '\t'
-				&& split[0][i] != ' ')
+		i = 0;
+		while (split[tasm->n_param][i] >= '0' && split[tasm->n_param][i] <= '9')
 		{
 			if (split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-'
 					|| (split[tasm->n_param][i] >= '0'
-						&& split[tasm->n_param][i] <= '9')
-					|| split[tasm->n_param][i] == '9')
+						&& split[tasm->n_param][i] <= '9'))
 				isop = 1;
 			else if (((split[tasm->n_param][i] == '+' ||
 							split[tasm->n_param][i] == '-') && isop == 1) ||
