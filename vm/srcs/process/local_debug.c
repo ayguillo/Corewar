@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:19:58 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/22 02:50:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/22 21:05:30 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 void	dbg_print_addr(bool debug, t_op op, t_proc *proc, unsigned int p1,
 	unsigned int p2)
 {
-	unsigned int addr;
-	unsigned int added;
+	unsigned int	addr;
+	short			added;
 
-	added = (p1 + p2);
+	added = (short)((short)p1 + (short)p2);
 	if (op.addr_restrict)
 		added = added % IDX_MOD;
-	addr = (proc->pc + added) % MEM_SIZE;
+	addr = (proc->pc + added);
 	local_dbg(debug, "%-15s: ", "ADDR");
 	local_dbg(debug, "(%u ", proc->pc);
 	local_dbg(debug, "+ ");
-	local_dbg(debug, "(%u ", p1);
+	local_dbg(debug, "(%hd ", p1);
 	local_dbg(debug, "+ ");
-	local_dbg(debug, "%u) ", p2);
+	local_dbg(debug, "%hd) ", p2);
 	if (op.addr_restrict)
 		local_dbg(debug, "%% %u", IDX_MOD);
 	local_dbg(debug, ") ");
