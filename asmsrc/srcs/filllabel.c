@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 16:42:01 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 14:22:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int		ft_paramlabel(t_op *op, char *label, int nparam)
 	else
 		tmp->searchlabel[nparam - 1] = NULL;
 	if (addr >= 0)
-		return (MEM_SIZE - ((addr - filladdr + MEM_SIZE) % MEM_SIZE));
+		return ((addr + 1) - (filladdr + MEM_SIZE) % MEM_SIZE);
 	return (0);
 }
 
