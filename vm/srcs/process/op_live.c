@@ -23,6 +23,7 @@ void	op_live(t_vm *vm, t_proc *process, t_param *params,
 	dbg_print_instruction_head(l_dbg, "OP_LIVE");
 	live_id = params[0].val;
 	local_dbg(l_dbg, "Live id : %u\n", live_id);
+	process->period_lives += 1;
 	if ((player = get_player_nbr(vm, live_id)) >= 0)
 		set_player_alive(vm, process, player);
 	else
