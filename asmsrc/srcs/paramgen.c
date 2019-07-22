@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:44:33 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:56:11 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 15:04:35 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int		ft_rgid(char **split, t_asm *tasm)
 		else if ((split[tasm->n_param][0] >= '0'
 					&& split[tasm->n_param][0] <= '9')
 				|| split[tasm->n_param][0] == '+'
-				|| split[tasm->n_param][0] == '-')
+				|| split[tasm->n_param][0] == '-'
+				|| split[tasm->n_param][0] == LABEL_CHAR)
 		{
 			if (!(ft_filli(split, tasm)))
 				return (0);

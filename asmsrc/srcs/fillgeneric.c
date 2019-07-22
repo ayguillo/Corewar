@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 16:37:27 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 15:04:35 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,25 @@ int			ft_filli(char **split, t_asm *tasm)
 	isop = 0;
 	if (split[tasm->n_param][0] == LABEL_CHAR)
 		param = ft_filllabel(tasm, split);
-	while (split[tasm->n_param][i] && split[tasm->n_param][i] != '\t' &&
-			split[tasm->n_param][i] != ' ')
+	else
 	{
-		if (split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-'
-				|| (split[tasm->n_param][i] >= '0' && split[tasm->n_param][i] <= '9'))
-			isop = 1;
-		else if (((split[tasm->n_param][i] == '+' ||
-				split[tasm->n_param][i] == '-') && isop == 1) ||
-				split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9')
+		while (split[0][i] && split[tasm->n_param][i] != '\t'
+				&& split[0][i] != ' ')
 		{
-			tasm->error = 3;
-			return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
+			if (split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-'
+					|| (split[tasm->n_param][i] >= '0'
+						&& split[tasm->n_param][i] <= '9')
+					|| split[tasm->n_param][i] == '9')
+				isop = 1;
+			else if (((split[tasm->n_param][i] == '+' ||
+							split[tasm->n_param][i] == '-') && isop == 1) ||
+					split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9')
+			{
+				tasm->error = 3;
+				return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
+			}
+			i++;
 		}
-		i++;
 	}
 	if (split[tasm->n_param] && !param)
 		param = ft_atui(split[tasm->n_param]);
