@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:27 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 17:46:54 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/22 02:38:45 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ void	op_fork(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	unsigned int fork_addr;
 
 	(void)op;
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_FORK{eoc}\n");
+	dbg_print_instruction_head(l_dbg, "OP_FORK");
 	fork_addr = (process->pc + (params[0].val % IDX_MOD)) % MEM_SIZE;
-	local_dbg(l_dbg, "Fork address : 0x%08x (%u)\n", fork_addr, fork_addr);
-	local_dbg(l_dbg, "(PC [%u] + ((P1 [%u] %% (IDX %u)) %% MEM_SIZE)",
-		process->pc, params[0].val, IDX_MOD);
+	local_dbg(l_dbg, "%-15s: 0x%08x (%u)\n", "FORK_ADDR", fork_addr, fork_addr);
 	add_process(vm, process->player, fork_addr, process);
-	local_dbg(l_dbg, "{magenta}OP_FORK END{eoc}\n\n");
 }
 
 void	op_lfork(t_vm *vm, t_proc *process, t_param *params, t_op op)
@@ -34,11 +31,8 @@ void	op_lfork(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	unsigned int fork_addr;
 
 	(void)op;
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_LFORK{eoc}\n");
+	dbg_print_instruction_head(l_dbg, "OP_LFORK");
 	fork_addr = (process->pc + (params[0].val)) % MEM_SIZE;
-	local_dbg(l_dbg, "Fork address : 0x%08x (%u)\n", fork_addr, fork_addr);
-	local_dbg(l_dbg, "(PC [%u] + ((P1 [%u])) %% MEM_SIZE)",
-		process->pc, params[0].val);
+	local_dbg(l_dbg, "%-15s: 0x%08x (%u)\n", "FORK_ADDR", fork_addr, fork_addr);
 	add_process(vm, process->player, fork_addr, process);
-	local_dbg(l_dbg, "{magenta}OP_LFORK END{eoc}\n\n");
 }

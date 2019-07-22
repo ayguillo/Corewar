@@ -19,22 +19,13 @@ void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	int reg_load;
 
 	(void)op;
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_ST :{eoc}\n");
+	dbg_print_instruction_head(l_dbg, "OP_ST");
 	reg_load = read_from_register(process, params[0].val);
 	if (params[1].type == REG_CODE)
-	{
-		local_dbg(l_dbg, "Got REG_CODE, value : %08x\n", reg_load);
-		local_dbg(l_dbg, "Writing to register '%u'\n", params[1].val);
 		write_to_register(process, params[1].val, params[0].val);
-	}
 	else if (params[1].type == IND_CODE)
-	{
-		local_dbg(l_dbg, "Got DIR_CODE, value : %08x\n", reg_load);
-		local_dbg(l_dbg, "Writing to address '%u'\n", params[1].val % IDX_MOD);
 		write_to_vm(vm, process->pc + (params[1].val % IDX_MOD), reg_load, 4,
 			process->player);
-	}
-	local_dbg(l_dbg, "{magenta}OP_ST END{eoc}\n\n");
 }
 
 void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
@@ -44,19 +35,11 @@ void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	unsigned int	p1;
 	unsigned int	p2;
 
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_STI :{eoc}\n");
-	local_dbg(l_dbg, "Store address :\n");
-	local_dbg(l_dbg, "\t0x%0x (%u)\n", store_addr, store_addr);
-	local_dbg(l_dbg, "\t(PC [%u]) + (P2 [%u]) + (P3 [%u])\n", process->pc,
-		params[1].val, params[2].val);
-	local_dbg(l_dbg, "Write value :\n\t");
+	dbg_print_instruction_head(l_dbg, "OP_STI");
 	reg_load = read_from_register(process, params[0].val);
-	local_dbg(l_dbg, "Writing 0x%08x from register %d to address %u\n",
-		reg_load, params[0].val, (store_addr));
 	p1 = read_parameter(vm, process, op, &params[1]);
 	p2 = read_parameter(vm, process, op, &params[2]);
 	store_addr = calculate_address(process, op, p1, p2);
 	write_to_vm(vm, store_addr, reg_load, 4, process->player);
 	process_set_carry(process, op, reg_load);
-	local_dbg(l_dbg, "{magenta}OP_STI END{eoc}\n\n");
 }

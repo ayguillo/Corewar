@@ -20,15 +20,13 @@ void	op_ld(__attribute__((unused))t_vm *vm, t_proc *process,
 	unsigned int load;
 	unsigned int reg_dest;
 
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_LD{eoc}\n");
 	load = 0;
 	reg_dest = 0;
+	dbg_print_instruction_head(l_dbg, "OP_LD");
 	load = read_parameter(vm, process, op, &params[0]);
 	reg_dest = params[1].val;
-	local_dbg(l_dbg, "Destination register : %d\n", reg_dest);
 	write_to_register(process, reg_dest, load);
 	process_set_carry(process, op, load);
-	local_dbg(l_dbg, "{magenta}OP_LD END{eoc}\n\n");
 }
 
 /*
@@ -44,15 +42,11 @@ void	op_ldi(__attribute__((unused))t_vm *vm, t_proc *process,
 	unsigned int src_1;
 	unsigned int src_2;
 
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_LDI{eoc}\n");
+	dbg_print_instruction_head(l_dbg, "OP_LDI");
 	src_1 = read_parameter(vm, process, op, &params[0]);
 	src_2 = read_parameter(vm, process, op, &params[1]);
 	reg_dest = params[2].val;
-	local_dbg(l_dbg, "Destination register : %d\n", reg_dest);
-	local_dbg(l_dbg, "Value to be written :\n");
-	load_addr = process->pc + ((src_1 + src_2) % IDX_MOD);
 	write = read_from_vm(vm, load_addr, sizeof(int));
 	write_to_register(process, reg_dest, write);
 	process_set_carry(process, op, write);
-	local_dbg(l_dbg, "{magenta}OP_LDI END{eoc}\n\n");
 }

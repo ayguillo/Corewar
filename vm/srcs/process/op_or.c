@@ -22,13 +22,11 @@ void	op_or(__attribute__((unused))t_vm *vm, t_proc *process,
 	unsigned int src_2;
 
 
-	local_dbg(l_dbg, "{magenta}EXECUTING OP_OR{eoc}\n");
+	dbg_print_instruction_head(l_dbg, "OP_OR");
 	src_1 = read_parameter(vm, process, op, &params[0]);
 	src_2 = read_parameter(vm, process, op, &params[1]);
 	op_result = (src_1 | src_2);
-	local_dbg(l_dbg, "Value : 0x%08x (0x%08x OR 0x%08x)\n", op_result,
-		src_1, src_2);
+	dbg_print_math(l_dbg, '|', src_1, src_2, op_result);
 	write_to_register(process, params[2].val, op_result);
 	process_set_carry(process, op, op_result);
-	local_dbg(l_dbg, "{magenta}OP_OR END{eoc}\n\n");
 }
