@@ -40,6 +40,16 @@ int	process_execute(t_vm *vm, t_proc *process);
 
 void tmp_print_mem(unsigned char *mem, unsigned int size);
 void local_dbg(bool debug, const char *fmt_msg, ...);
+void dbg_print_proc_head(bool debug, t_vm *vm, t_proc *process);
+void dbg_print_proc_end(bool debug, t_vm *vm, t_proc *process);
+void dbg_print_params_head(bool debug);
+void dbg_print_instruction_head(bool debug, char *op);
+void dbg_print_ind_load(bool debug, char *msg, unsigned int addr, unsigned int load);
+void dbg_print_dir_load(bool debug, char *msg, unsigned int load);
+void	dbg_print_math(bool debug, char op, unsigned int p1, unsigned int p2,
+	unsigned int result);
+void	dbg_print_addr(bool debug, t_op op, t_proc *proc, unsigned int p1,
+	unsigned int p2);
 
 /*
 ** INSTRUCTIONS
