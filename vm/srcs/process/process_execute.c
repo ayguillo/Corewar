@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 17:48:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/20 03:40:38 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
@@ -53,7 +53,7 @@ void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 {
 	t_param		params[3];
 
-	local_dbg(l_dbg, "{yellow}Instruction '%s' (%#02x){eoc}\n", op.name, op.opcode);
+	local_dbg(l_dbg, "{yellow}Instruction '%s' {eoc}\n", op.asm_name);
 	process->op_pc += T_OPCODE;
 	if (process_param_types(vm, process, params, op))
 	{
@@ -77,10 +77,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	local_dbg(l_dbg, "{green}[PROCESSING]{eoc}\n");
-	local_dbg(l_dbg, "Player %d process %d\n", process->player, process->number);
-	local_dbg(l_dbg, "CYCLE\t: %d\n", vm->cycles);
-	local_dbg(l_dbg, "PC\t: %d\n", process->pc);
 	if (opcode <= 0 || opcode >= 15)
 	{
 		local_dbg(l_dbg, "{red}Invalid opcode %#02hx{eoc}\n", opcode);
@@ -88,17 +84,15 @@ int		process_execute(t_vm *vm, t_proc *process)
 	}
 	else if (process->waiting == 0)
 	{
+		dbg_print_proc_head(l_dbg, vm, process);
 		process->waiting = -1;
 		process->op_pc = process->pc;
 		execute_instruction(vm, process, g_op_tab[opcode - 1]);
+		dbg_print_proc_end(l_dbg, vm, process);
 	}
 	else if (process->waiting == -1)
 	{
-		local_dbg(l_dbg, "OPCODE : %#02hx (%s)\n", opcode, g_op_tab[opcode - 1].name);
-		local_dbg(l_dbg, "Set waiting to %d cycles\n", g_op_tab[opcode - 1].cycles);
 		process->waiting = g_op_tab[opcode - 1].cycles;
 	}
-	local_dbg(l_dbg, "PC final state : %d\n", process->pc);
-	local_dbg(l_dbg, "{green}[PROCESSING END]{eoc}\n\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:27:28 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/17 20:45:48 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/20 18:21:24 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	write_to_register(t_proc *process, int register_id, int write)
 		local_dbg(l_dbg, "REG_WRITE INVALID ID : '%d'\n", register_id);
 	else
 	{
-		local_dbg(l_dbg, "REG_WRITE %d into register %d\n", write, register_id);
+		local_dbg(l_dbg, "%-15s: 0x%08x (%u) -> ", "REG_WRITE", write, write);
+		local_dbg(l_dbg, "REG %d\n", register_id);
 		process->regs[register_id - 1] = write;
 	}
 }

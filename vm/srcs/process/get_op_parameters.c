@@ -48,7 +48,7 @@ int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 
 	i = 0;
 	parameter_size = 0;
-	local_dbg(l_dbg, "{blue}READ parameters :{eoc}\n\n");
+	dbg_print_params_head(l_dbg);
 	while (i < op.arg_nbr)
 	{
 		if ((parameter_size = get_parameter(vm, proc, &params[i], op)) < 0)
@@ -57,6 +57,5 @@ int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 		local_dbg(l_dbg, "\n");
 		i++;
 	}
-	local_dbg(l_dbg, "{blue}Read all parameters{eoc}\n\n");
 	return (0);
 }
