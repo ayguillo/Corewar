@@ -76,6 +76,7 @@ void op_lfork(t_vm *vm, t_proc *process, t_param *params, t_op op);
 */
 
 int	get_op_parameters(t_vm *vm, t_proc *pr, t_param *params, t_op op);
+unsigned int	read_parameter(t_vm *vm, t_proc *proc, t_op op, t_param *param);
 
 /*
 ** READ FROM VM/PROCESS
