@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 17:34:27 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 13:56:46 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ static int	veriflabel(char *split)
 	int		i;
 	int		j;
 	int		ok;
-	char	**spaces;
 
 	i = -1;
-	if (!(spaces = ft_splitwhitespaces(split)))
-		return (0);
-	ft_free_tab2d(&spaces);
 	while (split[++i])
 	{
 		j = -1;
