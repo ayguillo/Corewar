@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 17:12:53 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/22 03:27:52 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 	else if (param->type == IND_CODE)
 	{
 		local_dbg(l_dbg, "%02x (IND)\n", param->type);
-		param->val = read_from_vm(vm, proc->op_pc, T_IND);
-		return (T_IND / 2);
+		param->val = read_from_vm(vm, proc->op_pc, IND_SIZE);
+		return (IND_SIZE);
 	}
 	else if (param->type == REG_CODE)
 	{
