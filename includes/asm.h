@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/17 16:39:00 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 17:12:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int				ft_strclentab(const char *s1, char print, char *str, int occ);
 void			ft_strprintspaces(const char *s1);
 char			*ft_charwtspaces(char *str);
 int				ft_passtab(char *line, int *i, int ret);
+int				accept_d4(int inst);
 
 /*
 ** INSTRUCTIONS & LABEL

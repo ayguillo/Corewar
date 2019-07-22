@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 17:11:01 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 18:16:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		ft_strdel(&(tasm->gnl.line));
 		return (0);
 	}
+
 	if (!(ft_searchlabel(tasm, 0)))
 	{
 		ft_free_tab2d(&split);
@@ -133,7 +134,7 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		i = -1;
 		while (++i < 3)
 			if (tmp->code[i])
-				ft_printf(" && code[%i] = %i && param[%i] = %i",  i, tmp->code[i], i, tmp->param[i]);
+				ft_printf(" && code[%i] = %i && param[%i] = %x",  i, tmp->code[i], i, tmp->param[i]);
 		ft_putchar('\n');
 		(tmp) = (tmp)->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 14:22:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/07/22 18:16:04 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,38 @@ int				ft_verifint(char *split, t_asm *tasm)
 
 static int		ft_paramlabel(t_op *op, char *label, int nparam)
 {
-	t_op	*tmp;
-	int		addr;
-	int		filladdr;
+	t_op			*tmp;
+	int				addr;
+	int				filladdr;
+	unsigned short	stmp;
+	unsigned int	iparam;
 
 	tmp = op;
 	addr = -1;
 	filladdr = 0;
 	while (tmp->next)
 	{
-		filladdr += tmp->size + 1;
+		filladdr += tmp->size;
 		if (tmp->label)
 			if (!ft_strcmp(tmp->label, label))
-			{
 				addr = tmp->addr;
-				break ;
-			}
 		tmp = tmp->next;
 	}
-	if (tmp->next == NULL)
+	if (addr == -1)
 		tmp->searchlabel[nparam - 1] = ft_strdup(label);
 	else
 		tmp->searchlabel[nparam - 1] = NULL;
-	if (addr >= 0)
-		return ((addr + 1) - (filladdr + MEM_SIZE) % MEM_SIZE);
+	if (accept_d4(tmp->inst))
+	{
+		iparam = addr - filladdr;
+		return (iparam);
+	}
+	else
+	{
+		stmp = (addr - filladdr);
+		if (addr >= 0)
+			return (stmp);
+	}
 	return (0);
 }
 

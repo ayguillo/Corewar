@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:37:55 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/16 17:24:00 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/22 18:20:43 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	write_args(t_file *file, t_op *tmp, int i)
 	to_write1 = ft_reversebyte(tmp->param[i], 1);
 	if (tmp->code[i] == REG_CODE)
 		write(file->fdwrite, &to_write1, 1);
-	else if ((tmp->code[i] == DIR_CODE || (has_no_ocp(tmp->inst) && i ==0)) && accept_d4(tmp->inst))
+	else if ((tmp->code[i] == DIR_CODE || (has_no_ocp(tmp->inst) && i == 0))
+			&& accept_d4(tmp->inst))
 		write(file->fdwrite, &to_write4, 4);
 	else if (tmp->code[i] || (has_no_ocp(tmp->inst) && i == 0))
 		write(file->fdwrite, &to_write2, 2);
