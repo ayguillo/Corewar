@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 04:54:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/23 17:10:50 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_display
 	int				carry;
 	int				regs[REG_NUMBER];
 	int				player;
+	char			opcode;
 }					t_proc;
 
 typedef struct		s_player

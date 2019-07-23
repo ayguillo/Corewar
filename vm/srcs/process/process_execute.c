@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/20 03:40:38 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/23 17:17:44 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
@@ -87,12 +87,12 @@ int		process_execute(t_vm *vm, t_proc *process)
 		dbg_print_proc_head(l_dbg, vm, process);
 		process->waiting = -1;
 		process->op_pc = process->pc;
-		execute_instruction(vm, process, g_op_tab[opcode - 1]);
+		execute_instruction(vm, process, g_op_tab[process->opcode - 1]);
 		dbg_print_proc_end(l_dbg, vm, process);
 	}
 	else if (process->waiting == -1)
 	{
-		process->waiting = g_op_tab[opcode - 1].cycles;
+		process->opcode = opcode;
 	}
 	return (0);
 }
