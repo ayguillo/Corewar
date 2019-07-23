@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/23 10:10:37 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/23 17:37:51 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int			main(int ac, char *av[])
 	}
 	if (vm.options & OPTMAJV)
 		ft_printf("OK");
+	init_ncurse_display(&vm);
 	game_cycle(&vm);
 	kill_unactive_processes(&vm, 1);
 	return (0);

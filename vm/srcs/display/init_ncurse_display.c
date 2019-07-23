@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/05 21:39:49 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/23 17:37:07 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ void		new_win(t_win *new, int coord[4])
 
 void		init_ncurse_display(t_vm *vm)
 {
-	initscr();
-	noecho();
-	curs_set(false);
-	cbreak();
-	start_color();
-	refresh();
-	ft_bzero(&vm->display, sizeof(vm->display));
-	new_win(&vm->display.memory, (int[4]){MEM_H, MEM_W, 0, 0});
+	if (vm->options & OPTZ)
+	{
+		initscr();
+		noecho();
+		curs_set(false);
+		cbreak();
+		start_color();
+		refresh();
+		ft_bzero(&vm->display, sizeof(vm->display));
+		new_win(&vm->display.memory, (int[4]){MEM_H, MEM_W, 0, 0});
+	}
 }
