@@ -93,6 +93,7 @@ int		process_execute(t_vm *vm, t_proc *process)
 	else if (process->waiting == -1)
 	{
 		process->opcode = opcode;
+		process->waiting = g_op_tab[opcode - 1].cycles - 2;
 	}
 	return (0);
 }
