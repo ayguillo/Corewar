@@ -6,12 +6,25 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/19 16:30:20 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/23 10:16:39 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "../libft/libft.h"
+
+void		init_process(t_vm *vm, unsigned int pc, t_proc *new)
+{
+	new->period_lives = 0;
+	new->pc = pc % MEM_SIZE;
+	new->op_pc = new->pc;
+	new->waiting = -1;
+	if (vm->proc)
+		new->number = vm->proc->number + 1;
+	else
+		new->number = 1;
+	vm->players[new->player].alive_proc += 1;
+}
 
 int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 {
@@ -29,15 +42,7 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 		new->regs[0] = vm->players[player].number;
 		new->player = player;
 	}
-	new->period_lives = 0;
-	new->pc = pc % MEM_SIZE;
-	new->op_pc = new->pc;
-	new->waiting = -1;
-	if (vm->proc)
-		new->number = vm->proc->number + 1;
-	else
-		new->number = 1;
-	vm->players[new->player].alive_proc += 1;
+	init_process(vm, pc, new);
 	new->next = vm->proc;
 	vm->proc = new;
 	return (0);
