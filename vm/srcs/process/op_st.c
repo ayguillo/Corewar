@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/22 19:39:27 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/23 20:53:33 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,21 @@ __attribute__((unused))static bool l_dbg = 1;
 void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	int reg_load;
+	int store_addr;
 
 	(void)op;
+	store_addr = 0;
 	dbg_print_instruction_head(l_dbg, "OP_ST");
 	reg_load = read_from_register(process, params[0].val);
 	if (params[1].type == REG_CODE)
 		write_to_register(process, params[1].val, reg_load);
 	else if (params[1].type == IND_CODE)
-		write_to_vm(vm, process->pc + (params[1].val % IDX_MOD), reg_load, 4,
+	{
+		store_addr = (process->pc + (short)((short)params[1].val % IDX_MOD)
+			% MEM_SIZE);
+		write_to_vm(vm, store_addr, reg_load, 4,
 			process->player);
+	}
 }
 
 void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
