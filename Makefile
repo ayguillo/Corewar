@@ -46,7 +46,8 @@ fclean			:	clean
 	@ $(MAKE) fclean -C $(ASM_DIR)
 	@ $(MAKE) fclean -C $(VM_DIR)
 
-re				:	fclean all
+re				:	fclean
+	@ $(MAKE) all
 
 ############################## DISPLAY #########################################
 

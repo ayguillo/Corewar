@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:52:40 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/19 10:21:14 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/23 17:41:33 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ static void	print_infos_govisu(t_vm *vm)
 	ft_printf(";");
 }
 
-void		check_colors(unsigned int i, t_vm *vm, const char *color_code)
+static void	check_colors(unsigned int i, t_vm *vm, const char *color_code, char *color)
 {
 	t_proc	*tmp;
-	char	color[3];
 
 	tmp = vm->proc;
 	color[2] = 0;
@@ -65,23 +64,34 @@ void		check_colors(unsigned int i, t_vm *vm, const char *color_code)
 		color[1] = color_code[(int)(vm->mem_infos_code[i])];
 	else
 		color[1] = 'Z';
-	ft_putstr(color);
+}
+
+static void	print_arena(t_vm *vm, char *char_set)
+{
+	unsigned int	i;
+	unsigned int	j;
+	char			str[MEM_SIZE * 4 + 2];
+
+	i = 0;
+	j = 0;
+	while (j < MEM_SIZE)
+	{
+		check_colors(j, vm, "RGPY", str + i);
+		i += 2;
+		str[i++] = char_set[((unsigned char)vm->mem[j]) / 16];
+		str[i++] = char_set[((unsigned char)vm->mem[j]) % 16];
+		j += 1;
+	}
+	str[i++] = ';';
+	str[i] = 0;
+	ft_putstr(str);
 }
 
 void		print_arena_govisu(t_vm *vm, int end)
 {
-	unsigned int	i;
-
 	if (!(vm->options & OPTMAJV))
 		return ;
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		check_colors(i, vm, "RGPY");
-		ft_printf("%02x", vm->mem[i]);
-		i++;
-	}
-	ft_printf(";");
+	print_arena(vm, "0123456789abcdef");
 	check_pipe_errors(vm);
 	if (end && vm->last_player_alive != -1)
 		ft_printf("The winner is: \nPlayer[%d]: %s;",
