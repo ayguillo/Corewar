@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/16 13:26:17 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/23 10:24:14 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	print_action(t_vm *vm, t_proc *proc, char *action)
 	if (!(vm->options & OPTV))
 		return ;
 	ft_putstr(vm->players[proc->player].color);
-	ft_printf("Processus %d from player %d is doing a %s",
-		proc->number, proc->player, action);
+	ft_printf("Processus %d from player %d is doing a %s\n",
+		proc->number, proc->player + 1, action);
 	ft_putstr(_RESET_);
 }
 
@@ -75,7 +75,7 @@ void	print_winner(t_vm *vm)
 		return ;
 	if (vm->last_player_alive != -1)
 	{
-		ft_printf("AND THE WINNER IS...\n");
+		ft_printf("\nAND THE WINNER IS...\n");
 		ft_putstr(vm->players[vm->last_player_alive].color);
 		ft_printf(".:! Player %d: \"%s\" !:.\n", (vm->last_player_alive) + 1,
 			vm->players[vm->last_player_alive].name);
