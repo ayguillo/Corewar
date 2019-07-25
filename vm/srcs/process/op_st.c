@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/23 20:53:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/24 21:10:46 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	unsigned int	p2;
 
 	dbg_print_instruction_head(l_dbg, "OP_STI");
+	if (params[0].val < 1 || params[0].val > REG_NUMBER)
+		return ;
 	reg_load = read_from_register(process, params[0].val);
 	p1 = read_parameter(vm, process, op, &params[1]);
 	p2 = read_parameter(vm, process, op, &params[2]);

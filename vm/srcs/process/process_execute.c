@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/23 17:40:50 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/24 20:29:56 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
@@ -63,10 +63,10 @@ void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 			process->pc = process->op_pc;
 		}
 		else
-			process->pc = (process->pc + 1) % MEM_SIZE;
+			process->pc = (process->op_pc) % MEM_SIZE;
 	}
 	else
-		process->pc = (process->pc + 1) % MEM_SIZE;
+		process->pc = (process->op_pc) % MEM_SIZE;
 	process->op_pc = process->pc;
 }
 
@@ -78,7 +78,7 @@ int		process_execute(t_vm *vm, t_proc *process)
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
 	display_memory(vm, pc);
-	if (opcode <= 0 || opcode >= 15)
+	if (process->waiting == -1 && (opcode <= 0 || opcode >= 15))
 	{
 		local_dbg(l_dbg, "{red}Invalid opcode %#02hx{eoc}\n", opcode);
 		process->pc = (process->pc + 1) % MEM_SIZE;

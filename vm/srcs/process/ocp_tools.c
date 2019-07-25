@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:33:31 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/17 20:05:44 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/24 20:53:39 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ocp_match_instruction_params(t_op op, char ocp)
 	while (i < op.arg_nbr)
 	{
 		param_type = get_param_type_from_ocp(ocp, i + 1);
-		if (param_type == REG_CODE && (op.arg_types[i] & T_REG) == T_REG)
+		/*if (param_type == REG_CODE && (op.arg_types[i] & T_REG) == T_REG)
 			local_dbg(l_dbg, "%d : REG_CODE\n", i + 1);
 		else if (param_type == DIR_CODE && (op.arg_types[i] & T_DIR) == T_DIR)
 			local_dbg(l_dbg, "%d : DIR_CODE\n", i + 1);
@@ -63,7 +63,7 @@ int		ocp_match_instruction_params(t_op op, char ocp)
 			local_dbg(l_dbg, "%d : {red}BAD_CODE{eoc} (%b & {red}%b{eoc})\n\n",
 				i, op.arg_types[i], param_type);
 			return (0);
-		}
+		}*/
 		i++;
 	}
 	local_dbg(l_dbg, "\n");
