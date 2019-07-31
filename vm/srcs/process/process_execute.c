@@ -53,6 +53,7 @@ void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 {
 	t_param		params[3];
 
+	ft_bzero(params, sizeof(t_param) * 3);
 	local_dbg(l_dbg, "{yellow}Instruction '%s' {eoc}\n", op.asm_name);
 	process->op_pc += T_OPCODE;
 	if (process_param_types(vm, process, params, op))
