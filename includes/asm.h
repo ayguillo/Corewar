@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 17:12:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:21:53 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_op
 	int				nbarg;
 	char			inst;
 	int				code[3];
-	unsigned int	param[3];
+	int				param[3];
 	int				line;
 	struct s_op		*next;
 }				t_op;
@@ -77,6 +77,9 @@ typedef struct	s_asm
 
 int				printfile(t_header *header, t_asm *tasm);
 int				ft_recup(t_header *header, t_asm *tasm, int *len, int type);
+int				ft_nbquote(char *str);
+char			*ft_strjoinfree1(char *s1, char *s2);
+int				ft_multiline(t_asm *tasm, char **trim, char ***split);
 
 /*
  ** ERROR

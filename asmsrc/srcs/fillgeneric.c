@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 17:40:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:23:00 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ int			ft_filli(char **split, t_asm *tasm)
 
 int			ft_fillrg(char **split, t_asm *tasm)
 {
-	int		param;
-	char	**reg;
-	int		i;
+	unsigned int		param;
+	char				**reg;
+	int					i;
 
 	reg = NULL;
 	if (split[tasm->n_param][0] != 'r')

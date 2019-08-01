@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/19 14:53:50 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 14:56:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_notstring(char ***tab, char *str, t_gnl *gnl)
 	if (gnl->line[i] == '\"')
 		ft_dprintf(2, "%*c", ret++, ' ');
 	else
-		ft_dprintf(2, "%*c", ret - 1, '^');
+		ft_dprintf(2, "%*c", ret, '^');
 	while (gnl->line[i])
 	{
 		if (gnl->line[i] == '\t')
@@ -60,7 +60,7 @@ static void	ft_notstring(char ***tab, char *str, t_gnl *gnl)
 	}
 	if (gnl->line[tmpi] != '\"')
 	{
-		ft_dprintf(2, "\n%*c\n%s", tmpret - 1, '\"', _RESET_);
+		ft_dprintf(2, "\n%*c\n%s", tmpret, '\"', _RESET_);
 	}
 	else
 	{
@@ -116,6 +116,8 @@ int			ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 int	ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 {
 	int i;
+	int	tot;
+	int	cal;
 
 	if (err == 0)
 	{
@@ -154,6 +156,28 @@ has %i characters\n%s", COMMENT_LENGTH, _RED_, ft_strlen(gnl->line), _RESET_);
 	{
 		ft_dprintf(2, "Champion too long. End of file at line %i\n",
 				gnl->nbline);
+	}
+	if (err == 5)
+	{
+		i = -1;
+		tot = 0;
+		while (gnl->line[++i])
+		{
+			if (gnl->line[i] == '\t')
+			{
+				cal = 8 - (tot % 8);
+				tot += cal;
+			}
+			else
+				tot++;
+			if (gnl->line[i] == '.')
+				break ;
+		}
+		ft_dprintf(2, "comment is unexpected at line %i. Error at name.\
+\n%s%s\n%s%*c%s\n",
+				gnl->nbline, _RED_, gnl->line, _GREEN_, tot, '^', _RESET_);
+		ft_strdel(str);
+		ft_free_tab2d(tab);
 	}
 	ft_strdel(&(gnl->line));
 	return (0);
