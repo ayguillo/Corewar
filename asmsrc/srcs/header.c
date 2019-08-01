@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 14:55:46 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:09:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,11 @@ int			ft_recup(t_header *header, t_asm *tasm, int *len, int type)
 			(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING, &(tasm->gnl)));
 	}
 	if (!(ret = ft_valid_entry(tasm, &split, &trim, len)))
+	{
+		ft_free_tab2d(&split);
 		return (ret);
+	}
+	ft_free_tab2d(&split);
 	return (type == NAME ? ft_name(&trim, header, len, &(tasm->gnl))
 		: ft_com(&trim, &(tasm->gnl), header, len));
 }

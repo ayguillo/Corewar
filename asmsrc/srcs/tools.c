@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/18 12:00:18 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:51:39 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,17 @@ unsigned long	ft_atui(const char *str)
 {
 	unsigned long	res;
 	int				i;
+	int				neg;
 
 	i = 0;
 	res = 0;
+	neg = 0;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
 	if (str[i] == 45 || str[i] == 43)
 	{
 		if (str[i] == 45)
-			return (0);
+			neg = 1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
@@ -97,6 +99,8 @@ unsigned long	ft_atui(const char *str)
 		res = res * 10 + ((str[i] - '0'));
 		i++;
 	}
+	if (neg == 1)
+		res = 4294967295 - (res - 1);
 	return (res);
 }
 
