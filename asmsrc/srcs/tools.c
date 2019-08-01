@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 16:51:39 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:22:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,3 @@ unsigned long	ft_atui(const char *str)
 		res = 4294967295 - (res - 1);
 	return (res);
 }
-
-/*
-int		ft_itoo(unsigned char *str, char *str_nb, unsigned long long int size
-		, int *index)
-{
-	unsigned long long int nb;
-	unsigned long long int i;
-	unsigned long long int div;
-
-	i = size;
-	div = 1;
-if (*index + (int)size >= CHAMP_MAX_SIZE)
-		return (0);
-	nb = (ft_atoll(str_nb) - 1) % 9223372036854775807;
-	while (--i > 0)
-		div *= 256;
-	nb %= div * 256;
-	while (i < size)
-	{
-		str[i] = (unsigned char)(nb / div);
-		nb %= div;
-		div /= 256;
-		i++;
-	}
-	*index += (int)size;
-	return (1);
-}
-*/

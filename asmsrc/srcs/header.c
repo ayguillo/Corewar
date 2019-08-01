@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 17:09:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:22:16 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static void	ft_supprcomment(char **trim)
 			(*trim)[i] = '\0';
 	}
 }
-
-
 
 static int	ft_com(char **trim, t_gnl *gnl, t_header *header, int *len)
 {
@@ -108,8 +106,8 @@ int			ft_recup(t_header *header, t_asm *tasm, int *len, int type)
 		(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING))
 	{
 		ft_strdel(&trim);
-		return (ft_freecom(&split, 0,
-			(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING, &(tasm->gnl)));
+		return (ft_freecom(&split, 0, (type == NAME) ?
+					NAME_CMD_STRING : COMMENT_CMD_STRING, &(tasm->gnl)));
 	}
 	if (!(ret = ft_valid_entry(tasm, &split, &trim, len)))
 	{

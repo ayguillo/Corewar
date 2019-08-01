@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 15:30:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:15:35 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_islab(char *spaces, int *i, t_asm *tasm)
 		j = -1;
 		while (LABEL_CHARS[++j])
 			if (spaces[*i] == LABEL_CHARS[j])
-				break;
+				break ;
 		if (LABEL_CHARS[j] == '\0')
 		{
 			tasm->error = 3;
@@ -41,7 +41,6 @@ static int		ft_islab(char *spaces, int *i, t_asm *tasm)
 static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 {
 	int		isop;
-
 
 	(*i)++;
 	isop = 0;
