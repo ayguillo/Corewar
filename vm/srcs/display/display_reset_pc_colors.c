@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_update_pc.c                                :+:      :+:    :+:   */
+/*   display_reset_pc_colors.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:00:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/02 15:09:10 by bopopovi         ###   ########.fr       */
+/*   Created: 2019/08/02 14:58:31 by bopopovi          #+#    #+#             */
+/*   Updated: 2019/08/02 15:00:35 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "display.h"
 
-void	display_update_pc(t_vm *vm, unsigned int pc, int player_id)
+void	display_reset_pc_colors(t_vm *vm)
 {
-	unsigned int real_pc;
+	int			i;
+	t_color		*tmp;
 
-	real_pc = (pc % MEM_SIZE);
-	if (vm->options & OPTZ)
-		vm->display.color_map[real_pc].pc = 4 + (player_id + 1);
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		tmp = &vm->display.color_map[i];
+		tmp->pc = 0;
+		i++;
+	}
 }

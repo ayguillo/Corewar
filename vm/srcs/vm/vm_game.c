@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/30 20:10:39 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:06:57 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@
 static int	process_cycle(t_vm *vm)
 {
 	t_proc				*tmp;
-	unsigned int		old_pc;
 
 	tmp = vm->proc;
+	display_reset_pc_colors(vm);
 	while (tmp)
 	{
-		old_pc = tmp->pc;
 		if (tmp->waiting == 0 || tmp->waiting == -1)
 			process_execute(vm, tmp);
 		else
 			tmp->waiting -= 1;
-		if (tmp->pc != old_pc)
-			display_update_pc(vm, old_pc, tmp->pc, tmp->player);
+		display_update_pc(vm, tmp->pc, tmp->player);
 		tmp = tmp->next;
 	}
 	return (0);

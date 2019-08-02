@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 18:14:48 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/01 01:49:37 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:11:34 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	display_load_player(t_vm *vm, t_player player, int player_id,
 	if (vm->options & OPTZ)
 	{
 		display_update_color(vm, start, player.size, player_id);
-		add_new_pc(vm, start, player_id);
+		display_update_pc(vm, start, player_id);
 	}
 }

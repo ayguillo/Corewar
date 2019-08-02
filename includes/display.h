@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 15:44:59 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/01 02:44:52 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:07:18 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	close_ncurse_display(t_vm *vm);
 void	display_info(t_vm *vm);
 void	display_update_color(t_vm *vm, unsigned int start, int size,
 	int player_id);
-void	display_update_pc(t_vm *vm, unsigned int old_pc, unsigned int new_pc,
-	int player_id);
+void	display_update_pc(t_vm *vm, unsigned int pc, int player_id);
 void	add_new_pc(t_vm *vm, unsigned int new_pc, int player_id);
+void	display_reset_pc_colors(t_vm *vm);
 
 #endif
