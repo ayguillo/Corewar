@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 18:16:33 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 10:15:30 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static void	ft_wsep(t_gnl *gnl, char c, int nparam)
 {
 	int		i;
+	int		ret;
 
 	ft_dprintf(2, "Syntax Error. Wrong separator at line %i%s\n%s\n",
 			gnl->nbline, _RED_, gnl->line);
@@ -27,10 +28,16 @@ static void	ft_wsep(t_gnl *gnl, char c, int nparam)
 			nparam--;
 		++i;
 	}
-	while (gnl->line[i] && gnl->line[i] == c)
+	ret = 0;
+	while (gnl->line[i] && gnl->line[i] != c)
+	{
+		if (gnl->line[i] == '\t')
+			ret += 8 - (ret % 8);
+		else
+			ret++;
 		i++;
-	ft_dprintf(2, "%s%*c%s\n", _GREEN_,
-			ft_strclentab(gnl->line, 0, &gnl->line[i], nparam), '^', _RESET_);
+	}
+	ft_dprintf(2, "%s%*c%s\n", _GREEN_, ret + 1, '^', _RESET_);
 }
 
 static void	ft_wnbr(t_gnl *gnl)
