@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/23 10:24:14 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:29:40 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_winner(t_vm *vm)
 		return ;
 	if (vm->last_player_alive != -1)
 	{
-		ft_printf("\nAND THE WINNER IS...\n");
+		ft_printf("AND THE WINNER IS...\n");
 		ft_putstr(vm->players[vm->last_player_alive].color);
 		ft_printf(".:! Player %d: \"%s\" !:.\n", (vm->last_player_alive) + 1,
 			vm->players[vm->last_player_alive].name);

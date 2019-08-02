@@ -6,13 +6,23 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 17:22:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:53:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include <stdlib.h>
 #include "../includes/asm.h"
+
+int				ft_lentab2d(char **split)
+{
+	int		i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
 
 int				ft_retgnl(t_asm *tasm, int i)
 {

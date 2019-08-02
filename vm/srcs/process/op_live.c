@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:08 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/20 04:01:09 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:01:37 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	op_live(t_vm *vm, t_proc *process, t_param *params,
 	live_id = params[0].val;
 	local_dbg(l_dbg, "Live id : %u\n", live_id);
 	process->period_lives += 1;
+	vm->period_lives += 1;
 	if ((player = get_player_nbr(vm, live_id)) >= 0)
 		set_player_alive(vm, process, player);
 	else

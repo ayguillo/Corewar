@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 18:13:19 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:53:57 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ int			ft_fillrg(char **split, t_asm *tasm)
 	int					i;
 
 	reg = NULL;
+	if (ft_lentab2d(split) <= tasm->n_param)
+	{
+		ft_printf("erreur ici\n");
+		return (0);
+	}
 	if (split[tasm->n_param][0] != 'r')
 		return (ft_syntax(NULL, tasm, split[tasm->n_param][0]));
 	if (!(reg = ft_strsplit(split[tasm->n_param], 'r')))
