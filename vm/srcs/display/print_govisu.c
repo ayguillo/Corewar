@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:52:40 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/23 17:41:33 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:14:13 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	print_infos_govisu(t_vm *vm)
 	ft_printf(";");
 }
 
-static void	check_colors(unsigned int i, t_vm *vm, const char *color_code, char *color)
+static void	check_colors(unsigned int i, t_vm *vm, const char *color_code,
+	char *color)
 {
 	t_proc	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 11:37:55 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/22 18:20:43 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:59:10 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	write_code(t_file *file, t_op *op)
 		if (tmp->inst != 0)
 		{
 			opc = 0;
-			i = 0;
+			i = -1;
 			write(file->fdwrite, &(tmp->inst), 1);
 			if (tmp->inst != LIVE && tmp->inst != ZJMP && tmp->inst != FORK
 					&& tmp->inst != LFORK)
@@ -66,11 +66,8 @@ void	write_code(t_file *file, t_op *op)
 				opc = ft_opc(tmp->code);
 				write(file->fdwrite, &opc, 1);
 			}
-			while (i < 3)
-			{
+			while (++i < 3)
 				write_args(file, tmp, i);
-				++i;
-			}
 		}
 		tmp = tmp->next;
 	}
