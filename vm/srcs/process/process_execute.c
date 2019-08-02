@@ -6,13 +6,13 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/01 02:35:27 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:30:07 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
 static bool l_dbg = 1;
 
-void	(*g_op_fptr[15])(t_vm*, t_proc*, t_param*, t_op) =
+void	(*g_op_fptr[16])(t_vm*, t_proc*, t_param*, t_op) =
 {
 	&op_live,
 	&op_ld,
@@ -28,7 +28,8 @@ void	(*g_op_fptr[15])(t_vm*, t_proc*, t_param*, t_op) =
 	&op_fork,
 	&op_lld,
 	&op_lldi,
-	&op_lfork
+	&op_lfork,
+	&op_aff
 };
 
 int		process_param_types(t_vm *vm, t_proc *process, t_param *params, t_op op)
@@ -78,7 +79,7 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	if (process->waiting == -1 && (opcode <= 0 || opcode >= 15))
+	if (process->waiting == -1 && (opcode <= 0 || opcode >= 17))
 	{
 		local_dbg(l_dbg, "{red}Invalid opcode %#02hx{eoc}\n", opcode);
 		process->pc = (process->pc + 1) % MEM_SIZE;
