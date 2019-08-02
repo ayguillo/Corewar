@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 17:22:16 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:19:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_supprcomment(char **trim)
 	i = -1;
 	while ((*trim)[++i])
 	{
-		if ((*trim)[i] == COMMENT_CHAR)
+		if ((*trim)[i] == COMMENT_CHAR || (*trim)[i] == ';')
 			(*trim)[i] = '\0';
 	}
 }

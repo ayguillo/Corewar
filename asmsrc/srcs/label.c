@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 11:58:22 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:39:44 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int			ft_readinst(t_asm *tasm)
 			if (!(trim = ft_strtrim(tasm->gnl.line)))
 				return (ft_free(NULL, 2, &(tasm->gnl), NULL));
 			while (trim[++i])
-				if (trim[i] == COMMENT_CHAR)
+				if (trim[i] == COMMENT_CHAR || trim[i] == ';')
 					trim[i] = '\0';
 			if ((ft_recupinst(tasm, &trim)) <= 0)
 			{
