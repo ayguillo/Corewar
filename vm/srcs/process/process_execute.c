@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/24 20:29:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/01 02:35:27 by bopopovi         ###   ########.fr       */
 
 #include "proc.h"
 
@@ -78,7 +78,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
-	display_memory(vm, pc);
 	if (process->waiting == -1 && (opcode <= 0 || opcode >= 15))
 	{
 		local_dbg(l_dbg, "{red}Invalid opcode %#02hx{eoc}\n", opcode);

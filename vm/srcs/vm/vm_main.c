@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/23 17:37:51 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/30 20:58:02 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			main(int ac, char *av[])
 	ft_bzero(&vm, sizeof(vm));
 	init_err(&vm, &err);
 	if (ac < 3 || (err = options(ac, av, &vm))
+		|| (err = display_init(&vm))
 		|| (err = create_arena(&vm)))
 	{
 		if (err)
@@ -32,8 +33,8 @@ int			main(int ac, char *av[])
 	}
 	if (vm.options & OPTMAJV)
 		ft_printf("OK");
-	init_ncurse_display(&vm);
 	game_cycle(&vm);
+	close_ncurse_display(&vm);
 	kill_unactive_processes(&vm, 1);
 	return (0);
 }

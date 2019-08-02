@@ -6,7 +6,7 @@
 #    By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 10:47:24 by vlambert          #+#    #+#              #
-#    Updated: 2019/07/18 11:55:44 by ayguillo         ###   ########.fr        #
+#*   Updated: 2019/07/30 20:36:39 by bopopovi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ CC			=	/usr/bin/gcc
 CFLAGS		=	-Wall -Wextra -Werror -g
 
 DEBUG		=	-g3 -fsanitize=address
+
+DBG 		=
 
 SRC			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c \
@@ -50,12 +52,12 @@ all			:	$(NAME)
 
 $(NAME)		:	$(OBJ) $(INC)
 	@ echo "\033[0;33mCompilation de la libft...\x1b[0m"
-	@ ar rc $(NAME) $(OBJ)
-	@ ranlib $(NAME)
+	@ ar rc $(DBG) $(NAME) $(OBJ)
+	@ ranlib $(DBG) $(NAME)
 	@ echo "\033[0;32mLibft compilée -> OK\x1b[0m"
 
 %.o			:	%.c $(INC)
-	@ gcc $(CFLAGS) -c $<
+	@ gcc $(DBG) $(CFLAGS) -c $<
 	
 clean		:
 	@ rm -rf $(OBJ)

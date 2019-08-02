@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/23 17:10:50 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/30 21:05:57 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,42 @@
 ** NCURSES VISUALIZER
 */
 
-typedef struct	s_win {
+typedef struct	s_win
+{
 	WINDOW		*container;
 	WINDOW		*contents;
 	int			width;
 	int			height;
 }				t_win;
 
+typedef struct	s_status
+{
+	int			paused;
+	int			fast_forward;
+}				t_status;
+
+typedef struct	s_color
+{
+	char		code;
+	char		pc;
+	char		highlight;
+	char		updated;
+}				t_color;
+
 typedef struct		s_display
 {
 	t_win			memory;
+	t_win			info;
+	t_status		status;
+	int				speed;
+	t_color			color_map[MEM_SIZE];
 }					t_display;
 
 /*
 ** VM
-*/ typedef struct		s_proc
+*/
+
+typedef struct		s_proc
 {
 	struct s_proc	*next;
 	unsigned int	pc;
