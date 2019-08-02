@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/19 10:26:41 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:26:19 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int			game_cycle(t_vm *vm)
 	vm->checks = MAX_CHECKS;
 	vm->last_player_alive = -1;
 	intro_champs(vm);
-	while (vm->proc && ((vm->cycles += 1) != vm->cycles_limit
-			|| vm->cycles_limit == 0) && vm->cycle_to_die > 0)
+	while (((vm->cycles += 1) != vm->cycles_limit || vm->cycles_limit == 0)
+			&& vm->proc && vm->cycle_to_die > 0)
 	{
 		vm->period_cycles += 1;
 		print_arena_govisu(vm, 0);
