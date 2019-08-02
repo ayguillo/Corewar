@@ -1,6 +1,6 @@
 CC				=	/usr/bin/gcc
 
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror -g 
 
 MAKE			=	/usr/bin/make
 
@@ -46,7 +46,7 @@ all				:	$(TARGET)
 
 $(TARGET)		:	$(OBJ)
 	@ $(MAKE) -C $(LIB_DIR) 2> /dev/null 1> /dev/null
-	@ $(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
+	@ $(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c

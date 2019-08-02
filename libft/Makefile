@@ -14,7 +14,7 @@ NAME		=	libft.a
 
 CC			=	/usr/bin/gcc
 
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror -g 
 
 DEBUG		=	-g3 -fsanitize=address
 
@@ -57,7 +57,7 @@ $(NAME)		:	$(OBJ) $(INC)
 	@ echo "\033[0;32mLibft compilée -> OK\x1b[0m"
 
 %.o			:	%.c $(INC)
-	@ gcc $(DBG) $(CFLAGS) -c $<
+	@ $(CC) $(DBG) $(CFLAGS) -c $<
 	
 clean		:
 	@ rm -rf $(OBJ)
