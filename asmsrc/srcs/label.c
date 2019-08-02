@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 18:16:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:39:44 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	veriflabel(char *split)
 	return (1);
 }
 
-static int		ft_label(char *trim, t_gnl *gnl, t_op *new)
+static int	ft_label(char *trim, t_gnl *gnl, t_op *new)
 {
 	char	**split;
 	int		i;
@@ -100,10 +100,9 @@ static int	ft_recupinst(t_asm *tasm, char **trim)
 
 	tmp = tasm->op;
 	if (!(*trim[0]))
-	{
 		ft_strdel(trim);
+	if (!(*trim))
 		return (1);
-	}
 	if (!(new = ft_memalloc(sizeof(t_op))))
 		return (ft_free(NULL, 2, &(tasm->gnl), trim));
 	if (tmp)
@@ -120,9 +119,7 @@ static int	ft_recupinst(t_asm *tasm, char **trim)
 		return (0);
 	}
 	ft_fillparam1(tasm, 0, 0, 0);
-	if (!(ft_instructions(trim, tasm)))
-		return (0);
-	return (1);
+	return (!(ft_instructions(trim, tasm)) ? 0 : 1);
 }
 
 int			ft_readinst(t_asm *tasm)
@@ -134,13 +131,12 @@ int			ft_readinst(t_asm *tasm)
 	while ((ft_retgnl(tasm, 0)) > 0)
 	{
 		ft_strdel(&trim);
-		if (tasm->gnl.line)
+		if (tasm->gnl.line && (i = -1))
 		{
 			if (!(trim = ft_strtrim(tasm->gnl.line)))
 				return (ft_free(NULL, 2, &(tasm->gnl), NULL));
-			i = -1;
 			while (trim[++i])
-				if (trim[i] == COMMENT_CHAR)
+				if (trim[i] == COMMENT_CHAR || trim[i] == ';')
 					trim[i] = '\0';
 			if ((ft_recupinst(tasm, &trim)) <= 0)
 			{

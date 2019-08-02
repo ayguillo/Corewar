@@ -6,13 +6,42 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 15:50:03 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 13:20:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 #include "../libft/libft.h"
 #include "../includes/asm.h"
+
+int			ft_nbquote(char *str)
+{
+	int	i;
+	int	ret;
+
+	i = -1;
+	ret = 0;
+	while (str[++i])
+		if (str[i] == '\"')
+			ret++;
+	return (ret);
+}
+
+char		*ft_strjoinfree1(char *s1, char *s2)
+{
+	char *s3;
+	char *s4;
+
+	if (!s1 || !s2)
+		return (NULL);
+	s3 = ft_strjoin(s1, "\n");
+	if (s1)
+		ft_strdel(&s1);
+	s4 = ft_strjoin(s3, s2);
+	if (s3)
+		ft_strdel(&s3);
+	return (s4);
+}
 
 static int	readerror(t_asm *tasm)
 {

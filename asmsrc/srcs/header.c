@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/16 11:59:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:19:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_supprcomment(char **trim)
 	i = -1;
 	while ((*trim)[++i])
 	{
-		if ((*trim)[i] == COMMENT_CHAR)
+		if ((*trim)[i] == COMMENT_CHAR || (*trim)[i] == ';')
 			(*trim)[i] = '\0';
 	}
 }
@@ -31,7 +31,7 @@ static int	ft_com(char **trim, t_gnl *gnl, t_header *header, int *len)
 	char **com;
 
 	com = NULL;
-	if (!(com = ft_strsplit(gnl->line, '\"')))
+	if (!(com = ft_strsplit(*trim, '\"')))
 		return (ft_free(&com, 2, gnl, trim));
 	if (!com[1])
 		return (ft_free(&com, 0, gnl, trim));
@@ -49,6 +49,12 @@ static int	ft_name(char **trim, t_header *header, int *len, t_gnl *gnl)
 	char **name;
 
 	name = NULL;
+	if (ft_nbquote(*trim) > 2)
+	{
+		ft_dprintf(2, "Name is invalid at line %i\n", gnl->nbline);
+		ft_strdel(trim);
+		return (ft_free(NULL, 6, gnl, NULL));
+	}
 	if (!(name = ft_strsplit(*trim, '\"')))
 		return (ft_free(&name, 2, gnl, trim));
 	if (!name[1])
@@ -62,17 +68,21 @@ static int	ft_name(char **trim, t_header *header, int *len, t_gnl *gnl)
 	return (1);
 }
 
-int			ft_valid_entry(t_gnl *gnl, char ***split, char **trim, int *len)
+static int	ft_valid_entry(t_asm *tasm, char ***split, char **trim, int *len)
 {
 	int		lensplit;
+	t_gnl	*gnl;
 
 	lensplit = 0;
+	gnl = &(tasm->gnl);
 	if (!((*split)[1]))
 		return (ft_free(split, 0, gnl, trim));
 	while ((*split)[lensplit])
 		lensplit++;
 	*len = ft_strlen((*split)[lensplit - 1]);
-	if ((*split)[1][0] != '\"' || (*split)[lensplit - 1][*len - 1] != '\"')
+	if ((*split)[1][0] == '\"' && ft_nbquote(*trim) == 1)
+		return (ft_multiline(tasm, trim, split));
+	else if ((*split)[1][0] != '\"' || (*split)[lensplit - 1][*len - 1] != '\"')
 	{
 		ft_strdel(trim);
 		return (ft_freecom(split, 1, (*split)[0] + 1, gnl));
@@ -96,11 +106,15 @@ int			ft_recup(t_header *header, t_asm *tasm, int *len, int type)
 		(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING))
 	{
 		ft_strdel(&trim);
-		return (ft_freecom(&split, 0,
-			(type == NAME) ? NAME_CMD_STRING : COMMENT_CMD_STRING, &(tasm->gnl)));
+		return (ft_freecom(&split, 0, (type == NAME) ?
+					NAME_CMD_STRING : COMMENT_CMD_STRING, &(tasm->gnl)));
 	}
-	if (!(ret = ft_valid_entry(&(tasm->gnl), &split, &trim, len)))
+	if (!(ret = ft_valid_entry(tasm, &split, &trim, len)))
+	{
+		ft_free_tab2d(&split);
 		return (ret);
+	}
+	ft_free_tab2d(&split);
 	return (type == NAME ? ft_name(&trim, header, len, &(tasm->gnl))
 		: ft_com(&trim, &(tasm->gnl), header, len));
 }

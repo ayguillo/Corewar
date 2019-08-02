@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 15:08:58 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/15 14:35:12 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 10:41:26 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,112 @@
 #include "../libft/libft.h"
 #include "../libft/color.h"
 
-int		ft_errorparams(t_asm *tasm, char *s)
+static void	ft_wrongregister(t_asm *tasm, int occ)
 {
 	int		i;
+	int		ret;
+
+	ft_dprintf(2, "Wrong register at line %i. Min = 1 or Max = %i\n%s%s\n"
+			, tasm->gnl.nbline, REG_NUMBER, _RED_, tasm->gnl.line);
+	i = 0;
+	ret = 0;
+	while (tasm->gnl.line[i] && occ)
+	{
+		if (tasm->gnl.line[i] == SEPARATOR_CHAR)
+			occ--;
+		if (tasm->gnl.line[i] == '\t')
+			ret += 8 - (ret % 8);
+		else
+			ret++;
+		i++;
+	}
+	while (tasm->gnl.line[i] && (tasm->gnl.line[i] < '0' ||
+				tasm->gnl.line[i] > '9'))
+	{
+		if (tasm->gnl.line[i] == '\t')
+			ret += 8 - (ret % 8);
+		else
+			ret++;
+		i++;
+	}
+	ft_dprintf(2, "%s%*c", _GREEN_, ret, '^');
+	while (tasm->gnl.line[i] && (tasm->gnl.line[++i] >= '0' &&
+				tasm->gnl.line[i] <= '9'))
+		ft_dprintf(2, "~");
+	ft_dprintf(2, "\n%s", _RESET_);
+}
+
+static void	ft_badarg(t_asm *tasm, char *s, int occ)
+{
 	char	*str;
+	int		ret;
+	int		i;
+
+	str = ft_strstr(tasm->gnl.line, s);
+	ft_dprintf(2, "Bad argument at line %i. Did you mean 'r%s' ?\n%s%s\n",
+			tasm->gnl.nbline, s, _RED_, tasm->gnl.line);
+	ret = 0;
+	i = 0;
+	while (tasm->gnl.line[i] && occ)
+	{
+		if (tasm->gnl.line[i] == SEPARATOR_CHAR)
+			occ--;
+		if (tasm->gnl.line[i] == '\t')
+			ret += 8 - (ret % 8);
+		else
+			ret++;
+		i++;
+	}
+	while (tasm->gnl.line[i] && (tasm->gnl.line[i] != s[0]))
+	{
+		if (tasm->gnl.line[i] == '\t')
+			ret += 8 - (ret % 8);
+		else
+			ret++;
+		i++;
+	}
+	ft_dprintf(2, "%s%*c\n", _GREEN_, ret, '^');
+	ft_dprintf(2, "%*c%s\n", ret, 'r', _RESET_);
+}
+
+int			ft_errorparams(t_asm *tasm, char *s)
+{
+	int		i;
 	int		occ;
+	int		ret;
 
 	occ = tasm->n_param - 1;
 	if (tasm->error == 4)
 	{
-		str = ft_strstr(tasm->gnl.line, s);
 		ft_dprintf(2, "Bad argument at line %i. Did you mean '%c%s' ?\n%s%s\n",
 				tasm->gnl.nbline, DIRECT_CHAR, s, _RED_, tasm->gnl.line);
 		i = 0;
-		ft_dprintf(2, "%s%*c\n", _GREEN_,
-				ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, '^');
-		ft_dprintf(2, "%*c", ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, '%');
-		ft_dprintf(2,"\n%s", _RESET_);
-
+		ret = 0;
+		while (tasm->gnl.line[i] && occ)
+		{
+			if (tasm->gnl.line[i] == SEPARATOR_CHAR)
+				occ--;
+			if (tasm->gnl.line[i] == '\t')
+				ret += 8 - (ret % 8);
+			else
+				ret++;
+			i++;
+		}
+		while (tasm->gnl.line[i] && (tasm->gnl.line[i] != s[0]))
+		{
+			if (tasm->gnl.line[i] == '\t')
+				ret += 8 - (ret % 8);
+			else
+				ret++;
+			i++;
+		}
+		ft_dprintf(2, "%s%*c\n", _GREEN_, ret, '^');
+		ft_dprintf(2, "%*c%s\n", ret, '%', _RESET_);
 	}
 	if (tasm->error == 1)
-	{
-		str = ft_strstr(tasm->gnl.line, s);
-		ft_dprintf(2, "Bad argument at line %i. Did you mean 'r%s' ?\n%s%s\n",
-				tasm->gnl.nbline, s, _RED_, tasm->gnl.line);
-		ft_dprintf(2, "%s%*c\n", _GREEN_,
-				ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, '^');
-		ft_dprintf(2, "%*c%s\n",
-				ft_strclentab(tasm->gnl.line, 0, str, occ) - 1, 'r', _RESET_);
-	}
+		ft_badarg(tasm, s, occ);
 	if (tasm->error == 2)
-	{
-		str = ft_strstr(tasm->gnl.line, s);
-		ft_dprintf(2, "Wrong register at line %i. Min = 1 or Max = %i\n%s%s\n"
-				, tasm->gnl.nbline, REG_NUMBER, _RED_, tasm->gnl.line);
-		i = 0;
-		while (s[i] && (s[i] < '0' || s[i] > '9'))
-			i++;
-		ft_dprintf(2, "%s%*c", _GREEN_, ft_strclentab(tasm->gnl.line, 0, str, occ),
-				'^');
-		while (s[i] && (s[++i] >= '0' && s[i] <= '9'))
-			ft_dprintf(2, "~");
-		ft_dprintf(2, "\n%s", _RESET_);
-	}
+		ft_wrongregister(tasm, occ);
 	ft_strdel(&(tasm->gnl.line));
 	return (0);
 }

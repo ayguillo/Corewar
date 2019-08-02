@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 18:16:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:30:58 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ static int	ft_isinst(char *inst)
 
 static int	ft_argverif(char **split, t_asm *tasm)
 {
-	int i;
-
-	i = 0;
 	if (!split[1])
 		return (ft_syntax(NULL, tasm, split[0][ft_strlen(split[0])]));
 	if (!ft_strcmp(split[0], "live"))
@@ -86,6 +83,21 @@ static char	**ft_instok(t_asm *tasm, char **trim)
 	return (split);
 }
 
+static int	ft_argandsearch(char ***split, t_asm *tasm)
+{
+	if (!(ft_argverif(*split, tasm)))
+	{
+		ft_free_tab2d(split);
+		ft_strdel(&(tasm->gnl.line));
+		return (0);
+	}
+	if (!(ft_searchlabel(tasm, 0)))
+	{
+		ft_free_tab2d(split);
+		return (0);
+	}
+	return (1);
+}
 
 int			ft_instructions(char **trim, t_asm *tasm)
 {
@@ -108,37 +120,8 @@ int			ft_instructions(char **trim, t_asm *tasm)
 		return (0);
 	}
 	ft_strdel(&strim);
-	if (!(ft_argverif(split, tasm)))
-	{
-		ft_free_tab2d(&split);
-		ft_strdel(&(tasm->gnl.line));
+	if (!(ft_argandsearch(&split, tasm)))
 		return (0);
-	}
-
-	if (!(ft_searchlabel(tasm, 0)))
-	{
-		ft_free_tab2d(&split);
-		return (0);
-	}
-	/*
-	 ** AFFICHAGE TEST
-	 */
-/*	t_op	*tmp;
-	tmp = tasm->op;
-	int		i;
-	ft_printf("line = %s at %i\n", tasm->gnl.line, tasm->gnl.nbline);
-	while (tmp)
-	{
-		ft_printf("label = %s && instruction = %i, size = %i && addr = %i",
-				tmp->label, tmp->inst, tmp->size, tmp->addr);
-		i = -1;
-		while (++i < 3)
-			if (tmp->code[i])
-				ft_printf(" && code[%i] = %i && param[%i] = %x",  i, tmp->code[i], i, tmp->param[i]);
-		ft_putchar('\n');
-		(tmp) = (tmp)->next;
-	}
-	ft_putchar('\n');*/
 	ft_free_tab2d(&split);
 	return (1);
 }

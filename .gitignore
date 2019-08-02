@@ -3,9 +3,10 @@ read.c
 test.c
 test.cor
 test.s
-asm
+visu
 libft.a
 *.swp
 *.dSYM
 *.gch
 resources/compiled_champs/*
+testfaux
