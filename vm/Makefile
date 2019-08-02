@@ -35,7 +35,9 @@ PROC_SRC		=	$(addprefix $(PROC_DIR)/, \
 DISP_DIR		=	display
 
 DISP_SRC		=	$(addprefix $(DISP_DIR)/, \
-		init_ncurse_display.c print_memory.c print_govisu.c print.c)
+		display_init.c display_memory.c print_govisu.c print.c \
+		display_load_player.c display_update.c display_info.c \
+		display_update_color.c display_update_pc.c)
 
 SRC_NAME		=	$(VM_SRC) $(PROC_SRC) $(DISP_SRC)
 

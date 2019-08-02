@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:32:33 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/22 02:54:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/07/30 19:00:20 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ void	write_to_vm(t_vm *vm, int address, int write, int write_size,
 		write >>= 8;
 		i++;
 	}
+	display_update_color(vm, address % MEM_SIZE, write_size, player_id);
 }
