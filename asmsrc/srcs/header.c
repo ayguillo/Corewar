@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 10:26:46 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 13:19:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/02 14:49:30 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,20 @@ static int	ft_com(char **trim, t_gnl *gnl, t_header *header, int *len)
 	char **com;
 
 	com = NULL;
+	if (ft_nbquote(*trim) > 2)
+	{
+		ft_dprintf(2, ".comment is invalid at line %i\n", gnl->nbline);
+		ft_strdel(trim);
+		return (ft_free(NULL, 6, gnl, NULL));
+	}
 	if (!(com = ft_strsplit(*trim, '\"')))
 		return (ft_free(&com, 2, gnl, trim));
 	if (!com[1])
-		return (ft_free(&com, 0, gnl, trim));
+	{
+		ft_free_tab2d(&com);
+		ft_strdel(trim);
+		return (1);
+	}
 	if ((*len = ft_strlen(com[1])) > COMMENT_LENGTH)
 		return (ft_free(&com, 3, gnl, trim));
 	if (!(ft_strcpy(header->comment, com[1])))
@@ -51,7 +61,7 @@ static int	ft_name(char **trim, t_header *header, int *len, t_gnl *gnl)
 	name = NULL;
 	if (ft_nbquote(*trim) > 2)
 	{
-		ft_dprintf(2, "Name is invalid at line %i\n", gnl->nbline);
+		ft_dprintf(2, ".name is invalid at line %i\n", gnl->nbline);
 		ft_strdel(trim);
 		return (ft_free(NULL, 6, gnl, NULL));
 	}
