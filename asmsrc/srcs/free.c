@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 13:32:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:34:57 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:43:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 
 void		ft_free_all(char ***tab, char **str)
 {
-	ft_strdel(str);
-	ft_free_tab2d(tab);
+	if (str && *str)
+		ft_strdel(str);
+	if (tab && *tab)
+		ft_free_tab2d(tab);
 }
 
 static void	ft_empty(char **str, char ***tab, t_gnl *gnl)
