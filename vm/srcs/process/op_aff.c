@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_update_pc.c                                :+:      :+:    :+:   */
+/*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:00:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/02 15:09:10 by bopopovi         ###   ########.fr       */
+/*   Created: 2019/08/02 16:19:52 by bopopovi          #+#    #+#             */
+/*   Updated: 2019/08/02 16:26:03 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
-#include "display.h"
+#include "proc.h"
 
-void	display_update_pc(t_vm *vm, unsigned int pc, int player_id)
+__attribute__((unused))static bool l_dbg = 1;
+
+void	op_aff(__attribute__((unused))t_vm *vm, t_proc *process,
+	t_param *params, __attribute__((unused))t_op op)
 {
-	unsigned int real_pc;
+	unsigned int reg_load;
 
-	real_pc = (pc % MEM_SIZE);
-	if (vm->options & OPTZ)
-		vm->display.color_map[real_pc].pc = 4 + (player_id + 1);
+	dbg_print_instruction_head(l_dbg, "OP_AFF");
+	reg_load = read_from_register(process, params[0].val);
+	ft_putchar(reg_load % 256);
 }

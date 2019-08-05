@@ -70,6 +70,7 @@ void op_fork(t_vm *vm, t_proc *process, t_param *params, t_op op);
 void op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op);
 void op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op);
 void op_lfork(t_vm *vm, t_proc *process, t_param *params, t_op op);
+void	op_aff(t_vm *vm, t_proc *process, t_param *params, t_op op);
 
 /*
 ** INSTRUCTION TOOLS

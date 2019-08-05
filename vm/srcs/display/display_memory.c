@@ -6,25 +6,13 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 19:10:48 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/30 21:18:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:06:48 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 #include "options.h"
 #include <stdlib.h>
-
-int		get_pc_color(char pc_color)
-{
-	int i;
-
-	i = 0;
-	while (((pc_color >> i) & 1) != 1)
-	{
-		i++;
-	}
-	return (4 + (i + 1));
-}
 
 int		display_get_color(t_vm *vm, int position)
 {
@@ -36,7 +24,7 @@ int		display_get_color(t_vm *vm, int position)
 		color = vm->display.color_map[position].highlight;
 	}
 	else if (vm->display.color_map[position].pc > 0)
-		color = get_pc_color(vm->display.color_map[position].pc);
+		color = vm->display.color_map[position].pc;
 	else
 		color = vm->display.color_map[position].code;
 	return (color);
