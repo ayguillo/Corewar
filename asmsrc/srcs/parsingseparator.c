@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 18:15:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:53:29 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,11 @@ int				ft_separator(char **str, int nb, t_asm *tasm)
 
 	issep = 0;
 	ret = 1;
+	spaces = NULL;
 	if (!(spaces = ft_charwtspaces(*str)))
 		ret = (ft_free(NULL, 2, &(tasm->gnl), str));
 	i = -1;
-	while (spaces[++i] && ret != 0)
+	while (spaces && spaces[++i] && ret != 0)
 	{
 		if (spaces[i] == SEPARATOR_CHAR)
 		{

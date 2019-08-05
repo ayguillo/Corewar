@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:16:23 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:52:24 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int				ft_retgnl(t_asm *tasm, int i)
 		tasm->gnl.nbline++;
 		if (tasm->gnl.line)
 		{
-			trim = ft_strtrim(tasm->gnl.line);
+			if (!(trim = ft_strtrim(tasm->gnl.line)))
+				return (ft_free(NULL, 2, &(tasm->gnl), NULL));
 			if (i == 1 && trim[0] != '\0' && trim[0] != COMMENT_CHAR &&
 					trim[0] != ';' && trim[0] != '.')
 				break ;
