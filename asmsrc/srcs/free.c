@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 13:32:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:34:57 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:41:13 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 
 void		ft_free_all(char ***tab, char **str)
 {
-	ft_strdel(str);
-	ft_free_tab2d(tab);
+	if (str && *str)
+		ft_strdel(str);
+	if (tab && *tab)
+		ft_free_tab2d(tab);
 }
 
 static void	ft_empty(char **str, char ***tab, t_gnl *gnl)
@@ -76,7 +78,7 @@ int			ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 				has %i characters\n%s", PROG_NAME_LENGTH, _RED_,
 				ft_strlen(gnl->line), _RESET_);
 	if (err == 2)
-		perror("asm:");
+		perror("asm");
 	if (err == 3)
 		ft_dprintf(2, "Comment too long (Max length %i)\n%sYour comment \
 				has %i characters\n%s", COMMENT_LENGTH, _RED_,
