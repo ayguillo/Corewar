@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 13:32:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:43:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:43:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int			ft_free(char ***tab, int err, t_gnl *gnl, char **str)
 				has %i characters\n%s", PROG_NAME_LENGTH, _RED_,
 				ft_strlen(gnl->line), _RESET_);
 	if (err == 2)
-		perror("asm:");
+		perror("asm");
 	if (err == 3)
 		ft_dprintf(2, "Comment too long (Max length %i)\n%sYour comment \
 				has %i characters\n%s", COMMENT_LENGTH, _RED_,
