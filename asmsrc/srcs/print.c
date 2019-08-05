@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 12:00:44 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 16:28:17 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ char		*ft_strjoinfree1(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	s3 = ft_strjoin(s1, "\n");
+	if (!(s3 = ft_strjoin(s1, "\n")))
+		return (NULL);
 	if (s1)
 		ft_strdel(&s1);
-	s4 = ft_strjoin(s3, s2);
+	if (!(s4 = ft_strjoin(s3, s2)))
+		return (NULL);
 	if (s3)
 		ft_strdel(&s3);
 	return (s4);

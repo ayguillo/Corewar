@@ -1,12 +1,11 @@
 .name "Horace"
-.comment "Le horace qui vaincra les curiaces (bon en vrai c'est vraiment 
-a titre historique uniquement, c'est plus vraiment le cas maintenant)"
+.comment "Le horace qui vaincra les curiaces (bon en vrai c'est vraiment a titre historique uniquement, c'est plus vraiment le cas maintenant)"
 
 start: #1177
 st r1, :write
 ld :read, r2
 st r1, 110
-st r3, -5
+st r3, 5
 
 ld %57673217, r3
 ld %4261638147, r4

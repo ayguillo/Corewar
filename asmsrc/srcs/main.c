@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 16:33:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 16:26:30 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,21 @@ char		*ft_recupfile(char *name)
 	if (ft_strcmp(chr, ".s"))
 		return (NULL);
 	if (!(rname = (char*)malloc(sizeof(char) * (chr - name + 1))))
+	{
+		ft_free(NULL, 2, NULL, NULL);
 		return (NULL);
+	}
 	ft_strncpy(rname, name, chr - name);
 	if (!(ext = ft_strdup(".cor")))
+	{
+		ft_free(NULL, 2, NULL, NULL);
 		return (NULL);
-	join = ft_strjoinfree(rname, ext);
+	}
+	if (!(join = ft_strjoinfree(rname, ext)))
+	{
+		ft_free(NULL, 2, NULL, NULL);
+		return (NULL);
+	}
 	return (join);
 }
 

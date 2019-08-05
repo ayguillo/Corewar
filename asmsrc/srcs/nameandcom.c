@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:21:38 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 15:07:07 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 16:32:13 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ static int	ft_multiname(t_asm *tasm, char **trim, char ***split)
 
 	gnl = &(tasm->gnl);
 	line = gnl->nbline;
-	str = ft_strdup(*trim);
+	if (!(str = ft_strdup(*trim)))
+		return (ft_free(split, 2, gnl, trim));
 	while (ft_retgnl(tasm, 0))
 	{
 		if (!(str = ft_strjoinfree1(str, gnl->line)))
 		{
 			ft_strdel(&str);
-			ft_free(split, 2, gnl, trim);
+			return (ft_free(split, 2, gnl, trim));
 		}
 		if (ft_nbquote(gnl->line) > 0
 				|| ft_strstr((gnl->line), COMMENT_CMD_STRING))
@@ -64,13 +65,14 @@ static int	ft_multicom(t_asm *tasm, char **trim, char ***split)
 
 	gnl = &(tasm->gnl);
 	line = gnl->nbline;
-	str = ft_strdup(*trim);
+	if (!(str = ft_strdup(*trim)))
+		return (ft_free(split, 2, gnl, trim));
 	while ((ft_retgnl(tasm, 0)))
 	{
 		if (!(str = ft_strjoinfree1(str, gnl->line)))
 		{
 			ft_strdel(&str);
-			ft_free(split, 2, gnl, trim);
+			return (ft_free(split, 2, gnl, trim));
 		}
 		if (ft_nbquote(gnl->line) > 0)
 			break ;

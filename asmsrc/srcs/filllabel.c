@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:27:40 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 16:33:56 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ static int		ft_paramlabel(t_op *op, char *label, int nparam)
 		tmp = tmp->next;
 	}
 	if (addr == -1)
-		tmp->searchlabel[nparam - 1] = ft_strdup(label);
+	{
+		if (!(tmp->searchlabel[nparam - 1] = ft_strdup(label)))
+			return (ft_free(NULL, 2, NULL, NULL));
+	}
 	else
 		tmp->searchlabel[nparam - 1] = NULL;
 	if (accept_d4(tmp->inst))

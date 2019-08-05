@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:11:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 13:39:44 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 16:32:58 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	ft_label(char *trim, t_gnl *gnl, t_op *new)
 	else if (labchar == 1)
 	{
 		if (!(split = ft_strsplit(trim, ':')))
-			ret = ft_free(&split, 2, gnl, NULL);
+			return(ft_free(&split, 2, gnl, NULL));
 		if (ret > 0)
 		{
 			if (!(verif = veriflabel(split[0])))
@@ -84,7 +84,8 @@ static int	ft_label(char *trim, t_gnl *gnl, t_op *new)
 			if (split[0] && verif != 2)
 			{
 				ft_supprlab(trim, split);
-				new->label = ft_strdup(split[0]);
+				if (!(new->label = ft_strdup(split[0])))
+					return (ft_free(&split, 2, gnl, NULL));
 				new->line = gnl->nbline;
 			}
 		}
