@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 11:55:38 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:05:07 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int				ft_verifint(char *split, t_asm *tasm)
 	isop = 0;
 	if (!split)
 	{
-		ft_printf("Erreur ici\n");
-		return (0);
+		tasm->error = 3;
+		return (ft_syntax(NULL, tasm, ' '));
 	}
 	while (split[++i])
 	{

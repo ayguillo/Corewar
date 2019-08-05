@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 11:55:38 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:10:22 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int			ft_filld(char **split, t_asm *tasm, int size)
 	tasm->error = 0;
 	if (ft_lentab2d(split) <= tasm->n_param)
 	{
-		ft_printf("erreur ici\n");
-		return (0);
+		tasm->error = 4;
+		return (ft_syntax(NULL, tasm, ' '));
 	}
 	if (split[tasm->n_param] && split[tasm->n_param][0] == DIRECT_CHAR)
 		param = ft_filllabel(tasm, split);
@@ -95,8 +95,8 @@ int			ft_filli(char **split, t_asm *tasm)
 	isop = 0;
 	if (ft_lentab2d(split) <= tasm->n_param)
 	{
-		ft_printf("erreur ici\n");
-		return (0);
+		tasm->error = 4;
+		return (ft_syntax(NULL, tasm, ' '));
 	}
 	if (split[tasm->n_param][0] == LABEL_CHAR)
 		param = ft_filllabel(tasm, split);
@@ -139,8 +139,8 @@ int			ft_fillrg(char **split, t_asm *tasm)
 	reg = NULL;
 	if (ft_lentab2d(split) <= tasm->n_param)
 	{
-		ft_printf("erreur ici\n");
-		return (0);
+		tasm->error = 4;
+		return (ft_syntax(NULL, tasm, ' '));
 	}
 	if (split[tasm->n_param][0] != 'r')
 		return (ft_syntax(NULL, tasm, split[tasm->n_param][0]));
