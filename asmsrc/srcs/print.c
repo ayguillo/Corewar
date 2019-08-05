@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 13:20:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 12:00:44 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char		*ft_strjoinfree1(char *s1, char *s2)
 
 static int	readerror(t_asm *tasm)
 {
-	ft_dprintf(2, "Read() failed or empty command line %i\n", tasm->gnl.nbline);
+	ft_dprintf(2, "Read() failed, syntax invalid or empty command at line %i\n"
+			, tasm->gnl.nbline);
 	ft_strdel(&(tasm->gnl.line));
 	return (0);
 }
@@ -55,10 +56,12 @@ int			printfile(t_header *header, t_asm *tasm)
 	int		lenname;
 	int		lencom;
 	t_op	*tmp;
+	int		ret1 = 0;
+	int		ret2 = 0;
 
-	if ((ft_retgnl(tasm, 1) <= 0 && !(readerror(tasm)))
+	if (((ret1 = ft_retgnl(tasm, 1)) <= 0 && !(readerror(tasm)))
 		|| ft_recup(header, tasm, &lenname, NAME) <= 0
-		|| (ft_retgnl(tasm, 1) <= 0 && !(readerror(tasm)))
+			|| ((ret2 = ft_retgnl(tasm, 1)) <= 0 && !(readerror(tasm)))
 		|| ft_recup(header, tasm, &lencom, COM) <= 0
 		|| !(ft_readinst(tasm)))
 		return (0);

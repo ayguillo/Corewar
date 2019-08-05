@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/07/22 18:16:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 11:55:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ int				ft_verifint(char *split, t_asm *tasm)
 
 	i = -1;
 	isop = 0;
+	if (!split)
+	{
+		ft_printf("Erreur ici\n");
+		return (0);
+	}
 	while (split[++i])
 	{
-		if (split[i] == '+' || split[i] == '-' || split[i] >= 0 ||
-				split[i] <= 9)
+		if (split[i] == '+' || split[i] == '-' || (split[i] >= 0 &&
+				split[i] <= 9))
 			isop = 1;
 		else if (((split[i] == '+' || split[i] == '-') && isop == 1) ||
 				split[i] < '0' || split[i] > '9')
@@ -82,6 +87,7 @@ unsigned int	ft_filllabel(t_asm *tasm, char **split)
 	label = NULL;
 	dirsplit = NULL;
 	indsplit = NULL;
+	tasm->error = 0;
 	if (split[tasm->n_param] && split[tasm->n_param][1] == LABEL_CHAR)
 	{
 		if (!(label = ft_strsplit(split[tasm->n_param], LABEL_CHAR)))
@@ -101,6 +107,7 @@ unsigned int	ft_filllabel(t_asm *tasm, char **split)
 		if (!(ft_verifint(dirsplit[0], tasm)))
 		{
 			tasm->error = 1;
+			ft_free_tab2d(&dirsplit);
 			return (0);
 		}
 		param = ft_atui(dirsplit[0]);

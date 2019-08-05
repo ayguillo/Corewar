@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 16:53:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 11:55:38 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ int			ft_filld(char **split, t_asm *tasm, int size)
 	unsigned int	param;
 
 	tasm->error = 0;
+	if (ft_lentab2d(split) <= tasm->n_param)
+	{
+		ft_printf("erreur ici\n");
+		return (0);
+	}
 	if (split[tasm->n_param] && split[tasm->n_param][0] == DIRECT_CHAR)
 		param = ft_filllabel(tasm, split);
 	if (tasm->error != 0)
@@ -88,6 +93,11 @@ int			ft_filli(char **split, t_asm *tasm)
 
 	param = 0;
 	isop = 0;
+	if (ft_lentab2d(split) <= tasm->n_param)
+	{
+		ft_printf("erreur ici\n");
+		return (0);
+	}
 	if (split[tasm->n_param][0] == LABEL_CHAR)
 		param = ft_filllabel(tasm, split);
 	else

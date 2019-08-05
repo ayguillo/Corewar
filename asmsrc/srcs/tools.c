@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 16:53:57 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 12:01:54 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int				ft_retgnl(t_asm *tasm, int i)
 {
 	int		ret;
 	char	*trim;
+	int		nbline;
 
+	if (i == 1)
+		nbline = tasm->gnl.nbline;
 	ft_strdel(&(tasm->gnl.line));
 	ret = 0;
 	while ((ret = ft_gnl(tasm->file.fdopen, &(tasm->gnl.line))) > 0)
@@ -37,6 +40,9 @@ int				ft_retgnl(t_asm *tasm, int i)
 		if (tasm->gnl.line)
 		{
 			trim = ft_strtrim(tasm->gnl.line);
+			if (i == 1 && trim[0] != '\0' && trim[0] != COMMENT_CHAR &&
+					trim[0] != ';' && trim[0] != '.')
+				break ;
 			if ((i == 1 && trim[0] == '.') || i == 0)
 			{
 				ft_strdel(&trim);
@@ -46,6 +52,10 @@ int				ft_retgnl(t_asm *tasm, int i)
 		}
 		ft_strdel(&(tasm->gnl.line));
 	}
+	if (i == 1)
+		tasm->gnl.nbline = nbline + 1;
+	ft_strdel(&trim);
+	ft_strdel(&(tasm->gnl.line));
 	return (0);
 }
 
