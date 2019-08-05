@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:04:56 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:13:36 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:27:40 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,36 @@ static int		ft_paramlabel(t_op *op, char *label, int nparam)
 	return (0);
 }
 
+static int		ft_dirchar(t_asm *tasm, char **split, char ***label)
+{
+	char	**dirsplit;
+	int		param;
+
+	dirsplit = NULL;
+	param = 0;
+	if (!(dirsplit = ft_strsplit(split[tasm->n_param], DIRECT_CHAR)))
+	{
+		tasm->error = 1;
+		return (ft_free(label, 2, &tasm->gnl, NULL));
+	}
+	if (!(ft_verifint(dirsplit[0], tasm)))
+	{
+		tasm->error = 1;
+		ft_free_tab2d(&dirsplit);
+		return (0);
+	}
+	param = ft_atui(dirsplit[0]);
+	ft_free_tab2d(&dirsplit);
+	return (param);
+}
+
 unsigned int	ft_filllabel(t_asm *tasm, char **split)
 {
 	unsigned int	param;
 	char			**label;
-	char			**dirsplit;
 	char			**indsplit;
 
 	label = NULL;
-	dirsplit = NULL;
 	indsplit = NULL;
 	tasm->error = 0;
 	if (split[tasm->n_param] && split[tasm->n_param][1] == LABEL_CHAR)
@@ -99,18 +120,9 @@ unsigned int	ft_filllabel(t_asm *tasm, char **split)
 	}
 	else if (split[tasm->n_param][0] == DIRECT_CHAR)
 	{
-		if (!(dirsplit = ft_strsplit(split[tasm->n_param], DIRECT_CHAR)))
-		{
-			tasm->error = 1;
-			return (ft_free(&label, 2, &tasm->gnl, NULL));
-		}
-		if (!(ft_verifint(dirsplit[0], tasm)))
-		{
-			tasm->error = 1;
-			ft_free_tab2d(&dirsplit);
+		param = ft_dirchar(tasm, split, &label);
+		if (tasm->error == 1)
 			return (0);
-		}
-		param = ft_atui(dirsplit[0]);
 	}
 	else
 	{
@@ -121,7 +133,6 @@ unsigned int	ft_filllabel(t_asm *tasm, char **split)
 		}
 		param = ft_paramlabel(tasm->op, label[0], tasm->n_param);
 	}
-	ft_free_tab2d(&dirsplit);
 	ft_free_tab2d(&indsplit);
 	ft_free_tab2d(&label);
 	return (param);
