@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 12:01:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/05 13:16:23 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int				ft_retgnl(t_asm *tasm, int i)
 	char	*trim;
 	int		nbline;
 
+	trim = NULL;
 	if (i == 1)
 		nbline = tasm->gnl.nbline;
 	ft_strdel(&(tasm->gnl.line));
