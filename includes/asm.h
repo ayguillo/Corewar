@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 16:40:47 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:54:32 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ void			ft_fillparam3(t_op *op, int size, int code,
 unsigned int	ft_filllabel(t_asm *tasm, char **split);
 int				ft_searchlabel(t_asm *tasm, int err);
 void			write_code(t_file *file, t_op *op);
+int				ft_label(char *trim, t_gnl *gnl, t_op *new);
 
 #endif

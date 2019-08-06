@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:34:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 16:28:17 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/06 15:43:48 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ int			printfile(t_header *header, t_asm *tasm)
 	int		lenname;
 	int		lencom;
 	t_op	*tmp;
-	int		ret1 = 0;
-	int		ret2 = 0;
 
-	if (((ret1 = ft_retgnl(tasm, 1)) <= 0 && !(readerror(tasm)))
+	if (((ft_retgnl(tasm, 1)) <= 0 && !(readerror(tasm)))
 		|| ft_recup(header, tasm, &lenname, NAME) <= 0
-			|| ((ret2 = ft_retgnl(tasm, 1)) <= 0 && !(readerror(tasm)))
+			|| ((ft_retgnl(tasm, 1)) <= 0 && !(readerror(tasm)))
 		|| ft_recup(header, tasm, &lencom, COM) <= 0
 		|| !(ft_readinst(tasm)))
 		return (0);
