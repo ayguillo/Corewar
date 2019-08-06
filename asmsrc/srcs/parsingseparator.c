@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 16:25:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:23:14 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 {
 	int		isop;
 
-	(*i)++;
 	isop = 0;
-	if (spaces[*i] == '\0')
+	if (spaces[++(*i)] == '\0')
 		return (0);
 	if ((spaces[*i] >= '0' && spaces[*i] <= '9') || spaces[*i] == '+' ||
 			spaces[*i] == '-')
-	{
 		while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
 		{
 			if (spaces[*i] == '+' || spaces[*i] == '-'
@@ -63,93 +61,90 @@ static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 			}
 			(*i)++;
 		}
-	}
-	if (spaces[*i] == LABEL_CHAR)
-		if (!(ft_islab(spaces, i, tasm)))
-			return (0);
-	(*i)--;
+	if (spaces[*i] != LABEL_CHAR)
+		(*i)--;
 	return (1);
 }
 
-static int		ft_aftersep(int *issep, char *spaces, int *i, t_asm *tasm)
+static int		ft_aftersep(int counters[4], char *spaces, t_asm *tasm)
 {
-	int		j;
-
-	j = 0;
-	while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
+	while (spaces[counters[I]] && spaces[counters[I]] != SEPARATOR_CHAR)
 	{
-		if (spaces[*i] == DIRECT_CHAR)
+		if ((spaces[counters[I]] == DIRECT_CHAR
+					&& !(ft_isdir(spaces, counters + I, tasm)))
+				|| (spaces[counters[I]] == LABEL_CHAR
+					&& !(ft_islab(spaces, counters + I, tasm))))
+			return (0);
+		else if (spaces[counters[I]] >= '0' && spaces[counters[I]] <= '9')
 		{
-			if (!(ft_isdir(spaces, i, tasm)))
-				return (0);
-		}
-		else if (spaces[*i] == LABEL_CHAR)
-		{
-			if (!(ft_islab(spaces, i, tasm)))
-				return (0);
-		}
-		else if (spaces[*i] >= '0' && spaces[*i] <= '9')
-		{
-			while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)
+			while (spaces[counters[I]] && spaces[counters[I]] != SEPARATOR_CHAR)
 			{
-				if (spaces[*i] < '0' || spaces[*i] > '9')
+				if (spaces[counters[I]] < '0' || spaces[counters[I]] > '9')
 				{
 					tasm->error = 3;
-					return (ft_syntax(NULL, tasm, spaces[*i]));
+					return (ft_syntax(NULL, tasm, spaces[counters[I]]));
 				}
-				(*i)++;
-				j = 1;
+				++(counters[I]);
 			}
+			--(counters[I]);
 		}
-		if (j == 0)
-			(*i)++;
-		j = 0;
+		++(counters[I]);
 	}
-	(*i)--;
-	*issep = 0;
+	(counters[I])--;
+	return (1);
+}
+
+static int		ft_check_separ(char **str, char **spaces, t_asm *tasm,
+					int counters[4])
+{
+	if ((*spaces)[counters[I]] == SEPARATOR_CHAR)
+	{
+		tasm->n_param++;
+		tasm->error = 0;
+		counters[NB] = (counters[ISSEP] == 1) ? counters[NB] : counters[NB] - 1;
+		counters[RET] = (counters[ISSEP] == 1) ?
+			ft_syntax(str, tasm, (*spaces)[counters[I]]) : counters[RET];
+		counters[ISSEP] = 1;
+	}
+	else if ((*spaces)[counters[I]] != SEPARATOR_CHAR)
+	{
+		counters[ISSEP] = 0;
+		if (!(ft_aftersep(counters, *spaces, tasm)))
+		{
+			ft_strdel(spaces);
+			return (0);
+		}
+	}
+	if (counters[NB] < 0 && counters[RET] > 0)
+	{
+		tasm->error = 1;
+		tasm->n_param = 1;
+		counters[RET] = (ft_syntax(str, tasm, 0));
+	}
 	return (1);
 }
 
 int				ft_separator(char **str, int nb, t_asm *tasm)
 {
-	int		i;
+	int		counters[4];
 	char	*spaces;
-	int		issep;
-	int		ret;
 
-	issep = 0;
-	ret = 1;
+	counters[ISSEP] = 0;
+	counters[RET] = 1;
+	counters[NB] = nb;
 	spaces = NULL;
 	if (!(spaces = ft_charwtspaces(*str)))
 		return (ft_free(NULL, 2, &(tasm->gnl), str));
-	i = -1;
-	while (spaces && spaces[++i] && ret != 0)
+	counters[I] = -1;
+	while (spaces && spaces[++(counters[I])] && counters[RET] != 0)
 	{
-		if (spaces[i] == SEPARATOR_CHAR)
-		{
-			tasm->n_param++;
-			tasm->error = 0;
-			nb = (issep == 1) ? nb : nb - 1;
-			ret = (issep == 1) ? ft_syntax(str, tasm, spaces[i]) : ret;
-			issep = 1;
-		}
-		else if (spaces[i] != SEPARATOR_CHAR)
-		{
-			if (!(ft_aftersep(&issep, spaces, &i, tasm)))
-			{
-				ft_strdel(&spaces);
-				return (0);
-			}
-		}
-		if (nb < 0 && ret > 0)
-		{
-			tasm->error = 1;
-			tasm->n_param = 1;
-			ret = (ft_syntax(str, tasm, 0));
-		}
+		if (!(ft_check_separ(str, &spaces, tasm, counters)))
+			return (0);
 	}
 	ft_strdel(&spaces);
 	tasm->error = 1;
 	tasm->n_param = 1;
-	return (nb != 0 && ret > 0 ? ft_syntax(str, tasm, 0) : ret);
+	if (counters[NB] != 0 && counters[RET] > 0)
+		counters[RET] = ft_syntax(str, tasm, 0);
+	return (counters[RET]);
 }
