@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 16:45:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/06 15:04:45 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@
 
 # define COM 1
 # define NAME 2
+
+# define ISSEP 0
+# define RET 1
+# define NB 2
+# define I 3
+
 
 typedef struct	s_file
 {
