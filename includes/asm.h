@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 16:25:11 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:40:47 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define RET 1
 # define NB 2
 # define I 3
+# define TMPRET 0
+# define TMPI 2
+# define J 4
 
 
 typedef struct	s_file
