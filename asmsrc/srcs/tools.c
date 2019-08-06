@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:40:25 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:52:24 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:30:01 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,43 +22,6 @@ int				ft_lentab2d(char **split)
 	while (split[i])
 		i++;
 	return (i);
-}
-
-int				ft_retgnl(t_asm *tasm, int i)
-{
-	int		ret;
-	char	*trim;
-	int		nbline;
-
-	trim = NULL;
-	if (i == 1)
-		nbline = tasm->gnl.nbline;
-	ft_strdel(&(tasm->gnl.line));
-	ret = 0;
-	while ((ret = ft_gnl(tasm->file.fdopen, &(tasm->gnl.line))) > 0)
-	{
-		tasm->gnl.nbline++;
-		if (tasm->gnl.line)
-		{
-			if (!(trim = ft_strtrim(tasm->gnl.line)))
-				return (ft_free(NULL, 2, &(tasm->gnl), NULL));
-			if (i == 1 && trim[0] != '\0' && trim[0] != COMMENT_CHAR &&
-					trim[0] != ';' && trim[0] != '.')
-				break ;
-			if ((i == 1 && trim[0] == '.') || i == 0)
-			{
-				ft_strdel(&trim);
-				return (ret);
-			}
-			ft_strdel(&trim);
-		}
-		ft_strdel(&(tasm->gnl.line));
-	}
-	if (i == 1)
-		tasm->gnl.nbline = nbline + 1;
-	ft_strdel(&trim);
-	ft_strdel(&(tasm->gnl.line));
-	return (0);
 }
 
 char			ft_opc(int code[3])
