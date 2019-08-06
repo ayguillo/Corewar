@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 17:37:32 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/06 13:47:20 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,8 @@ int			createfile(char *name)
 	return (fd);
 }
 
-int			start(/*int ac, */char **av, t_file *file, int i)
+int			start(char **av, t_file *file, int i)
 {
-/*	if (ac != 2)
-	{
-		ft_dprintf(2, "Arguments invalid\n");
-		return (0);
-	}*/
 	if ((file->fdopen = open(av[i], O_RDONLY)) == -1)
 	{
 		ft_dprintf(2, "Open() failed\n");
@@ -168,57 +163,21 @@ int			multifile(char **av, int i)
 	}
 	while ((ft_gnl(tasm.file.fdopen, &(tasm.gnl.line))) > 0)
 		ft_strdel(&(tasm.gnl.line));
-//	ft_closeall(tasm);
+	ft_closeall(tasm);
 	ft_strdel(&(tasm.file.name));
 	ft_dellstop(&tasm);
-	return (1);
+	return (0);
 }
 
 
 int			main(int ac, char **av)
 {
-/*	t_header		header;
-	t_asm			tasm;*/
 	int				i;
+	int				ret;
 
 	i = 0;
+	ret = 0;
 	while (++i < ac)
-	{
-		multifile(av, i);
-	/*	ft_printf("Compiling %s . . .\n", av[i]);
-		ft_bzero(&header, sizeof(header));
-		ft_bzero(&tasm, sizeof(tasm));
-		ft_bzero(&tasm, sizeof(tasm.op));
-		if (!(start(ac, av, &(tasm.file))))
-		{
-			ft_closeall(tasm);
-			return (-1);
-		}
-		if (!(printfile(&header, &tasm)))
-		{
-			ft_closeall(tasm);
-			ft_strdel(&(tasm.file.name));
-			ft_dellstop(&tasm);
-			return (-1);
-		}
-		if (((tasm.file.fdwrite = createfile(tasm.file.name)) == -1))
-		{
-			ft_closeall(tasm);
-			ft_strdel(&(tasm.file.name));
-			ft_dellstop(&tasm);
-			ft_dprintf(2, "Open() failed\n");
-			return (-1);
-		}
-		if (ft_searchlabel(&tasm, 1))
-		{
-			write(tasm.file.fdwrite, &header, sizeof(t_header));
-			write_code(&(tasm.file), tasm.op);
-			ft_printf("%sWriting output program to %s%s\n",
-					_GREEN_, tasm.file.name, _RESET_);
-		}
-		ft_closeall(tasm);
-		ft_dellstop(&tasm);
-		ft_strdel(&(tasm.file.name));*/
-	}
-	return (0);
+		ret = multifile(av, i);
+	return (ret);
 }
