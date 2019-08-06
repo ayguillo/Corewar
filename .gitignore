@@ -9,5 +9,6 @@ libft.a
 *.swp
 *.dSYM
 *.gch
+*.cor
 resources/compiled_champs/*
 testfaux

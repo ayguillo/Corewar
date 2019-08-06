@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/02 16:45:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/06 14:31:03 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@ typedef struct	s_asm
 	int		n_param;
 	int		error;
 }				t_asm;
+
+/*
+** FILE
+*/
+
+char			*ft_recupfile(char *name);
+int				createfile(char *name);
+int				ft_closeall(t_asm tasm);
+int				start(char **av, t_file *file, int i);
 
 /*
 ** HEADER
