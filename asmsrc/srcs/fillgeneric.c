@@ -6,14 +6,14 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:42:23 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:13:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 09:46:15 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../libft/libft.h"
 
-void		ft_fillinstop2(char *inst, t_op *tmp)
+static void	ft_fillinstop2(char *inst, t_op *tmp)
 {
 	if (!(ft_strcmp(inst, "st")))
 		tmp->inst = ST;
@@ -82,104 +82,5 @@ int			ft_filld(char **split, t_asm *tasm, int size)
 		ft_fillparam2(tasm->op, size, DIR_CODE, param);
 	if (tasm->n_param == 3)
 		ft_fillparam3(tasm->op, size, DIR_CODE, param);
-	return (1);
-}
-
-int			ft_filli(char **split, t_asm *tasm)
-{
-	unsigned int	param;
-	int				i;
-	int				isop;
-
-	param = 0;
-	isop = 0;
-	if (ft_lentab2d(split) <= tasm->n_param)
-	{
-		tasm->error = 4;
-		return (ft_syntax(NULL, tasm, ' '));
-	}
-	if (split[tasm->n_param][0] == LABEL_CHAR)
-		param = ft_filllabel(tasm, split);
-	else
-	{
-		i = 0;
-		while (split[tasm->n_param][i] >= '0' && split[tasm->n_param][i] <= '9')
-		{
-			if (split[tasm->n_param][i] == '+' || split[tasm->n_param][i] == '-'
-					|| (split[tasm->n_param][i] >= '0'
-						&& split[tasm->n_param][i] <= '9'))
-				isop = 1;
-			else if (((split[tasm->n_param][i] == '+' ||
-							split[tasm->n_param][i] == '-') && isop == 1) ||
-					split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9')
-			{
-				tasm->error = 3;
-				return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
-			}
-			i++;
-		}
-	}
-	if (split[tasm->n_param] && !param)
-		param = ft_atui(split[tasm->n_param]);
-	if (tasm->n_param == 1)
-		ft_fillparam1(tasm, IND_SIZE, IND_CODE, param);
-	if (tasm->n_param == 2)
-		ft_fillparam2(tasm->op, IND_SIZE, IND_CODE, param);
-	if (tasm->n_param == 3)
-		ft_fillparam3(tasm->op, IND_SIZE, IND_CODE, param);
-	return (1);
-}
-
-int			ft_fillrg(char **split, t_asm *tasm)
-{
-	unsigned int		param;
-	char				**reg;
-	int					i;
-
-	reg = NULL;
-	if (ft_lentab2d(split) <= tasm->n_param)
-	{
-		tasm->error = 4;
-		return (ft_syntax(NULL, tasm, ' '));
-	}
-	if (split[tasm->n_param][0] != 'r')
-		return (ft_syntax(NULL, tasm, split[tasm->n_param][0]));
-	if (!(reg = ft_strsplit(split[tasm->n_param], 'r')))
-		return (ft_free(NULL, 2, &tasm->gnl, NULL));
-	if (split[tasm->n_param][0] == 'r')
-	{
-		i = 0;
-		while (split[tasm->n_param][++i])
-		{
-			if (split[tasm->n_param][i] < '0' || split[tasm->n_param][i] > '9')
-			{
-				tasm->error = 3;
-				return (ft_syntax(NULL, tasm, split[tasm->n_param][i]));
-			}
-		}
-	}
-	param = 0;
-	if (reg[0])
-	{
-		i = -1;
-		if (((param = ft_atoi(reg[0])) <= 0) || param > REG_NUMBER)
-		{
-			ft_free_tab2d(&reg);
-			tasm->error = 2;
-			return (ft_errorparams(tasm, split[tasm->n_param]));
-		}
-	}
-	else
-	{
-		tasm->error = 3;
-		return (ft_syntax(NULL, tasm, split[0][0]));
-	}
-	if (tasm->n_param == 1)
-		ft_fillparam1(tasm, 1, REG_CODE, param);
-	if (tasm->n_param == 2)
-		ft_fillparam2(tasm->op, 1, REG_CODE, param);
-	if (tasm->n_param == 3)
-		ft_fillparam3(tasm->op, 1, REG_CODE, param);
-	ft_free_tab2d(&reg);
 	return (1);
 }

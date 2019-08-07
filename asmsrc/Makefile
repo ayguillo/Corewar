@@ -17,9 +17,9 @@ SRC_DIR			=	srcs
 ASM_SRC			=	\
 		main.c print.c header.c freecom.c free.c tools.c charman.c label.c\
 		instruction.c fillparams.c parsingseparator.c params.c filllabel.c\
-		fillgeneric.c params2.c paramgen.c syntaxerror.c errorparams.c\
-		searchlabel.c write_code.c nameandcom.c strclentab.c file.c label1.c\
-		retgnl.c
+		fillgeneric.c fillgeneric2.c params2.c paramgen.c syntaxerror.c\
+		errorparams.c searchlabel.c write_code.c nameandcom.c strclentab.c\
+		file.c label1.c retgnl.c
 
 SRC_NAME		=	$(ASM_SRC)
 
