@@ -16,29 +16,29 @@ func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_ESCAPE {
 				println("Quit")
 				return false
-			}
-			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
-				if (*dur) > 10000 {
-					*dur /= 2
+			} else if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
+				if (*dur) > 1000000.0 {
+					*dur /= 2.0
 					chDur <- *dur
 				} else {
-					*dur = 10000
-					chDur <- *dur
+					*dur = 1000000.0
+					if *stop == true {
+						chDur <- *dur
+					}
 				}
 				*stop = false
-
-			}
-			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_MINUS {
-				if (*dur).Seconds() < 1.0 {
+			} else if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_MINUS {
+				if (*dur).Seconds() < 0.5 {
 					*dur *= 2
 					chDur <- *dur
 				} else {
-					*dur = time.Second * 2
-					chDur <- *dur
+					*dur = time.Second
+					if *stop == true {
+						chDur <- *dur
+					}
 				}
 				*stop = false
-			}
-			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_SPACE {
+			} else if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_SPACE {
 				if *stop == false {
 					*stop = true
 					chDur <- 0
