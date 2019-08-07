@@ -6,17 +6,17 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:44:33 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 16:12:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 17:00:01 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../libft/libft.h"
 
-static int	ft_iserr(t_asm *tasm, char **split)
+static int	ft_iserr(t_asm *tasm)
 {
 	tasm->error = 4;
-	return (ft_errorparams(tasm, split[tasm->n_param]));
+	return (ft_syntax(0, tasm, 0));
 }
 
 int			ft_idd(char **split, t_asm *tasm, int size)
@@ -38,10 +38,10 @@ int			ft_idd(char **split, t_asm *tasm, int size)
 				return (0);
 		}
 		else
-			return (ft_iserr(tasm, split));
+			return (ft_iserr(tasm));
 	}
 	else
-		return (ft_iserr(tasm, split));
+		return (ft_iserr(tasm));
 	return (1);
 }
 
@@ -60,10 +60,10 @@ int			ft_rgd(char **split, t_asm *tasm, int size)
 				return (0);
 		}
 		else
-			return (ft_iserr(tasm, split));
+			return (ft_iserr(tasm));
 	}
 	else
-		return (ft_iserr(tasm, split));
+		return (ft_iserr(tasm));
 	return (1);
 }
 
@@ -85,7 +85,7 @@ int			ft_rgidd(char **split, t_asm *tasm, int size)
 		}
 	}
 	else
-		return (ft_iserr(tasm, split));
+		return (ft_iserr(tasm));
 	return (1);
 }
 
@@ -108,9 +108,9 @@ int			ft_rgid(char **split, t_asm *tasm)
 				return (0);
 		}
 		else
-			return (ft_iserr(tasm, split));
+			return (ft_iserr(tasm));
 	}
 	else
-		return (ft_iserr(tasm, split));
+		return (ft_iserr(tasm));
 	return (1);
 }

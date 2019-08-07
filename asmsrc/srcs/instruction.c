@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:06:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 15:16:01 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 16:56:20 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int			ft_instructions(char **trim, t_asm *tasm)
 	char	*strim;
 	char	**split;
 
+	split = NULL;
+	strim = NULL;
 	if (!(strim = ft_strtrim(*trim)))
 		return (ft_free(NULL, 2, &(tasm->gnl), trim));
 	ft_strdel(trim);
