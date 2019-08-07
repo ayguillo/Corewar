@@ -18,11 +18,12 @@ func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 				return false
 			}
 			if test.State == sdl.PRESSED && test.Keysym.Sym == sdl.K_EQUALS {
-				if (*dur) > 1000000 {
+				if (*dur) > 10000 {
 					*dur /= 2
 					chDur <- *dur
 				} else {
-					*dur = 1000000
+					*dur = 10000
+					chDur <- *dur
 				}
 				*stop = false
 
@@ -33,6 +34,7 @@ func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
 					chDur <- *dur
 				} else {
 					*dur = time.Second * 2
+					chDur <- *dur
 				}
 				*stop = false
 			}

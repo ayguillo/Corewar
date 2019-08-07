@@ -42,11 +42,13 @@ clean			:
 	@ $(MAKE) clean -C $(LIB_DIR)
 	@ $(MAKE) clean -C $(ASM_DIR)
 	@ $(MAKE) clean -C $(VM_DIR)
+	@ rm -f ./visu
 
 fclean			:	clean
 	@ $(MAKE) fclean -C $(LIB_DIR)
 	@ $(MAKE) fclean -C $(ASM_DIR)
 	@ $(MAKE) fclean -C $(VM_DIR)
+	@ rm -f ./visu
 
 re				:	fclean
 	@ $(MAKE) all

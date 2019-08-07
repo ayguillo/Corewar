@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 16:19:52 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/02 16:26:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/07 13:44:32 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	op_aff(__attribute__((unused))t_vm *vm, t_proc *process,
 {
 	unsigned int reg_load;
 
+	if (!(vm->options & OPTV))
+		return ;
 	dbg_print_instruction_head(l_dbg, "OP_AFF");
 	reg_load = read_from_register(process, params[0].val);
-	ft_putchar(reg_load % 256);
+	ft_printf("Player %d says : \"", process->player + 1);
+	write(1, &reg_load, 4);
+	ft_putstr("\"\n");
 }

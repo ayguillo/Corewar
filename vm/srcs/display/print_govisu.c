@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:52:40 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/31 10:14:13 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/07 12:03:19 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,8 @@ static void	print_infos_govisu(t_vm *vm)
 static void	check_colors(unsigned int i, t_vm *vm, const char *color_code,
 	char *color)
 {
-	t_proc	*tmp;
-
-	tmp = vm->proc;
-	color[2] = 0;
-	while (tmp && tmp->pc != i)
-		tmp = tmp->next;
-	if (tmp)
-		color[0] = color_code[tmp->player];
-	else
+	if (color[0] != color_code[0] && color[0] != color_code[1]
+		&& color[0] != color_code[2] && color[0] != color_code[3])
 		color[0] = 'Z';
 	if (vm->mem_infos_code[i] != -1)
 		color[1] = color_code[(int)(vm->mem_infos_code[i])];
@@ -71,10 +64,18 @@ static void	print_arena(t_vm *vm, char *char_set)
 {
 	unsigned int	i;
 	unsigned int	j;
-	char			str[MEM_SIZE * 4 + 2];
+	static char		str[MEM_SIZE * 4 + 2];
+	t_proc			*tmp;
 
 	i = 0;
 	j = 0;
+	ft_bzero(str, MEM_SIZE * 4 + 2);
+	tmp = vm->proc;
+	while (tmp)
+	{
+		str[(tmp->pc % MEM_SIZE) * 4] = "RGBY"[tmp->player];
+		tmp = tmp->next;
+	}
 	while (j < MEM_SIZE)
 	{
 		check_colors(j, vm, "RGPY", str + i);

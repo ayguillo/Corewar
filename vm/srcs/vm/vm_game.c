@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/02 16:57:17 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:56:41 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			game_cycle(t_vm *vm)
 		process_cycle(vm);
 		if (vm->period_cycles == vm->cycle_to_die)
 		{
-			if ((vm->checks -= 1) == 0 || vm->period_lives > NBR_LIVE)
+			if ((vm->checks -= 1) == 0 || vm->period_lives >= NBR_LIVE)
 			{
 				vm->cycle_to_die -= CYCLE_DELTA;
 				vm->checks = MAX_CHECKS;

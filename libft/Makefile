@@ -6,7 +6,7 @@
 #    By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 10:47:24 by vlambert          #+#    #+#              #
-#*   Updated: 2019/07/30 20:36:39 by bopopovi         ###   ########.fr       *#
+#    Updated: 2019/08/07 11:14:49 by vlambert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	libft.a
 
 CC			=	/usr/bin/gcc
 
-CFLAGS		=	-Wall -Wextra -Werror -g 
+CFLAGS		=	-Wall -Wextra -Werror 
 
 DEBUG		=	-g3 -fsanitize=address
 
@@ -52,8 +52,8 @@ all			:	$(NAME)
 
 $(NAME)		:	$(OBJ) $(INC)
 	@ echo "\033[0;33mCompilation de la libft...\x1b[0m"
-	@ ar rc $(DBG) $(NAME) $(OBJ)
-	@ ranlib $(DBG) $(NAME)
+	@ ar rc $(NAME) $(OBJ)
+	@ ranlib $(NAME)
 	@ echo "\033[0;32mLibft compilée -> OK\x1b[0m"
 
 %.o			:	%.c $(INC)
@@ -67,6 +67,7 @@ fclean		:	clean
 	@ rm -rf $(NAME)
 	@ echo "\033[0;31mSuppression de la libft \033[0;33m-> \033[0;32mOK\x1b[0m"
 
-re: fclean all
+re: fclean
+	@ make all
 
 .PHONY: clean fclean re all
