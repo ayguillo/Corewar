@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/06/26 10:30:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/07 10:00:37 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 **  Please update ERR_TYPE_NBR when adding a new error
 */
-#define ERR_TYPE_NBR    10
+# define ERR_TYPE_NBR    10
 
 /*
 **  Errors message max size: Respect it or upload unless you want to segfault
@@ -36,6 +36,7 @@
 **  ERR_SIZE	    Invalid champ(size): please specify champ name in message
 **  ERR_MALLOC      Malloc error: please precced err message by file/function
 */
+
 # define USAGE				0
 # define ERR_DBLDUMP		1
 # define ERR_DUMPVAL		2

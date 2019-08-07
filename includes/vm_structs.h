@@ -6,12 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/30 21:05:57 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/07 10:08:31 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VM_STRUCT_H
-# define VM_STRUCT_H
+#ifndef VM_STRUCTS_H
+# define VM_STRUCTS_H
 
 # include <curses.h>
 # include "op.h"
@@ -21,27 +21,27 @@
 ** NCURSES VISUALIZER
 */
 
-typedef struct	s_win
+typedef struct		s_win
 {
-	WINDOW		*container;
-	WINDOW		*contents;
-	int			width;
-	int			height;
-}				t_win;
+	WINDOW			*container;
+	WINDOW			*contents;
+	int				width;
+	int				height;
+}					t_win;
 
-typedef struct	s_status
+typedef struct		s_status
 {
-	int			paused;
-	int			fast_forward;
-}				t_status;
+	int				paused;
+	int				fast_forward;
+}					t_status;
 
-typedef struct	s_color
+typedef struct		s_color
 {
-	char		code;
-	char		pc;
-	char		highlight;
-	char		updated;
-}				t_color;
+	char			code;
+	char			pc;
+	char			highlight;
+	char			updated;
+}					t_color;
 
 typedef struct		s_display
 {
@@ -112,20 +112,20 @@ typedef struct		s_param
 	unsigned int	val;
 }					t_param;
 
-typedef struct			s_op
+typedef struct		s_op
 {
-	char				*asm_name;
-	t_arg_type			arg_nbr;
-	int					arg_types[3];
-	t_arg_type			opcode;
-	unsigned			cycles;
-	char				*name;
-	t_arg_type			has_ocp;
-	t_arg_type			dir_type;
-	t_arg_type			carry_flag;
-	t_arg_type			addr_restrict;
-}						t_op;
+	char			*asm_name;
+	t_arg_type		arg_nbr;
+	int				arg_types[3];
+	t_arg_type		opcode;
+	unsigned		cycles;
+	char			*name;
+	t_arg_type		has_ocp;
+	t_arg_type		dir_type;
+	t_arg_type		carry_flag;
+	t_arg_type		addr_restrict;
+}					t_op;
 
-extern const t_op			g_op_tab[17];
+extern const t_op	g_op_tab[17];
 
 #endif

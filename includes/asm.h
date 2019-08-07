@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 16:54:32 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/07 10:01:25 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 # define TMPRET 0
 # define TMPI 2
 # define J 4
-
 
 typedef struct	s_file
 {

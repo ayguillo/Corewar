@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 10:44:28 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/07 10:01:16 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int					add_process(t_vm *vm, int player, unsigned int pc,
 /*
 **  Set errors messages and error code to 0
 **  Add a new error message by adding :
-**  	ft_strcpy(vm->err[ERR_XXXXXX], "Your message"); 
+**  	ft_strcpy(vm->err[ERR_XXXXXX], "Your message");
 **	in errors.c following function.
 **	Your message must respect ERR_MSG_SIZE size and refer to errors.h
 */
-void    init_err(t_vm *vm, int *err);
+void				init_err(t_vm *vm, int *err);
 
 #endif
