@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 15:21:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 16:40:00 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ int			ft_syntax(char **str, t_asm *tasm, char c)
 		ft_dprintf(2, "Missing argument at line %i\n%s%s%s\n", tasm->gnl.nbline,
 				_RED_, tasm->gnl.line, _RESET_);
 	}
-	ft_strdel(str);
 	ft_strdel(&(tasm->gnl.line));
+	ft_strdel(str);
 	tasm->error = 5;
 	return (0);
 }
