@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:21:38 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 14:54:47 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 15:23:01 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	ft_errormulti(char **str, char ***split, int line, t_gnl *gnl)
 	ft_free_tab2d(split);
 	return (ft_free(NULL, 6, gnl, NULL));
 }
-
 
 static int	ft_quote(t_asm *tasm, char **str, char **trim, char ***split)
 {
@@ -76,10 +75,8 @@ static int	ft_multicom(t_asm *tasm, char **trim, char ***split)
 {
 	char	*str;
 	int		line;
-	t_gnl	*gnl;
 
-	gnl = &(tasm->gnl);
-	line = gnl->nbline;
+	line = tasm->gnl.nbline;
 	if (!(str = ft_strdup(*trim)))
 		return (ft_free(split, 2, &(tasm->gnl), trim));
 	while ((ft_retgnl(tasm, 0)))

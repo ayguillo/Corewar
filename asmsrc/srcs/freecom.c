@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 14:30:40 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 15:22:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int			ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	if (err == 3)
 		ft_syntax_msg(gnl);
 	if (err == 4)
-		ft_dprintf(2, "Command '%s' invalid at line %i\n", (*tab)[0], gnl->nbline);
+		ft_dprintf(2, "Command '%s' invalid at line %i\n", (*tab)[0],
+				gnl->nbline);
 	ft_free_tab2d(tab);
 	ft_strdel(&(gnl->line));
 	return (0);

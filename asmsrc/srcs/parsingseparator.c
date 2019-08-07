@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:04:50 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 16:23:14 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/07 15:22:22 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ static int		ft_isdir(char *spaces, int *i, t_asm *tasm)
 	int		isop;
 
 	isop = 0;
+	tasm->error = 4;
 	if (spaces[++(*i)] == '\0')
-		return (0);
+		return (ft_syntax(NULL, tasm, spaces[*i]));
 	if ((spaces[*i] >= '0' && spaces[*i] <= '9') || spaces[*i] == '+' ||
 			spaces[*i] == '-')
 		while (spaces[*i] && spaces[*i] != SEPARATOR_CHAR)

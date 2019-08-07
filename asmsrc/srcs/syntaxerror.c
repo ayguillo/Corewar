@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 14:56:44 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 13:13:36 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 15:21:54 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void	ft_wnbr(t_gnl *gnl)
 			gnl->nbline, _RED_, gnl->line);
 	i = 0;
 	tot = 0;
-	while (gnl->line[i] &&
-			(gnl->line[i] != COMMENT_CHAR || gnl->line[i++] != ';'))
+	while (gnl->line && gnl->line[i] &&
+			(gnl->line[i] != COMMENT_CHAR || gnl->line[i] != ';'))
 	{
 		if (gnl->line[i] == '\t')
 			tot += 8 - (tot % 8);
