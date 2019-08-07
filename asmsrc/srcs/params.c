@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 12:14:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/05 11:28:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 16:05:46 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ int			ft_paramst(char **split, t_asm *tasm)
 		}
 		if (!(ft_fillrg(split, tasm)))
 			return (0);
+	}
+	if (!(split[0]) || !(split[1]))
+	{
+		tasm->error = 4;
+		return (ft_syntax(NULL, tasm, 0));
 	}
 	tasm->n_param = 2;
 	if (!(ft_rgid(split, tasm)))

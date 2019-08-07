@@ -6,14 +6,20 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:44:33 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/01 17:34:50 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 16:12:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../libft/libft.h"
 
-int		ft_idd(char **split, t_asm *tasm, int size)
+static int	ft_iserr(t_asm *tasm, char **split)
+{
+	tasm->error = 4;
+	return (ft_errorparams(tasm, split[tasm->n_param]));
+}
+
+int			ft_idd(char **split, t_asm *tasm, int size)
 {
 	if (split[tasm->n_param])
 	{
@@ -32,15 +38,14 @@ int		ft_idd(char **split, t_asm *tasm, int size)
 				return (0);
 		}
 		else
-		{
-			tasm->error = 4;
-			return (ft_errorparams(tasm, split[tasm->n_param]));
-		}
+			return (ft_iserr(tasm, split));
 	}
+	else
+		return (ft_iserr(tasm, split));
 	return (1);
 }
 
-int		ft_rgd(char **split, t_asm *tasm, int size)
+int			ft_rgd(char **split, t_asm *tasm, int size)
 {
 	if (split[tasm->n_param])
 	{
@@ -55,15 +60,14 @@ int		ft_rgd(char **split, t_asm *tasm, int size)
 				return (0);
 		}
 		else
-		{
-			tasm->error = 4;
-			return (ft_errorparams(tasm, split[tasm->n_param]));
-		}
+			return (ft_iserr(tasm, split));
 	}
+	else
+		return (ft_iserr(tasm, split));
 	return (1);
 }
 
-int		ft_rgidd(char **split, t_asm *tasm, int size)
+int			ft_rgidd(char **split, t_asm *tasm, int size)
 {
 	if (split[tasm->n_param])
 	{
@@ -80,10 +84,12 @@ int		ft_rgidd(char **split, t_asm *tasm, int size)
 				return (0);
 		}
 	}
+	else
+		return (ft_iserr(tasm, split));
 	return (1);
 }
 
-int		ft_rgid(char **split, t_asm *tasm)
+int			ft_rgid(char **split, t_asm *tasm)
 {
 	if (split[tasm->n_param])
 	{
@@ -102,10 +108,9 @@ int		ft_rgid(char **split, t_asm *tasm)
 				return (0);
 		}
 		else
-		{
-			tasm->error = 1;
-			return (ft_errorparams(tasm, split[tasm->n_param]));
-		}
+			return (ft_iserr(tasm, split));
 	}
+	else
+		return (ft_iserr(tasm, split));
 	return (1);
 }
