@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 11:24:29 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 16:53:24 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:30:40 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,18 @@ int			ft_freecom(char ***tab, int err, char *str, t_gnl *gnl)
 	if (err == 0)
 	{
 		s = ft_strstr(gnl->line, str);
-		ft_dprintf(2, "Command '%s' invalid at line %i\n", *tab[0],
+		ft_dprintf(2, "Command '%s' invalid at line %i\n", *(tab)[0],
 				gnl->nbline);
 		ft_dprintf(2, "%s%s\n%s", _RED_, gnl->line, _GREEN_);
 		ft_strprintspaces(gnl->line);
-		ft_dprintf(2, "%*c%s\n", ft_diffis(str, *tab[0]) + 1, '^', _RESET_);
+		ft_dprintf(2, "%*c%s\n", ft_diffis(str, *(tab)[0]) + 1, '^', _RESET_);
 	}
 	if (err == 1)
 		ft_notstring(tab, str, gnl);
 	if (err == 3)
 		ft_syntax_msg(gnl);
+	if (err == 4)
+		ft_dprintf(2, "Command '%s' invalid at line %i\n", (*tab)[0], gnl->nbline);
 	ft_free_tab2d(tab);
 	ft_strdel(&(gnl->line));
 	return (0);
