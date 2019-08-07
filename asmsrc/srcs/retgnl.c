@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:29:53 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 17:10:33 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:57:26 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static int		ft_validline(t_asm *tasm, int i, int ret)
 		return (ft_free(NULL, 2, &(tasm->gnl), NULL));
 	if (i == 1 && trim[0] != '\0' && trim[0] != COMMENT_CHAR &&
 			trim[0] != ';' && trim[0] != '.')
+	{
+		ft_strdel(&trim);
 		return (-1);
+	}
 	if ((i == 1 && trim[0] == '.') || i == 0)
 	{
 		ft_strdel(&trim);

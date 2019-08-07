@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:21:38 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 15:39:24 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:54:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	ft_errormulti(char **str, char ***split, int line, t_gnl *gnl)
 	return (ft_free(NULL, 6, gnl, NULL));
 }
 
+
 static int	ft_quote(t_asm *tasm, char **str, char **trim, char ***split)
 {
 	t_gnl	*gnl;
@@ -33,7 +34,7 @@ static int	ft_quote(t_asm *tasm, char **str, char **trim, char ***split)
 		ft_strdel(str);
 		return (ft_free(split, 2, gnl, trim));
 	}
-	if (ft_nbquote(gnl->line) > 0
+	if ((ft_nbquote(gnl->line)) > 0
 			|| ft_strstr((gnl->line), COMMENT_CMD_STRING))
 	{
 		if (ft_strstr((gnl->line), COMMENT_CMD_STRING))
@@ -57,14 +58,16 @@ static int	ft_multiname(t_asm *tasm, char **trim, char ***split)
 	line = gnl->nbline;
 	if (!(str = ft_strdup(*trim)))
 		return (ft_free(split, 2, gnl, trim));
-	while (ft_retgnl(tasm, 0) && (r = (ft_quote(tasm, &str, trim, split)) > 0))
+	while (ft_retgnl(tasm, 0) && (r = ft_quote(tasm, &str, trim, split)) > 0)
 		;
 	if (r == 0)
-		return (0);
+		return (ft_retmulterr(&str, trim, split));
 	if (ft_nbquote(str) != 2)
 		return (ft_errormulti(&str, split, line, gnl));
 	ft_strdel(trim);
 	*trim = ft_strtrim(str);
+	if (!(ft_strok(trim, tasm, gnl, line)))
+		return (ft_retmulterr(&str, NULL, split));
 	ft_strdel(&str);
 	return (1);
 }
@@ -78,21 +81,23 @@ static int	ft_multicom(t_asm *tasm, char **trim, char ***split)
 	gnl = &(tasm->gnl);
 	line = gnl->nbline;
 	if (!(str = ft_strdup(*trim)))
-		return (ft_free(split, 2, gnl, trim));
+		return (ft_free(split, 2, &(tasm->gnl), trim));
 	while ((ft_retgnl(tasm, 0)))
 	{
-		if (!(str = ft_strjoinfree1(str, gnl->line)))
+		if (!(str = ft_strjoinfree1(str, tasm->gnl.line)))
 		{
 			ft_strdel(&str);
-			return (ft_free(split, 2, gnl, trim));
+			return (ft_free(split, 2, &(tasm->gnl), trim));
 		}
-		if (ft_nbquote(gnl->line) > 0)
+		if (ft_nbquote(tasm->gnl.line) > 0)
 			break ;
 	}
 	ft_strdel(trim);
 	if (ft_nbquote(str) != 2)
-		return (ft_errormulti(&str, split, line, gnl));
+		return (ft_errormulti(&str, split, line, &(tasm->gnl)));
 	*trim = ft_strtrim(str);
+	if (!(ft_strok(trim, tasm, &(tasm->gnl), line)))
+		return (ft_retmulterr(&str, NULL, split));
 	ft_strdel(&str);
 	return (1);
 }

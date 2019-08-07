@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:41:10 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 10:01:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:46:32 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char			*ft_recupfile(char *name);
 int				createfile(char *name);
 int				ft_closeall(t_asm tasm);
 int				start(char **av, t_file *file, int i);
+int				ft_strok(char **trim, t_asm *tasm, t_gnl *gnl, int nbline);
+int				ft_retmulterr(char **str, char **trim, char ***split);
 
 /*
 ** HEADER

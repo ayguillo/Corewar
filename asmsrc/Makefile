@@ -19,7 +19,7 @@ ASM_SRC			=	\
 		instruction.c fillparams.c parsingseparator.c params.c filllabel.c\
 		fillgeneric.c fillgeneric2.c params2.c paramgen.c syntaxerror.c\
 		errorparams.c searchlabel.c write_code.c nameandcom.c strclentab.c\
-		file.c label1.c retgnl.c
+		file.c label1.c retgnl.c utils.c
 
 SRC_NAME		=	$(ASM_SRC)
 

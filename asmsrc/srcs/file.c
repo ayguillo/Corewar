@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 13:52:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/06 14:38:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:41:17 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,23 @@ int			start(char **av, t_file *file, int i)
 {
 	if (!(file->name = ft_recupfile(av[i])))
 	{
-		ft_strdel(&(file->name));
 		ft_dprintf(2, "File is not .s\n");
 		return (0);
 	}
 	if ((file->fdopen = open(av[i], O_RDONLY)) == -1)
 	{
+		ft_strdel(&(file->name));
 		ft_dprintf(2, "Open() failed\n");
 		return (0);
 	}
 	return (1);
 }
 
-static char	*ft_errfree(void)
+static char	*ft_errfree(char **rname, char **ext)
 {
 	ft_free(NULL, 2, NULL, NULL);
+	ft_strdel(rname);
+	ft_strdel(ext);
 	return (NULL);
 }
 
@@ -55,12 +57,12 @@ char		*ft_recupfile(char *name)
 	if (ft_strcmp(chr, ".s"))
 		return (NULL);
 	if (!(rname = (char*)malloc(sizeof(char) * (chr - name + 1))))
-		return (ft_errfree());
+		return (ft_errfree(NULL, NULL));
 	ft_strncpy(rname, name, chr - name);
 	if (!(ext = ft_strdup(".cor")))
-		return (ft_errfree());
+		return (ft_errfree(&rname, NULL));
 	if (!(join = ft_strjoinfree(rname, ext)))
-		return (ft_errfree());
+		return (ft_errfree(&rname, &ext));
 	return (join);
 }
 
