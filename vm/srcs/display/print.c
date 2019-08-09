@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/02 15:29:40 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:54:41 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	print_action(t_vm *vm, t_proc *proc, char *action)
 	if (!(vm->options & OPTV))
 		return ;
 	ft_putstr(vm->players[proc->player].color);
-	ft_printf("Processus %d from player %d is doing a %s\n",
+	ft_printf("Processus %3d from player %d is doing a %s",
 		proc->number, proc->player + 1, action);
+	if (ft_strcmp(action, "life"))
+		ft_putchar('\n');
 	ft_putstr(_RESET_);
 }
 

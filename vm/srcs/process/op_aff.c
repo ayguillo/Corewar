@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 16:19:52 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/07 13:44:32 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:43:16 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	op_aff(__attribute__((unused))t_vm *vm, t_proc *process,
 	if (!(vm->options & OPTV))
 		return ;
 	dbg_print_instruction_head(l_dbg, "OP_AFF");
-	reg_load = read_from_register(process, params[0].val);
+	reg_load = read_from_register(process, params[0].val) % 256;
 	ft_printf("Player %d says : \"", process->player + 1);
-	write(1, &reg_load, 4);
+	write(1, &reg_load, 1);
 	ft_putstr("\"\n");
 }
