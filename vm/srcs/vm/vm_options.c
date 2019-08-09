@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 09:59:02 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:41:32 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,19 @@ static int	opt_others(char *av[], t_vm *vm, int i)
 	j = 0;
 	while (av[i][++j])
 	{
-		if (av[i][j] == 'V' && !(vm->options))
+		if (av[i][j] == 'V' &&
+			(!(vm->options) || (vm->options & OPTD &&
+					(vm->options & OPTD) == (vm->options | OPTD))))
 			vm->options = vm->options | OPTMAJV;
-		else if (av[i][j] == 'v' && !(vm->options))
+		else if (av[i][j] == 'v' &&
+			(!(vm->options) || (vm->options & OPTD &&
+					(vm->options & OPTD) == (vm->options | OPTD))))
 			vm->options = vm->options | OPTV;
-		else if (av[i][j] == 'd' && !(vm->options))
+		else if (av[i][j] == 'd')
 			vm->options = vm->options | OPTD;
-		else if (av[i][j] == 'z' && !(vm->options))
+		else if (av[i][j] == 'z' &&
+			(!(vm->options) || (vm->options & OPTD &&
+					(vm->options & OPTD) == (vm->options | OPTD))))
 			vm->options = vm->options | OPTZ;
 		else
 			return (ERR_BADARG);

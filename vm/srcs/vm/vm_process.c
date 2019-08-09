@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/08 17:01:29 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:44:07 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 	init_process(vm, pc, new);
 	new->next = vm->proc;
 	vm->proc = new;
+	if (vm->options & OPTD)
+		ft_dprintf(2, "New process %d from %d carry %d pc %d\n",
+			new->number, src ? src->number : 0, new->carry, pc);
 	return (0);
 }
 
