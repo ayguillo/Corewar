@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/09 12:26:34 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:21:16 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void	op_ldi(__attribute__((unused))t_vm *vm, t_proc *process,
 	reg_dest = params[2].val;
 	load_addr = calculate_address(process, op, src_1, src_2);
 	write = read_from_vm(vm, load_addr, REG_SIZE);
+	process_set_carry(process, op, write);
 	write_to_register(process, reg_dest, write);
 }
