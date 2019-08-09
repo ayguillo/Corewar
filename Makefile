@@ -20,6 +20,9 @@ VM_DIR			=	vm
 
 NAME_VISU		=	visu
 
+SRC_VISU		=	visu_go/main.go visu_go/display.go visu_go/keys.go\
+					visu_go/read.go
+
 LIB_DIR			=	libft
 
 ############################## RULES ###########################################
@@ -35,7 +38,7 @@ $(NAME_ASM)		:
 $(NAME_VM)		:
 	@ $(MAKE) $(CFLAGS) -C $(VM_DIR)
 
-$(NAME_VISU)	:
+$(NAME_VISU)	: $(SRC_VISU)
 	go build -o $(NAME_VISU) ./visu_go
 
 clean			:
