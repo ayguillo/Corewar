@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/24 21:10:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:06:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	p2 = read_parameter(vm, process, op, &params[2]);
 	store_addr = calculate_address(process, op, p1, p2);
 	write_to_vm(vm, store_addr, reg_load, 4, process->player);
-	process_set_carry(process, op, reg_load);
 }
