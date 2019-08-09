@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/20 18:26:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/09 12:26:34 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void	op_ldi(__attribute__((unused))t_vm *vm, t_proc *process,
 	load_addr = calculate_address(process, op, src_1, src_2);
 	write = read_from_vm(vm, load_addr, REG_SIZE);
 	write_to_register(process, reg_dest, write);
-	process_set_carry(process, op, write);
 }
