@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:52:40 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/07 12:03:19 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/12 13:26:24 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	print_infos_govisu(t_vm *vm)
 		ft_printf("Name: %s\n", vm->players[i].name);
 		ft_printf("Period lives: %d\n", vm->players[i].period_lives);
 		ft_printf("Last period lives: %d\n", vm->players[i].last_p_lives);
-		ft_printf("Number of alive process: %d\n", vm->players[i].alive_proc);
+		ft_printf("Number of alive processes: %d\n", vm->players[i].alive_proc);
 		i++;
 	}
 	ft_printf(";");
