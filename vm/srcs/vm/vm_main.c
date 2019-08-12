@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/30 20:58:02 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:10:38 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int			main(int ac, char *av[])
 
 	ft_bzero(&vm, sizeof(vm));
 	init_err(&vm, &err);
-	if (ac < 3 || (err = options(ac, av, &vm))
+	if (ac < 2 || (err = options(ac, av, &vm))
+		|| (err = (vm.players_nbr == 0 ? ERR_NOCHAMP : 0))
 		|| (err = display_init(&vm))
 		|| (err = create_arena(&vm)))
 	{

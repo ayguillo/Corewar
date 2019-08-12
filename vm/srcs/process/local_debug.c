@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   local_debug.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:19:58 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/22 21:05:30 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 15:55:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "proc.h"
 
-void	dbg_print_addr(bool debug, t_op op, t_proc *proc, unsigned int p1,
+void	dbg_print_addr(int debug, t_op op, t_proc *proc, unsigned int p1,
 	unsigned int p2)
 {
 	unsigned int	addr;
@@ -36,14 +36,14 @@ void	dbg_print_addr(bool debug, t_op op, t_proc *proc, unsigned int p1,
 	local_dbg(debug, "= %u\n", addr);
 }
 
-void	dbg_print_dir_load(bool debug, char *msg, unsigned int load)
+void	dbg_print_dir_load(int debug, char *msg, unsigned int load)
 {
 	local_dbg(debug, "%-15s: ", msg);
 	local_dbg(debug, "0x%08x ", load);
 	local_dbg(debug, "(%u)\n", load);
 }
 
-void	dbg_print_math(bool debug, char op, unsigned int p1, unsigned int p2,
+void	dbg_print_math(int debug, char op, unsigned int p1, unsigned int p2,
 	unsigned int result)
 {
 	local_dbg(debug, "%-15s: ", "OPERATION");
@@ -58,14 +58,14 @@ void	dbg_print_math(bool debug, char op, unsigned int p1, unsigned int p2,
 	local_dbg(debug, "(%hu)\n", result);
 }
 
-void	dbg_print_ind_load(bool debug, char *msg, unsigned int addr, unsigned int load)
+void	dbg_print_ind_load(int debug, char *msg, unsigned int addr, unsigned int load)
 {
 	local_dbg(debug, "%-15s: ", msg);
 	local_dbg(debug, "[0x%08x]->0x%04hx ", addr, load);
 	local_dbg(debug, "([%u]->[%hu])\n", addr, load);
 }
 
-void	dbg_print_proc_head(bool debug, t_vm *vm, t_proc *process)
+void	dbg_print_proc_head(int debug, t_vm *vm, t_proc *process)
 {
 	local_dbg(debug, "{green}-----------------------------------------\n{eoc}");
 	local_dbg(debug, "{green}[CYCLE %d]{eoc} ", vm->cycles);
@@ -74,7 +74,7 @@ void	dbg_print_proc_head(bool debug, t_vm *vm, t_proc *process)
 	local_dbg(debug, "{green}[PC %d]{eoc}\n\n", process->pc);
 }
 
-void	dbg_print_proc_end(bool debug, t_vm *vm, t_proc *process)
+void	dbg_print_proc_end(int debug, t_vm *vm, t_proc *process)
 {
 	(void)vm;
 	local_dbg(debug, "\n{green}[PC %d]{eoc}\n", process->pc);
@@ -82,23 +82,23 @@ void	dbg_print_proc_end(bool debug, t_vm *vm, t_proc *process)
 	local_dbg(debug, "\n");
 }
 
-void	dbg_print_params_head(bool debug)
+void	dbg_print_params_head(int debug)
 {
 	local_dbg(debug, "{blue}-----------------------------------------\n{eoc}");
 	local_dbg(debug, "{blue}[READ PARAMETERS]{eoc}\n\n");
 }
 
-void	dbg_print_instruction_head(bool debug, char *op)
+void	dbg_print_instruction_head(int debug, char *op)
 {
 	local_dbg(debug, "{magenta}-----------------------------------------\n{eoc}");
 	local_dbg(debug, "{magenta}[%s]{eoc}\n\n", op);
 }
 
-void	local_dbg(bool debug, const char *fmt_msg, ...)
+void	local_dbg(int debug, const char *fmt_msg, ...)
 {
 	va_list ap;
 
-	if (debug == true && GLOBAL_DBG == 1 && VISU_ON == 0)
+	if (debug == OPTD)
 	{
 		va_start(ap, fmt_msg);
 		ft_vdprintf(2, fmt_msg, ap);

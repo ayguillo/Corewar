@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:52:40 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 13:26:24 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:14:04 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	print_arena(t_vm *vm, char *char_set)
 	tmp = vm->proc;
 	while (tmp)
 	{
-		str[(tmp->pc % MEM_SIZE) * 4] = "RGBY"[tmp->player];
+		str[(tmp->pc % MEM_SIZE) * 4] = "RGPY"[tmp->player];
 		tmp = tmp->next;
 	}
 	while (j < MEM_SIZE)

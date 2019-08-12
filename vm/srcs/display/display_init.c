@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/01 02:45:55 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:01:14 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int			display_init(t_vm *vm)
 	{
 		ncurse_setup();
 		if (new_win(&vm->display.memory, (int[4]){MEM_H, MEM_W, 0, 0}) != 0)
-			return (1);
+			return (ERR_NCURSE);
 		if (new_win(&vm->display.info, (int[4]){INF_H, INF_W, 0, MEM_W + 4}) != 0)
-			return (1);
+			return (ERR_NCURSE);
 		vm->display.status.paused = 1;
 		vm->display.status.fast_forward = 0;
 		vm->display.speed = 0;

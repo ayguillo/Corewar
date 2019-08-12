@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/07 10:00:37 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/12 17:07:34 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 **  Please update ERR_TYPE_NBR when adding a new error
 */
-# define ERR_TYPE_NBR    10
+# define ERR_TYPE_NBR    12
 
 /*
 **  Errors message max size: Respect it or upload unless you want to segfault
@@ -42,10 +42,12 @@
 # define ERR_DUMPVAL		2
 # define ERR_BADARG			3
 # define ERR_BADNBR			4
-# define ERR_TWONBR			5
-# define ERR_OPEN			6
-# define ERR_CHAMP			7
-# define ERR_SIZE			8
-# define ERR_MALLOC			9
+# define ERR_NOCHAMP		5
+# define ERR_TWONBR			6
+# define ERR_OPEN			7
+# define ERR_CHAMP			8
+# define ERR_SIZE			9
+# define ERR_MALLOC			10
+# define ERR_NCURSE			11
 
 #endif

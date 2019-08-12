@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   process_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/25 20:38:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/02 16:30:07 by bopopovi         ###   ########.fr       */
+/*   Created: 2019/08/12 16:49:39 by vlambert          #+#    #+#             */
+/*   Updated: 2019/08/12 16:50:16 by vlambert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "proc.h"
-
-static bool l_dbg = 1;
 
 void	(*g_op_fptr[16])(t_vm*, t_proc*, t_param*, t_op) =
 {
@@ -42,7 +42,7 @@ int		process_param_types(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		ocp = read_byte_from_vm(vm, process->op_pc);
 		process->op_pc += T_OCP;
 	}
-	if (!op.has_ocp || ocp_match_instruction_params(op, ocp))
+	if (!op.has_ocp || ocp_match_instruction_params(op, ocp, vm))
 	{
 		set_params(params, op, ocp);
 		return (1);
@@ -55,7 +55,8 @@ void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 	t_param		params[4];
 
 	ft_bzero(params, sizeof(t_param) * 4);
-	local_dbg(l_dbg, "{yellow}Instruction '%s' {eoc}\n", op.asm_name);
+	local_dbg(vm->options & OPTD, "{yellow}Instruction '%s' {eoc}\n",
+		op.asm_name);
 	process->op_pc += T_OPCODE;
 	if (process_param_types(vm, process, params, op))
 	{
@@ -80,17 +81,14 @@ int		process_execute(t_vm *vm, t_proc *process)
 	pc = process->pc % MEM_SIZE;
 	opcode = vm->mem[pc];
 	if (process->waiting == -1 && (opcode <= 0 || opcode >= 17))
-	{
-		local_dbg(l_dbg, "{red}Invalid opcode %#02hx{eoc}\n", opcode);
 		process->pc = (process->pc + 1) % MEM_SIZE;
-	}
 	else if (process->waiting == 0)
 	{
-		dbg_print_proc_head(l_dbg, vm, process);
+		dbg_print_proc_head(vm->options & OPTD, vm, process);
 		process->waiting = -1;
 		process->op_pc = process->pc;
 		execute_instruction(vm, process, g_op_tab[process->opcode - 1]);
-		dbg_print_proc_end(l_dbg, vm, process);
+		dbg_print_proc_end(vm->options & OPTD, vm, process);
 	}
 	else if (process->waiting == -1)
 	{
