@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/18 17:43:25 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 12:54:10 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	op_lld(__attribute__((unused))t_vm *vm, t_proc *process,
 	reg_dest = params[1].val;
 	local_dbg(l_dbg, "Destination register : %d\n", reg_dest);
 	write_to_register(process, reg_dest, load);
-	process_set_carry(process, op, load);
+	process_set_carry(process, op, load, vm);
 	local_dbg(l_dbg, "{magenta}OP_LLD END{eoc}\n\n");
 }
 
@@ -61,6 +61,6 @@ void	op_lldi(__attribute__((unused))t_vm *vm, t_proc *process,
 	load_addr = process->pc + (src_1 + src_2);
 	write = read_from_vm(vm, load_addr, sizeof(int));
 	write_to_register(process, reg_dest, write);
-	process_set_carry(process, op, write);
+	process_set_carry(process, op, write, vm);
 	local_dbg(l_dbg, "{magenta}OP_LLDI END{eoc}\n\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proc.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 10:05:25 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/12 12:53:14 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ int				ocp_match_instruction_params(t_op op, char ocp);
 ** PROCESS SET
 */
 
-void			process_set_carry(t_proc *process, t_op op, int value);
+void			process_set_carry(t_proc *process, t_op op, int value, t_vm *vm);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/09 14:39:17 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/12 12:54:31 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	op_ld(__attribute__((unused))t_vm *vm, t_proc *process,
 	load = read_parameter(vm, process, op, &params[0]);
 	reg_dest = params[1].val;
 	write_to_register(process, reg_dest, load);
-	process_set_carry(process, op, load);
+	process_set_carry(process, op, load, vm);
 }
 
 /*

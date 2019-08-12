@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:21:22 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/20 17:30:10 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 12:53:39 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	op_xor(__attribute__((unused))t_vm *vm, t_proc *process,
 	op_result = (src_1 ^ src_2);
 	dbg_print_math(l_dbg, '^', src_1, src_2, op_result);
 	write_to_register(process, params[2].val, op_result);
-	process_set_carry(process, op, op_result);
+	process_set_carry(process, op, op_result, vm);
 }
