@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_op_parameters.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/02 16:54:20 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 10:56:33 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 	else
 	{
 		local_dbg(l_dbg, "{red}%02x (UNKNOWN){eoc}\n", param->type);
-		return (-1); /* UNDEFINED PARAM TYPE */
+		return (0); /* UNDEFINED PARAM TYPE */
 	}
 }
 
@@ -45,17 +45,21 @@ int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 {
 	int		i;
 	int		parameter_size;
+	int		ret;
 
 	i = 0;
+	ret = 0;
 	parameter_size = 0;
 	dbg_print_params_head(l_dbg);
 	while (i < op.arg_nbr)
 	{
-		if ((parameter_size = get_parameter(vm, proc, &params[i], op)) < 0)
-			return (-1);
-		proc->op_pc += parameter_size;
+		if ((parameter_size = get_parameter(vm, proc, &params[i], op)) <= 0)
+			ret = -1;
+			proc->op_pc += parameter_size;
 		local_dbg(l_dbg, "\n");
 		i++;
 	}
-	return (0);
+	if (params[3].type != 0)
+		ret = -1;
+	return (ret);
 }

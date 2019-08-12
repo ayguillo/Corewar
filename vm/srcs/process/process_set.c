@@ -3,29 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   process_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 21:27:19 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/07/15 20:00:08 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/12 12:51:02 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-static bool l_dbg = 1;
-
-void	process_set_carry(t_proc *process, t_op op, int value)
+void	process_set_carry(t_proc *process, t_op op, int value, t_vm *vm)
 {
 	if (!op.carry_flag)
 		return ;
 	if (value == 0)
-	{
-		local_dbg(l_dbg, "Value : %d, setting carry to 1\n", value);
 		process->carry = 1;
-	}
 	else
-	{
-		local_dbg(l_dbg, "Value : %d, setting carry to 0\n", value);
 		process->carry = 0;
-	}
+	if (vm->options & OPTD)
+		ft_dprintf(2, "Cycle %d: process %d (by %s) set carry to %d\n",
+			vm->cycles, process->number, op.asm_name, process->carry);
 }

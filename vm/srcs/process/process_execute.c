@@ -52,9 +52,9 @@ int		process_param_types(t_vm *vm, t_proc *process, t_param *params, t_op op)
 
 void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 {
-	t_param		params[3];
+	t_param		params[4];
 
-	ft_bzero(params, sizeof(t_param) * 3);
+	ft_bzero(params, sizeof(t_param) * 4);
 	local_dbg(l_dbg, "{yellow}Instruction '%s' {eoc}\n", op.asm_name);
 	process->op_pc += T_OPCODE;
 	if (process_param_types(vm, process, params, op))
@@ -62,7 +62,7 @@ void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 		if (get_op_parameters(vm, process, params, op) >= 0)
 		{
 			g_op_fptr[(int)(op.opcode - 1)](vm, process, params, op);
-			process->pc = process->op_pc;
+			process->pc = process->op_pc % MEM_SIZE;
 		}
 		else
 			process->pc = (process->op_pc) % MEM_SIZE;
