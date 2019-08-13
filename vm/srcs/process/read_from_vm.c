@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/12 15:38:35 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 12:07:41 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ unsigned char	read_byte_from_vm(t_vm *vm, int address)
 	return (byte);
 }
 
-int		read_from_vm(t_vm *vm, int address, int read_size)
+int				read_from_vm(t_vm *vm, int address, int read_size)
 {
-	int i;
-	int read;
+	int				i;
+	int				read;
 
 	i = 0;
 	read = 0;
@@ -37,6 +37,7 @@ int		read_from_vm(t_vm *vm, int address, int read_size)
 		read += read_byte_from_vm(vm, address + i);
 		i++;
 	}
-	local_dbg(vm->options & OPTD, "%-15s: 0x%0*x (%u)\n", "READ", read_size * 2, read, read);
+	local_dbg(vm->options & OPTD, "%-15s: 0x%0*x (%u)\n", "READ",
+		read_size * 2, read, read);
 	return (read);
 }
