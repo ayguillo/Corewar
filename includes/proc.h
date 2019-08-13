@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/13 14:59:29 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 15:08:31 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			dbg_print_ind_load(int debug, char *msg,
 void			dbg_print_dir_load(int debug, char *msg, unsigned int load);
 void			dbg_print_math(int debug, char op, unsigned int p[2],
 					unsigned int result);
-void			dbg_print_addr(int debug, t_op op, t_proc *proc, 
+void			dbg_print_addr(int debug, t_op op, t_proc *proc,
 					unsigned int p[2]);
 
 /*
