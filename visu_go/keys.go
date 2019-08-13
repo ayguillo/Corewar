@@ -7,7 +7,8 @@ import (
 )
 
 func handleKeys(chDur chan time.Duration, dur *time.Duration, stop *bool) bool {
-	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+	event := sdl.PollEvent()
+	if event != nil {
 		switch test := event.(type) {
 		case *sdl.QuitEvent:
 			println("Quit")
