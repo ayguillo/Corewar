@@ -199,6 +199,7 @@ func update(chMem, chInfos chan string, fontMem, fontInfos *ttf.Font, tick chan 
 				window.UpdateSurface()
 			}
 		default:
+			tick <- true
 			return
 		}
 	default:
