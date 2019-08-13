@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:27:28 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/12 15:42:28 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 12:02:02 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	write_to_register(t_proc *process, int register_id, int write, t_vm *vm)
 {
-	/* ERROR CASE : Invalid register id */
 	if (register_id < 1 || register_id > REG_NUMBER)
 		local_dbg(vm->options & OPTD, "REG_WRITE INVALID ID : '%d'\n",
 			register_id);
