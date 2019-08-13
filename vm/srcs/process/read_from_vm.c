@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 12:07:41 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 15:04:28 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				read_from_vm(t_vm *vm, int address, int read_size)
 	read = 0;
 	local_dbg(vm->options & OPTD, "%-15s: %d bytes from 0x%08x (Real : %d)\n", \
 		"VM_READ", read_size, address, (address % MEM_SIZE));
-	while (i < read_size) /* WHAT IF READ_SIZE > 4 ? */
+	while (i < read_size)
 	{
 		read <<= 8;
 		read += read_byte_from_vm(vm, address + i);

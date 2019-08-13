@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 12:02:29 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:29:15 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 	}
 	else
 	{
-		local_dbg(vm->options & OPTD, "{red}%02x (UNKNOWN){eoc}\n", param->type);
-		return (0); /* UNDEFINED PARAM TYPE */
+		local_dbg(vm->options & OPTD, "{red}%02x (UNKNOWN){eoc}\n",
+				param->type);
+		return (0);
 	}
 }
 
@@ -53,7 +54,8 @@ int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 	{
 		if ((parameter_size = get_parameter(vm, proc, &params[i], op)) <= 0)
 			ret = -1;
-		if (params[i].type == REG_CODE && (params[i].val > REG_NUMBER || params[i].val < 1))
+		if (params[i].type == REG_CODE
+				&& (params[i].val > REG_NUMBER || params[i].val < 1))
 			ret = -1;
 		proc->op_pc += parameter_size;
 		local_dbg(vm->options & OPTD, "\n");

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/12 16:44:39 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:59:29 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void			dbg_print_instruction_head(int debug, char *op);
 void			dbg_print_ind_load(int debug, char *msg,
 					unsigned int addr, unsigned int load);
 void			dbg_print_dir_load(int debug, char *msg, unsigned int load);
-void			dbg_print_math(int debug, char op, unsigned int p1,
-					unsigned int p2, unsigned int result);
-void			dbg_print_addr(int debug, t_op op, t_proc *proc,
-					unsigned int p1, unsigned int p2);
+void			dbg_print_math(int debug, char op, unsigned int p[2],
+					unsigned int result);
+void			dbg_print_addr(int debug, t_op op, t_proc *proc, 
+					unsigned int p[2]);
 
 /*
 ** INSTRUCTIONS
@@ -81,7 +81,7 @@ int				get_op_parameters(t_vm *vm, t_proc *pr, t_param *params,
 					t_op op);
 unsigned int	read_parameter(t_vm *vm, t_proc *proc, t_op op, t_param *param);
 unsigned int	calculate_address(t_vm *vm, t_proc *proc, t_op op,
-					unsigned int p1, unsigned int p2);
+					unsigned int p[2]);
 
 /*
 ** READ FROM VM/PROCESS
@@ -98,8 +98,7 @@ int				read_from_vm(t_vm *vm, int address, int read_size);
 void			write_to_register(t_proc *process, int register_id, int write,
 					t_vm *vm);
 void			write_byte_to_vm(t_vm *vm, unsigned int address, char byte);
-void			write_to_vm(t_vm *vm, int address, int write, int write_size,
-					int player_id);
+void			write_to_vm(t_vm *vm, int address, int write, int player_id);
 
 /*
 ** VM QUERY

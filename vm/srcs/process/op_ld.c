@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/12 16:37:10 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:59:03 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ void	op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	unsigned int reg_dest;
 	unsigned int load_addr;
 	unsigned int write;
-	unsigned int src_1;
-	unsigned int src_2;
+	unsigned int src[2];
 
 	dbg_print_instruction_head(vm->options & OPTD, "OP_LDI");
-	src_1 = read_parameter(vm, process, op, &params[0]);
-	src_2 = read_parameter(vm, process, op, &params[1]);
+	src[0] = read_parameter(vm, process, op, &params[0]);
+	src[1] = read_parameter(vm, process, op, &params[1]);
 	reg_dest = params[2].val;
-	load_addr = calculate_address(vm, process, op, src_1, src_2);
+	load_addr = calculate_address(vm, process, op, src);
 	write = read_from_vm(vm, load_addr, REG_SIZE);
 	write_to_register(process, reg_dest, write, vm);
 }

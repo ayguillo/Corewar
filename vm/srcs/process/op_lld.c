@@ -6,18 +6,18 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 12:22:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:46:44 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-void	op_lld(t_vm *vm, t_proc *process,
-	t_param *params, __attribute__((unused))t_op op)
+void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int reg_dest;
 	unsigned int load;
 
+	(void)op;
 	local_dbg(vm->options & OPTD, "{magenta}EXECUTING OP_LLD{eoc}\n");
 	load = 0;
 	if (params[0].type == DIR_CODE)
@@ -31,34 +31,30 @@ void	op_lld(t_vm *vm, t_proc *process,
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLD END{eoc}\n\n");
 }
 
-void	op_lldi(t_vm *vm, t_proc *process,
-	t_param *params, __attribute__((unused))t_op op)
+void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int reg_dest;
-	unsigned int load_addr;
 	unsigned int write;
-	unsigned int src_1;
-	unsigned int src_2;
+	unsigned int src[2];
 
+	(void)op;
 	local_dbg(vm->options & OPTD, "{magenta}EXECUTING OP_LLDI{eoc}\n");
-	src_1 = 0;
-	src_2 = 0;
+	ft_bzero(src, sizeof(int) * 2);
 	if (params[0].type == REG_CODE)
-		src_1 = read_from_register(process, params[0].val, vm);
+		src[0] = read_from_register(process, params[0].val, vm);
 	else if (params[0].type == IND_CODE)
-		src_1 = read_from_vm(vm, process->pc + params[0].val,
+		src[0] = read_from_vm(vm, process->pc + params[0].val,
 			op.dir_type == 0 ? 4 : 2);
 	else if (params[0].type == DIR_CODE)
-		src_1 = params[0].val;
+		src[0] = params[0].val;
 	if (params[1].type == REG_CODE)
-		src_2 = read_from_register(process, params[1].val, vm);
+		src[1] = read_from_register(process, params[1].val, vm);
 	else if (params[1].type == DIR_CODE)
-		src_2 = params[1].val;
+		src[1] = params[1].val;
 	reg_dest = params[2].val;
 	local_dbg(vm->options & OPTD, "Destination register : %d\n", reg_dest);
 	local_dbg(vm->options & OPTD, "Value to be written :\n");
-	load_addr = process->pc + (src_1 + src_2);
-	write = read_from_vm(vm, load_addr, sizeof(int));
+	write = read_from_vm(vm, process->pc + (src[0] + src[1]), sizeof(int));
 	write_to_register(process, reg_dest, write, vm);
 	process_set_carry(process, op, write, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLDI END{eoc}\n\n");

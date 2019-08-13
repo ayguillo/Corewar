@@ -6,64 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:19:58 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/12 15:55:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:33:09 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "proc.h"
-
-void	dbg_print_addr(int debug, t_op op, t_proc *proc, unsigned int p1,
-	unsigned int p2)
-{
-	unsigned int	addr;
-	short			added;
-
-	added = (short)((short)p1 + (short)p2);
-	if (op.addr_restrict)
-		added = added % IDX_MOD;
-	addr = (proc->pc + added);
-	local_dbg(debug, "%-15s: ", "ADDR");
-	local_dbg(debug, "(%u ", proc->pc);
-	local_dbg(debug, "+ ");
-	local_dbg(debug, "(%hd ", p1);
-	local_dbg(debug, "+ ");
-	local_dbg(debug, "%hd) ", p2);
-	if (op.addr_restrict)
-		local_dbg(debug, "%% %u", IDX_MOD);
-	local_dbg(debug, ") ");
-	local_dbg(debug, "%% %u ", MEM_SIZE);
-	local_dbg(debug, "= %u\n", addr);
-}
-
-void	dbg_print_dir_load(int debug, char *msg, unsigned int load)
-{
-	local_dbg(debug, "%-15s: ", msg);
-	local_dbg(debug, "0x%08x ", load);
-	local_dbg(debug, "(%u)\n", load);
-}
-
-void	dbg_print_math(int debug, char op, unsigned int p1, unsigned int p2,
-	unsigned int result)
-{
-	local_dbg(debug, "%-15s: ", "OPERATION");
-	local_dbg(debug, "0x%08x ", p1);
-	local_dbg(debug, "%c ", op);
-	local_dbg(debug, "0x%08x ", p2);
-	local_dbg(debug, "(%hu ", p1);
-	local_dbg(debug, "%c ", op);
-	local_dbg(debug, "%hu)\n", p2);
-	local_dbg(debug, "%-15s: ", "RESULT");
-	local_dbg(debug, "0x%08x ", result);
-	local_dbg(debug, "(%hu)\n", result);
-}
-
-void	dbg_print_ind_load(int debug, char *msg, unsigned int addr, unsigned int load)
-{
-	local_dbg(debug, "%-15s: ", msg);
-	local_dbg(debug, "[0x%08x]->0x%04hx ", addr, load);
-	local_dbg(debug, "([%u]->[%hu])\n", addr, load);
-}
 
 void	dbg_print_proc_head(int debug, t_vm *vm, t_proc *process)
 {
@@ -90,7 +38,8 @@ void	dbg_print_params_head(int debug)
 
 void	dbg_print_instruction_head(int debug, char *op)
 {
-	local_dbg(debug, "{magenta}-----------------------------------------\n{eoc}");
+	local_dbg(debug,
+			"{magenta}-----------------------------------------\n{eoc}");
 	local_dbg(debug, "{magenta}[%s]{eoc}\n\n", op);
 }
 
@@ -105,5 +54,3 @@ void	local_dbg(int debug, const char *fmt_msg, ...)
 		va_end(ap);
 	}
 }
-
-

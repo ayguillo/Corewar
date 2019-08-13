@@ -6,17 +6,18 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/12 15:32:27 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:23:07 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-void	op_jmpz(__attribute__((unused))t_vm *vm, t_proc *process,
-	t_param *params, __attribute__((unused))t_op op)
+void	op_jmpz(t_vm *vm, t_proc *process,
+	t_param *params, t_op op)
 {
 	unsigned int	jmp_addr;
 
+	(void)op;
 	dbg_print_instruction_head(vm->options & OPTD, "OP_ZJMP");
 	jmp_addr = ((process->pc + ((short)params[0].val % IDX_MOD)) % MEM_SIZE);
 	local_dbg(vm->options & OPTD, "%-15s: 0x%08x (%u)\n", "JMP_ADDR",
