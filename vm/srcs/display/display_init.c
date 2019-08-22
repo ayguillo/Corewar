@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/12 17:01:14 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:13:44 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,17 @@ int			new_win(t_win *new, int coord[4])
 void		init_ncurse_colors(void)
 {
 	start_color();
-	init_color(11, 800, 800, 800);
-	init_pair(0, 11, COLOR_BLACK);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(5, COLOR_BLACK, COLOR_RED);
-	init_pair(6, COLOR_BLACK, COLOR_GREEN);
-	init_pair(7, COLOR_BLACK, COLOR_BLUE);
-	init_pair(8, COLOR_BLACK, COLOR_YELLOW);
+	init_color(8, 500, 500, 500);
+	init_pair(0, COLOR_WHITE, COLOR_BLACK);
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_BLUE, COLOR_BLACK);
+	init_pair(3, COLOR_RED, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+	init_pair(5, COLOR_BLACK, COLOR_GREEN);
+	init_pair(6, COLOR_BLACK, COLOR_BLUE);
+	init_pair(7, COLOR_BLACK, COLOR_RED);
+	init_pair(8, COLOR_BLACK, COLOR_CYAN);
+	init_pair(9, 8, COLOR_BLACK);
 }
 
 void		ncurse_setup(void)
