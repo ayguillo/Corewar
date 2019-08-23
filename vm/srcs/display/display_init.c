@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/23 18:11:40 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/23 20:28:33 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		close_ncurse_display(t_vm *vm)
 	{
 		while ((c = getch()) != 'q')
 			;
+		delwin(vm->display.info.contents);
+		delwin(vm->display.info.container);
 		delwin(vm->display.memory.contents);
 		delwin(vm->display.memory.container);
 		endwin();
