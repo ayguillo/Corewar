@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/09 14:54:41 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/23 19:55:32 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,13 @@ void	print_dump(t_vm *vm)
 void	print_winner(t_vm *vm)
 {
 	print_arena_govisu(vm, 1);
-	if (vm->options & OPTZ || vm->options & OPTMAJV)
+	if (vm->options & OPTMAJV)
 		return ;
+	if (vm->options & OPTZ)
+	{
+		display_winner(vm);
+		return;
+	}
 	if (vm->last_player_alive != -1)
 	{
 		ft_printf("AND THE WINNER IS...\n");

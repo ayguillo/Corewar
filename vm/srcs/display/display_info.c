@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 18:55:11 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/23 18:45:31 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/23 20:02:28 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,26 @@ void	display_speed(t_vm *vm)
 {
 	wmove(vm->display.info.contents, INF_H - 1, 0);
 	wprintw(vm->display.info.contents, "%d cycles/second\n", vm->display.speed);
+}
+
+void	display_winner(t_vm *vm)
+{
+	char	*winner_name;
+	int		winner_id;
+
+	wmove(vm->display.info.contents, VM_INFO_SIZE + (PLAYER_INFO_SIZE * vm->players_nbr), 0);
+	if (vm->last_player_alive < 0)
+		wprintw(vm->display.info.contents, "IT'S A DRAW\n");
+	else
+	{
+		winner_id = vm->last_player_alive;
+		winner_name = vm->players[vm->last_player_alive].name;
+		wprintw(vm->display.info.contents, "WINNER IS :\n\n");
+		wattron(vm->display.info.contents, COLOR_PAIR(winner_id + 1));
+		wprintw(vm->display.info.contents, "%s\n", winner_name);
+		wattroff(vm->display.info.contents, COLOR_PAIR(winner_id + 1));
+	}
+	wrefresh(vm->display.info.contents);
 }
 
 void	display_info(t_vm *vm)
