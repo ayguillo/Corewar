@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 18:55:11 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/01 02:49:52 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/23 18:45:31 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,10 @@ void	display_vm_info(t_vm *vm)
 	wprintw(vm->display.info.contents, "CYCLES TO DIE : %d\n\n", vm->cycle_to_die);
 }
 
-int		speed[9] =
-{
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 8),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 7),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 6),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 5),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 4),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 3),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 2),
-	NC_MAX_SPEED - (NC_SPEED_DELTA * 1),
-	NC_MAX_SPEED
-};
-
 void	display_speed(t_vm *vm)
 {
 	wmove(vm->display.info.contents, INF_H - 1, 0);
-	wprintw(vm->display.info.contents, "Speed : %d\n", speed[vm->display.speed]);
+	wprintw(vm->display.info.contents, "%d cycles/second\n", vm->display.speed);
 }
 
 void	display_info(t_vm *vm)

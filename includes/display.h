@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 15:44:59 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/07 10:00:05 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/23 18:46:03 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 # define MEM_W ((MEM_SIZE / 64) * 3)
 # define INF_H (MEM_SIZE / 64)
 # define INF_W 60
-# define NC_KEYS " qnjk"
-# define NC_MAX_SPEED 200000
-# define NC_SPEED_DELTA 25000
+# define NC_KEYS " qnhjkl"
+# define NC_MIN_SPEED 1000
 # define VM_INFO_SIZE 3
 # define PLAYER_INFO_SIZE 5
 
