@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 17:00:00 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/23 18:57:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:09:34 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	display_handle_key(t_vm *vm, char key)
 	if (key == ' ' || key == 'n')
 		vm->display.status.paused ^= 1;
 	else if (key == 'q')
-	{
-		endwin();
-		exit(0);
-	}
+		vm->display.status.exit = 1;
 	else if (key == 'l' && vm->display.speed < NC_MIN_SPEED)
 		vm->display.speed = (vm->display.speed + 10);
 	else if (key == 'k' && vm->display.speed < NC_MIN_SPEED)
@@ -37,6 +34,19 @@ void	display_handle_key(t_vm *vm, char key)
 	display_info(vm);
 }
 
+char	display_handle_pause(t_vm *vm, char c)
+{
+	while (vm->display.status.paused)
+	{
+		c = getch();
+		if (ft_strchr(NC_KEYS, c))
+			display_handle_key(vm, c);
+		if (c == 'q')
+			break ;
+	}
+	return (c);
+}
+
 void	display_update(t_vm *vm)
 {
 	char c;
@@ -49,12 +59,9 @@ void	display_update(t_vm *vm)
 		c = getch();
 		if (ft_strchr(NC_KEYS, c))
 			display_handle_key(vm, c);
-		while (vm->display.status.paused)
-		{
-			c = getch();
-			if (ft_strchr(NC_KEYS, c))
-				display_handle_key(vm, c);
-		}
+		c = display_handle_pause(vm, c);
+		if (vm->display.status.exit)
+			return ;
 		if (c == 'n')
 			vm->display.status.paused = 1;
 		else

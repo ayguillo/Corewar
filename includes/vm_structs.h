@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/07 10:08:31 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:00:53 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_status
 {
 	int				paused;
 	int				fast_forward;
+	int				exit;
 }					t_status;
 
 typedef struct		s_color

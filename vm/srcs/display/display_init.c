@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/23 20:28:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:03:36 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		close_ncurse_display(t_vm *vm)
 
 	if (vm->options & OPTZ)
 	{
-		while ((c = getch()) != 'q')
+		while (vm->display.status.exit != 1 && (c = getch()) != 'q')
 			;
 		delwin(vm->display.info.contents);
 		delwin(vm->display.info.container);
