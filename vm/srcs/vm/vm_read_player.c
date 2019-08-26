@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 21:41:29 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 22:12:29 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int			read_champ(char *champ, t_vm *vm)
 	int				fd;
 	int				err;
 
+	if (vm->players_nbr >= 4)
+		return (ERR_TMCHAMP);
 	if ((fd = open(champ, O_RDONLY)) == -1)
 	{
 		ft_putstr_fd(champ, 2);

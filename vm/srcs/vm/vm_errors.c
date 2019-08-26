@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:08:21 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 21:41:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 22:08:34 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ for a single player\n");
 (bad magic number or invalid header)\n");
 	ft_strcpy(vm->err[ERR_MALLOC], " Malloc error\n");
 	ft_strcpy(vm->err[ERR_NCURSE], "Ncurse has crashed\n");
+	ft_strcpy(vm->err[ERR_TMCHAMP], "Too much champions. (Max 4)\n");
 }
