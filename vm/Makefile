@@ -2,7 +2,7 @@ CC				=	/usr/bin/gcc
 
 CFLAGS			= -Wall -Wextra -Werror
 
-DBG 			=
+DEBUG 			=
 
 MAKE			=	/usr/bin/make
 
@@ -55,9 +55,10 @@ LDLIBS			=	-lft -lncurses
 
 LDFLAGS			=	-L $(LIB_DIR)
 
-INC				=	../includes
+INC				=	../includes ../libft
 
 CPPFLAGS		=	$(addprefix -I, $(INC))
+
 
 ############################## RULES ###########################################
 
@@ -65,12 +66,12 @@ all				:	$(TARGET)
 
 $(TARGET)		:	$(OBJ)
 	@ $(MAKE) -C $(LIB_DIR) 2> /dev/null 1> /dev/null
-	 $(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
+	 $(CC) $(DEBUG) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c
 	 @ $(MKODIR)
-	  $(CC) $(CFLAGS) $(DBG) $(CPPFLAGS) -o $@ -c $<
+	  $(CC) $(CFLAGS) $(DEBUG) $(CPPFLAGS) -o $@ -c $<
 
 clean			:
 	@ echo "$(RED)Suppression des .o$(WHITE)"

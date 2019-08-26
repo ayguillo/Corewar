@@ -6,12 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 17:10:38 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/26 21:40:45 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "../libft/libft.h"
+#include "libft.h"
 #include "options.h"
 
 int			main(int ac, char *av[])

@@ -6,12 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 19:10:18 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 21:39:01 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static int	process_cycle(t_vm *vm)
 {

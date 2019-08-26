@@ -6,12 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 16:13:34 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/26 21:41:19 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 void		init_process(t_vm *vm, unsigned int pc, t_proc *new)
 {

@@ -6,14 +6,14 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/07/10 15:56:52 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/26 21:41:29 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "../libft/libft.h"
+#include "libft.h"
 #include "options.h"
-#include "../libft/color.h"
+#include "color.h"
 #include <fcntl.h>
 #include <unistd.h>
 

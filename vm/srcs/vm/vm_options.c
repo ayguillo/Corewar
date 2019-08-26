@@ -6,13 +6,13 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:28:13 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 16:11:01 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/26 21:41:13 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "options.h"
 #include "vm.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static int	player_exists(int player_nbr, t_vm *vm)
 {

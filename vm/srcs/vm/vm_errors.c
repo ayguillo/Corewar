@@ -6,12 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:08:21 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 17:06:33 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/26 21:41:03 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 /*
 ** Check includes/errors.h for message max size ERR_MSG_SIZE
