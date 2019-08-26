@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 15:44:59 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/26 19:09:48 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:16:10 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define INF_W 60
 # define NC_KEYS " qnhjkl"
 # define NC_MIN_SPEED 1000
-# define VM_INFO_SIZE 3
+# define VM_INFO_SIZE 5
 # define PLAYER_INFO_SIZE 5
 
 void	display_memory(t_vm *vm);

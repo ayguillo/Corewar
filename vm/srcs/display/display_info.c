@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 18:55:11 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/23 20:02:28 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:15:44 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	display_players_info(t_vm *vm)
 void	display_vm_info(t_vm *vm)
 {
 	wmove(vm->display.info.contents, 0, 0);
+	if (vm->display.status.paused)
+		wprintw(vm->display.info.contents, "PAUSED\n\n");
+	else
+		wprintw(vm->display.info.contents, "RUNNING\n\n");
 	wprintw(vm->display.info.contents, "CURRENT CYCLE : %d\n", vm->cycles);
 	wprintw(vm->display.info.contents, "CYCLES TO DIE : %d\n\n", vm->cycle_to_die);
 }

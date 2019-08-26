@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 17:00:00 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/26 19:09:34 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/26 19:18:49 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	display_update(t_vm *vm)
 		if (c == 'n')
 			vm->display.status.paused = 1;
 		else
-			usleep(1000000 / vm->display.speed);
+			usleep((int)(1000000 / vm->display.speed));
 	}
 }
