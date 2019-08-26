@@ -1,6 +1,6 @@
 CC				=	/usr/bin/gcc
 
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 
 DEBUG 			=
 
@@ -57,6 +57,11 @@ LDFLAGS			=	-L $(LIB_DIR)
 
 INC				=	../includes ../libft
 
+LIB_HEADERS		=	$(addprefix $(LIB_DIR)/, libft.h color.h)
+
+HEADERS			=	$(LIB_HEADERS) $(addprefix ../includes/, vm.h vm_structs.h \
+	op.h display.h errors.h proc.h options.h)
+
 CPPFLAGS		=	$(addprefix -I, $(INC))
 
 
@@ -69,7 +74,7 @@ $(TARGET)		:	$(OBJ)
 	 $(CC) $(DEBUG) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
-$(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(HEADERS)
 	 @ $(MKODIR)
 	  $(CC) $(CFLAGS) $(DEBUG) $(CPPFLAGS) -o $@ -c $<
 
