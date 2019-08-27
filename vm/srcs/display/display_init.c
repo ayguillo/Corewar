@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/26 19:03:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/27 16:42:53 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ int			new_win(t_win *new, int coord[4])
 void		init_ncurse_colors(void)
 {
 	start_color();
+	init_color(COLOR_WHITE, 800, 800, 800);
 	init_pair(0, COLOR_WHITE, COLOR_BLACK);
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
-	init_pair(2, 32, COLOR_BLACK);
+	init_pair(2, 4, COLOR_BLACK);
 	init_pair(3, COLOR_RED, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
 	init_pair(5, COLOR_BLACK, COLOR_GREEN);

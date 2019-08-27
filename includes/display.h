@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 15:44:59 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/27 15:45:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/27 16:34:13 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 # define MEM_H (MEM_SIZE / 64)
 # define MEM_W ((MEM_SIZE / 64) * 3)
 # define INF_H (MEM_SIZE / 64)
-# define INF_W 60
+# define INF_W 87
 # define NC_KEYS " qnhjkl"
 # define NC_MIN_SPEED 1000
-# define VM_INFO_SIZE 7
-# define PLAYER_INFO_SIZE 5
+# define VM_INFO_SIZE 12
+# define PLAYER_INFO_SIZE 6
 
 void	display_memory(t_vm *vm);
 void	init_memory_win(t_win *memory);
