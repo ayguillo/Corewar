@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 18:55:11 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/26 19:15:44 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:57:20 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ void	display_players_info(t_vm *vm)
 	while (i < vm->players_nbr)
 	{
 		tmp = &vm->players[i];
-		wmove(vm->display.info.contents, VM_INFO_SIZE + (PLAYER_INFO_SIZE * i), 0);
+		wmove(vm->display.info.contents,
+			VM_INFO_SIZE + (PLAYER_INFO_SIZE * i), 0);
 		wattron(vm->display.info.contents, COLOR_PAIR(i + 1));
 		wprintw(vm->display.info.contents, "PLAYER [%d] : ", tmp->number);
 		wprintw(vm->display.info.contents, "%s\n", tmp->name);
-		wprintw(vm->display.info.contents, "Period lives : %d\n", tmp->period_lives);
-		wprintw(vm->display.info.contents, "Last period lives : %d\n", tmp->last_p_lives);
-		wprintw(vm->display.info.contents, "Alive processes : %d\n", tmp->alive_proc);
+		wprintw(vm->display.info.contents, "Period lives : %d\n",
+			tmp->period_lives);
+		wprintw(vm->display.info.contents, "Last period lives : %d\n",
+			tmp->last_p_lives);
+		wprintw(vm->display.info.contents, "Alive processes : %d\n",
+			tmp->alive_proc);
 		wattroff(vm->display.info.contents, COLOR_PAIR(i + 1));
 		i++;
 	}
@@ -41,8 +45,19 @@ void	display_vm_info(t_vm *vm)
 		wprintw(vm->display.info.contents, "PAUSED\n\n");
 	else
 		wprintw(vm->display.info.contents, "RUNNING\n\n");
-	wprintw(vm->display.info.contents, "CURRENT CYCLE : %d\n", vm->cycles);
-	wprintw(vm->display.info.contents, "CYCLES TO DIE : %d\n\n", vm->cycle_to_die);
+	wprintw(vm->display.info.contents, "CURRENT CYCLE\t: %d\n", vm->cycles);
+	wprintw(vm->display.info.contents, "NEXT PERIOD\t: %d\n\n",
+		vm->cycle_to_die - vm->period_cycles);
+	wprintw(vm->display.info.contents, "LAST LIFE\t: ");
+	if (vm->last_player_alive >= 0)
+	{
+		wattron(vm->display.info.contents,
+			COLOR_PAIR(vm->last_player_alive + 1));
+		wprintw(vm->display.info.contents, "%s\n\n",
+			vm->players[vm->last_player_alive].name);
+		wattroff(vm->display.info.contents,
+			COLOR_PAIR(vm->last_player_alive + 1));
+	}
 }
 
 void	display_speed(t_vm *vm)
@@ -56,7 +71,8 @@ void	display_winner(t_vm *vm)
 	char	*winner_name;
 	int		winner_id;
 
-	wmove(vm->display.info.contents, VM_INFO_SIZE + (PLAYER_INFO_SIZE * vm->players_nbr), 0);
+	wmove(vm->display.info.contents,
+		VM_INFO_SIZE + (PLAYER_INFO_SIZE * vm->players_nbr), 0);
 	if (vm->last_player_alive < 0)
 		wprintw(vm->display.info.contents, "IT'S A DRAW\n");
 	else
