@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 22:11:13 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/28 17:43:41 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int			main(int ac, char *av[])
 	}
 	if (vm.options & OPTMAJV)
 		ft_printf("OK");
+	vm.cycle_to_die = CYCLE_TO_DIE;
+	vm.checks = MAX_CHECKS;
+	vm.last_player_alive = -1;
 	game_cycle(&vm);
 	close_ncurse_display(&vm);
 	kill_unactive_processes(&vm, 1);

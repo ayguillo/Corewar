@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:13:13 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/27 16:42:53 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/28 17:40:01 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void		close_ncurse_display(t_vm *vm)
 int			new_win(t_win *new, int coord[4])
 {
 	ft_bzero(new, sizeof(*new));
-	if (!(new->container = newwin(coord[0] + 2, coord[1] + 3, coord[2], coord[3])))
+	if (!(new->container = newwin(coord[0] + 2, coord[1] + 3,
+		coord[2], coord[3])))
 		return (1);
 	box(new->container, 0, 0);
 	new->contents = derwin(new->container, coord[0], coord[1], 1, 2);
@@ -76,7 +77,8 @@ int			display_init(t_vm *vm)
 		ncurse_setup();
 		if (new_win(&vm->display.memory, (int[4]){MEM_H, MEM_W, 0, 0}) != 0)
 			return (ERR_NCURSE);
-		if (new_win(&vm->display.info, (int[4]){INF_H, INF_W, 0, MEM_W + 4}) != 0)
+		if (new_win(&vm->display.info,
+			(int[4]){INF_H, INF_W, 0, MEM_W + 4}) != 0)
 			return (ERR_NCURSE);
 		vm->display.status.paused = 1;
 		vm->display.status.fast_forward = 0;

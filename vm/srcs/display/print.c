@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/23 19:55:32 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/28 17:40:19 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	print_winner(t_vm *vm)
 	if (vm->options & OPTZ)
 	{
 		display_winner(vm);
-		return;
+		return ;
 	}
 	if (vm->last_player_alive != -1)
 	{

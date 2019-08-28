@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 21:39:01 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/28 17:43:43 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ static int	new_period(t_vm *vm)
 
 int			game_cycle(t_vm *vm)
 {
-	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->checks = MAX_CHECKS;
-	vm->last_player_alive = -1;
 	intro_champs(vm);
-	display_info(vm);
 	display_update(vm);
 	while (((vm->cycles += 1) != vm->cycles_limit || vm->cycles_limit == 0)
 			&& vm->proc && vm->cycle_to_die > 0)
