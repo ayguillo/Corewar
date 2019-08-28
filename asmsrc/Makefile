@@ -39,6 +39,10 @@ LDFLAGS			=	-L $(LIB_DIR)
 
 INC				=	../includes
 
+LIB_HEADERS		=	$(addprefix $(LIB_DIR)/, libft.h color.h)
+
+HEADERS			=	$(LIB_HEADERS) $(addprefix ../includes/, asm.h op.h)
+
 CPPFLAGS		=	$(addprefix -I, $(INC))
 
 ############################## RULES ###########################################
@@ -50,7 +54,7 @@ $(TARGET)		:	$(OBJ)
 	@ $(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
-$(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(HEADERS)
 	@ $(MKODIR)
 	@ $(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
