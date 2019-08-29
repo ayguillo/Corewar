@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 13:25:58 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:44:01 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	read_part(int fd, int length, char *buff)
 
 static int	err_champ(char *champ, int fd)
 {
-		ft_putstr_fd(champ, 2);
-		close(fd);
-		return (ERR_CHAMP);
+	ft_putstr_fd(champ, 2);
+	close(fd);
+	return (ERR_CHAMP);
 }
 
 static int	test_size(char *champ, int fd, t_vm *vm)
@@ -53,19 +53,19 @@ static int	read_all(char *champ, int fd, t_vm *vm)
 	static int		number = 0;
 
 	if ((unsigned long)read(fd, &temp, sizeof(int)) < sizeof(int)
-		|| ft_reversebyte(temp, sizeof(int)) != COREWAR_EXEC_MAGIC
-		|| read_part(fd, PROG_NAME_LENGTH,
-			vm->players[vm->players_nbr].name)
-		|| (unsigned long)read(fd, &temp, sizeof(int))
+			|| ft_reversebyte(temp, sizeof(int)) != COREWAR_EXEC_MAGIC
+			|| read_part(fd, PROG_NAME_LENGTH,
+				vm->players[vm->players_nbr].name)
+			|| (unsigned long)read(fd, &temp, sizeof(int))
 			< sizeof(int)
-		|| !(vm->players[vm->players_nbr].size = ft_reversebyte(temp,
-			sizeof(int))))
+			|| !(vm->players[vm->players_nbr].size = ft_reversebyte(temp,
+					sizeof(int))))
 		return (err_champ(champ, fd));
 	if (test_size(champ, fd, vm))
 		return (ERR_SIZE);
 	if (read_part(fd, COMMENT_LENGTH,
-			vm->players[vm->players_nbr].comment)
-		|| read(fd, vm->players[vm->players_nbr].code,
+				vm->players[vm->players_nbr].comment)
+			|| read(fd, vm->players[vm->players_nbr].code,
 				vm->players[vm->players_nbr].size + 1)
 			!= vm->players[vm->players_nbr].size)
 		return (err_champ(champ, fd));
