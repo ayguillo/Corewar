@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 10:08:21 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 22:08:34 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:34:59 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ missing or the same than another player\n");
 	ft_strcpy(vm->err[ERR_TWONBR], "Two player number were precised \
 for a single player\n");
 	ft_strcpy(vm->err[ERR_OPEN], ": Can't access the champ\n");
-	ft_strcpy(vm->err[ERR_CHAMP], " doesn't seem to be a champion \
-(bad magic number or invalid header)\n");
+	ft_strcpy(vm->err[ERR_CHAMP], " doesn't seem to be a healthy champion \
+(be sure to use our asm)\n");
 	ft_strcpy(vm->err[ERR_MALLOC], " Malloc error\n");
 	ft_strcpy(vm->err[ERR_NCURSE], "Ncurse has crashed\n");
 	ft_strcpy(vm->err[ERR_TMCHAMP], "Too much champions. (Max 4)\n");

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 11:28:12 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:33:37 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 /*
 **  Errors message max size: Respect it or upload unless you want to segfault
 */
-# define ERR_MSG_SIZE		500
+# define ERR_MSG_SIZE		300
 
 /*
 **  Errors define code
