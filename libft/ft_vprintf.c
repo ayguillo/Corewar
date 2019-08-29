@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 19:06:52 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/06/03 18:54:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:07:20 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int64_t		parse_fmt(t_ptf *ptf, va_list ap)
 		if ((*fmt)[*i] == '%')
 		{
 			if (!(*fmt)[*i + 1])
-				break;
+				break ;
 			else if ((ret = treat_arg(ptf, ap)) < 1)
 				return (ret);
 		}
