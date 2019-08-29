@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 21:40:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:25:18 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "vm.h"
 #include "options.h"
 #include "display.h"
+
+static void	init_vars(t_vm *vm)
+{
+	vm->cycle_to_die = CYCLE_TO_DIE;
+	vm->checks = MAX_CHECKS;
+	vm->last_player_alive = -1;
+}
 
 int			create_arena(t_vm *vm)
 {
@@ -23,7 +30,6 @@ int			create_arena(t_vm *vm)
 	i = 0;
 	if (vm->options & OPTMAJV || vm->options & OPTZ || vm->cycles_limit)
 		ft_memset((void*)vm->mem_infos_code, -1, MEM_SIZE);
-	display_memory(vm);
 	while (i < vm->players_nbr)
 	{
 		start = i * MEM_SIZE / vm->players_nbr;
@@ -40,5 +46,6 @@ int			create_arena(t_vm *vm)
 		}
 		++i;
 	}
+	init_vars(vm);
 	return (0);
 }

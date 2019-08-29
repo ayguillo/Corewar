@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 21:41:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:37:52 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			add_process(t_vm *vm, int player, unsigned int pc, t_proc *src)
 
 	if (!(new = ft_memalloc(sizeof(t_proc))))
 	{
-		ft_putstr_fd("vm_process.c: add_process:", 2);
+		ft_putstr_fd("vm_process.c: l.32 add_process():", 2);
 		return (ERR_MALLOC);
 	}
 	if (src)
