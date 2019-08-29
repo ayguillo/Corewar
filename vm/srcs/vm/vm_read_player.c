@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 13:44:01 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:57:56 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	test_size(char *champ, int fd, t_vm *vm)
 		ft_putstr_fd(" size is too big (max = ", 2);
 		ft_putnbr_fd(CHAMP_MAX_SIZE, 2);
 		ft_putstr_fd(" yours = ", 2);
-		ft_putnbr_fd(vm->players[vm->players_nbr].size, 2);
+		ft_dprintf(2, "%u", vm->players[vm->players_nbr].size);
 		ft_putstr_fd(")\n", 2);
 		close(fd);
 		return (ERR_SIZE);
