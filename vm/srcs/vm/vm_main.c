@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:21:58 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 15:22:07 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/29 16:13:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			main(int ac, char *av[])
 			ft_putstr_fd(vm.err[err], 2);
 		if (err < ERR_OPEN)
 			ft_putstr_fd(vm.err[USAGE], 2);
-		return (-1);
+		return (1);
 	}
 	if (vm.options & OPTMAJV)
 		ft_printf("OK");
