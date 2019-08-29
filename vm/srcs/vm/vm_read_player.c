@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 12:03:16 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 13:57:56 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:40:57 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	read_part(int fd, int length, char *buff)
 
 static int	err_champ(char *champ, int fd)
 {
-	ft_putstr_fd(champ, 2);
+	ft_dprintf(2, "%s: ", champ);
 	close(fd);
 	return (ERR_CHAMP);
 }
@@ -84,7 +84,7 @@ int			read_champ(char *champ, t_vm *vm)
 		return (ERR_TMCHAMP);
 	if ((fd = open(champ, O_RDONLY)) == -1)
 	{
-		ft_putstr_fd(champ, 2);
+		ft_dprintf(2, "%s: ", champ);
 		return (ERR_OPEN);
 	}
 	err = read_all(champ, fd, vm);
