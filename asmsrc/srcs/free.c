@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 13:32:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/07 14:30:00 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/08/29 14:14:08 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ has %i characters\n%s", COMMENT_LENGTH, _RED_, ft_strlen((*tab)[1]), _RESET_);
 		ft_empty(str, tab, gnl);
 	else if (err <= 3 && err > 0)
 		ft_free_all(tab, str);
-	ft_strdel(&(gnl->line));
+	if (gnl)
+		ft_strdel(&(gnl->line));
 	return (0);
 }
