@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:55:22 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/26 22:08:33 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/29 11:28:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@
 **  ERR_DUMPVAL		Wrong dump val
 **  ERR_BADARG		Unknown arguments
 **  ERR_BADNBR		Bad player number
+**  ERR_NOCHAMP		No champions given in arguments
+**	ERR_TMCHAMP		Too much chaipions as argument refer to MAX_PLAYERS in op.h
 **  ERR_TWONBR		Two player numbers
 **  ERR_OPEN		File opening error
 **  ERR_CHAMP		Invalid champ(header)
-**  ERR_SIZE	    Invalid champ(size): please specify champ name in message
-**  ERR_MALLOC      Malloc error: please precced err message by file/function
+**  ERR_SIZE		Invalid champ(size): please specify champ name in message
+**  ERR_MALLOC		Malloc error: please precced err message by file/function
+**  ERR_NCURSE		NCurse failed
 */
 
 # define USAGE				0
@@ -43,12 +46,12 @@
 # define ERR_BADARG			3
 # define ERR_BADNBR			4
 # define ERR_NOCHAMP		5
-# define ERR_TWONBR			6
-# define ERR_OPEN			7
-# define ERR_CHAMP			8
-# define ERR_SIZE			9
-# define ERR_MALLOC			10
-# define ERR_NCURSE			11
-# define ERR_TMCHAMP		12
+# define ERR_TMCHAMP		6
+# define ERR_TWONBR			7
+# define ERR_OPEN			8
+# define ERR_CHAMP			9
+# define ERR_SIZE			10
+# define ERR_MALLOC			11
+# define ERR_NCURSE			12
 
 #endif
