@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/28 17:40:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/30 18:48:17 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	print_dump(t_vm *vm)
 	{
 		if (i % 64 == 0 && i != 0)
 			ft_putchar('\n');
-		else if (i != 0)
-			ft_putchar(' ');
+//		else if (i != 0)
+//			ft_putchar(' ');
 		if (i % 64 == 0)
 			ft_printf("0x%04x : ", i);
-		if (vm->mem_infos_code[i] != -1)
-			ft_putstr(vm->players[(int)(vm->mem_infos_code[i])].color);
-		ft_printf("%02x", vm->mem[i]);
-		ft_putstr(_RESET_);
+		//if (vm->mem_infos_code[i] != -1)
+		//	ft_putstr(vm->players[(int)(vm->mem_infos_code[i])].color);
+		ft_printf("%02x ", vm->mem[i]);
+		//ft_putstr(_RESET_);
 		i++;
 	}
 	ft_putchar('\n');
