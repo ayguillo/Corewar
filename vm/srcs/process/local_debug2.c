@@ -23,14 +23,14 @@ void	dbg_print_addr(int debug, t_op op, t_proc *proc, unsigned int p[2])
 	local_dbg(debug, "%-15s: ", "ADDR");
 	local_dbg(debug, "(%u ", proc->pc);
 	local_dbg(debug, "+ ");
-	local_dbg(debug, "(%hd ", p[0]);
+	local_dbg(debug, "(%d ", p[0]);
 	local_dbg(debug, "+ ");
-	local_dbg(debug, "%hd) ", p[1]);
+	local_dbg(debug, "%d) ", p[1]);
 	if (op.addr_restrict)
 		local_dbg(debug, "%% %u", IDX_MOD);
 	local_dbg(debug, ") ");
 	local_dbg(debug, "%% %u ", MEM_SIZE);
-	local_dbg(debug, "= %u\n", addr);
+	local_dbg(debug, "= %d\n", addr);
 }
 
 void	dbg_print_dir_load(int debug, char *msg, unsigned int load)
