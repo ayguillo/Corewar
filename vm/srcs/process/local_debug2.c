@@ -6,7 +6,7 @@
 /*   By: vlambert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 14:30:08 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/13 14:37:21 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/30 16:41:58 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	dbg_print_addr(int debug, t_op op, t_proc *proc, unsigned int p[2])
 {
-	unsigned int	addr;
-	short			added;
+	int		addr;
 
-	added = (short)((short)p[0] + (short)p[1]);
 	if (op.addr_restrict)
-		added = added % IDX_MOD;
-	addr = (proc->pc + added);
+		addr = ((int)proc->pc + (int)(p[0] + p[1]) % IDX_MOD);
+	else
+		addr = proc->pc + (p[0] + p[1]);
 	local_dbg(debug, "%-15s: ", "ADDR");
 	local_dbg(debug, "(%u ", proc->pc);
 	local_dbg(debug, "+ ");
