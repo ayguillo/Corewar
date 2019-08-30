@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:15:43 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/29 17:55:07 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/30 16:43:26 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ unsigned int	read_parameter(t_vm *vm, t_proc *proc, t_op op, t_param *param)
 	}
 	else if (param->type == DIR_CODE)
 	{
-		read = param->val;
+		read = op.dir_type ? (short)param->val : param->val;
 		dbg_print_dir_load(vm->options & OPTD, "DIR_READ", read);
 	}
 	return (read);
