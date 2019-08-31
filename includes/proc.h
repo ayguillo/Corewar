@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/13 15:08:31 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:22:49 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ unsigned int	calculate_address(t_vm *vm, t_proc *proc, t_op op,
 ** READ FROM VM/PROCESS
 */
 
-unsigned int	read_from_register(t_proc *proc, int id, t_vm *vm);
+int				read_from_register(t_proc *proc, int id, unsigned int *read,
+	t_vm *vm);
 unsigned char	read_byte_from_vm(t_vm *vm, int address);
 int				read_from_vm(t_vm *vm, int address, int read_size);
 

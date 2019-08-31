@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 14:46:44 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:22:51 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	local_dbg(vm->options & OPTD, "{magenta}EXECUTING OP_LLDI{eoc}\n");
 	ft_bzero(src, sizeof(int) * 2);
 	if (params[0].type == REG_CODE)
-		src[0] = read_from_register(process, params[0].val, vm);
+		read_from_register(process, params[0].val, &src[0], vm);
 	else if (params[0].type == IND_CODE)
 		src[0] = read_from_vm(vm, process->pc + params[0].val,
 			op.dir_type == 0 ? 4 : 2);
 	else if (params[0].type == DIR_CODE)
 		src[0] = params[0].val;
 	if (params[1].type == REG_CODE)
-		src[1] = read_from_register(process, params[1].val, vm);
+		read_from_register(process, params[1].val, &src[1], vm);
 	else if (params[1].type == DIR_CODE)
 		src[1] = params[1].val;
 	reg_dest = params[2].val;

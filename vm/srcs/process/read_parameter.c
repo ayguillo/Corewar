@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:15:43 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/30 16:43:26 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:24:18 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ unsigned int	read_parameter(t_vm *vm, t_proc *proc, t_op op, t_param *param)
 	read = 0;
 	read_addr = 0;
 	if (param->type == REG_CODE)
-		read = read_from_register(proc, param->val, vm);
+		read_from_register(proc, param->val, &read, vm);
 	else if (param->type == IND_CODE)
 	{
 		if (op.addr_restrict)
