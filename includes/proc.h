@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/08/31 16:22:49 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:28:03 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				read_from_vm(t_vm *vm, int address, int read_size);
 ** WRITE TO VM/PROCESS
 */
 
-void			write_to_register(t_proc *process, int register_id, int write,
+int				write_to_register(t_proc *process, int register_id, int write,
 					t_vm *vm);
 void			write_byte_to_vm(t_vm *vm, unsigned int address, char byte);
 void			write_to_vm(t_vm *vm, int address, int write, int player_id);
