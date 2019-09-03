@@ -9,27 +9,37 @@ PLAYER_2="NoIdea.cor"
 ZAZ_VM="./resources/corewar"
 MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
-CYCLE_TO_CHECK=2000
+CYCLE_TO_CHECK=2000000000
 DIFFS_FILE="vm_diffs.log"
-NBR_OF_CHAMPS=4
+NBR_OF_CHAMPS=3
 
 function record_diff
 {
 	printf "#################################################################\n" >> $DIFFS_FILE
 	printf "%s %s %s %s\n" $p1_name $p2_name $p3_name $p4_name >> $DIFFS_FILE
-	printf "CYCLE $dump_cycle\n" >> $DIFFS_FILE
+	printf "CYCLE $final_cycle\n" >> $DIFFS_FILE
 	diff <(echo "$zaz_out") <(echo "$my_out") >> $DIFFS_FILE
+}
+
+function get_last_cycle
+{
+	final_cycle="$(echo "$my_out" | grep 'Dump at cycle' | awk 'NF>1{print $NF}')"
+	final_cycle=${final_cycle%?}
 }
 
 function check_diff_for_dump
 {
 	printf "%s %s %s %s\t\t: " $p1_name $p2_name $p3_name $p4_name | expand -t 40
 	dump_cycle=$CYCLE_TO_CHECK
-	zaz_out="$($ZAZ_VM -d $dump_cycle $PLAYER_1 $PLAYER_2 | awk '$1 ~ /^0x/')"
-	my_out="$($MY_VM -dump $((dump_cycle+1)) $PLAYER_1 $PLAYER_2 | awk '$1 ~ /^0x/')"
+	my_out="$($MY_VM -dump $((dump_cycle)) $PLAYER_1 $PLAYER_2)"
+	get_last_cycle
+	my_out="$(echo "$my_out" | awk '$1 ~ /^0x/')"
+	zaz_out="$($ZAZ_VM -d $final_cycle $PLAYER_1 $PLAYER_2 | awk '$1 ~ /^0x/')"
 	if [ "$zaz_out" != "" ] && [ "$zaz_out" != "$my_out" ]; then
 		printf "${RED}%s\n${CLR}" "DIFFERS"
 		record_diff
+	elif [ "$zaz_out" == "" ]; then
+		printf "${RED}%s\n${CLR}" "CYCLE TOO HIGH"
 	else
 		printf "${GREEN}%s\n${CLR}" "OK"
 	fi;
