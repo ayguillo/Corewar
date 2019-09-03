@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:33:31 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 14:25:42 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/02 21:15:29 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_params(t_param *param, t_op op, char ocp)
 	int i;
 
 	i = 0;
-	while (i < 4)
+	while (i < op.arg_nbr)
 	{
 		if (op.has_ocp)
 			param[i].type = get_param_type_from_ocp(ocp, (i + 1));
