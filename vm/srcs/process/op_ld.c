@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 14:59:03 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:28:26 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	dbg_print_instruction_head(vm->options & OPTD, "OP_LD");
 	load = read_parameter(vm, process, op, &params[0]);
 	reg_dest = params[1].val;
-	write_to_register(process, reg_dest, load, vm);
-	process_set_carry(process, op, load, vm);
+	if (write_to_register(process, reg_dest, load, vm) == 0)
+		process_set_carry(process, op, load, vm);
 }
 
 /*

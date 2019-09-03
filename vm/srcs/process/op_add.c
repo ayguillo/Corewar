@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:14:59 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 14:55:21 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:30:28 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	op_add(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	p[1] = read_parameter(vm, process, op, &params[1]);
 	op_result = (p[0] + p[1]);
 	dbg_print_math(vm->options & OPTD, '+', p, op_result);
-	write_to_register(process, params[2].val, op_result, vm);
-	process_set_carry(process, op, op_result, vm);
+	if (write_to_register(process, params[2].val, op_result, vm) == 0)
+		process_set_carry(process, op, op_result, vm);
 }
