@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 15:04:28 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:48:20 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ unsigned char	read_byte_from_vm(t_vm *vm, int address)
 	unsigned char	byte;
 
 	real_address = (address % MEM_SIZE);
-	byte = vm->mem[real_address];
+	byte = vm->mem[(unsigned int)real_address];
 	return (byte);
 }
 
