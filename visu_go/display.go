@@ -151,7 +151,7 @@ func gradientBackground(infos string, w int32, loadingColor *uint32, surface *sd
 		cycles := strings.Split(split[2], " ")
 		if len(cycles) == 5 {
 			if cycle, err := strconv.Atoi(cycles[2]); err == nil {
-				if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil {
+				if cycleToDie, err := strconv.Atoi(cycles[4]); err == nil && cycleToDie > 0{
 					loading.W = w * int32(cycle) / int32(cycleToDie)
 					if loading.W != 0 {
 						if (cycleToDie >= 510 && cycle%(cycleToDie/510) == 0 &&
