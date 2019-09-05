@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/03 16:58:07 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:10:16 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int			game_cycle(t_vm *vm)
 	{
 		if (vm->display.status.exit)
 			return (0);
-		vm->period_cycles += 1;
 		print_arena_govisu(vm, 0);
 		process_cycle(vm);
 		if (vm->period_cycles == vm->cycle_to_die)
@@ -67,10 +66,11 @@ int			game_cycle(t_vm *vm)
 			}
 			new_period(vm);
 		}
-		display_update(vm);
 		if (vm->cycles < vm->cycles_limit)
 			break ;
 		vm->cycles++;
+		vm->period_cycles += 1;
+		display_update(vm);
 	}
 	print_winner(vm);
 	display_update(vm);
