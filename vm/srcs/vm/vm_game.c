@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/05 17:37:28 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:42:51 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			game_cycle(t_vm *vm)
 {
 	intro_champs(vm);
 	display_update(vm);
-	while (((vm->cycles += 1) != vm->cycles_limit || vm->cycles_limit == 0)
+	while (((vm->cycles += 1) > vm->cycles_limit || vm->cycles_limit == 0)
 			&& vm->proc && vm->cycle_to_die > 0)
 	{
 		if (vm->display.status.exit)
