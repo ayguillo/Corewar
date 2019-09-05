@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/05 17:28:01 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:37:28 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int			game_cycle(t_vm *vm)
 			}
 			new_period(vm);
 		}
-		if (vm->cycles >= vm->cycles_limit)
-			break ;
 		display_update(vm);
 	}
 	print_winner(vm);
