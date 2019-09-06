@@ -9,9 +9,9 @@ PLAYER_2="NoIdea.cor"
 ZAZ_VM="./resources/corewar"
 MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
-CYCLE_TO_CHECK=2000000000
+CYCLE_TO_CHECK=20000
 DIFFS_FILE="vm_diffs.log"
-NBR_OF_CHAMPS=3
+NBR_OF_CHAMPS=1
 
 function record_diff
 {
