@@ -9,9 +9,10 @@ PLAYER_2="NoIdea.cor"
 ZAZ_VM="./resources/corewar"
 MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
-CYCLE_TO_CHECK=20000
+CYCLE_TO_CHECK=1000000
 DIFFS_FILE="vm_diffs.log"
 NBR_OF_CHAMPS=1
+CYCLE_OFFSET=1 # Our vm starts at cycle 1 instead of 0
 
 function record_diff
 {
@@ -25,7 +26,9 @@ function get_last_cycle
 {
 	final_cycle="$(echo "$my_out" | grep 'Dump at cycle' | awk 'NF>1{print $NF}')"
 	final_cycle=${final_cycle%?}
-	((final_cycle-=2))
+	printf " %d " $final_cycle
+	((final_cycle-=$CYCLE_OFFSET))
+	printf " %d " $final_cycle
 }
 
 function check_diff_for_dump
