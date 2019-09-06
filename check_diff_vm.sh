@@ -25,6 +25,7 @@ function get_last_cycle
 {
 	final_cycle="$(echo "$my_out" | grep 'Dump at cycle' | awk 'NF>1{print $NF}')"
 	final_cycle=${final_cycle%?}
+	((final_cycle-=2))
 }
 
 function check_diff_for_dump
