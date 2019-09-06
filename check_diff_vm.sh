@@ -11,8 +11,9 @@ MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
 CYCLE_TO_CHECK=1000000
 DIFFS_FILE="vm_diffs.log"
-NBR_OF_CHAMPS=1
+NBR_OF_CHAMPS=2
 CYCLE_OFFSET=1 # Our vm starts at cycle 1 instead of 0
+CHAMPS_DIR="resources/test_champs"
 
 function record_diff
 {
@@ -51,11 +52,13 @@ function check_diff_for_dump
 
 function compile_champs
 {
+	if [ ! -d $CHAMPS_DIR ]; then
+		mkdir $CHAMPS_DIR
+	fi
 	echo "Compiling champions..."
-	for champ in resources/champs/*.s; do
+	for champ in $CHAMPS_DIR/*.s; do
 		compiled_champ="${champ/%.s/.cor}"
 		$ZAZ_ASM $champ > /dev/null 2>&1
-		mv $compiled_champ resources/compiled_champs > /dev/null 2>&1
 	done
 	echo "Champions compiled !"
 }
@@ -73,13 +76,13 @@ p2_name=""
 p3_name=""
 p4_name=""
 
-for champ_1 in resources/compiled_champs/*.cor; do
+for champ_1 in $CHAMPS_DIR/*.cor; do
 	PLAYER_1="$champ_1"
 	p1_name="$(basename $PLAYER_1)"
 	if [ $NBR_OF_CHAMPS == 1 ]; then
 		check_diff_for_dump
 	else
-		for champ_2 in resources/compiled_champs/*.cor; do
+		for champ_2 in $CHAMPS_DIR/*.cor; do
 			PLAYER_2="$champ_2"
 			p2_name="$(basename $PLAYER_2)"
 			if [ $NBR_OF_CHAMPS == 2 ]; then
@@ -87,7 +90,7 @@ for champ_1 in resources/compiled_champs/*.cor; do
 					check_diff_for_dump
 				fi
 			elif [ "$champ_2" != "$champ_1" ]; then
-				for champ_3 in resources/compiled_champs/*.cor; do
+				for champ_3 in $CHAMPS_DIR/*.cor; do
 					PLAYER_3="$champ_3"
 					p3_name="$(basename $PLAYER_3)"
 					if [ $NBR_OF_CHAMPS == 3 ]; then
@@ -95,7 +98,7 @@ for champ_1 in resources/compiled_champs/*.cor; do
 							check_diff_for_dump
 						fi
 					elif [ "$champ_3" != "$champ_2" ] && [ "$champ_3" != "$champ_1" ]; then
-						for champ_4 in resources/compiled_champs/*.cor; do
+						for champ_4 in $CHAMPS_DIR/*.cor; do
 							PLAYER_4="$champ_4"
 							p4_name="$(basename $PLAYER_4)"
 							if [ "$champ_4" != "$champ_3" ] && [ "$champ_4" != "$champ_2" ] && [ "$champ_4" != "$champ_1" ]; then
