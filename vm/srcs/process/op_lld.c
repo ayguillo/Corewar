@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 14:13:22 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:50:24 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		return;
 	process_set_carry(process, op, load, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLD END{eoc}\n\n");
-	verbose_lld(process, params);
 }
 
 void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
@@ -61,5 +60,4 @@ void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		return ;
 	process_set_carry(process, op, write, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLDI END{eoc}\n\n");
-	verbose_lldi(process, params);
 }

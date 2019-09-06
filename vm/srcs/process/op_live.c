@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:08 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 14:13:17 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:50:12 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	op_live(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		set_player_alive(vm, process, player);
 	else
 		local_dbg(vm->options & OPTD, "{red}INVALID LIVE ID{eoc}\n");
-	verbose_live(process, live_id);
 }
