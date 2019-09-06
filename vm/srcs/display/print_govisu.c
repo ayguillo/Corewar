@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:52:40 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 17:14:04 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/05 18:02:08 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	print_infos_govisu(t_vm *vm)
 
 	i = 0;
 	ft_printf("---CYCLES---\nCycles: %d\nPeriod cycles: %d / %d\n", vm->cycles,
-		vm->period_cycles, vm->cycle_to_die);
+		vm->period_cycles, vm->cycle_to_die > 0 ? vm->cycle_to_die : 1);
 	ft_printf("\n---LAST LIFE---\n%s\n",
 		(vm->last_player_alive != -1) ?
 			vm->players[vm->last_player_alive].name : "Nobody");

@@ -11,7 +11,7 @@ MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
 CYCLE_TO_CHECK=2000000000
 DIFFS_FILE="vm_diffs.log"
-NBR_OF_CHAMPS=3
+NBR_OF_CHAMPS=1
 
 function record_diff
 {
@@ -25,6 +25,7 @@ function get_last_cycle
 {
 	final_cycle="$(echo "$my_out" | grep 'Dump at cycle' | awk 'NF>1{print $NF}')"
 	final_cycle=${final_cycle%?}
+	((final_cycle-=2))
 }
 
 function check_diff_for_dump

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/03 17:36:00 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:38:35 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_dump(t_vm *vm)
 	int		i;
 
 	i = 0;
-	ft_printf("\nDump at cycle %d:\n\n", vm->cycles);
+	ft_printf("\nDump at cycle %d:\n\n", vm->cycles - 1);
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0 && i != 0)
