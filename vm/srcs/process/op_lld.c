@@ -6,11 +6,23 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/31 16:22:51 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/06 13:27:29 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
+
+static void	verbose_lld(t_proc *proc, t_param *params)
+{
+		ft_printf("P %4d | lld %d r%d\n", proc->number,
+			params[0].val, params[1].val);
+}
+
+static void	verbose_lldi(t_proc *proc, t_param *params)
+{
+		ft_printf("P %4d | lldi %d %d r%d\n", proc->number,
+			params[0].val, params[1].val, params[2].val);
+}
 
 void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
@@ -26,9 +38,11 @@ void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		load = read_from_vm(vm, process->pc + (params[0].val), REG_SIZE);
 	reg_dest = params[1].val;
 	local_dbg(vm->options & OPTD, "Destination register : %d\n", reg_dest);
-	write_to_register(process, reg_dest, load, vm);
+	if (write_to_register(process, reg_dest, load, vm))
+		return;
 	process_set_carry(process, op, load, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLD END{eoc}\n\n");
+	verbose_lld(process, params);
 }
 
 void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
@@ -55,7 +69,9 @@ void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	local_dbg(vm->options & OPTD, "Destination register : %d\n", reg_dest);
 	local_dbg(vm->options & OPTD, "Value to be written :\n");
 	write = read_from_vm(vm, process->pc + (src[0] + src[1]), sizeof(int));
-	write_to_register(process, reg_dest, write, vm);
+	if (write_to_register(process, reg_dest, write, vm))
+		return ;
 	process_set_carry(process, op, write, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLDI END{eoc}\n\n");
+	verbose_lldi(process, params);
 }

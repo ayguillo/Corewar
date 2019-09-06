@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 15:38:23 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/06 12:33:13 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 void		init_process(t_vm *vm, unsigned int pc, t_proc *new)
 {
+	static int number = 0;
+
 	new->pc = pc % MEM_SIZE;
 	new->op_pc = new->pc;
 	new->waiting = -1;
-	if (vm->proc)
-		new->number = vm->proc->number + 1;
-	else
-		new->number = 1;
+	number += 1;
+	new->number = number;
 	vm->players[new->player].alive_proc += 1;
 }
 
