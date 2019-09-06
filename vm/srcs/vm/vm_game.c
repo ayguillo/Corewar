@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/05 18:25:01 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:12:26 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	new_period(t_vm *vm)
 	}
 	vm->period_lives = 0;
 	vm->period_cycles = 0;
-	kill_unactive_processes(vm, vm->cycle_to_die + CYCLE_DELTA > 0 ? 0 : 1);
+	kill_unactive_processes(vm, 0);
 	return (0);
 }
 
@@ -60,6 +60,7 @@ int			game_cycle(t_vm *vm)
 			return (0);
 		vm->period_cycles += 1;
 		print_arena_govisu(vm, 0);
+		process_cycle(vm);
 		if (vm->period_cycles >= vm->cycle_to_die)
 		{
 			if ((vm->checks -= 1) == 0 || vm->period_lives >= NBR_LIVE)
@@ -69,7 +70,6 @@ int			game_cycle(t_vm *vm)
 			}
 			new_period(vm);
 		}
-		process_cycle(vm);
 		display_update(vm);
 	}
 	print_winner(vm);
