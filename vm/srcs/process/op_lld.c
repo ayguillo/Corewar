@@ -6,23 +6,11 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 13:27:29 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:13:22 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
-
-static void	verbose_lld(t_proc *proc, t_param *params)
-{
-		ft_printf("P %4d | lld %d r%d\n", proc->number,
-			params[0].val, params[1].val);
-}
-
-static void	verbose_lldi(t_proc *proc, t_param *params)
-{
-		ft_printf("P %4d | lldi %d %d r%d\n", proc->number,
-			params[0].val, params[1].val, params[2].val);
-}
 
 void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
