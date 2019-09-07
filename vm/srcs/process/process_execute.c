@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 16:49:39 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/12 16:50:16 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/07 01:08:33 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,42 +34,44 @@ void	(*g_op_fptr[16])(t_vm*, t_proc*, t_param*, t_op) =
 
 int		process_param_types(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
-	char ocp;
+	char	ocp;
+	int		errors;
 
 	ocp = 0;
+	errors = 0;
 	if (op.has_ocp)
 	{
+		local_dbg(vm->options & OPTD, "Getting types from OCP\n");
 		ocp = read_byte_from_vm(vm, process->op_pc);
+		local_dbg(vm->options & OPTD, "OCP = %x (%b)\n", ocp, ocp);
 		process->op_pc += T_OCP;
+		errors += set_params_from_ocp(params, op, ocp);
 	}
-	if (!op.has_ocp || ocp_match_instruction_params(op, ocp, vm))
+	else
 	{
-		set_params(params, op, ocp);
-		return (1);
+		local_dbg(vm->options & OPTD, "Getting types from OP\n");
+		set_params_from_op_info(params, op);
 	}
-	return (0);
+	if (errors)
+		local_dbg((vm->options & OPTD), "{red}OCP ERROR\n{eoc}");
+	return (errors);
 }
 
 void	execute_instruction(t_vm *vm, t_proc *process, t_op op)
 {
 	t_param		params[4];
+	int			errors;
 
 	ft_bzero(params, sizeof(t_param) * 4);
 	local_dbg(vm->options & OPTD, "{yellow}Instruction '%s' {eoc}\n",
 		op.asm_name);
-	process->op_pc += T_OPCODE;
-	if (process_param_types(vm, process, params, op))
-	{
-		if (get_op_parameters(vm, process, params, op) >= 0)
-		{
-			g_op_fptr[(int)(op.opcode - 1)](vm, process, params, op);
-			process->pc = process->op_pc % MEM_SIZE;
-		}
-		else
-			process->pc = (process->op_pc) % MEM_SIZE;
-	}
-	else
-		process->pc = (process->op_pc) % MEM_SIZE;
+	errors = 0;
+	process->op_pc = (process->pc + T_OPCODE);
+	errors += process_param_types(vm, process, params, op);
+	errors += get_op_parameters(vm, process, params, op);
+	if (!errors)
+		g_op_fptr[(int)(op.opcode - 1)](vm, process, params, op);
+	process->pc = (process->op_pc) % MEM_SIZE;
 	process->op_pc = process->pc;
 }
 
@@ -86,7 +88,6 @@ int		process_execute(t_vm *vm, t_proc *process)
 	{
 		dbg_print_proc_head(vm->options & OPTD, vm, process);
 		process->waiting = -1;
-		process->op_pc = process->pc;
 		execute_instruction(vm, process, g_op_tab[process->opcode - 1]);
 		dbg_print_proc_end(vm->options & OPTD, vm, process);
 	}
