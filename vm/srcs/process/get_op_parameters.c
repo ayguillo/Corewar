@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/13 14:29:15 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/07 01:53:56 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int		get_parameter(t_vm *vm, t_proc *proc, t_param *param, t_op op)
 				param->type);
 		return (0);
 	}
+}
+
+int		bad_register(int register_id)
+{
+	return (register_id > REG_NUMBER || register_id < 1);
 }
 
 int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
