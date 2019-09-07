@@ -26,8 +26,7 @@ void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		load = read_from_vm(vm, process->pc + (params[0].val), REG_SIZE);
 	reg_dest = params[1].val;
 	local_dbg(vm->options & OPTD, "Destination register : %d\n", reg_dest);
-	if (write_to_register(process, reg_dest, load, vm))
-		return;
+	write_to_register(process, reg_dest, load, vm);
 	process_set_carry(process, op, load, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLD END{eoc}\n\n");
 }
@@ -56,8 +55,7 @@ void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	local_dbg(vm->options & OPTD, "Destination register : %d\n", reg_dest);
 	local_dbg(vm->options & OPTD, "Value to be written :\n");
 	write = read_from_vm(vm, process->pc + (src[0] + src[1]), sizeof(int));
-	if (write_to_register(process, reg_dest, write, vm))
-		return ;
+	write_to_register(process, reg_dest, write, vm);
 	process_set_carry(process, op, write, vm);
 	local_dbg(vm->options & OPTD, "{magenta}OP_LLDI END{eoc}\n\n");
 }
