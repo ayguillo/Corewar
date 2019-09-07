@@ -35,7 +35,7 @@ void	op_lfork(t_vm *vm, t_proc *process, t_param *params, t_op op)
 
 	(void)op;
 	dbg_print_instruction_head(vm->options & OPTD, "OP_LFORK");
-	fork_addr = (process->pc + (short)((short)params[0].val)) % MEM_SIZE;
+	fork_addr = (unsigned short)(process->pc + params[0].val) % MEM_SIZE;
 	local_dbg(vm->options & OPTD, "%-15s: 0x%08x (%u)\n", "FORK_ADDR",
 		fork_addr, fork_addr);
 	if ((err = add_process(vm, process->player, fork_addr, process)))
