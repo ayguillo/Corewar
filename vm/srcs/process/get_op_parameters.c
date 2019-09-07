@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/07 01:53:56 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:08:42 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,21 @@ int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 {
 	int		i;
 	int		parameter_size;
-	int		ret;
+	int		errors;
 
 	i = 0;
-	ret = 0;
+	errors = 0;
 	parameter_size = 0;
 	dbg_print_params_head(vm->options & OPTD);
 	while (i < op.arg_nbr)
 	{
-		if ((parameter_size = get_parameter(vm, proc, &params[i], op)) <= 0)
-			ret = -1;
-		if (params[i].type == REG_CODE
-				&& (params[i].val > REG_NUMBER || params[i].val < 1))
-			ret = -1;
+		parameter_size = get_parameter(vm, proc, &params[i], op);
+		errors += (parameter_size <= 0);
+		errors += (params[i].type == REG_CODE && bad_register(params[i].val));
 		proc->op_pc += parameter_size;
 		local_dbg(vm->options & OPTD, "\n");
 		i++;
 	}
-	if (params[3].type != 0)
-		ret = -1;
-	return (ret);
+	//errors += (params[3].type != 0);
+	return (errors);
 }
