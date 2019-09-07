@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/09/02 17:28:03 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/07 14:29:23 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define T_OPCODE 1
 # define T_OCP 1
 # define VISU_ON 0
+# define VERBOSE_ON 1
 
 /*
 ** MAIN
@@ -118,8 +119,9 @@ void			set_player_alive(t_vm *vm, t_proc *process, int player_id);
 */
 
 int				get_param_type_from_ocp(char ocp, int param_position);
-void			set_params(t_param *param, t_op op, char ocp);
-int				ocp_match_instruction_params(t_op op, char ocp, t_vm *vm);
+int				set_params_from_ocp(t_param *params, t_op op, char ocp);
+void			set_params_from_op_info(t_param *params, t_op op);
+
 
 /*
 ** PROCESS SET

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:07:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/08/26 19:00:53 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/07 00:21:45 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct		s_proc
 	int				regs[REG_NUMBER];
 	int				player;
 	char			opcode;
+	int				last_live;
 }					t_proc;
 
 typedef struct		s_player

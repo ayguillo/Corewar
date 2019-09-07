@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 09:01:50 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/06 12:33:13 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/07 02:51:52 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ void		kill_unactive_processes(t_vm *vm, int end)
 		tmp = tmp->next;
 		if (to_free)
 		{
+			if (VERBOSE_ON)
+				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+					to_free->number, vm->cycles - to_free->last_live,
+						vm->cycle_to_die + CYCLE_DELTA);
 			vm->players[to_free->player].alive_proc -= 1;
 			ft_memdel((void **)&to_free);
 		}
