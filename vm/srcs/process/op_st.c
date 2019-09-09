@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 02:27:19 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/09 15:21:02 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	verbose_sti(t_proc *proc, int reg, int p1, int p2)
 {
 	if (VERBOSE_ON)
 	{
-		ft_printf("P %4d | sti r%d %hd %hd\n", proc->number, reg,
+		ft_printf("P %4d | sti r%d %d %d\n", proc->number, reg,
 			p1, p2);
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
 			p1, p2, p1 + p2, proc->pc + ((p1 + p2) % IDX_MOD));
