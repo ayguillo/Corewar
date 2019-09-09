@@ -11,7 +11,7 @@ MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
 CYCLE_TO_CHECK=1000000
 DIFFS_FILE="vm_diffs.log"
-NBR_OF_CHAMPS=2
+NBR_OF_CHAMPS=1
 CYCLE_OFFSET=1 # Our vm starts at cycle 1 instead of 0
 CHAMPS_DIR="resources/test_champs"
 
@@ -38,6 +38,7 @@ function check_diff_for_dump
 	dump_cycle=$CYCLE_TO_CHECK
 	my_out="$($MY_VM -dump $((dump_cycle)) $PLAYER_1 $PLAYER_2)"
 	get_last_cycle
+	my_out="$($MY_VM -dump $((final_cycle)) $PLAYER_1 $PLAYER_2)"
 	my_out="$(echo "$my_out" | awk '$1 ~ /^0x/')"
 	zaz_out="$($ZAZ_VM -d $final_cycle $PLAYER_1 $PLAYER_2 | awk '$1 ~ /^0x/')"
 	if [ "$zaz_out" != "" ] && [ "$zaz_out" != "$my_out" ]; then
@@ -63,6 +64,36 @@ function compile_champs
 	echo "Champions compiled !"
 }
 
+function get_target_champ
+{
+	if [ "$target_champ" == "1" ]; then
+		PLAYER_1="$champ"
+		p1_name="$(basename $PLAYER_1)"
+	elif [ "$target_champ" == "2" ]; then
+		PLAYER_2="$champ"
+		p2_name="$(basename $PLAYER_2)"
+	elif [ "$target_champ" == "3" ]; then
+		PLAYER_3="$champ"
+		p3_name="$(basename $PLAYER_3)"
+	elif [ "$target_champ" == "4" ]; then
+		PLAYER_4="$champ"
+		p4_name="$(basename $PLAYER_4)"
+	fi
+}
+
+function loop_over_champions
+{
+	target_champ=$1
+	for champ in $CHAMPS_DIR/*.cor; do
+		get_target_champ
+		if [[ $target_champ -lt $NBR_OF_CHAMPS ]]; then
+			loop_over_champions $((target_champ+1))
+		else
+			check_diff_for_dump
+		fi
+	done
+}
+
 printf "" > $DIFFS_FILE
 
 compile_champs
@@ -76,38 +107,4 @@ p2_name=""
 p3_name=""
 p4_name=""
 
-for champ_1 in $CHAMPS_DIR/*.cor; do
-	PLAYER_1="$champ_1"
-	p1_name="$(basename $PLAYER_1)"
-	if [ $NBR_OF_CHAMPS == 1 ]; then
-		check_diff_for_dump
-	else
-		for champ_2 in $CHAMPS_DIR/*.cor; do
-			PLAYER_2="$champ_2"
-			p2_name="$(basename $PLAYER_2)"
-			if [ $NBR_OF_CHAMPS == 2 ]; then
-				if [ "$champ_2" != "$champ_1" ]; then
-					check_diff_for_dump
-				fi
-			elif [ "$champ_2" != "$champ_1" ]; then
-				for champ_3 in $CHAMPS_DIR/*.cor; do
-					PLAYER_3="$champ_3"
-					p3_name="$(basename $PLAYER_3)"
-					if [ $NBR_OF_CHAMPS == 3 ]; then
-						if [ "$champ_3" != "$champ_2" ] && [ "$champ_3" != "$champ_1" ]; then
-							check_diff_for_dump
-						fi
-					elif [ "$champ_3" != "$champ_2" ] && [ "$champ_3" != "$champ_1" ]; then
-						for champ_4 in $CHAMPS_DIR/*.cor; do
-							PLAYER_4="$champ_4"
-							p4_name="$(basename $PLAYER_4)"
-							if [ "$champ_4" != "$champ_3" ] && [ "$champ_4" != "$champ_2" ] && [ "$champ_4" != "$champ_1" ]; then
-								check_diff_for_dump
-							fi
-						done
-					fi
-				done
-			fi
-		done
-	fi
-done
+loop_over_champions 1
