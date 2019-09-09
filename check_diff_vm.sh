@@ -1,5 +1,13 @@
 #!/bin/bash
 
+#
+#	TODO :
+#	CHECK LAST CYCLE USING ZAZ -v 2
+#	Command line options (-v to check verbose, -d to check dump, both,
+#	check diffs with given offset until cycle/end)
+#	Verbose diff and recording
+#
+
 readonly GREEN="\e[92m"
 readonly RED="\e[31m"
 readonly CLR="\e[0;m"
