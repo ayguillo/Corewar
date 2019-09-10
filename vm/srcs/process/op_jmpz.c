@@ -6,21 +6,13 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/10 08:46:30 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:06:29 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-static void	verbose_jmpz(t_proc *proc, int addr, char *has_jumped)
-{
-	if (VERBOSE_ON)
-	{
-		ft_printf("P %4d | zjmp %hd%s\n", proc->number, addr, has_jumped);
-	}
-}
-
-void		op_jmpz(t_vm *vm, t_proc *process,
+void	op_jmpz(t_vm *vm, t_proc *process,
 	t_param *params, t_op op)
 {
 	unsigned int	jmp_addr;
@@ -33,12 +25,8 @@ void		op_jmpz(t_vm *vm, t_proc *process,
 	if (process->carry == 1)
 	{
 		process->op_pc = jmp_addr;
-		verbose_jmpz(process, params[0].val, " OK");
 		local_dbg(vm->options & OPTD, "Jumped at address %d\n", jmp_addr);
 	}
 	else
-	{
-		verbose_jmpz(process, params[0].val, " FAILED");
 		local_dbg(vm->options & OPTD, "No carry me no jump\n");
-	}
 }

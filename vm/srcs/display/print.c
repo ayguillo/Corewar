@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 09:33:37 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/10 11:01:14 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:14:27 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_action(t_vm *vm, t_proc *proc, char *action, int player)
 			vm->players[proc->player].color, vm->players[player].color,
 			player + 1);
 	}
-	ft_printf("%s\n",_RESET_);
+	ft_printf("%s\n", _RESET_);
 }
 
 void	print_dump(t_vm *vm)

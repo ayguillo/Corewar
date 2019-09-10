@@ -6,33 +6,13 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/10 08:45:47 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:03:17 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc.h"
 
-static void	verbose_st(t_proc *proc, t_param *params)
-{
-	if (VERBOSE_ON)
-	{
-		ft_printf("P %4d | st r%d %hd\n", proc->number, params[0].val,
-			params[1].val);
-	}
-}
-
-static void	verbose_sti(t_proc *proc, int reg, int p1, int p2)
-{
-	if (VERBOSE_ON)
-	{
-		ft_printf("P %4d | sti r%d %d %d\n", proc->number, reg,
-			p1, p2);
-		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-			p1, p2, p1 + p2, proc->pc + ((p1 + p2) % IDX_MOD));
-	}
-}
-
-void		op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int	reg_load;
 	int				store_addr;
@@ -50,10 +30,9 @@ void		op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 			% MEM_SIZE);
 		write_to_vm(vm, store_addr, reg_load, process->player);
 	}
-	verbose_st(process, params);
 }
 
-void		op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int	store_addr;
 	unsigned int	reg_load;
@@ -69,5 +48,4 @@ void		op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	p[1] = read_parameter(vm, process, op, &params[2]);
 	store_addr = calculate_address(vm, process, op, p);
 	write_to_vm(vm, store_addr, reg_load, process->player);
-	verbose_sti(process, params[0].val, p[0], p[1]);
 }

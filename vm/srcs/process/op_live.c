@@ -6,18 +6,12 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:08 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/10 09:59:27 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:04:18 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "options.h"
 #include "vm.h"
-
-static void	verbose_live(t_proc *proc, int live_id)
-{
-	if (VERBOSE_ON)
-		ft_printf("P %4d | live %d\n", proc->number, live_id);
-}
 
 static void	set_player_alive(t_vm *vm, t_proc *process, int player)
 {
@@ -47,5 +41,4 @@ void		op_live(t_vm *vm, t_proc *process, t_param *params, t_op op)
 		set_player_alive(vm, process, player);
 	else
 		local_dbg(vm->options & OPTD, "{red}INVALID LIVE ID{eoc}\n");
-	verbose_live(process, live_id);
 }

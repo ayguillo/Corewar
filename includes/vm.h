@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:23:18 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/10 09:58:48 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:19:59 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int					game_cycle(t_vm *vm);
 */
 void				print_arena_govisu(t_vm *vm, int end);
 void				intro_champs(t_vm *vm);
-void				print_action(t_vm *vm, t_proc *proc, char *action, int player);
+void				print_action(t_vm *vm, t_proc *proc, char *action,
+						int player);
 void				print_winner(t_vm *vm);
 
 /*

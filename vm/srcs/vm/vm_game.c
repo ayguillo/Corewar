@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 09:08:54 by vlambert          #+#    #+#             */
-/*   Updated: 2019/09/09 14:08:13 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:10:28 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int			game_cycle(t_vm *vm)
 	while (((vm->cycles += 1) != vm->cycles_limit + 1 || vm->cycles_limit == 0)
 			&& vm->proc)
 	{
-		if (VERBOSE_ON)
-			ft_printf("It is now cycle %d\n", vm->cycles);
 		if (vm->display.status.exit)
 			return (0);
 		vm->period_cycles += 1;
@@ -71,8 +69,6 @@ int			game_cycle(t_vm *vm)
 				vm->checks = MAX_CHECKS;
 			}
 			new_period(vm);
-			if (VERBOSE_ON)
-				ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
 		}
 		display_update(vm);
 	}
