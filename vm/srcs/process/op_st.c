@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/09 15:21:02 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:45:47 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	verbose_sti(t_proc *proc, int reg, int p1, int p2)
 	}
 }
 
-void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int	reg_load;
 	int				store_addr;
@@ -53,7 +53,7 @@ void	op_st(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	verbose_st(process, params);
 }
 
-void	op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_sti(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int	store_addr;
 	unsigned int	reg_load;

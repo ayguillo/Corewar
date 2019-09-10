@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:18:39 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/07 18:08:42 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:44:47 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ int		get_op_parameters(t_vm *vm, t_proc *proc, t_param *params, t_op op)
 		local_dbg(vm->options & OPTD, "\n");
 		i++;
 	}
-	//errors += (params[3].type != 0);
 	return (errors);
 }

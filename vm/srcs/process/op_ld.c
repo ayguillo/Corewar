@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 18:11:21 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/07 02:32:15 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:48:46 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static void	verbose_ldi(t_proc *proc, t_param *params)
 	{
 		ft_printf("P %4d | ldi %hd %hd r%d\n", proc->number,
 			params[0].val, params[1].val, params[2].val);
-		ft_printf("       | -> load from %hd + %hd = %hd (with pc and mod %d)\n",
-			params[0].val, params[1].val, params[0].val + params[1].val,
+		ft_printf("%8c -> load from %hd + %hd = %hd (with pc and mod %d)\n",
+			'|', params[0].val, params[1].val, params[0].val + params[1].val,
 				(proc->pc + (params[0].val + params[1].val)) % MEM_SIZE);
 	}
 }
 
-void	op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int load;
 	unsigned int reg_dest;
@@ -52,7 +52,7 @@ void	op_ld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 ** Unsure if address restriction has to be applied to param 1 if its type is IND
 */
 
-void	op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_ldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int reg_dest;
 	unsigned int load_addr;

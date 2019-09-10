@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:02 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 01:29:08 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:45:14 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	verbose_and(t_proc *proc, int p1, t_param *params)
 	}
 }
 
-void	op_and(t_vm *vm, t_proc *process,
+void		op_and(t_vm *vm, t_proc *process,
 	t_param *params, t_op op)
 {
 	unsigned int op_result;
