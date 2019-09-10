@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:01:45 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/09/07 14:29:23 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/09 13:14:03 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define T_OPCODE 1
 # define T_OCP 1
 # define VISU_ON 0
-# define VERBOSE_ON 1
+# define VERBOSE_ON 0
 
 /*
 ** MAIN
