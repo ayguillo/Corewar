@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 12:59:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/09/06 11:09:43 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/09/10 13:01:19 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			main(int ac, char **av)
 	ret = 0;
 	if (ac == 1)
 	{
-		ft_printf("Usage : ./asm [files .s]\n");
+		ft_dprintf(2, "Usage : ./asm [files .s]\n");
 		return (0);
 	}
 	while (++i < ac)

@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 15:19:47 by vlambert          #+#    #+#             */
-/*   Updated: 2019/08/29 15:25:18 by vlambert         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:19:24 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			create_arena(t_vm *vm)
 	int		start;
 
 	i = 0;
-	if (vm->options & OPTMAJV || vm->options & OPTZ || vm->cycles_limit)
+	if (vm->options & OPTMAJV || vm->options & OPTZ)
 		ft_memset((void*)vm->mem_infos_code, -1, MEM_SIZE);
 	while (i < vm->players_nbr)
 	{
@@ -36,7 +36,7 @@ int			create_arena(t_vm *vm)
 		ft_strcpyfast((char *)vm->mem + start, (char *)vm->players[i].code,
 			vm->players[i].size);
 		display_load_player(vm, vm->players[i], i, start);
-		if (vm->options & OPTMAJV || vm->options & OPTZ || vm->cycles_limit)
+		if (vm->options & OPTMAJV || vm->options & OPTZ)
 			ft_memset((void*)vm->mem_infos_code + start, i,
 				vm->players[i].size);
 		if (add_process(vm, i, start, NULL) == ERR_MALLOC)
