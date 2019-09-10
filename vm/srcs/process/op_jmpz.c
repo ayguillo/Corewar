@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:23:44 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 01:09:46 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:46:30 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	verbose_jmpz(t_proc *proc, int addr, char *has_jumped)
 	}
 }
 
-void	op_jmpz(t_vm *vm, t_proc *process,
+void		op_jmpz(t_vm *vm, t_proc *process,
 	t_param *params, t_op op)
 {
 	unsigned int	jmp_addr;

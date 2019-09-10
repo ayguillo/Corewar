@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:18:50 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 00:32:12 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:45:22 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	verbose_sub(t_proc *proc, t_param *params)
 	}
 }
 
-void	op_sub(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_sub(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int	op_result;
 	unsigned int	p[2];

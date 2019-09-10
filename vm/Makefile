@@ -27,9 +27,9 @@ PROC_DIR		=	process
 PROC_SRC		=	$(addprefix $(PROC_DIR)/, \
 		process_execute.c get_op_parameters.c local_debug.c local_debug2.c\
 		op_and.c op_jmpz.c op_live.c op_st.c read_from_register.c \
-		read_from_vm.c vm_query.c vm_set.c write_to_register.c \
-		write_to_vm.c ocp_tools.c process_set.c op.c op_ld.c op_fork.c \
-		op_add.c op_sub.c op_or.c op_xor.c op_lld.c op_aff.c read_parameter.c \
+		read_from_vm.c vm_query.c write_to_register.c write_to_vm.c \
+		ocp_tools.c process_set.c op.c op_ld.c op_fork.c op_add.c \
+		op_sub.c op_or.c op_xor.c op_lld.c op_aff.c read_parameter.c \
 		calculate_address.c)
 
 DISP_DIR		=	display

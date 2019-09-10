@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:14:59 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 00:32:20 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:44:23 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	verbose_add(t_proc *proc, t_param *params)
 	}
 }
 
-void	op_add(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_add(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int op_result;
 	unsigned int p[2];

@@ -6,19 +6,29 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:24:08 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/07 00:21:47 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 09:59:27 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "proc.h"
+#include "options.h"
+#include "vm.h"
 
-static void		verbose_live(t_proc *proc, int live_id)
+static void	verbose_live(t_proc *proc, int live_id)
 {
 	if (VERBOSE_ON)
 		ft_printf("P %4d | live %d\n", proc->number, live_id);
 }
 
-void	op_live(t_vm *vm, t_proc *process, t_param *params, t_op op)
+static void	set_player_alive(t_vm *vm, t_proc *process, int player)
+{
+	local_dbg(vm->options & OPTD, "Setting player %d as alive\n", player + 1);
+	vm->players[player].period_lives += 1;
+	vm->last_player_alive = player;
+	if (vm->options & OPTV)
+		print_action(vm, process, "life", player);
+}
+
+void		op_live(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	int		live_id;
 	int		player;

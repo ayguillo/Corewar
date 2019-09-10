@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:21:22 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 01:28:35 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:46:25 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	verbose_xor(t_proc *proc, int p1, t_param *params)
 	}
 }
 
-void	op_xor(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_xor(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int op_result;
 	unsigned int src[2];

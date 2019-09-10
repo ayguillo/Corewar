@@ -6,7 +6,7 @@
 /*   By: vlambert <vlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 04:23:30 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/09/06 00:46:29 by bopopovi         ###   ########.fr       */
+/*   Updated: 2019/09/10 08:45:34 by vlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	verbose_lldi(t_proc *proc, t_param *params)
 			params[0].val, params[1].val, params[2].val);
 }
 
-void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int reg_dest;
 	unsigned int load;
@@ -37,7 +37,7 @@ void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	if (params[0].type == DIR_CODE)
 		load = params[0].val;
 	else if (params[0].type == IND_CODE)
-		load = read_from_vm(vm, process->pc + (params[0].val), REG_SIZE);
+		load = read_from_vm(vm, process->pc + (params[0].val), IND_SIZE);
 	reg_dest = params[1].val;
 	local_dbg(vm->options & OPTD, "Destination register : %d\n", reg_dest);
 	write_to_register(process, reg_dest, load, vm);
@@ -46,7 +46,7 @@ void	op_lld(t_vm *vm, t_proc *process, t_param *params, t_op op)
 	verbose_lld(process, params);
 }
 
-void	op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
+void		op_lldi(t_vm *vm, t_proc *process, t_param *params, t_op op)
 {
 	unsigned int reg_dest;
 	unsigned int write;
