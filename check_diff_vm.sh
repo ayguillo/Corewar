@@ -21,7 +21,7 @@ function record_diff
 
 function get_last_cycle
 {
-	dump_cycle="$($ZAZ_VM -v 2 $champs_to_run | tail -n 3 | grep 'It is now cycle' | awk 'NF>1{print $NF}' | tail -1)"
+	dump_cycle="$($ZAZ_VM -v 2 $champs_to_run 2> /dev/null | tail -n 3 | grep 'It is now cycle' | awk 'NF>1{print $NF}' | tail -1)"
 	((dump_cycle-=1))
 }
 
@@ -32,8 +32,8 @@ function check_diff_for_dump
 	if [ "$CYCLE_TO_CHECK" == "" ]; then
 		get_last_cycle
 	fi
-	my_out="$($MY_VM -dump $dump_cycle $champs_to_run | awk '$1 ~ /^0x/')"
-	zaz_out="$($ZAZ_VM -d $dump_cycle $champs_to_run | awk '$1 ~ /^0x/')"
+	my_out="$($MY_VM -dump $dump_cycle $champs_to_run 2> /dev/null | awk '$1 ~ /^0x/')"
+	zaz_out="$($ZAZ_VM -d $dump_cycle $champs_to_run 2> /dev/null | awk '$1 ~ /^0x/')"
 	printf "%-100s : [%d] " "$champs_names" $dump_cycle
 	if [ "$zaz_out" != "" ] && [ "$zaz_out" != "$my_out" ]; then
 		printf "${RED}%s\n${CLR}" "DIFFERS"
@@ -52,8 +52,10 @@ function compile_champs
 	fi
 	echo "Compiling champions..."
 	for champ in $CHAMPS_DIR/*.s; do
-		compiled_champ="${champ/%.s/.cor}"
-		$ZAZ_ASM $champ > /dev/null 2>&1
+		if [ "$(basename $champ)" != "Car.s" ] && [ "$(basename $champ)" != "mandragore.s" ]; then
+			compiled_champ="${champ/%.s/.cor}"
+			$ZAZ_ASM $champ > /dev/null 2>&1
+		fi
 	done
 	echo "Champions compiled !"
 }
@@ -111,6 +113,7 @@ function get_options
 					printf "Number of champions set to : %d\n" $NBR_OF_CHAMPS
 				else
 					echo "Invalid number of champs"
+					exit 1
 				fi
 				;;
 			\?)
