@@ -1,54 +1,40 @@
 #!/bin/bash
 
-#
-#	TODO :
-#	CHECK LAST CYCLE USING ZAZ -v 2
-#	Command line options (-v to check verbose, -d to check dump, both,
-#	check diffs with given offset until cycle/end)
-#	Verbose diff and recording
-#
-
 readonly GREEN="\e[92m"
 readonly RED="\e[31m"
 readonly CLR="\e[0;m"
 
-PLAYER_1="Gagnant.cor"
-PLAYER_2="NoIdea.cor"
 ZAZ_VM="./resources/corewar"
 MY_VM="./corewar"
 ZAZ_ASM="./resources/asm"
-CYCLE_TO_CHECK=1000000
+CYCLE_TO_CHECK=""
 DIFFS_FILE="vm_diffs.log"
 NBR_OF_CHAMPS=1
-CYCLE_OFFSET=1 # Our vm starts at cycle 1 instead of 0
 CHAMPS_DIR="resources/test_champs"
 
 function record_diff
 {
 	printf "#################################################################\n" >> $DIFFS_FILE
-	printf "%s %s %s %s\n" $p1_name $p2_name $p3_name $p4_name >> $DIFFS_FILE
-	printf "CYCLE $final_cycle\n" >> $DIFFS_FILE
+	printf "%s\nCYCLE %d\n" "$champs_names" $dump_cycle >> $DIFFS_FILE
 	diff <(echo "$zaz_out") <(echo "$my_out") >> $DIFFS_FILE
 }
 
 function get_last_cycle
 {
-	final_cycle="$(echo "$my_out" | grep 'Dump at cycle' | awk 'NF>1{print $NF}')"
-	final_cycle=${final_cycle%?}
-	printf " %d " $final_cycle
-	((final_cycle-=$CYCLE_OFFSET))
-	printf " %d " $final_cycle
+	dump_cycle="$($ZAZ_VM -v 2 $champs_to_run | tail -n 3 | grep 'It is now cycle' | awk 'NF>1{print $NF}' | tail -1)"
+	((dump_cycle-=1))
 }
 
 function check_diff_for_dump
 {
-	printf "%s %s %s %s\t\t: " $p1_name $p2_name $p3_name $p4_name | expand -t 40
-	dump_cycle=$CYCLE_TO_CHECK
-	my_out="$($MY_VM -dump $((dump_cycle)) $PLAYER_1 $PLAYER_2)"
-	get_last_cycle
-	my_out="$($MY_VM -dump $((final_cycle)) $PLAYER_1 $PLAYER_2)"
-	my_out="$(echo "$my_out" | awk '$1 ~ /^0x/')"
-	zaz_out="$($ZAZ_VM -d $final_cycle $PLAYER_1 $PLAYER_2 | awk '$1 ~ /^0x/')"
+	champs_names="$p1_name $p2_name $p3_name $p4_name"
+	champs_to_run="$PLAYER_1 $PLAYER_2 $PLAYER_3 $PLAYER_4"
+	if [ "$CYCLE_TO_CHECK" == "" ]; then
+		get_last_cycle
+	fi
+	my_out="$($MY_VM -dump $dump_cycle $champs_to_run | awk '$1 ~ /^0x/')"
+	zaz_out="$($ZAZ_VM -d $dump_cycle $champs_to_run | awk '$1 ~ /^0x/')"
+	printf "%-100s : [%d] " "$champs_names" $dump_cycle
 	if [ "$zaz_out" != "" ] && [ "$zaz_out" != "$my_out" ]; then
 		printf "${RED}%s\n${CLR}" "DIFFERS"
 		record_diff
@@ -72,8 +58,9 @@ function compile_champs
 	echo "Champions compiled !"
 }
 
-function get_target_champ
+function set_target_champ
 {
+	target_champ=$1
 	if [ "$target_champ" == "1" ]; then
 		PLAYER_1="$champ"
 		p1_name="$(basename $PLAYER_1)"
@@ -91,28 +78,59 @@ function get_target_champ
 
 function loop_over_champions
 {
-	target_champ=$1
+	loop=$((loop+1))
 	for champ in $CHAMPS_DIR/*.cor; do
-		get_target_champ
-		if [[ $target_champ -lt $NBR_OF_CHAMPS ]]; then
-			loop_over_champions $((target_champ+1))
+		set_target_champ $loop
+		if [[ $loop -lt $NBR_OF_CHAMPS ]]; then
+			loop_over_champions
 		else
 			check_diff_for_dump
 		fi
 	done
+	loop=$((loop-1))
 }
 
+function print_usage
+{
+	echo "USAGE : ./vm_checker [ -c CYCLE_TO_CHECK ] [ -n NBR_OF_CHAMPIONS]
+	NBR_OF_CHAMPIONS is set to 1 by default
+	CYCLE_TO_CHECK is set to MAX by default"
+}
+
+function get_options
+{
+	while getopts ":c:n:" opt; do
+		case ${opt} in
+			c) # Set cycle to be checked
+				CYCLE_TO_CHECK=$OPTARG
+				printf "Cycle to check set to : %d\n" $CYCLE_TO_CHECK
+				;;
+			n) # Set number of champions to check (n >= 1 && n <= 4)
+				NBR_OF_CHAMPS=$OPTARG
+				if (( $NBR_OF_CHAMPS >= 1 )) && (( $NBR_OF_CHAMPS <= 4 )); then
+					printf "Number of champions set to : %d\n" $NBR_OF_CHAMPS
+				else
+					echo "Invalid number of champs"
+				fi
+				;;
+			\?)
+				echo "Invalid option"
+				print_usage
+				exit 1
+		esac
+	done
+}
+
+# Clean up the log file before running the script
 printf "" > $DIFFS_FILE
 
+# Parse command line options (-n, -c)
+get_options $@
+
+dump_cycle=$CYCLE_TO_CHECK
+
+# Use provided asm to compile champions (.s -> .cor)
 compile_champs
 
-PLAYER_1=""
-PLAYER_2=""
-PLAYER_3=""
-PLAYER_4=""
-p1_name=""
-p2_name=""
-p3_name=""
-p4_name=""
-
+# Run the checker
 loop_over_champions 1
