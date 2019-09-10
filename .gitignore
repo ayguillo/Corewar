@@ -1,7 +1,4 @@
 *.o
-read.c
-test.c
-test.cor
 visu
 asm
 libft.a
