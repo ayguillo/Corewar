@@ -1,5 +1,4 @@
 # Corewar
-## Overview
 Our own implementation of the famous 1984's [Corewar](https://en.wikipedia.org/wiki/Core_War) game.
 
 ## Assembler
