@@ -37,4 +37,11 @@ Run the aforementioned binaries and provide options to visualize the execution.
 
 ## Footnotes
 ### Resources used
-TO BE ADDED (eng + fr subject, jyeo operations, cheatsheet, epitech's subject)
+[Corewar 42's subject (FR)](resources/docs/corewar.fr.pdf)
+  
+[Corewar 42's subject (EN)](resources/docs/corewar.en.pdf)
+  
+[Corewar Operations by Jyeo](https://github.com/rizkyario/corewar/blob/master/resources/corewar_operations_by_jyeo.pdf)
+  
+[Corewar Operations Cheatsheet](resources/docs/Corewar_Cheat_Sheet.pdf)
+  
