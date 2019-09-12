@@ -4,13 +4,13 @@ readonly GREEN="\e[92m"
 readonly RED="\e[31m"
 readonly CLR="\e[0;m"
 
-ZAZ_VM="./resources/corewar"
-MY_VM="./corewar"
-ZAZ_ASM="./resources/asm"
+ZAZ_VM="../resources/corewar"
+MY_VM="../corewar"
+ZAZ_ASM="../resources/asm"
 CYCLE_TO_CHECK=""
 DIFFS_FILE="vm_diffs.log"
 NBR_OF_CHAMPS=1
-CHAMPS_DIR="resources/test_champs"
+CHAMPS_DIR="../resources/test_champs"
 
 function record_diff
 {
