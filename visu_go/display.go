@@ -137,7 +137,7 @@ func printArena(stdin string, surface *sdl.Surface, font *ttf.Font, window *sdl.
 				panic(err)
 			}
 			arena.X += 30 * w / 2560
-			if arena.X+arena.W > background.X+background.W {
+			if arena.X+arena.W > background.X+background.W || (key%(64*4) == 64*4-2) {
 				arena.X = 60 * w / 2560
 				arena.Y += 20 * h / 1440
 			}
